@@ -16,7 +16,7 @@ $('document').ready(function(){
             client_secret: '8pkzSgzMXcqqsC8'
         }
     }).then(function(data){
-        consoel.log(data);
+        console.log(data);
     }).catch(function(err){
         console.error(err)
     })
