@@ -15,19 +15,19 @@
 //	 permissions and limitations under the License.
 
 
-var events = require('events')
-var https = require('https')
-var querystring = require('querystring')
+var events = require('events');
+var https = require('https');
+var querystring = require('querystring');
 
-var key = 'dcxt88kxxv8kw5hg75h5wy5f'
-var secret = 'Y2Zb17Cjt83FFDyq'
-var version = 'preview1'
-var practiceid = 1
+var key = 'dcxt88kxxv8kw5hg75h5wy5f'; //dcxt88kxxv8kw5hg75h5wy5f
+var secret = 'Y2Zb17Cjt83FFDyq'; // Y2Zb17Cjt83FFDyq
+var version = 'preview1';
+var practiceid = 195900;
 
 var auth_prefixes = {
     v1: '/oauth',
     preview1: '/oauthpreview',
-    openpreview1: '/oauthopenpreview',
+    openpreview1: '/oauthopenpreview'
 };
 
 // This is a useful function to have
@@ -38,8 +38,16 @@ function path_join() {
         return typeof(arg) != 'undefined'
     });
     var trimmed = nonempty.map(function (arg, idx, arr) {
-        return '/' + String(arg).replace(new RegExp('^/+|/+$'), '')
+        var str = String(arg).replace(new RegExp('^/+|/+$'), '');
+
+        if(str.indexOf('?') < 0){
+            str = '/' + str;
+        }
+        return str;
     });
+
+    // console.log(trimmed);
+
     return trimmed.join('')
 };
 
@@ -121,83 +129,138 @@ function practiceInfo() {
     req.end();
 }
 
+function getBookedAppts() {
+    var parameters = {
+        appointmentstatus: 'f',
+        departmentid: 1,
+        enddate: '04/29/2017',
+        ignorerestrictions: 'false',
+        showcancelled: 'false',
+        showclaimdetail: 'false',
+        showcopay: 'false',
+        showexpectedprocedurecodes: 'false',
+        showinsurance: 'false',
+        showpatientdetail: 'false',
+        showremindercalldetail: 'false',
+        startdate: '04/21/2017'
+    };
+
+    var query = '?' + querystring.stringify(parameters);
+
+    console.log('Path:');
+    console.log(path_join(version, practiceid, '/appointments/booked', query));
+
+    var req = https.request({
+        hostname: 'api.athenahealth.com',
+        method: 'GET',
+        path: path_join(version, practiceid, '/appointments/booked', query),
+        // We set the auth header ourselves this time, because we have a token now.
+        headers: {'authorization': 'Bearer ' + token}
+    }, function (response) {
+        response.setEncoding('utf8');
+        var content = '';
+        response.on('data', function (chunk) {
+            content += chunk;
+        });
+        response.on('end', function () {
+            console.log('Booked appointments:');
+            console.log(JSON.parse(content));
+            signal.emit('next');
+        });
+    });
+    req.on('error', function (e) {
+        console.log(e.message);
+    });
+
+    req.end();
+}
+
 function departments() {
     // Create and encode parameters
     var parameters = {
         limit: 1,
-    }
-    var query = '?' + querystring.stringify(parameters)
+        providerlist: false,
+        showalldepartments: false
+    };
+    var query = '?' + querystring.stringify(parameters);
+
+    console.log('Path:');
+    console.log(path_join(version, practiceid, '/departments', query));
 
     var req = https.request({
         hostname: 'api.athenahealth.com',
         method: 'GET',
         path: path_join(version, practiceid, '/departments', query),
         // We set the auth header ourselves this time, because we have a token now.
-        headers: {'authorization': 'Bearer ' + token},
+        headers: {'authorization': 'Bearer ' + token}
     }, function (response) {
-        response.setEncoding('utf8')
-        var content = ''
+        response.setEncoding('utf8');
+        var content = '';
         response.on('data', function (chunk) {
-            content += chunk
-        })
+            content += chunk;
+        });
         response.on('end', function () {
-            console.log('Department:')
-            console.log(JSON.parse(content))
-            signal.emit('next')
-        })
-    })
+            console.log('Department:');
+            console.log(JSON.parse(content));
+            signal.emit('next');
+        });
+    });
     req.on('error', function (e) {
         console.log(e.message)
-    })
+    });
 
-    req.end()
+    req.end();
 }
 
 function notes() {
     var parameters = {
-        notetext: 'Javascript says hi!',
-    }
-    var content = querystring.stringify(parameters)
+        notetext: 'Javascript says hi!'
+    };
+    var content = querystring.stringify(parameters);
+
+    console.log('Path:');
+    console.log(path_join(version, practiceid, '/appointments/1/notes', content));
+
     var req = https.request({
         hostname: 'api.athenahealth.com',
         method: 'POST',
-        path: path_join(version, practiceid, '/appointments/1/notes'),
+        path: path_join(version, practiceid, '/appointments/733650/notes'),
         headers: {
             'authorization': 'Bearer ' + token,
             'content-type': 'application/x-www-form-urlencoded',
-            'content-length': content.length, // apparently we have to set this ourselves when using
+            'content-length': content.length // apparently we have to set this ourselves when using
                                               // application/x-www-form-urlencoded
-        },
+        }
     }, function (response) {
-        response.setEncoding('utf8')
-        var content = ''
+        response.setEncoding('utf8');
+        var content = '';
         response.on('data', function (chunk) {
             content += chunk
-        })
+        });
         response.on('end', function () {
-            console.log('Note posted:')
-            console.log(JSON.parse(content))
-            signal.emit('next')
-        })
-    })
+            console.log('Note posted:');
+            console.log(JSON.parse(content));
+            signal.emit('next');
+        });
+    });
     req.on('error', function (e) {
-        console.log(e.message)
-    })
+        console.log(e.message);
+    });
 
-    req.write(content)
-    req.end()
+    req.write(content);
+    req.end();
 }
 
 // This is one way of forcing the call order
 function main() {
-    var calls = [authentication, departments, practiceInfo, notes]
+    var calls = [authentication, practiceInfo, departments, getBookedAppts, notes]
     signal.on('next', function () {
-        var nextCall = calls.shift()
+        var nextCall = calls.shift();
         if (nextCall) {
-            nextCall()
+            nextCall();
         }
-    })
-    signal.emit('next')
+    });
+    signal.emit('next');
 }
 
 module.exports = main;
