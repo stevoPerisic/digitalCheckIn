@@ -5,7 +5,10 @@ var athenaNaive = require('../bin/naive');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    athenaNaive();
+
+    // Stop running the Athena APIs for now
+    // athenaNaive();
+
     res.render('index', {title: 'Express'});
 });
 

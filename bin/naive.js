@@ -15,6 +15,12 @@
 //	 permissions and limitations under the License.
 
 
+// ************************************************************
+// TO REGISTER THE APP WITH ATHENA GO HERE:
+// https://www.athenahealth.com/more-disruption-please/partner.
+// ************************************************************
+
+
 var events = require('events');
 var https = require('https');
 var querystring = require('querystring');
