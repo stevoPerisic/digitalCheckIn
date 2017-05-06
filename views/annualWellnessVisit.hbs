@@ -1,1 +1,424 @@
-<h1>Medicare Annual Wellness Visit Questionnaire</h1>
+<div class="row">
+    <div class="col-sm-12">
+
+        <h1>Medicare Annual Wellness Visit Questionnaire</h1>
+
+        <form>
+<!--Patient demographics-->
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                               aria-expanded="true" aria-controls="collapseOne">
+                                Patient demographics
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="lastname">Last name</label>
+                                <input type="text" class="form-control" id="lastname" name="lastname"
+                                       aria-describedby="lastname" placeholder="Last name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="firstname">First name</label>
+                                <input type="text" class="form-control" id="firstname" name="firstname"
+                                       aria-describedby="firstname" placeholder="First name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="middleinitial">Middle initial</label>
+                                <input type="text" class="form-control" id="middleinitial" name="middleinitial"
+                                       aria-describedby="middleinitial" placeholder="Middle initial">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="streetaddress">Street address</label>
+                                <input type="text" class="form-control" id="streetaddress" name="streetaddress"
+                                       aria-describedby="streetaddress" placeholder="3000 Sunny LN #1-B">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" id="city" name="city" aria-describedby="city"
+                                       placeholder="Atlanta">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="zipcode">ZIP Code</label>
+                                <input type="text" class="form-control" id="zipcode" name="zipcode"
+                                       aria-describedby="zipcode" placeholder="30675">
+                            </div>
+
+                            <fieldset class="form-group">
+                                <legend>Sex</legend>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios1"
+                                               value="option1" checked>
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios2"
+                                               value="option2">
+                                        Female
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <div class="form-group">
+                                <label for="homephone">Home phone</label>
+                                <input type="tel" class="form-control" id="homephone" name="homephone"
+                                       aria-describedby="homephone" placeholder="(***) *** - ****">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dayphone">Day phone</label>
+                                <input type="tel" class="form-control" id="dayphone" name="dayphone"
+                                       aria-describedby="dayphone" placeholder="(***) *** - ****">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cellphone">Cell phone</label>
+                                <input type="tel" class="form-control" id="cellphone" name="cellphone"
+                                       aria-describedby="cellphone" placeholder="(***) *** - ****">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ssn">SSN</label>
+                                <input type="tel" class="form-control" id="ssn" name="ssn" aria-describedby="ssn"
+                                       placeholder="*** - ** - ****">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nextOfKin">Next of Kin (for emergency)</label>
+                                <input type="text" class="form-control" id="nextOfKin" name="nextOfKin" aria-describedby="nextOfKin"
+                                       placeholder="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nameOfSpouse">Name of spouse</label>
+                                <input type="text" class="form-control" id="nameOfSpouse" name="nameOfSpouse" aria-describedby="nameOfSpouse"
+                                       placeholder="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="spouseDayphone">Day phone</label>
+                                <input type="tel" class="form-control" id="spouseDayphone" name="spouseDayphone"
+                                       aria-describedby="spouseDayphone" placeholder="(***) *** - ****">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="referredBy">Referred by</label>
+                                <input type="text" class="form-control" id="referredBy" name="referredBy" aria-describedby="referredBy"
+                                       placeholder="">
+                            </div>
+
+                            <fieldset>
+                                <legend>Insurance</legend>
+
+                                <div class="form-group">
+                                    <label for="primaryInsuranceName">Primary Insurance name</label>
+                                    <input type="text" class="form-control" id="primaryInsuranceName"
+                                           name="primaryInsuranceName"
+                                           aria-describedby="primaryInsuranceName" placeholder="Primary insurance name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="insurancePhone">Phone number</label>
+                                    <input type="tel" class="form-control" id="insurancePhone" name="insurancePhone"
+                                           aria-describedby="insurancePhone" placeholder="(***) *** - ****">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="groupNumber">Group Number</label>
+                                    <input type="text" class="form-control" id="groupNumber" name="groupNumber"
+                                           aria-describedby="groupNumber" placeholder="Insurance group number">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="idNumber">ID Number</label>
+                                    <input type="text" class="form-control" id="idNumber" name="idNumber"
+                                           aria-describedby="idNumber" placeholder="Insurance ID number">
+                                </div>
+                            </fieldset>
+
+                        </div>
+                    </div>
+                </div>
+<!-- Current Medical Problems -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                               aria-expanded="true" aria-controls="collapseTwo">
+                                Current Medical Problems
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <p>List any current medical problems or conditions</p>
+
+                            <div class="form-inline">
+                                <div class="form-group mx-sm-3">
+                                    <label for="condition" class="sr-only">Condition</label>
+                                    <input type="text" class="form-control" id="condition" placeholder="Condition">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Past medical history -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                               aria-expanded="true" aria-controls="collapseThree">
+                                Past Medical History
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            <p>Childhood Illnesses</p>
+                            <div class="form-inline">
+                                <div class="form-group mx-sm-3">
+                                    <label for="childhoodIllness" class="sr-only">Childhood Illnesses</label>
+                                    <input type="text" class="form-control" id="childhoodIllness" placeholder="Childhood Illness">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+
+                            <br>
+
+                            <p>Chronic Illnesses</p>
+                            <div class="form-inline">
+                                <div class="form-group mx-sm-3">
+                                    <label for="chronicIllness" class="sr-only">Chronic Illnesses</label>
+                                    <input type="text" class="form-control" id="chronicIllness" placeholder="Chronic Illness">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+
+                            <br>
+
+                            <p>Last Eye/Glaucoma Exam</p>
+                            <div class="form-group">
+                                <label for="lastEyeExam" class="sr-only">Last Eye/Glaucoma Exam</label>
+                                <input type="date" class="form-control" id="lastEyeExam"
+                                       name="lastEyeExam"
+                                       aria-describedby="lastEyeExam" placeholder="mm/dd/yyyy">
+                            </div>
+
+                            <br>
+
+                            <p>Past surgeries</p>
+                            <div class="form-inline">
+                                <div class="form-group mx-sm-3">
+                                    <label for="surgeryName" class="sr-only">Surgery</label>
+                                    <input type="text" class="form-control" id="surgeryName" placeholder="Surgery">
+
+                                    <label for="surgeryDate" class="sr-only">Surgery</label>
+                                    <input type="date" class="form-control" id="surgeryDate" placeholder="mm/dd/yyy">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+
+                            <br>
+
+                            <p>List any other hospital stays</p>
+                            <div class="form-inline">
+                                <div class="form-group mx-sm-3">
+                                    <label for="reason" class="sr-only">Reason</label>
+                                    <input type="text" class="form-control" id="reason" placeholder="Reason">
+
+                                    <label for="hospitalStayDate" class="sr-only">Date</label>
+                                    <input type="date" class="form-control" id="hospitalStayDate" placeholder="mm/dd/yyy">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+
+                            <br>
+
+                            <p>Physicians/practitioners you currently see</p>
+                            <div class="form-inline">
+                                <div class="form-group mx-sm-3">
+                                    <label for="physName" class="sr-only">Name</label>
+                                    <input type="text" class="form-control" id="physName" placeholder="Name">
+
+                                    <label for="physSpecialty" class="sr-only">Specialty</label>
+                                    <input type="text" class="form-control" id="physSpecialty" placeholder="Specialty">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Allergies -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingFour">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                               aria-expanded="true" aria-controls="collapseFour">
+                                Allergies
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingFour">
+                        <div class="panel-body">
+                            <p>List any allergies to medication, x-ray dyes or food.</p>
+                            <div class="form-inline">
+                                <div class="form-group mx-sm-3">
+                                    <label for="allergy" class="sr-only">Allergy</label>
+                                    <input type="text" class="form-control" id="allergy" placeholder="Allergy">
+
+                                    <label for="reactions" class="sr-only">Reaction</label>
+                                    <input type="text" class="form-control" id="reactions" placeholder="Reaction">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Medications -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingFive">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                               aria-expanded="true" aria-controls="collapseFive">
+                                Medications
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingFive">
+                        <div class="panel-body">
+                            <p>List any medication that you currently take, including over-the-counter.</p>
+                            <div class="form-inline">
+                                <div class="form-group mx-sm-3">
+                                    <label for="physName" class="sr-only">Name</label>
+                                    <input type="text" class="form-control" id="physName" placeholder="Name">
+
+                                    <label for="medStrength" class="sr-only">Strength</label>
+                                    <input type="text" class="form-control" id="medStrength" placeholder="Strength">
+
+                                    <label for="medDirection" class="sr-only">Direction</label>
+                                    <input type="text" class="form-control" id="medDirection" placeholder="Direction">
+
+                                    <label for="medPrescribedBy" class="sr-only">Prescribed by</label>
+                                    <input type="text" class="form-control" id="medPrescribedBy" placeholder="Prescribed by">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Social History -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingSix">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix"
+                               aria-expanded="true" aria-controls="collapseSix">
+                                Social History
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseSix" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingSix">
+                        <div class="panel-body">
+                            <fieldset class="form-group">
+                                <legend>Do you drink alcohol?</legend>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios1"
+                                               value="option1" checked>
+                                        No
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios2"
+                                               value="option2">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alcoholAmount">If yes how much?</label>
+                                    <input type="text" class="form-control" id="alcoholAmount"
+                                           name="alcoholAmount"
+                                           aria-describedby="alcoholAmount" placeholder="">
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="form-group">
+                                <legend>Are others concerend about your drinking?</legend>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios3"
+                                               value="option1" checked>
+                                        No
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios4"
+                                               value="option2">
+                                        Yes
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="form-group">
+                                <legend>Diet:</legend>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input">
+                                        Balanced
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
+<!-- Family history -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingSeven">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"
+                               aria-expanded="true" aria-controls="collapseSeven">
+                                Family History
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseSeven" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingSeven">
+                        <div class="panel-body">
+                            <p>Family history</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
