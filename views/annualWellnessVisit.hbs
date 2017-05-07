@@ -1246,7 +1246,25 @@
                     <div id="collapseTen" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingTen">
                         <div class="panel-body">
-                            <p>Depression Screening</p>
+                            <p>Please select the best answer below.</p>
+                            <br>
+
+                            <label for="">I have little interest or pleasure in doing things.</label>
+                            <select class="custom-select">
+                                <option selected>Not at all</option>
+                                <option value="1">Several days</option>
+                                <option value="2">More than half the days</option>
+                                <option value="3">Nearly everyday</option>
+                            </select>
+                            <br>
+
+                            <label for="">I am feeling down, depressed or hopeless. </label>
+                            <select class="custom-select">
+                                <option selected>Not at all</option>
+                                <option value="1">Several days</option>
+                                <option value="2">More than half the days</option>
+                                <option value="3">Nearly everyday</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -1263,7 +1281,85 @@
                     <div id="collapseEleven" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingEleven">
                         <div class="panel-body">
-                            <p>Hearing</p>
+                            <p>Please check the appropriate answer.</p>
+                            <br>
+
+                            <fieldset>
+                                <legend>Are you afraid of falling?</legend>
+                                <label for="" class="form-check-label">
+                                    <input type="checkbox" class="form-check-input">
+                                    No
+                                </label>
+
+                                <label for="" class="form-check-label">
+                                    <input type="checkbox" class="form-check-input">
+                                    Yes
+                                </label>
+                            </fieldset>
+
+                            <fieldset>Have you fallen in the past year?</legend>
+                                <label for="" class="form-check-label">
+                                    <input type="checkbox" class="form-check-input">
+                                    No
+                                </label>
+
+                                <label for="" class="form-check-label">
+                                    <input type="checkbox" class="form-check-input">
+                                    Yes
+                                </label>
+                            </fieldset>
+                            <br>
+                            <fieldset>
+                                <legend>If yes please select the circumstances surrounding the fall.</legend>
+                                <div class="form-check">
+                                    <label for="">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios1" value="option1">
+                                        Tripped over something
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <label for="">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios2" value="option2">
+                                        Lightheadedness or palpitations prior to
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <label for="">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios3" value="option3">
+                                        Loss of consciousness
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <label for="">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios4" value="option4">
+                                        Injured
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <label for="">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios5" value="option5">
+                                        Needed to see a doctor
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <label for="">
+                                        <input type="radio" class="form-check-input" name="optionsRadios"
+                                               id="optionsRadios6" value="option6">
+                                        Unable to get up on your own
+                                    </label>
+                                </div>
+
+                            </fieldset>
                         </div>
                     </div>
                 </div>
@@ -1280,7 +1376,31 @@
                     <div id="collapseTwelve" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingTwelve">
                         <div class="panel-body">
-                            <p>Advance Directive</p>
+                            <fieldset>
+                                <legend>Do you have an Advanced Directive (living will)?</legend>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check disabled">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="" disabled>
+                                        No
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <div class="form-group">
+                                <label for="text-input" class="col-2 col-form-label">Notes:</label>
+                                <textarea class="form-control" name="text-input" rows="3"></textarea>
+                            </div>
+
+                            <br>
+                            <b>insert signature field for Authorized Sig and date</b>
+                            <br>
+                            <b>insert signature filed for Reviewed By and date</b>
                         </div>
                     </div>
                 </div>
