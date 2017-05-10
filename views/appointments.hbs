@@ -1,0 +1,21 @@
+<div class="table-responsive">
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Appt. Time</td>
+    </tr>
+    </thead>
+    <tbody>
+        {{#each appts}}
+            <tr>
+                <td>{{this.patient.firstname}}</td>
+                <td>{{this.patient.lastname}}</td>
+                <td>{{this.starttime}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+    </table>
+</div>
+
