@@ -146,7 +146,7 @@ function getBookedAppts() {
         showcopay: 'false',
         showexpectedprocedurecodes: 'false',
         showinsurance: 'false',
-        showpatientdetail: 'false',
+        showpatientdetail: 'true',
         showremindercalldetail: 'false',
         startdate: '04/21/2017'
     };
@@ -170,8 +170,10 @@ function getBookedAppts() {
         });
         response.on('end', function () {
             console.log('Booked appointments:');
-            console.log(JSON.parse(content));
-            signal.emit('next');
+            // console.log(JSON.parse(content));
+            // signal.emit('next');
+
+            signal.emit('appts', content);
         });
     });
     req.on('error', function (e) {
@@ -269,4 +271,18 @@ function main() {
     signal.emit('next');
 }
 
-module.exports = main;
+// module.exports = main;
+
+module.exports = function(){
+    authentication();
+
+    signal.on('next', function(){
+       getBookedAppts();
+    });
+
+    return signal;
+
+    // signal.on('appts', function(data){
+    //    return data;
+    // });
+};
