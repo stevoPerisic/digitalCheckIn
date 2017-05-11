@@ -17,6 +17,6 @@
     "dotenv": "^4.0.0"
   },
   "devDependencies": {
-    "dotenv": "^4.0.0",
+    "dotenv": "^4.0.0"
   }
 }
