@@ -1,1 +1,23 @@
+/**************************/
+/* Main menu */
+/***************************/
+.navbar{
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+.navbar-brand{
+    display: block;
+    /*box-sizing: content-box;*/
+    padding: 5px 15px;
+}
+.navbar-brand img{
+    height: 90%;
+}
 
+/**************************/
+/* Main container */
+/***************************/
+.main{
+    padding-top: 65px;
+}
