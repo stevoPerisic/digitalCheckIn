@@ -7,6 +7,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Load custon scripts - template specific
+// http://stackoverflow.com/questions/25300017/how-to-ensure-the-javascript-is-at-the-bottom-of-the-code-in-express-handlebars
+// http://stackoverflow.com/questions/34628978/register-custom-helper-express-and-hbs
+var hbs = require('hbs');
+hbs.registerHelper('section', function(name, options){
+    if(!this._sections) {
+        this._sections = {};
+    }
+    this._sections[name] = options.fn(this);
+    return null;
+});
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var patientRegistration = require('./routes/patientRegistration');

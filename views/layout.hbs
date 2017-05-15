@@ -7,6 +7,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
               integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+        <!--Load custon scripts - template specific-->
+        <!--http://stackoverflow.com/questions/25300017/how-to-ensure-the-javascript-is-at-the-bottom-of-the-code-in-express-handlebars-->
+        <!--http://stackoverflow.com/questions/34628978/register-custom-helper-express-and-hbs-->
+        {{{_sections.style}}}
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -51,5 +56,10 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
                 crossorigin="anonymous"></script>
         <script src="/javascripts/main.js"></script>
+
+        <!--Load custon scripts - template specific-->
+        <!--http://stackoverflow.com/questions/25300017/how-to-ensure-the-javascript-is-at-the-bottom-of-the-code-in-express-handlebars-->
+        <!--http://stackoverflow.com/questions/34628978/register-custom-helper-express-and-hbs-->
+        {{{_sections.script}}}
     </body>
 </html>

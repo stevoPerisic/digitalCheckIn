@@ -4,8 +4,19 @@
  * main JS for the app FE
  */
 
-$('document').ready(function(){
-    console.log('ready');
+(function ($, window) {
+    window.app = {
+        page: {
+            init: function(){
+                return this;
+            }
+        }
+    };
 
-    $('.collapse').collapse()
-});
+    $('document').ready(function(){
+        var app = window.app;
+        app.page.init();
+    });
+
+})($, window);
+
