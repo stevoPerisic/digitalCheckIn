@@ -11,7 +11,7 @@
                 </thead>
                 <tbody>
                 {{#each appts}}
-                    <tr class="apptRow" data-patient-id="{{this.patient.patientid}}">
+                    <tr class="apptRow" data-appt-id="{{this.appointmentid}}" data-patient-id="{{this.patient.patientid}}">
                         <td>{{this.patient.firstname}}</td>
                         <td>{{this.patient.lastname}}</td>
                         <td>{{this.starttime}}</td>
