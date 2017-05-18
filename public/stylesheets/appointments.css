@@ -1,0 +1,6 @@
+.apptRow{
+    cursor: pointer;
+}
+.apptRow:hover{
+    background-color: lightgrey;
+}
