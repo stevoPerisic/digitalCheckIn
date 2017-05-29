@@ -12,14 +12,16 @@
             $('.apptRow').on('click', function(){
                 console.log(this.dataset);
 
+                var that = this;
+
                 // start the check-in flow
                 // 1) call checkIn API - returns
                 $.ajax({
-                    url: '/appointments/'+this.dataset.apptId+'/checkIn',
+                    url: '/appointments/'+that.dataset.apptId+'/checkIn/',
                     method: 'GET'
                 }).then(function(data){
                     console.log(data);
-
+                    window.location = '/patientRegistration/'+that.dataset.patientId;
                     // fire off the form filling :)
 
                     // 1) Demographics

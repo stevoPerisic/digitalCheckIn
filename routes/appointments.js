@@ -129,40 +129,31 @@ router.get('/',
     }
 );
 
-router.get('/:id/checkIn', function (req, res, next) {
-    // res.send('Start check-in for appointment ID: '+ JSON.stringify(req.params.id));
+router.get('/:id/checkIn',
+    function (req, res, next) {
+        var checkInOptions = {
+            baseUrl: 'https://api.athenahealth.com',
+            method: 'GET',
+            uri: path_join(version, practiceid, '/appointments', req.params.id, '/checkin'),
+            auth: {
+                'bearer': token
+            },
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            json: true
+        };
+        request(checkInOptions, function (error, response, body) {
+            if(error){
+                console.log(error);
+                res.status(500).send(error);
+            }
 
-    console.log('Start check-in process by calling /preview1/:practiceid/appointments/:appointmentid/checkin');
-    console.log('using token: '+token);
-
-    // var parameters = {
-    //     appointmentid: req.params.id
-    // };
-    // var query = '?' + querystring.stringify(parameters);
-    console.log(path_join(version, practiceid, '/appointments/', req.params.id, '/checkin'));
-    var checkInOptions = {
-        baseUrl: 'https://api.athenahealth.com',
-        method: 'GET',
-        uri: path_join(version, practiceid, '/appointments', req.params.id, '/checkin'),
-        auth: {
-            'bearer': token
-        },
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded'
-        },
-        json: true
-    };
-    request(checkInOptions, function (error, response, body) {
-        if(error)
-            console.log(error);
-
-        // console.log('server encoded the data as: ' + (response.headers['content-encoding'] || 'identity'))
-        // console.log('the decoded data is: ' + JSON.stringify(body));
-        res.send(body);
-
-        // fire off the patient updates
-    });
-
-});
+            // redirect to demographics route
+            req.app.locals.checkinData = body;
+            res.sendStatus(200);
+        });
+    }
+);
 
 module.exports = router;
