@@ -68,12 +68,15 @@
                                            aria-describedby="cellphone" placeholder="(***) *** - ****">
                                 </div>
                                 <div class="col-sm-3">
+                                    <!--
+                                        custom choice inputs via https://bootsnipp.com/snippets/NBN6x
+                                    -->
                                     <div class="input-group" style="width: 100%;">
                                         <label for="sex">Sex</label>
                                         <br>
                                         <div id="radioBtn" class="btn-group" style="width: 100%;">
-                                            <span style="width: 50%;" class="btn btn-primary btn-sm active" data-toggle="sex" data-value="Female">Female</span>
-                                            <span style="width: 50%;" class="btn btn-default btn-sm notActive" data-toggle="sex" data-value="Male">Male</span>
+                                            <span style="width: 50%;" class="btn btn-primary btn-lg active" data-toggle="sex" data-value="Female">Female</span>
+                                            <span style="width: 50%;" class="btn btn-default btn-lg notActive" data-toggle="sex" data-value="Male">Male</span>
                                         </div>
                                         <input type="hidden" name="sex" id="sex">
                                     </div>
@@ -83,9 +86,9 @@
                                         <label for="maritalStatus">Marital Status</label>
                                         <br>
                                         <div id="radioBtn" class="btn-group" style="width: 100%;">
-                                            <span style="width: 33%;" class="btn btn-primary btn-sm active" data-toggle="maritalStatus" data-value="Female">Single</span>
-                                            <span style="width: 33%;" class="btn btn-default btn-sm notActive" data-toggle="maritalStatus" data-value="Male">Married</span>
-                                            <span style="width: 33%;" class="btn btn-default btn-sm notActive" data-toggle="maritalStatus" data-value="Male">Other</span>
+                                            <span style="width: 33%;" class="btn btn-primary btn-lg active" data-toggle="maritalStatus" data-value="Female">Single</span>
+                                            <span style="width: 33%;" class="btn btn-default btn-lg notActive" data-toggle="maritalStatus" data-value="Male">Married</span>
+                                            <span style="width: 33%;" class="btn btn-default btn-lg notActive" data-toggle="maritalStatus" data-value="Male">Other</span>
                                         </div>
                                         <input type="hidden" name="maritalStatus" id="maritalStatus">
                                     </div>
@@ -139,103 +142,79 @@
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            <fieldset class="form-group">
-                                <label>Relationship to patient:</label>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios1"
-                                               value="option1" checked>
-                                        Spouse
-                                    </label>
+
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="patientRelationship">Relationship to patient</label><br>
+                                    <select name="patientRelationship" id="patientRelationship">
+                                        <option value="">Select one</option>
+                                        <option value="spouse">Spouse</option>
+                                        <option value="parent">Parent</option>
+                                        <option value="guardian">Guardian</option>
+                                        <option value="noneofabove">None of the above</option>
+                                    </select>
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios2"
-                                               value="option2">
-                                        Parent
-                                    </label>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="lastname">Last name</label>
+                                    <input type="text" class="form-control" id="lastname" name="lastname"
+                                           aria-describedby="lastname" placeholder="Last name">
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios2"
-                                               value="option2">
-                                        Guardian
-                                    </label>
+                                <div class="col-sm-3">
+                                    <label for="middleinitial">Middle initial</label>
+                                    <input type="text" class="form-control" id="middleinitial" name="middleinitial"
+                                           aria-describedby="middleinitial" placeholder="Middle initial">
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios2"
-                                               value="option2">
-                                        None of the above
-                                    </label>
+                                <div class="col-sm-3">
+                                    <label for="firstname">First name</label>
+                                    <input type="text" class="form-control" id="firstname" name="firstname"
+                                           aria-describedby="firstname" placeholder="First name">
                                 </div>
-                            </fieldset>
-                            <div class="form-group">
-                                <label for="lastname">Last name</label>
-                                <input type="text" class="form-control" id="lastname" name="lastname"
-                                       aria-describedby="lastname" placeholder="Last name">
+                                <div class="col-sm-3">
+                                    <label for="insuredssn">SSN</label>
+                                    <input type="tel" class="form-control" id="insuredssn" name="insuredssn"
+                                           aria-describedby="insuredssn"
+                                           placeholder="*** - ** - ****">
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="firstname">First name</label>
-                                <input type="text" class="form-control" id="firstname" name="firstname"
-                                       aria-describedby="firstname" placeholder="First name">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="insuredstreetaddress">Street address (if different from above)</label>
+                                    <input type="text" class="form-control" id="insuredstreetaddress"
+                                           name="insuredstreetaddress"
+                                           aria-describedby="insuredstreetaddress" placeholder="3000 Sunny LN #1-B">
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="insuredcity">City</label>
+                                    <input type="text" class="form-control" id="insuredcity" name="insuredcity"
+                                           aria-describedby="insuredcity"
+                                           placeholder="Atlanta">
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="insuredzipcode">ZIP Code</label>
+                                    <input type="text" class="form-control" id="insuredzipcode" name="insuredzipcode"
+                                           aria-describedby="insuredzipcode" placeholder="30675">
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="middleinitial">Middle initial</label>
-                                <input type="text" class="form-control" id="middleinitial" name="middleinitial"
-                                       aria-describedby="middleinitial" placeholder="Middle initial">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="insuredstreetaddress">Street address (if different from above)</label>
-                                <input type="text" class="form-control" id="insuredstreetaddress"
-                                       name="insuredstreetaddress"
-                                       aria-describedby="insuredstreetaddress" placeholder="3000 Sunny LN #1-B">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="insuredcity">City</label>
-                                <input type="text" class="form-control" id="insuredcity" name="insuredcity"
-                                       aria-describedby="insuredcity"
-                                       placeholder="Atlanta">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="insuredzipcode">ZIP Code</label>
-                                <input type="text" class="form-control" id="insuredzipcode" name="insuredzipcode"
-                                       aria-describedby="insuredzipcode" placeholder="30675">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="insuredhomephone">Home phone</label>
-                                <input type="tel" class="form-control" id="insuredhomephone" name="insuredhomephone"
-                                       aria-describedby="insuredhomephone" placeholder="(***) *** - ****">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="insuredworkphone">Cell phone</label>
-                                <input type="tel" class="form-control" id="insuredworkphone" name="insuredworkphone"
-                                       aria-describedby="insuredworkphone" placeholder="(***) *** - ****">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="insuredssn">SSN</label>
-                                <input type="tel" class="form-control" id="insuredssn" name="insuredssn"
-                                       aria-describedby="insuredssn"
-                                       placeholder="*** - ** - ****">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="insuredemplyername">Employer name</label>
-                                <input type="text" class="form-control" id="insuredemplyername"
-                                       name="insuredemplyername"
-                                       aria-describedby="insuredemplyername" placeholder="Employer name">
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="insuredhomephone">Home phone</label>
+                                    <input type="tel" class="form-control" id="insuredhomephone" name="insuredhomephone"
+                                           aria-describedby="insuredhomephone" placeholder="(***) *** - ****">
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="insuredworkphone">Cell phone</label>
+                                    <input type="tel" class="form-control" id="insuredworkphone" name="insuredworkphone"
+                                           aria-describedby="insuredworkphone" placeholder="(***) *** - ****">
+                                </div>
+                                <div class="col-sm-6"><label for="insuredemplyername">Employer name</label>
+                                    <input type="text" class="form-control" id="insuredemplyername"
+                                           name="insuredemplyername"
+                                           aria-describedby="insuredemplyername" placeholder="Employer name"></div>
                             </div>
                         </div>
                     </div>
