@@ -15,143 +15,115 @@
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingOne">
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label for="lastname">Last name</label>
-                                <input type="text" class="form-control" id="lastname" name="lastname"
-                                       aria-describedby="lastname" placeholder="Last name">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="firstname">First name</label>
-                                <input type="text" class="form-control" id="firstname" name="firstname"
-                                       aria-describedby="firstname" placeholder="First name">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="middleinitial">Middle initial</label>
-                                <input type="text" class="form-control" id="middleinitial" name="middleinitial"
-                                       aria-describedby="middleinitial" placeholder="Middle initial">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="streetaddress">Street address</label>
-                                <input type="text" class="form-control" id="streetaddress" name="streetaddress"
-                                       aria-describedby="streetaddress" placeholder="3000 Sunny LN #1-B">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="city">City</label>
-                                <input type="text" class="form-control" id="city" name="city" aria-describedby="city"
-                                       placeholder="Atlanta">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="zipcode">ZIP Code</label>
-                                <input type="text" class="form-control" id="zipcode" name="zipcode"
-                                       aria-describedby="zipcode" placeholder="30675">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="homephone">Home phone</label>
-                                <input type="tel" class="form-control" id="homephone" name="homephone"
-                                       aria-describedby="homephone" placeholder="(***) *** - ****">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="cellphone">Cell phone</label>
-                                <input type="tel" class="form-control" id="cellphone" name="cellphone"
-                                       aria-describedby="cellphone" placeholder="(***) *** - ****">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="insuredbirthday">Date of birth</label>
-                                <input type="tel" class="form-control" id="insuredbirthday" name="insuredbirthday"
-                                       aria-describedby="insuredbirthday" placeholder="mm/dd/yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="ssn">SSN</label>
-                                <input type="tel" class="form-control" id="ssn" name="ssn" aria-describedby="ssn"
-                                       placeholder="*** - ** - ****">
-                            </div>
-                            <!--Sex-->
-                            <fieldset class="form-group">
-                                <label>Sex</label>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios1"
-                                               value="option1" checked>
-                                        Male
-                                    </label>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="lastname">Last name</label>
+                                    <input type="text" class="form-control" id="lastname" name="lastname"
+                                           aria-describedby="lastname" placeholder="Last name">
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios2"
-                                               value="option2">
-                                        Female
-                                    </label>
+                                <div class="col-sm-3">
+                                    <label for="firstname">First name</label>
+                                    <input type="text" class="form-control" id="firstname" name="firstname"
+                                           aria-describedby="firstname" placeholder="First name">
                                 </div>
-                            </fieldset>
-                            <!--Marital status-->
-                            <fieldset class="form-group">
-                                <label>Marital status</label>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios1"
-                                               value="option1" checked>
-                                        Single
-                                    </label>
+                                <div class="col-sm-3">
+                                    <label for="insuredbirthday">Date of birth</label>
+                                    <input type="tel" class="form-control" id="insuredbirthday" name="insuredbirthday"
+                                           aria-describedby="insuredbirthday" placeholder="mm/dd/yyyy">
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios2"
-                                               value="option2">
-                                        Married
-                                    </label>
+                                <div class="col-sm-3">
+                                    <label for="ssn">SSN</label>
+                                    <input type="tel" class="form-control" id="ssn" name="ssn" aria-describedby="ssn"
+                                           placeholder="*** - ** - ****">
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios3"
-                                               value="option3">
-                                        Other
-                                    </label>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="streetaddress">Street address</label>
+                                    <input type="text" class="form-control" id="streetaddress" name="streetaddress"
+                                           aria-describedby="streetaddress" placeholder="3000 Sunny LN #1-B">
                                 </div>
-                            </fieldset>
+                                <div class="col-sm-3">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city" name="city" aria-describedby="city"
+                                           placeholder="Atlanta">
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="zipcode">ZIP Code</label>
+                                    <input type="text" class="form-control" id="zipcode" name="zipcode"
+                                           aria-describedby="zipcode" placeholder="30675">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="homephone">Home phone</label>
+                                    <input type="tel" class="form-control" id="homephone" name="homephone"
+                                           aria-describedby="homephone" placeholder="(***) *** - ****">
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="cellphone">Cell phone</label>
+                                    <input type="tel" class="form-control" id="cellphone" name="cellphone"
+                                           aria-describedby="cellphone" placeholder="(***) *** - ****">
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group" style="width: 100%;">
+                                        <label for="sex">Sex</label>
+                                        <br>
+                                        <div id="radioBtn" class="btn-group" style="width: 100%;">
+                                            <span style="width: 50%;" class="btn btn-primary btn-sm active" data-toggle="sex" data-value="Female">Female</span>
+                                            <span style="width: 50%;" class="btn btn-default btn-sm notActive" data-toggle="sex" data-value="Male">Male</span>
+                                        </div>
+                                        <input type="hidden" name="sex" id="sex">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group" style="width: 100%;">
+                                        <label for="maritalStatus">Marital Status</label>
+                                        <br>
+                                        <div id="radioBtn" class="btn-group" style="width: 100%;">
+                                            <span style="width: 33%;" class="btn btn-primary btn-sm active" data-toggle="maritalStatus" data-value="Female">Single</span>
+                                            <span style="width: 33%;" class="btn btn-default btn-sm notActive" data-toggle="maritalStatus" data-value="Male">Married</span>
+                                            <span style="width: 33%;" class="btn btn-default btn-sm notActive" data-toggle="maritalStatus" data-value="Male">Other</span>
+                                        </div>
+                                        <input type="hidden" name="maritalStatus" id="maritalStatus">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
                             <!--Employer info-->
-                            <div class="form-group">
-                                <label for="emplyername">Patient employer name</label>
-                                <input type="text" class="form-control" id="emplyername" name="emplyername"
-                                       aria-describedby="emplyername" placeholder="Employer name">
+                            <div class="form-group row">
+                                <div class="col-sm-8">
+                                    <label for="emplyername">Patient employer name</label>
+                                    <input type="text" class="form-control" id="emplyername" name="emplyername"
+                                           aria-describedby="emplyername" placeholder="Employer name">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="employerphone">Employer phone number</label>
+                                    <input type="tel" class="form-control" id="employerphone" name="employerphone"
+                                           aria-describedby="employerphone" placeholder="(***) *** - ****">
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="employerstreetaddress">Street address</label>
-                                <input type="text" class="form-control" id="employerstreetaddress"
-                                       name="employerstreetaddress" aria-describedby="employerstreetaddress"
-                                       placeholder="1234 Industrial Pkwy Suite 216">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="employercity">City</label>
-                                <input type="text" class="form-control" id="employercity" name="employercity"
-                                       aria-describedby="employercity" placeholder="Atlanta">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="employerzipcode">ZIP Code</label>
-                                <input type="text" class="form-control" id="employerzipcode" name="employerzipcode"
-                                       aria-describedby="employerzipcode" placeholder="30675">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="employerphone">Employer phone number</label>
-                                <input type="tel" class="form-control" id="employerphone" name="employerphone"
-                                       aria-describedby="employerphone" placeholder="(***) *** - ****">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="employerstreetaddress">Street address</label>
+                                    <input type="text" class="form-control" id="employerstreetaddress"
+                                           name="employerstreetaddress" aria-describedby="employerstreetaddress"
+                                           placeholder="1234 Industrial Pkwy Suite 216">
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="employercity">City</label>
+                                    <input type="text" class="form-control" id="employercity" name="employercity"
+                                           aria-describedby="employercity" placeholder="Atlanta">
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="employerzipcode">ZIP Code</label>
+                                    <input type="text" class="form-control" id="employerzipcode" name="employerzipcode"
+                                           aria-describedby="employerzipcode" placeholder="30675">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -529,3 +501,12 @@
     </div>
 </div>
 
+<!--Load custom scripts - template specific-->
+<!--http://stackoverflow.com/questions/25300017/how-to-ensure-the-javascript-is-at-the-bottom-of-the-code-in-express-handlebars-->
+<!--http://stackoverflow.com/questions/34628978/register-custom-helper-express-and-hbs-->
+{{#section 'script'}}
+    <script src="/javascripts/patientRegistrationForm.js"></script>
+{{/section}}
+{{#section 'style'}}
+    <link rel='stylesheet' href='/stylesheets/patientRegistrationForm.css'/>
+{{/section}}
