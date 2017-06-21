@@ -10,7 +10,7 @@
     app.patientRegistrationForm = {
         init: function(){
             // custom choice inputs via https://bootsnipp.com/snippets/NBN6x
-            $('#radioBtn').find('span').on('click', function(){
+            $('.radioBtn').find('span').on('click', function(){
                 var sel = $(this).data('value');
                 var tog = $(this).data('toggle');
                 $('#'+tog).val(sel);
@@ -19,8 +19,8 @@
                 $('span[data-toggle="'+tog+'"][data-value="'+sel+'"]').removeClass('notActive btn-default').addClass('active btn-primary');
             });
 
-            $('.collapse.in').removeClass('in');
-            $('#headingThree, #collapseThree').addClass('in');
+            // $('.collapse.in').removeClass('in');
+            // $('#headingFour, #collapseFour').addClass('in');
         }
     };
 

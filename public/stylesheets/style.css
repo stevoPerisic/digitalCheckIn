@@ -1,35 +1,82 @@
+/*
+    Colors:
+    blue color #0C4C8A
+    lighter #267ACC
+    lightest #2E98FF
+    green #069791
+ */
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/**************************/
+/* Bootstrap modifications */
+/***************************/
+.panel-group .panel, .panel-heading, .btn {
+    border-radius: 0 !important;
+}
+
+.panel-default {
+    border-color: #0C4C8A;
+}
+
+.panel-default>.panel-heading, .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary, .btn-primary {
+    background-color: #0C4C8A;
+    color: #ffffff;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.panel-heading{
+    padding: 0;
+}
+
+.panel-title a{
+    display: block;
+    padding: 20px 15px;
+    font-size: 18px;
+}
+
+
 /**************************/
 /* Main menu */
 /***************************/
-.navbar{
+.navbar {
     position: fixed;
     width: 100%;
     z-index: 100;
 }
-.navbar-brand{
+
+.navbar-brand {
     display: block;
-    /*box-sizing: content-box;*/
     padding: 5px 15px;
 }
-.navbar-brand img{
+
+.navbar-brand img {
     height: 90%;
 }
 
 /**************************/
 /* Main container */
 /***************************/
-.main{
+.main {
     padding-top: 65px;
 }
 
 /**************************/
 /* Inputs reset */
 /***************************/
-input.form-control {
-    font-size: 16px;
+form {
+    margin-bottom: 20px;
 }
 
-@media (max-width: 780px) {
+.form-control {
+    font-size: 16px;
+    height: 40px;
+    border-radius: 0;
+}
+
+@media (max-width: 980px) {
     label {
         margin-top: 10px
     }

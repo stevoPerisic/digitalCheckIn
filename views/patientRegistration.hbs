@@ -57,38 +57,38 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-sm-3">
+                                <div class="col-md-3 col-sm-6">
                                     <label for="homephone">Home phone</label>
                                     <input type="tel" class="form-control" id="homephone" name="homephone"
                                            aria-describedby="homephone" placeholder="(***) *** - ****">
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-md-3 col-sm-6">
                                     <label for="cellphone">Cell phone</label>
                                     <input type="tel" class="form-control" id="cellphone" name="cellphone"
                                            aria-describedby="cellphone" placeholder="(***) *** - ****">
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-md-3 col-sm-6">
                                     <!--
                                         custom choice inputs via https://bootsnipp.com/snippets/NBN6x
                                     -->
                                     <div class="input-group" style="width: 100%;">
                                         <label for="sex">Sex</label>
                                         <br>
-                                        <div id="radioBtn" class="btn-group" style="width: 100%;">
-                                            <span style="width: 50%;" class="btn btn-primary btn-lg active" data-toggle="sex" data-value="Female">Female</span>
-                                            <span style="width: 50%;" class="btn btn-default btn-lg notActive" data-toggle="sex" data-value="Male">Male</span>
+                                        <div class="radioBtn btn-group" style="width: 100%;">
+                                            <span style="width: 50%;" class="btn btn-primary active" data-toggle="sex" data-value="Female">Female</span>
+                                            <span style="width: 50%;" class="btn btn-default notActive" data-toggle="sex" data-value="Male">Male</span>
                                         </div>
                                         <input type="hidden" name="sex" id="sex">
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-md-3 col-sm-6">
                                     <div class="input-group" style="width: 100%;">
                                         <label for="maritalStatus">Marital Status</label>
                                         <br>
-                                        <div id="radioBtn" class="btn-group" style="width: 100%;">
-                                            <span style="width: 33%;" class="btn btn-primary btn-lg active" data-toggle="maritalStatus" data-value="Female">Single</span>
-                                            <span style="width: 33%;" class="btn btn-default btn-lg notActive" data-toggle="maritalStatus" data-value="Male">Married</span>
-                                            <span style="width: 33%;" class="btn btn-default btn-lg notActive" data-toggle="maritalStatus" data-value="Male">Other</span>
+                                        <div class="radioBtn btn-group" style="width: 100%;">
+                                            <span style="width: 33%;" class="btn btn-primary active" data-toggle="maritalStatus" data-value="Female">Single</span>
+                                            <span style="width: 33%;" class="btn btn-default notActive" data-toggle="maritalStatus" data-value="Male">Married</span>
+                                            <span style="width: 33%;" class="btn btn-default notActive" data-toggle="maritalStatus" data-value="Male">Other</span>
                                         </div>
                                         <input type="hidden" name="maritalStatus" id="maritalStatus">
                                     </div>
@@ -372,35 +372,36 @@
                     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingFour">
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label for="primaryDoctor">Primary / Family Doctor</label>
-                                <input type="text" class="form-control" id="primaryDoctor" name="primaryDoctor"
-                                       aria-describedby="primaryDoctor" placeholder="Primary / Family Doctor">
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="primaryDoctor">Primary / Family Doctor</label>
+                                    <input type="text" class="form-control" id="primaryDoctor" name="primaryDoctor"
+                                           aria-describedby="primaryDoctor" placeholder="Primary / Family Doctor">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="refferingDoctor">Reffering Doctor</label>
+                                    <input type="text" class="form-control" id="refferingDoctor" name="refferingDoctor"
+                                           aria-describedby="refferingDoctor" placeholder="Reffering Doctor">
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="refferingDoctor">Reffering Doctor</label>
-                                <input type="text" class="form-control" id="refferingDoctor" name="refferingDoctor"
-                                       aria-describedby="refferingDoctor" placeholder="Reffering Doctor">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="emergencyContact">Emergency Contact</label>
-                                <input type="text" class="form-control" id="emergencyContact" name="emergencyContact"
-                                       aria-describedby="emergencyContact" placeholder="Emergency Contact">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="relationship">Relationship to Patient</label>
-                                <input type="text" class="form-control" id="relationship" name="relationship"
-                                       aria-describedby="relationship" placeholder="Relationship to patient">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="emergencyContactTel">Phone Number</label>
-                                <input type="tel" class="form-control" id="emergencyContactTel"
-                                       name="emergencyContactTel"
-                                       aria-describedby="emergencyContactTel" placeholder="(***) *** - ****">
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label for="emergencyContact">Emergency Contact</label>
+                                    <input type="text" class="form-control" id="emergencyContact" name="emergencyContact"
+                                           aria-describedby="emergencyContact" placeholder="Emergency Contact">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="relationship">Relationship to Patient</label>
+                                    <input type="text" class="form-control" id="relationship" name="relationship"
+                                           aria-describedby="relationship" placeholder="Relationship to patient">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="emergencyContactTel">Phone Number</label>
+                                    <input type="tel" class="form-control" id="emergencyContactTel"
+                                           name="emergencyContactTel"
+                                           aria-describedby="emergencyContactTel" placeholder="(***) *** - ****">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -475,7 +476,7 @@
             </div>
 
             <hr>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary btn-lg submit">Submit</button>
         </form>
     </div>
 </div>
