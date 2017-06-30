@@ -8,8 +8,18 @@
     var app = window.app;
 
     app.patientMedicalHistoryForm = {
-        init: function(){
+        bindEvents: function () {
+            $('.custChkBx.chkBx').on('click', function (e) {
+                $(e.currentTarget).toggleClass('checked');
+            });
+        },
+
+        init: function () {
             console.log('Patient Medical History Form started...');
+
+            var me = app.patientMedicalHistoryForm;
+
+            me.bindEvents();
         }
     };
 
