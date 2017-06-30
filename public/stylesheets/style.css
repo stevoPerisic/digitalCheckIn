@@ -37,6 +37,45 @@ body {
     font-size: 18px;
 }
 
+/**************************/
+/* Custom Check-box */
+/***************************/
+.custChkBx.form-check-label {
+    position: relative;
+    display: block;
+}
+
+.custChkBx.form-check-input {
+    position: absolute;
+    display: none;
+}
+
+.custChkBx.chkBx {
+    display: block;
+    border: 1px solid #999;
+    border-radius: 4px;
+    box-shadow: 1px 1px 1px #dadada inset;
+    height: 44px;
+    width: 44px;
+    position: relative;
+    background: #fff;
+    cursor: pointer;
+}
+
+.custChkBx.glyphicon {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    font-size: 28px;
+    top: 8px;
+    left: 8px;
+    color: #333;
+}
+
+.custChkBx.chkBx.checked .custChkBx.glyphicon {
+    display: block;
+}
+
 
 /**************************/
 /* Main menu */

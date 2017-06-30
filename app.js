@@ -18,6 +18,22 @@ hbs.registerHelper('section', function(name, options){
     this._sections[name] = options.fn(this);
     return null;
 });
+// Handlebars partials for views
+// Thanks to https://gist.github.com/benw/3824204 !!!
+var fs = require('fs');
+var partialsDir = __dirname + '/views/partials';
+var filenames = fs.readdirSync(partialsDir);
+filenames.forEach(function (filename) {
+    var matches = /^([^.]+).hbs$/.exec(filename);
+    if (!matches) {
+        return;
+    }
+    var name = matches[1];
+    var template = fs.readFileSync(partialsDir + '/' + filename, 'utf8');
+    hbs.registerPartial(name, template);
+});
+// End registration of partials for this section
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
