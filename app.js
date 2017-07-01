@@ -18,6 +18,9 @@ hbs.registerHelper('section', function(name, options){
     this._sections[name] = options.fn(this);
     return null;
 });
+hbs.registerHelper('parseJSON', function(data, options){
+    return options.fn(JSON.parse(data));
+});
 // Handlebars partials for views
 // Thanks to https://gist.github.com/benw/3824204 !!!
 var fs = require('fs');

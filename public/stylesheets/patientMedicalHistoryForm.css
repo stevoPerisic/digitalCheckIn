@@ -1,3 +1,38 @@
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
     vertical-align: middle;
 }
+
+.form-check {
+    padding: 8px 10px 4px;
+    background-color: #f2f2f2;
+    margin: 5px 0;
+}
+
+.table .form-check {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.custSelect {
+    position: relative;
+}
+
+.custSelect select {
+    width: 100%;
+    -webkit-appearance: none;
+    border-radius: 0;
+    height: 44px;
+    padding: 0 10px;
+}
+
+.custSelect .glyphicon {
+    position: absolute;
+    right: 20px;
+    top: 40px;
+}
+
+.submit {
+    float: right;
+    margin-bottom: 20px;
+}
