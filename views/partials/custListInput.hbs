@@ -1,0 +1,22 @@
+<ul class="{{listClass}}"></ul>
+<div class="form-inline custListInput">
+    <div class="form-group {{#if showCalendar}}row{{/if}}">
+        {{#if showCalendar}}<div class="col-xs-5">{{/if}}
+        <label for="{{inputId}}" class="sr-only">{{label}}</label>
+        <input type="text" class="form-control" id="{{inputId}}" placeholder="{{placeholder}}">
+        {{#if showCalendar}}</div>{{/if}}
+
+        {{#if showCalendar}}
+        <div class="col-xs-5">
+            <label for="{{calendarId}}" class="sr-only">{{calendarLabel}}</label>
+            <input type="date" class="form-control" id="{{calendarId}}" placeholder="mm/dd/yyy">
+        </div>
+        {{/if}}
+
+        {{#if showCalendar}}<div class="col-xs-2">{{/if}}
+        <button type="submit" data-value="{{inputId}}" data-list="{{listClass}}"
+                class="btn btn-primary addToList">{{btnLabel}}</button>
+        {{#if showCalendar}}</div>{{/if}}
+
+    </div>
+</div>

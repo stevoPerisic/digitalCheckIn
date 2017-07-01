@@ -109,14 +109,8 @@
                          aria-labelledby="headingTwo">
                         <div class="panel-body">
                             <p>List any current medical problems or conditions</p>
-
-                            <div class="form-inline">
-                                <div class="form-group mx-sm-3">
-                                    <label for="condition" class="sr-only">Condition</label>
-                                    <input type="text" class="form-control" id="condition" placeholder="Condition">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
+                            {{> custListInput inputId="condition" listClass="conditionList" label="Condition"
+                                    placeholder="Condition" btnLabel="Add"}}
                         </div>
                     </div>
                 </div>
@@ -133,77 +127,54 @@
                     <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingThree">
                         <div class="panel-body">
-                            <p>Childhood Illnesses</p>
-                            <div class="form-inline">
-                                <div class="form-group mx-sm-3">
-                                    <label for="childhoodIllness" class="sr-only">Childhood Illnesses</label>
-                                    <input type="text" class="form-control" id="childhoodIllness" placeholder="Childhood Illness">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p>Childhood Illnesses</p>
+                                    {{> custListInput inputId="childhoodIllness" listClass="childhoodIllnessesList"
+                                            label="Childhood Illnesses" placeholder="Childhood Illness" btnLabel="Add"}}
                                 </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
-
-                            <br>
-
-                            <p>Chronic Illnesses</p>
-                            <div class="form-inline">
-                                <div class="form-group mx-sm-3">
-                                    <label for="chronicIllness" class="sr-only">Chronic Illnesses</label>
-                                    <input type="text" class="form-control" id="chronicIllness" placeholder="Chronic Illness">
+                                <div class="col-sm-6">
+                                    <p>Chronic Illnesses</p>
+                                    {{> custListInput inputId="chronicIllness" listClass="chronicIllnessList"
+                                            label="Chronic Illnesses" placeholder="Chronic Illness" btnLabel="Add"}}
                                 </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
                             </div>
-
-                            <br>
-
-                            <p>Last Eye/Glaucoma Exam</p>
-                            <div class="form-group">
-                                <label for="lastEyeExam" class="sr-only">Last Eye/Glaucoma Exam</label>
-                                <input type="date" class="form-control" id="lastEyeExam"
-                                       name="lastEyeExam"
-                                       aria-describedby="lastEyeExam" placeholder="mm/dd/yyyy">
-                            </div>
-
-                            <br>
-
-                            <p>Past surgeries</p>
-                            <div class="form-inline">
-                                <div class="form-group mx-sm-3">
-                                    <label for="surgeryName" class="sr-only">Surgery</label>
-                                    <input type="text" class="form-control" id="surgeryName" placeholder="Surgery">
-
-                                    <label for="surgeryDate" class="sr-only">Surgery</label>
-                                    <input type="date" class="form-control" id="surgeryDate" placeholder="mm/dd/yyy">
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p>Past surgeries</p>
+                                    {{> custListInput inputId="surgeryName" listClass="surgeryNameList"
+                                            label="Surgery" placeholder="Surgery" btnLabel="Add"
+                                            showCalendar=true calendarId="surgeryDate" calendarLabel="Surgery date"}}
                                 </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
-
-                            <br>
-
-                            <p>List any other hospital stays</p>
-                            <div class="form-inline">
-                                <div class="form-group mx-sm-3">
-                                    <label for="reason" class="sr-only">Reason</label>
-                                    <input type="text" class="form-control" id="reason" placeholder="Reason">
-
-                                    <label for="hospitalStayDate" class="sr-only">Date</label>
-                                    <input type="date" class="form-control" id="hospitalStayDate" placeholder="mm/dd/yyy">
+                                <div class="col-sm-6">
+                                    <p>List any other hospital stays</p>
+                                    {{> custListInput inputId="reason" listClass="reasonList"
+                                            label="Reason" placeholder="Reason" btnLabel="Add"
+                                            showCalendar=true calendarId="hospitalStayDate" calendarLabel="Date"}}
                                 </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p>Physicians/practitioners you currently see</p>
+                                    <div class="form-inline">
+                                        <div class="form-group mx-sm-3">
+                                            <label for="physName" class="sr-only">Name</label>
+                                            <input type="text" class="form-control" id="physName" placeholder="Name">
 
-                            <br>
-
-                            <p>Physicians/practitioners you currently see</p>
-                            <div class="form-inline">
-                                <div class="form-group mx-sm-3">
-                                    <label for="physName" class="sr-only">Name</label>
-                                    <input type="text" class="form-control" id="physName" placeholder="Name">
-
-                                    <label for="physSpecialty" class="sr-only">Specialty</label>
-                                    <input type="text" class="form-control" id="physSpecialty" placeholder="Specialty">
+                                            <label for="physSpecialty" class="sr-only">Specialty</label>
+                                            <input type="text" class="form-control" id="physSpecialty" placeholder="Specialty">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Add</button>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <div class="col-sm-6">
+                                    {{> custInputFld type="date" id="lastEyeExam" label="Last Eye/Glaucoma Exam" placeholder="mm/dd/yyyy"}}
+                                </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>

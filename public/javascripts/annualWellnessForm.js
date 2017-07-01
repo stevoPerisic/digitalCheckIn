@@ -18,6 +18,17 @@
                 $('span[data-toggle="'+tog+'"]').not('[data-value="'+sel+'"]').removeClass('active btn-primary').addClass('notActive btn-default');
                 $('span[data-toggle="'+tog+'"][data-value="'+sel+'"]').removeClass('notActive btn-default').addClass('active btn-primary');
             });
+
+            $('.addToList').on('click', function(e){
+               e.preventDefault();
+               var listEl = $(this).data('value');
+               var list = $(this).data('list');
+               var $listItemValue = $('#'+listEl);
+
+               $('.'+list).append('<li>'+$listItemValue.val()+'</li>');
+
+                $listItemValue.val('');
+            });
         }
     };
 
