@@ -18,139 +18,80 @@
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingOne">
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label for="lastname">Last name</label>
-                                <input type="text" class="form-control" id="lastname" name="lastname"
-                                       aria-describedby="lastname" placeholder="Last name">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="firstname">First name</label>
-                                <input type="text" class="form-control" id="firstname" name="firstname"
-                                       aria-describedby="firstname" placeholder="First name">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="middleinitial">Middle initial</label>
-                                <input type="text" class="form-control" id="middleinitial" name="middleinitial"
-                                       aria-describedby="middleinitial" placeholder="Middle initial">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="streetaddress">Street address</label>
-                                <input type="text" class="form-control" id="streetaddress" name="streetaddress"
-                                       aria-describedby="streetaddress" placeholder="3000 Sunny LN #1-B">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="city">City</label>
-                                <input type="text" class="form-control" id="city" name="city" aria-describedby="city"
-                                       placeholder="Atlanta">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="zipcode">ZIP Code</label>
-                                <input type="text" class="form-control" id="zipcode" name="zipcode"
-                                       aria-describedby="zipcode" placeholder="30675">
-                            </div>
-
-                            <fieldset class="form-group">
-                                <legend>Sex</legend>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios1"
-                                               value="option1" checked>
-                                        Male
-                                    </label>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="text" id="lastname" label="Last name" placeholder="Last name"}}
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios2"
-                                               value="option2">
-                                        Female
-                                    </label>
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
                                 </div>
-                            </fieldset>
-
-                            <div class="form-group">
-                                <label for="homephone">Home phone</label>
-                                <input type="tel" class="form-control" id="homephone" name="homephone"
-                                       aria-describedby="homephone" placeholder="(***) *** - ****">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="dayphone">Day phone</label>
-                                <input type="tel" class="form-control" id="dayphone" name="dayphone"
-                                       aria-describedby="dayphone" placeholder="(***) *** - ****">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="cellphone">Cell phone</label>
-                                <input type="tel" class="form-control" id="cellphone" name="cellphone"
-                                       aria-describedby="cellphone" placeholder="(***) *** - ****">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="ssn">SSN</label>
-                                <input type="tel" class="form-control" id="ssn" name="ssn" aria-describedby="ssn"
-                                       placeholder="*** - ** - ****">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nextOfKin">Next of Kin (for emergency)</label>
-                                <input type="text" class="form-control" id="nextOfKin" name="nextOfKin" aria-describedby="nextOfKin"
-                                       placeholder="">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nameOfSpouse">Name of spouse</label>
-                                <input type="text" class="form-control" id="nameOfSpouse" name="nameOfSpouse" aria-describedby="nameOfSpouse"
-                                       placeholder="">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="spouseDayphone">Day phone</label>
-                                <input type="tel" class="form-control" id="spouseDayphone" name="spouseDayphone"
-                                       aria-describedby="spouseDayphone" placeholder="(***) *** - ****">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="referredBy">Referred by</label>
-                                <input type="text" class="form-control" id="referredBy" name="referredBy" aria-describedby="referredBy"
-                                       placeholder="">
-                            </div>
-
-                            <fieldset>
-                                <legend>Insurance</legend>
-
-                                <div class="form-group">
-                                    <label for="primaryInsuranceName">Primary Insurance name</label>
-                                    <input type="text" class="form-control" id="primaryInsuranceName"
-                                           name="primaryInsuranceName"
-                                           aria-describedby="primaryInsuranceName" placeholder="Primary insurance name">
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="text" id="middleinitial" label="Middle initial" placeholder="Middle initial"}}
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="insurancePhone">Phone number</label>
-                                    <input type="tel" class="form-control" id="insurancePhone" name="insurancePhone"
-                                           aria-describedby="insurancePhone" placeholder="(***) *** - ****">
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="tel" id="ssn" label="SSN" placeholder="*** - ** - ****"}}
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="groupNumber">Group Number</label>
-                                    <input type="text" class="form-control" id="groupNumber" name="groupNumber"
-                                           aria-describedby="groupNumber" placeholder="Insurance group number">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    {{> custInputFld type="text" id="streetaddress" label="Street address" placeholder="3000 Sunny LN #1-B"}}
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="idNumber">ID Number</label>
-                                    <input type="text" class="form-control" id="idNumber" name="idNumber"
-                                           aria-describedby="idNumber" placeholder="Insurance ID number">
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="text" id="city" label="City" placeholder="Atlanta"}}
                                 </div>
-                            </fieldset>
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="text" id="zipcode" label="ZIP Code" placeholder="30675"}}
+                                </div>
+                            </div>
 
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="tel" id="cellphone" label="Cell phone" placeholder="(***) *** - ****"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="sex" label="Sex" dataVal1="Male" choice1="Male" dataVal2="Female" choice2="Female"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="text" id="referredBy" label="Referred by" placeholder=""}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="text" id="nextOfKin" label="Next of Kin (for emergency)" placeholder=""}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="tel" id="nextOfKinPhone" label="Contact phone" placeholder="(***) *** - ****"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="text" id="nameOfSpouse" label="Name of spouse (if applicable)" placeholder=""}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld type="tel" id="spouseDayPhone" label="Contact phone" placeholder="(***) *** - ****"}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <fieldset>
+                                    <legend class="col-sm-12">Insurance</legend>
+                                    <div class="col-sm-3">
+                                        {{> custInputFld type="text" id="primaryInsuranceName" label="Primary Insurance name" placeholder=""}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> custInputFld type="text" id="groupNumber" label="Group Number" placeholder=""}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> custInputFld type="text" id="idNumber" label="ID Number" placeholder=""}}
+                                    </div>
+                                </fieldset>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1411,3 +1352,13 @@
         </form>
     </div>
 </div>
+
+<!--Load custom scripts - template specific-->
+<!--http://stackoverflow.com/questions/25300017/how-to-ensure-the-javascript-is-at-the-bottom-of-the-code-in-express-handlebars-->
+<!--http://stackoverflow.com/questions/34628978/register-custom-helper-express-and-hbs-->
+{{#section 'script'}}
+    <script src="/javascripts/annualWellnessForm.js"></script>
+{{/section}}
+{{#section 'style'}}
+    <link rel='stylesheet' href='/stylesheets/annualWellnessForm.css'/>
+{{/section}}
