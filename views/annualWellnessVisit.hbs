@@ -158,16 +158,11 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <p>Physicians/practitioners you currently see</p>
-                                    <div class="form-inline">
-                                        <div class="form-group mx-sm-3">
-                                            <label for="physName" class="sr-only">Name</label>
-                                            <input type="text" class="form-control" id="physName" placeholder="Name">
 
-                                            <label for="physSpecialty" class="sr-only">Specialty</label>
-                                            <input type="text" class="form-control" id="physSpecialty" placeholder="Specialty">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Add</button>
-                                    </div>
+                                    {{#parseJSON    '[{"inputId": "physName", "type": "text", "label": "Name", "placeholder":"Name"},
+                                                    {"inputId": "physSpecialty", "type": "text", "label": "Specialty", "placeholder":"Specialty"}]'}}
+                                        {{> custListInput listClass="reasonList" btnLabel="Add" fields=this}}
+                                    {{/parseJSON}}
                                 </div>
                                 <div class="col-sm-6">
                                     {{> custInputFld type="date" id="lastEyeExam" label="Last Eye/Glaucoma Exam" placeholder="mm/dd/yyyy"}}
@@ -192,16 +187,10 @@
                          aria-labelledby="headingFour">
                         <div class="panel-body">
                             <p>List any allergies to medication, x-ray dyes or food.</p>
-                            <div class="form-inline">
-                                <div class="form-group mx-sm-3">
-                                    <label for="allergy" class="sr-only">Allergy</label>
-                                    <input type="text" class="form-control" id="allergy" placeholder="Allergy">
-
-                                    <label for="reactions" class="sr-only">Reaction</label>
-                                    <input type="text" class="form-control" id="reactions" placeholder="Reaction">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
+                            {{#parseJSON    '[{"inputId": "allergy", "type": "text", "label": "Allergy", "placeholder":"Allergy"},
+                                              {"inputId": "reactions", "type": "text", "label": "Reaction", "placeholder":"Reaction"}]'}}
+                                {{> custListInput listClass="reasonList" btnLabel="Add" fields=this}}
+                            {{/parseJSON}}
                         </div>
                     </div>
                 </div>
@@ -219,22 +208,12 @@
                          aria-labelledby="headingFive">
                         <div class="panel-body">
                             <p>List any medication that you currently take, including over-the-counter.</p>
-                            <div class="form-inline">
-                                <div class="form-group mx-sm-3">
-                                    <label for="physName" class="sr-only">Name</label>
-                                    <input type="text" class="form-control" id="physName" placeholder="Name">
-
-                                    <label for="medStrength" class="sr-only">Strength</label>
-                                    <input type="text" class="form-control" id="medStrength" placeholder="Strength">
-
-                                    <label for="medDirection" class="sr-only">Direction</label>
-                                    <input type="text" class="form-control" id="medDirection" placeholder="Direction">
-
-                                    <label for="medPrescribedBy" class="sr-only">Prescribed by</label>
-                                    <input type="text" class="form-control" id="medPrescribedBy" placeholder="Prescribed by">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
+                            {{#parseJSON    '[{"inputId": "medicationName", "type": "text", "label": "Name", "placeholder":"Name"},
+                                              {"inputId": "medStrength", "type": "text", "label": "Strength", "placeholder":"Strength"},
+                                              {"inputId": "medDirection", "type": "text", "label": "Direction", "placeholder":"Direction"},
+                                              {"inputId": "medPrescribedBy", "type": "text", "label": "Prescribed by", "placeholder":"Prescribed by"}]'}}
+                                {{> custListInput listClass="reasonList" btnLabel="Add" fields=this}}
+                            {{/parseJSON}}
                         </div>
                     </div>
                 </div>

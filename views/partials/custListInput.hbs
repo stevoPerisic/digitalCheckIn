@@ -1,22 +1,30 @@
-<ul class="{{listClass}}"></ul>
 <div class="form-inline custListInput">
-    <div class="form-group {{#if showCalendar}}row{{/if}}">
-        {{#if showCalendar}}<div class="col-xs-5">{{/if}}
-        <label for="{{inputId}}" class="sr-only">{{label}}</label>
-        <input type="text" class="form-control" id="{{inputId}}" placeholder="{{placeholder}}">
-        {{#if showCalendar}}</div>{{/if}}
-
-        {{#if showCalendar}}
-        <div class="col-xs-5">
-            <label for="{{calendarId}}" class="sr-only">{{calendarLabel}}</label>
-            <input type="date" class="form-control" id="{{calendarId}}" placeholder="mm/dd/yyy">
-        </div>
+    <ul class="{{listClass}}"></ul>
+    <div class="form-group">
+        {{#if fields}}
+            {{#each fields}}
+                <label for="{{this.inputId}}" class="sr-only">{{this.label}}</label>
+                <input type="{{this.type}}" class="form-control" id="{{this.inputId}}" placeholder="{{this.placeholder}}">
+            {{/each}}
+        {{else}}
+            <label for="{{inputId}}" class="sr-only">{{label}}</label>
+            <input type="text" class="form-control" id="{{inputId}}" placeholder="{{placeholder}}">
         {{/if}}
 
-        {{#if showCalendar}}<div class="col-xs-2">{{/if}}
-        <button type="submit" data-value="{{inputId}}" data-list="{{listClass}}"
-                class="btn btn-primary addToList">{{btnLabel}}</button>
-        {{#if showCalendar}}</div>{{/if}}
+        {{#if showCalendar}}
+            <label for="{{calendarId}}" class="sr-only">{{calendarLabel}}</label>
+            <input type="date" class="form-control" id="{{calendarId}}" placeholder="mm/dd/yyy">
+        {{/if}}
 
+        <button
+                {{#if fields}}
+                    {{#each fields}}
+                        data-value-{{@index}}="{{this.inputId}}"
+                    {{/each}}
+                {{else}}
+                    data-value="{{inputId}}"
+                {{/if}}
+                data-list="{{listClass}}"
+                class="btn btn-primary addToList">{{btnLabel}}</button>
     </div>
 </div>

@@ -8,7 +8,35 @@
     var app = window.app;
 
     app.annualWellnessForm = {
+        createCustListInputs: function(){
+            // get all the custom list inputs
+            var componentsArr = $('.custListInput');
+            var populateList = function(evt){
+                evt.preventDefault();
+
+                var $list = $(this).parent().prev();
+                var inputs = $(this).siblings('input');
+                var values = '';
+
+                inputs.each(function(i, el){
+                    values = values + $(el).val() + ' ';
+                    $(el).val('');
+                });
+
+                $list.append('<li>'+values+'</li>');
+            };
+
+            // iterate over the array and process
+            componentsArr.each(function(i, component){
+                // assign the click event to the buttons
+               $(component).find('.addToList').on('click', populateList);
+            });
+
+
+        },
         init: function(){
+            var me = app.annualWellnessForm;
+
             // custom choice inputs via https://bootsnipp.com/snippets/NBN6x
             $('.radioBtn').find('span').on('click', function(){
                 var sel = $(this).data('value');
@@ -19,16 +47,7 @@
                 $('span[data-toggle="'+tog+'"][data-value="'+sel+'"]').removeClass('notActive btn-default').addClass('active btn-primary');
             });
 
-            $('.addToList').on('click', function(e){
-               e.preventDefault();
-               var listEl = $(this).data('value');
-               var list = $(this).data('list');
-               var $listItemValue = $('#'+listEl);
-
-               $('.'+list).append('<li>'+$listItemValue.val()+'</li>');
-
-                $listItemValue.val('');
-            });
+            me.createCustListInputs();
         }
     };
 
