@@ -230,428 +230,215 @@
                     <div id="collapseSix" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingSix">
                         <div class="panel-body">
-                            <fieldset class="form-group">
-                                <legend>Do you drink alcohol?</legend>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios1"
-                                               value="option1" checked>
-                                        No
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios2"
-                                               value="option2">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label for="alcoholAmount">If yes how much?</label>
-                                    <input type="text" class="form-control" id="alcoholAmount"
-                                           name="alcoholAmount"
-                                           aria-describedby="alcoholAmount" placeholder="">
-                                </div>
-                            </fieldset>
 
-                            <fieldset class="form-group">
-                                <legend>Are others concerend about your drinking?</legend>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios3"
-                                               value="option1" checked>
-                                        No
-                                    </label>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol" label="Do you drink alcohol?" dataVal1="YES"
+                                            choice1="Yes" dataVal2="no" choice2="NO"}}
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="optionsRadios"
-                                               id="optionsRadios4"
-                                               value="option2">
-                                        Yes
-                                    </label>
+                                <div class="col-sm-4">
+                                    {{> custInputFld type="text" id="howMuchAlcohol" label="If yes how much?" placeholder=""}}
                                 </div>
-                            </fieldset>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="alcoholConcern" label="Are others concerend about your drinking?"
+                                            dataVal1="Yes" choice1="YES" dataVal2="No" choice2="NO"}}
+                                </div>
+                            </div>
+
+
 
                             <fieldset class="form-group">
                                 <legend>Diet:</legend>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Balanced
-                                    </label>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        {{> custChkBx text="Balanced"}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> custChkBx text="Vegetarian"}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> custChkBx text="Diabetic"}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> custChkBx text="Low salt"}}
+                                    </div>
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Vegetarian
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Diabetic
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Low salt
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Low fat
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Low carb
-                                    </label>
-                                </div>
-                                <div class="form-check form-inline">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Other:
-                                    </label>
-                                    <input type="text">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        {{> custChkBx text="Low fat"}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> custChkBx text="Low carb"}}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{> custInputFld type="text" id="otherDiet" label="Other" placeholder=""}}
+                                    </div>
                                 </div>
                             </fieldset>
 
                             <fieldset class="form-group">
                                 <legend>Education:</legend>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        High School
-                                    </label>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        {{> custChkBx text="High School"}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> custChkBx text="College"}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> custChkBx text="Some College"}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> custChkBx text="Trade School"}}
+                                    </div>
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        College
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Some College
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Trade School
-                                    </label>
-                                </div>
-                                <div class="form-check form-inline">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Other:
-                                    </label>
-                                    <input type="text">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {{> custInputFld type="text" id="otherEducation" label="Other" placeholder=""}}
+                                    </div>
                                 </div>
                             </fieldset>
 
-                            <fieldset class="form-group">
-                                <legend>Do you do some form of regular exercise every day?</legend>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        No
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="form-check form-inline">
-                                    <label class="form-check-label">If yes, how much?</label>
-                                    <input type="text">
-                                </div>
-                            </fieldset>
+                            <hr>
 
-                            <!-- This could be pre-filled with data from other form -->
-                            <fieldset>
-                                <legend>Marital status</legend>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Single
-                                    </label>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol" label="Do you exercise regularly?" dataVal1="YES"
+                                            choice1="YES" dataVal2="no" choice2="NO"}}
+                                    <br>
+                                    {{> custInputFld type="text" id="excercizeQty" label="If yes, how much?" placeholder=""}}
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Married
-                                    </label>
+                                <div class="col-sm-4">
+                                    <!-- This could be pre-filled with data from other form(s) -->
+                                    {{#parseJSON    '[{"value": "Single", "text": "Single"},
+                                                    {"value": "Married", "text": "Married"},
+                                                    {"value": "Divorced", "text": "Widowed"},
+                                                    {"value": "Separated", "text": "Separated"}]'}}
+                                        {{> custSelect id="maritalStatus" label="Marital status" emptyOption=true options=this }}
+                                    {{/parseJSON}}
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Divorced
-                                    </label>
+                                <div class="col-sm-4">
+                                    {{> custInputFld type="text" id="occupation" label="Occupation" placeholder=""}}
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Widowed
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Separated
-                                    </label>
-                                </div>
-                                <div class="form-check form-inline">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Other:
-                                    </label>
-                                    <input type="text">
-                                </div>
-                            </fieldset>
-
-                            <br>
-
-                            <div class="form-check form-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input">
-                                    Occupation:
-                                </label>
-                                <input type="text">
                             </div>
 
-                            <br>
+                            <hr>
 
-                            <fieldset>
-                                <legend>List everyone in your household including pets:</legend>
-                                <div class="form-inline">
-                                    <div class="form-group mx-sm-3">
-                                        <label for="familyMember" class="sr-only">Family member</label>
-                                        <input type="text" class="form-control" id="familyMember" placeholder="Family member">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Add</button>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p>List everyone in your household including pets:</p>
+                                    {{> custListInput inputId="familyMembers" listClass="familyMembersList"
+                                            label="Family Memberss" placeholder="Family Members" btnLabel="Add"}}
                                 </div>
-                            </fieldset>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="wearSeatbelts" label="Do you wear seatbelts?" dataVal1="YES"
+                                            choice1="YES" dataVal2="no" choice2="NO"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeTobacco" label="Have you smoked or chewed tobacco?" dataVal1="YES"
+                                            choice1="YES" dataVal2="no" choice2="NO"}}
 
-                            <fieldset class="form-group">
-                                <legend>Do you wear seatbelts?</legend>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        No
-                                    </label>
+                                    <br>
+                                    {{> custInputFld type="text" id="howMuchTobacco" label="If yes, how much?" placeholder=""}}
                                 </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Yes
-                                    </label>
-                                </div>
-                            </fieldset>
-
-                            <fieldset class="form-group">
-                                <legend>Have you smoked or chewed tobacco?</legend>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        No
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="form-check form-inline">
-                                    <label class="form-check-label">If yes, how much?</label>
-                                    <input type="text">
-                                </div>
-                            </fieldset>
-
-                            <h2>Routine Tasks: Please indicate if you do or do not need help performing these routine tasks</h2>
-
-                            <ol>
-                                <li>
-                                    <fieldset>
-                                        <legend>Feeding yourself</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Getting from bed to chair</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Getting to the toilet</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Getting dressed</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Bathing or showering</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Walking across the room (includes using cane or walker)</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Using the telephone</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Taking your medication</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Preparing meals</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Managing money (like keeping track of expenses or paying bills)</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Moderately strenuous housework such as doing laundry</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Shopping for personal items like toiletries or medicines</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Shopping for groceries</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Driving</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                                <li>
-                                    <fieldset>
-                                        <legend>Climbing a flight of stairs</legend>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">No</label></div>
-                                        <div class="form-check"><label for="" class="form-check-label"><input
-                                                type="checkbox" class="form-check-input">Yes</label></div>
-                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
-                                                type="text"></div>
-                                    </fieldset>
-                                </li>
-                            </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
-
+<!-- Routine tasks-->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingRoutineTasks">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRoutineTasks"
+                               aria-expanded="true" aria-controls="collapseRoutineTasks">
+                                Routine Tasks
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseRoutineTasks" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingRoutineTasks">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p>Please indicate if you do or do not need help performing these routine tasks.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custToggle id="feedingSelf" label="Feeding yourself" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="bedToChair" label="Getting from bed to chair" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="gettingToToilet" label="Getting to the toilet" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="gettingDressed" label="Getting dressed" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custToggle id="bathingShowering" label="Bathing or showering" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="walking" label="Walking across the room (includes using cane or walker)" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="usingPhone" label="Using the telephone" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="takingMeds" label="Taking your medication" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custToggle id="preparingMeals" label="Preparing meals" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="managingMoney" label="Managing money (like keeping track of expenses or paying bills)" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="doingHousework" label="Moderately strenuous housework such as doing laundry" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="shoppingToiletries" label="Shopping for personal items like toiletries or medicines" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custToggle id="shoppingGroceries" label="Shopping for groceries" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="driving" label="Driving" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="climbingStairs" label="Climbing a flight of stairs" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 <!-- Family history -->
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingSeven">
@@ -665,65 +452,113 @@
                     <div id="collapseSeven" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingSeven">
                         <div class="panel-body">
-                            <p>Please list any health prblems and causes of death if applicable</p>
+                            <p>Please list any health problems and causes of death if applicable</p>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <td>Relationship</td>
-                                        <td>Living/Deceased</td>
-                                        <td>Age</td>
-                                        <td>Medical Problem</td>
+                                        <th>Relationship</th>
+                                        <th>Living/Deceased</th>
+                                        <th>Age</th>
+                                        <th>Medical Problem</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td>Father</td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
+                                        <td>
+                                            {{> custInputFld id="fatherStatus" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="fatherAge" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="fatherMedIssues" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Mother</td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
+                                        <td>
+                                            {{> custInputFld id="motherStatus" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="motherAge" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="motherMedIssues" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Brother(s)</td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
+                                        <td>
+                                            {{> custInputFld id="brotherStatus" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="brotherAge" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="brotherMedIssues" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Sister(s)</td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
+                                        <td>
+                                            {{> custInputFld id="sisterStatus" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="sisterAge" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="sisterMedIssues" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Mother's father</td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
+                                        <td>
+                                            {{> custInputFld id="maternalGFStatus" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="maternalGFAge" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="maternalGFMedIssues" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Mother's mother</td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
+                                        <td>
+                                            {{> custInputFld id="maternalGMStatus" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="matrenalGMAge" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="maternalGMMedIssues" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Father's father</td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
+                                        <td>
+                                            {{> custInputFld id="paternalPFStatus" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="paternalGFAge" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="paternalGFMedIssues" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Father's mother</td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
-                                        <td><label for="" class="sr-only"></label><input type="text"></td>
+                                        <td>
+                                            {{> custInputFld id="paternalGMStatus" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="paternalGMAge" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
+                                        <td>
+                                            {{> custInputFld id="paternalGMMedIssues" type="text" label="" srOnly=true placeholder=""}}
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -744,150 +579,93 @@
                     <div id="collapseEight" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingEight">
                         <div class="panel-body">
-                            <p>Please record the last year you had the following. If you do not know, leave blank.</p>
-
-                            <div class="form-group">
-                                <label for="hepBYear">HepB (shot)</label>
-                                <input type="text" class="form-control" id="hepBYear" name="hepBYear"
-                                       aria-describedby="hepBYear" placeholder="yyyy">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p>Please record the last year you had the following. If you do not know, leave blank.</p>
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="fluVaccineYear">Flu vaccine (shot)</label>
-                                <input type="text" class="form-control" id="fluVaccineYear" name="fluVaccineYear"
-                                       aria-describedby="fluVaccineYear" placeholder="yyyy">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="hepBYear" type="text" label="HepB (shot)" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="fluVaccineYear" type="text" label="Flu vaccine (shot)" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="pneumoniaVaccineYear" type="text" label="Pneumonia vaccine (shot)" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="tetanusVaccineYear" type="text" label="Tetanus Diphteria vaccine (shot)" srOnly=false placeholder="yyyy"}}
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="fluVaccineYear">Flu vaccine (shot)</label>
-                                <input type="text" class="form-control" id="fluVaccineYear" name="fluVaccineYear"
-                                       aria-describedby="fluVaccineYear" placeholder="yyyy">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="zostavaxYear" type="text" label="Zostavax (shot)" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="abdAorticAneurismYear" type="text" label="Abdom. Aortic Aneurysm Screening" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="boneDensityScanYear" type="text" label="Bone Density Scan" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="colonoscopyYear" type="text" label="Colonoscopy" srOnly=false placeholder="yyyy"}}
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="pneumoniaVaccineYear">Pneumonia vaccine (shot)</label>
-                                <input type="text" class="form-control" id="pneumoniaVaccineYear" name="pneumoniaVaccineYear"
-                                       aria-describedby="pneumoniaVaccineYear" placeholder="yyyy">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="diabetesManagTraining" type="text" label="Diabetes Self Management Training" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="echocardiogramYear" type="text" label="Echocardiogram" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="eyeGlaucomaExamYear" type="text" label="Eye Glaucome Exam" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="glucoseYear" type="text" label="Glucose" srOnly=false placeholder="yyyy"}}
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="tetanusVaccineYear">Tetanus Diphteria vaccine (shot)</label>
-                                <input type="text" class="form-control" id="tetanusVaccineYear" name="tetanusVaccineYear"
-                                       aria-describedby="tetanusVaccineYear" placeholder="yyyy">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="hearingExamYear" type="text" label="Hearing Exam" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="hemocultYear" type="text" label="Hemocult" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="lipidPanelYear" type="text" label="Lipid Panel" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="mammogramYear" type="text" label="Mammogram" srOnly=false placeholder="yyyy"}}
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="zostavaxYear">Zostavax (shot)</label>
-                                <input type="text" class="form-control" id="zostavaxYear" name="zostavaxYear"
-                                       aria-describedby="zostavaxYear" placeholder="yyyy">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="nutritionalTherapyYear" type="text" label="Nutritional Therapy" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="papSmearYear" type="text" label="MamPap Smearmogram" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="pelvicExamYear" type="text" label="Pelvic Exam" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="prostateExamYear" type="text" label="Prostate Exam" srOnly=false placeholder="yyyy"}}
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="abdAorticAneurismYear">Abdom. Aortic Aneurysm Screening</label>
-                                <input type="text" class="form-control" id="abdAorticAneurismYear" name="abdAorticAneurismYear"
-                                       aria-describedby="abdAorticAneurismYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="boneDensityScanYear">Bone Density Scan</label>
-                                <input type="text" class="form-control" id="boneDensityScanYear" name="boneDensityScanYear"
-                                       aria-describedby="boneDensityScanYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="colonoscopyYear">Colonoscopy</label>
-                                <input type="text" class="form-control" id="colonoscopyYear" name="colonoscopyYear"
-                                       aria-describedby="colonoscopyYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="diabetesManagTraining">Diabetes Self Management Training</label>
-                                <input type="text" class="form-control" id="diabetesManagTraining" name="diabetesManagTraining"
-                                       aria-describedby="diabetesManagTraining" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="echocardiogramYear">Echocardiogram</label>
-                                <input type="text" class="form-control" id="echocardiogramYear" name="echocardiogramYear"
-                                       aria-describedby="echocardiogramYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="eyeGlaucomaExamYear">Eye Glaucome Exam</label>
-                                <input type="text" class="form-control" id="eyeGlaucomaExamYear" name="eyeGlaucomaExamYear"
-                                       aria-describedby="eyeGlaucomaExamYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="glucoseYear">Glucose</label>
-                                <input type="text" class="form-control" id="glucoseYear" name="glucoseYear"
-                                       aria-describedby="glucoseYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="hearingExamYear">Hearing Exam</label>
-                                <input type="text" class="form-control" id="hearingExamYear" name="hearingExamYear"
-                                       aria-describedby="hearingExamYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="hemocultYear">Hemocult</label>
-                                <input type="text" class="form-control" id="hemocultYear" name="hemocultYear"
-                                       aria-describedby="hemocultYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="lipidPanelYear">Lipid Panel</label>
-                                <input type="text" class="form-control" id="lipidPanelYear" name="lipidPanelYear"
-                                       aria-describedby="lipidPanelYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="mammogramYear">Mammogram</label>
-                                <input type="text" class="form-control" id="mammogramYear" name="mammogramYear"
-                                       aria-describedby="mammogramYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nutritionalTherapyYear">Nutritional Therapy</label>
-                                <input type="text" class="form-control" id="nutritionalTherapyYear" name="nutritionalTherapyYear"
-                                       aria-describedby="nutritionalTherapyYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="papSmearYear">Pap Smear</label>
-                                <input type="text" class="form-control" id="papSmearYear" name="papSmearYear"
-                                       aria-describedby="papSmearYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="pelvicExamYear">Pelvic Exam</label>
-                                <input type="text" class="form-control" id="pelvicExamYear" name="pelvicExamYear"
-                                       aria-describedby="pelvicExamYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="prostateExamYear">Prostate Exam</label>
-                                <input type="text" class="form-control" id="prostateExamYear" name="prostateExamYear"
-                                       aria-describedby="prostateExamYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="psaTestYear">PSA Test</label>
-                                <input type="text" class="form-control" id="psaTestYear" name="psaTestYear"
-                                       aria-describedby="psaTestYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="rectalExamYear">Rectal Exam</label>
-                                <input type="text" class="form-control" id="rectalExamYear" name="rectalExamYear"
-                                       aria-describedby="rectalExamYear" placeholder="yyyy">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="smokingCessationYear">Smoking Cessation</label>
-                                <input type="text" class="form-control" id="smokingCessationYear" name="smokingCessationYear"
-                                       aria-describedby="smokingCessationYear" placeholder="yyyy">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="psaTestYear" type="text" label="PSA Test" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="rectalExamYear" type="text" label="Rectal Exam" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custInputFld id="smokingCessationYear" type="text" label="Smoking Cessation" srOnly=false placeholder="yyyy"}}
+                                </div>
+                                <div class="col-sm-3"></div>
                             </div>
                         </div>
                     </div>
@@ -905,222 +683,130 @@
                     <div id="collapseNine" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingNine">
                         <div class="panel-body">
-                            <p>HEARING: please check YES, NO or SOME TIMES for <u>each</u> question:</p>
-
-                            <br>
-                            
-                            <!--<div class="form-inline">
-                                <div class="form-group mx-sm-3">
-                                    <label for="condition" class="sr-only">Condition</label>
-                                    <input type="text" class="form-control" id="condition" placeholder="Condition">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p>Please check YES, NO or SOMETIMES for <u>each</u> question:</p>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>-->
-                            
-                            <!--<div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        Balanced
-                                    </label>
-                                </div>-->
-
-                            <ol>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Do you find it difficult to follow a conversation in a noisy restaurant or crowded room?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Do you sometimes feel that people are mumbling or not speaking clearly?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Do you experience difficulty following dialogue in the theater?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>do you sometimes find it difficult to understand a speaker at a public meeting or religious srvice?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Do you find yourself asking people to speak up or repeat themselves?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Do you find men's voices easier to understand than women's?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Do you experience diffculty understanding soft or whispered speech?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Do you sometimes have difficulty understanding speech on the telephone?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Does a hearing problem cause you to feel embarrassed when meeting new people?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Do you feel handicapped by a hearing problem?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Does a hearing problem cause you to visit friends, relatives, or neighbors less often then you would like?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Do you experience ringing or noises in your ears?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Do you hear better with one ear than the other?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Have you had any significant noise exposure during work, recreation or military service?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-inline">
-                                        <fieldset>
-                                            <legend>Have any of your relatives (by birth) had a hearing loss?</legend>
-                                            <label for="" class="form-check-label">No<input type="checkbox"
-                                                                                             class="form-check-input"><label
-                                                    for="" class="form-check-label">Yes<input type="checkbox"
-                                                                                               class="form-check-input"><label
-                                                    for="" class="form-check-label">Sometimes<input type="checkbox"
-                                                                                                     class="form-check-input"></label></label></label>
-                                        </fieldset>
-                                    </div>
-                                </li>
-                            </ol>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you find it difficult to follow a conversation in a noisy restaurant or crowded room?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you sometimes feel that people are mumbling or not speaking clearly?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you experience difficulty following dialogue in the theater?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you sometimes find it difficult to understand a speaker at a public meeting or religious service?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you find yourself asking people to speak up or repeat themselves?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you find men's voices easier to understand than women's?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you experience diffculty understanding soft or whispered speech?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you sometimes have difficulty understanding speech on the telephone?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Does a hearing problem cause you to feel embarrassed when meeting new people?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you feel handicapped by a hearing problem?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Does a hearing problem cause you to visit friends, relatives, or neighbors less often then you would like?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you experience ringing or noises in your ears?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Do you hear better with one ear than the other?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Have you had any significant noise exposure during work, recreation or military service?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{> custToggle id="consumeAlcohol"
+                                            label="Have any of your relatives (by birth) had a hearing loss?"
+                                            dataVal1="YES" choice1="YES"
+                                            dataVal2="NO" choice2="NO"
+                                            dataVal3="SOMETIMES" choice3="SOMETIMES"}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1312,3 +998,174 @@
 {{#section 'style'}}
     <link rel='stylesheet' href='/stylesheets/annualWellnessForm.css'/>
 {{/section}}
+
+
+<!--<h2>Routine Tasks: Please indicate if you do or do not need help performing these routine tasks</h2>
+
+                            <ol>
+                                <li>
+                                    <fieldset>
+                                        <legend>Feeding yourself</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Getting from bed to chair</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Getting to the toilet</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Getting dressed</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Bathing or showering</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Walking across the room (includes using cane or walker)</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Using the telephone</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Taking your medication</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Preparing meals</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Managing money (like keeping track of expenses or paying bills)</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Moderately strenuous housework such as doing laundry</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Shopping for personal items like toiletries or medicines</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Shopping for groceries</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Driving</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                                <li>
+                                    <fieldset>
+                                        <legend>Climbing a flight of stairs</legend>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">No</label></div>
+                                        <div class="form-check"><label for="" class="form-check-label"><input
+                                                type="checkbox" class="form-check-input">Yes</label></div>
+                                        <div class="form-inline"><label for="">If yes, who helps?</label><input
+                                                type="text"></div>
+                                    </fieldset>
+                                </li>
+                            </ol>-->

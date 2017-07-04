@@ -8,6 +8,12 @@
     var app = window.app;
 
     app.annualWellnessForm = {
+        /*
+        * creates the functionality for the custom inputs component
+        * user can enter data into th efileds and t=it will be listed out above the component on
+        * the click of the "Add" button
+        * this is used to generate lists of medication, medical procedures and such
+        * */
         createCustListInputs: function(){
             // get all the custom list inputs
             var componentsArr = $('.custListInput');
@@ -34,6 +40,9 @@
 
 
         },
+        /*
+        * Init function for the page
+        * */
         init: function(){
             var me = app.annualWellnessForm;
 

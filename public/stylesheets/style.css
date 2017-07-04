@@ -40,6 +40,12 @@ body {
 /**************************/
 /* Custom Check-box */
 /***************************/
+.form-check {
+    padding: 8px 10px 4px;
+    background-color: #f2f2f2;
+    margin: 5px 0;
+}
+
 .custChkBx.form-check-label {
     position: relative;
     display: block;
@@ -74,6 +80,27 @@ body {
 
 .custChkBx.chkBx.checked .custChkBx.glyphicon {
     display: block;
+}
+
+/**************************/
+/* Custom Select element */
+/***************************/
+.custSelect {
+    position: relative;
+}
+
+.custSelect select {
+    width: 100%;
+    -webkit-appearance: none;
+    border-radius: 0;
+    height: 44px;
+    padding: 0 10px;
+}
+
+.custSelect .glyphicon {
+    position: absolute;
+    right: 20px;
+    top: 40px;
 }
 
 
