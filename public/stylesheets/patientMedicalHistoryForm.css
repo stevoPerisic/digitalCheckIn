@@ -14,24 +14,6 @@
     padding: 0;
 }
 
-.custSelect {
-    position: relative;
-}
-
-.custSelect select {
-    width: 100%;
-    -webkit-appearance: none;
-    border-radius: 0;
-    height: 44px;
-    padding: 0 10px;
-}
-
-.custSelect .glyphicon {
-    position: absolute;
-    right: 20px;
-    top: 40px;
-}
-
 .submit {
     float: right;
     margin-bottom: 20px;
