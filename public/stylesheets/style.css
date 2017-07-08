@@ -120,6 +120,12 @@ body {
 
 .navbar-brand img {
     height: 90%;
+    display: inline-block;
+}
+
+.navbar-brand span {
+    display: inline-block;
+    margin: 0 10px;
 }
 
 /**************************/
