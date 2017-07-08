@@ -145,14 +145,12 @@
 
                             <div class="form-group row">
                                 <div class="col-sm-3">
-                                    <label for="patientRelationship">Relationship to patient</label><br>
-                                    <select name="patientRelationship" id="patientRelationship">
-                                        <option value="">Select one</option>
-                                        <option value="spouse">Spouse</option>
-                                        <option value="parent">Parent</option>
-                                        <option value="guardian">Guardian</option>
-                                        <option value="noneofabove">None of the above</option>
-                                    </select>
+                                    {{#parseJSON    '[{"value": "spouse", "text": "Spouse"},
+                                                    {"value": "parent", "text": "Parent"},
+                                                    {"value": "guardian", "text": "Guardian"},
+                                                    {"value": "noneofabove", "text": "None of the above"}]'}}
+                                        {{> custSelect id="patientRelationship" label="Relationship to patient" emptyOption=true options=this }}
+                                    {{/parseJSON}}
                                 </div>
                             </div>
 
