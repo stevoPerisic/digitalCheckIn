@@ -22,6 +22,17 @@
                 $('span[data-toggle="'+tog+'"]').not('[data-value="'+sel+'"]').removeClass('active btn-primary').addClass('notActive btn-default');
                 $('span[data-toggle="'+tog+'"][data-value="'+sel+'"]').removeClass('notActive btn-default').addClass('active btn-primary');
             });
+
+            $('.addrow').on('click', function(e){
+                e.preventDefault();
+                var tbody = $(this).parents('table').find('tbody');
+                var newRow = $('<tr>');
+                tbody.find('.tableFormInputs input').each(function(i, el){
+                    newRow.append('<td>'+$(el).val()+'</td>');
+                    $(el).val('');
+                });
+                tbody.prepend(newRow);
+            });
         },
 
         init: function () {
