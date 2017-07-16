@@ -12,6 +12,8 @@
             $('.start-check-in').on('click', function(e){
                 e.preventDefault();
 
+                $('.loaderOverlay').show();
+
                 console.log('first POST to /appointments/:apptId/startcheckin/');
                 var that = this;
 
@@ -21,9 +23,11 @@
                     method: 'GET'
                 }).then(function(data){
                     console.log(data);
+                    $('.loaderOverlay').hide();
                     window.location = '/patientRegistration/'+that.dataset.apptid+'/'+that.dataset.patientid;
                 }).catch(function(err){
                     console.log(err);
+                    $('.loaderOverlay').hide();
                 });
             });
         },
