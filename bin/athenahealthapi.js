@@ -157,14 +157,20 @@ function Connection(version, key, secret, practiceid) {
 	 * @returns {events.EventEmitter}
 	 */
 	var call = function(verb, path, body, headers, retry) {
-		var emitter = new events.EventEmitter
-		var output
+		var emitter = new events.EventEmitter;
+		var output;
+
+		console.log('verb: ' +verb+ '\n');
+        console.log('path: ' +path+ '\n');
+        console.log('body: ' +body+ '\n');
+        console.log('headers' +JSON.stringify(headers)+ '\n');
+        console.log('--------------------')
 
 		var req = https.request({
 			hostname: _hostname,
 			method: verb,
 			path: path,
-			headers: headers,
+			headers: headers
 		}, function(response) {
 			if (response.statusCode == 401 && retry) {
 				emitter.emit('401')
@@ -270,18 +276,23 @@ function Connection(version, key, secret, practiceid) {
 	 * @returns {event.EventEmitter}
 	 */
 	this.GET = function(path, options) {
-		var extra = optional(options, {})
-		var params = optional(extra.params, {})
-		var headers = optional(extra.headers, {})
+		var extra = optional(options, {});
+
+		var params = optional(extra.params, {});
+        console.log('params: ' + JSON.stringify(params));
+
+		var headers = optional(extra.headers, {});
 
 		// In a GET request, params go in the URL
-		var query = querystring.stringify(params)
-		var new_path = path
+		var query = querystring.stringify(params);
+		console.log('query: ' + query);
+
+		var new_path = path;
 		if (query) {
 			new_path += '?' + query
 		}
 
-		return authorized_call('GET', new_path, {}, headers)
+		return authorized_call('GET', new_path, {}, headers);
 	};
 
 	/**
