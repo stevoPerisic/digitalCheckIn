@@ -113,29 +113,29 @@ function Connection(version, key, secret, practiceid) {
 			v1: '/oauth',
 			preview1: '/oauthpreview',
 			openpreview1: '/oauthopenpreview',
-		}
+		};
 
 		// Set up the request
 		var verb = 'POST'
-		var path = path_join(auth_prefixes[_version], '/token')
-		var params = querystring.stringify({grant_type: 'client_credentials'})
+		var path = path_join(auth_prefixes[_version], '/token');
+		var params = querystring.stringify({grant_type: 'client_credentials'});
 		var headers = {
 			'authorization': 'Basic ' + new Buffer(_key + ':' + _secret).toString('base64'),
 			'content-type': 'application/x-www-form-urlencoded',
 			'content-length': params.length,
-		}
+		};
 
 		// Make the request and propagate the events, storing the token for later
 		call(verb, path, params, headers, false)
 			.on('done', function(response) {
-				_token = response.access_token
-				emitter.emit('ready')
+				_token = response.access_token;
+				emitter.emit('ready');
 			}).on('error', function(error) {
-				emitter.emit('error', error)
-			})
+				emitter.emit('error', error);
+			});
 
-		return emitter
-	}
+		return emitter;
+	};
 
 	/**
 	 * This method abstracts away formatting the request and decoding the JSON of an API call.
@@ -176,6 +176,7 @@ function Connection(version, key, secret, practiceid) {
 					content += data
 				})
 				response.on('end', function() {
+					// console.log(JSON.parse(content));
 					try {
 						output = JSON.parse(content)
 						emitter.emit('done', output)
@@ -281,7 +282,7 @@ function Connection(version, key, secret, practiceid) {
 		}
 
 		return authorized_call('GET', new_path, {}, headers)
-	}
+	};
 
 	/**
 	 * Perform a POST request.
