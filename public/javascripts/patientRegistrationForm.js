@@ -19,8 +19,28 @@
                 $('span[data-toggle="'+tog+'"][data-value="'+sel+'"]').removeClass('notActive btn-default').addClass('active btn-primary');
             });
 
-            // $('.collapse.in').removeClass('in');
-            // $('#headingFour, #collapseFour').addClass('in');
+            // Update customToggle elements with selected values, if any
+            $('.custToggle-group').each(function(i, el){
+                $(el).children('[data-value="'+el.dataset.selected+'"]')
+                    .removeClass('notActive')
+                    .addClass('active');
+            });
+
+            // Update the custom selects with the known patient data
+            $('.custSelect').each(function(i, el){
+                $(el).children('[value="'+el.dataset.selected+'"]')
+                    .prop('selected', 'selected')
+            });
+
+            // hide all the input fields next to the patient filled data from the server
+            $('.patientDataFilled[data-show="true"]').next().hide();
+            // if patient wants to edit just click the edit link and show the input field
+            $('.patientDataFilled .edit').on('click', function(e){
+                e.preventDefault();
+
+                $(this).parents('.patientDataFilled').next().show();
+                $(this).parents('.patientDataFilled').hide();
+            })
         }
     };
 

@@ -37,6 +37,18 @@ body {
     font-size: 18px;
 }
 
+.patientDataFilled p {
+    margin: 0 0 5px 0;
+    padding: 5px;
+    background: #fafafa;
+    font-size: 24px;
+    border-bottom: 1px solid #dadada;
+}
+
+.patientDataFilled .edit, .patientDataFilled i {
+    float: right;
+}
+
 /**************************/
 /* Custom Check-box */
 /***************************/
@@ -100,7 +112,7 @@ body {
 .custSelect .glyphicon {
     position: absolute;
     right: 20px;
-    top: 40px;
+    top: 60%;
 }
 
 /**************************/

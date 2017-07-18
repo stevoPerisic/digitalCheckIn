@@ -1,10 +1,10 @@
 <!-- custom choice inputs via https://bootsnipp.com/snippets/NBN6x-->
-<div class="input-group" style="width: 100%;">
+<div class="input-group custToggle" style="width: 100%;">
     <label for="{{id}}">{{label}}</label>
     <br>
-    <div class="radioBtn btn-group" style="width: 100%;">
+    <div class="radioBtn btn-group custToggle-group" style="width: 100%;" data-selected="{{dataSelected}}">
         <span style="width: {{#if dataVal3}}33%{{else}}50%{{/if}};"
-              class="btn btn-primary active"
+              class="btn btn-primary notActive"
               data-toggle="{{id}}"
               data-value="{{dataVal1}}">{{choice1}}</span>
         <span style="width: {{#if dataVal3}}33%{{else}}50%{{/if}};"
