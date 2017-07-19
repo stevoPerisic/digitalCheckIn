@@ -27,7 +27,7 @@
             });
 
             // Update the custom selects with the known patient data
-            $('.custSelect').each(function(i, el){
+            $('.custSelect select').each(function(i, el){
                 $(el).children('[value="'+el.dataset.selected+'"]')
                     .prop('selected', 'selected')
             });
