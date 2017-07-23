@@ -9,24 +9,44 @@ var athenaHealthAPI = require('../bin/athenahealthapi');
 var AHAPI = new athenaHealthAPI.Connection('preview1', process.env.ATHENA_KEY, process.env.ATHENA_SECRET, 195900);
 
 // should be moved to a forms config file
-var maritalStatusSelect = '[{"value": "D", "text": "Divorced"},{"value": "M", "text": "Married"},{"value": "S", "text": "Single"},{"value": "W", "text": "Widowed"},{"value": "X", "text": "Separated"},{"value": "P", "text": "Partner"}]';
+var maritalStatusSelect = [
+    {"value": "D", "text": "Divorced"},
+    {"value": "M", "text": "Married"},
+    {"value": "S", "text": "Single"},
+    {"value": "W", "text": "Widowed"},
+    {"value": "X", "text": "Separated"},
+    {"value": "P", "text": "Partner"}
+];
+var insuredRelationship = [
+    {"value": "2", "text": "Spouse"},
+    {"value": "18", "text": "Parent"},
+    {"value": "10", "text": "Guardian"},
+    {"value": "1", "text": "Self"},
+    {"value": "13", "text": "None of the above"}
+];
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
     console.log(req);
 
-    res.render('patientRegistration', {title: 'Patient registration', maritalStatusSelect: maritalStatusSelect});
+    res.render('patientRegistration', {title: 'Patient registration', maritalStatusSelect: maritalStatusSelect, insuredRelationship: insuredRelationship});
 });
+
+/*
+ DOCS regsrding the dempgraphics for a patient
+ https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-6
+
+ Patient relationship mapping:
+ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapping
+*/
 
 router.get('/:apptid/:patientid',
     function(req, res, next){
-        console.log(req.params);
-
-        var patient = AHAPI.GET('/patients/'+req.params.patientid, {params: {}});
+        var patient = AHAPI.GET('/patients/'+req.params.patientid, {params: {showinsurance: true}});
         patient.on('done', function(data){
             // res.send(data);
-            res.render('patientRegistration', {patient: data[0], maritalStatusSelect: maritalStatusSelect});
+            res.render('patientRegistration', {patient: data[0], maritalStatusSelect: maritalStatusSelect, insuredRelationship: insuredRelationship});
         });
     }
 );

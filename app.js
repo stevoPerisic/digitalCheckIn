@@ -30,6 +30,9 @@ hbs.registerHelper('parseJSON', function (data, options) {
     }
     return options.fn(data);
 });
+hbs.registerHelper('isInsurancePolicyHolder', function (data, options) {
+    return (data === 1) ? options.fn(this) : options.inverse(this);
+});
 // Handlebars partials for views
 // Thanks to https://gist.github.com/benw/3824204 !!!
 var fs = require('fs');
