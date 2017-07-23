@@ -23,7 +23,6 @@
                     method: 'GET'
                 }).then(function(data){
                     console.log(data);
-                    $('.loaderOverlay').hide();
                     window.location = '/patientRegistration/'+that.dataset.apptid+'/'+that.dataset.patientid;
                 }).catch(function(err){
                     console.log(err);

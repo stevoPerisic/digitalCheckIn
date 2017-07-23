@@ -41,6 +41,8 @@
             var me = app.patientMedicalHistoryForm;
 
             me.bindEvents();
+
+            $('.loaderOverlay').hide();
         }
     };
 

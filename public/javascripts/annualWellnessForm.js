@@ -57,6 +57,8 @@
             });
 
             me.createCustListInputs();
+
+            $('.loaderOverlay').hide();
         }
     };
 
