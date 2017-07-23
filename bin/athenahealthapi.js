@@ -113,29 +113,29 @@ function Connection(version, key, secret, practiceid) {
 			v1: '/oauth',
 			preview1: '/oauthpreview',
 			openpreview1: '/oauthopenpreview',
-		}
+		};
 
 		// Set up the request
 		var verb = 'POST'
-		var path = path_join(auth_prefixes[_version], '/token')
-		var params = querystring.stringify({grant_type: 'client_credentials'})
+		var path = path_join(auth_prefixes[_version], '/token');
+		var params = querystring.stringify({grant_type: 'client_credentials'});
 		var headers = {
 			'authorization': 'Basic ' + new Buffer(_key + ':' + _secret).toString('base64'),
 			'content-type': 'application/x-www-form-urlencoded',
 			'content-length': params.length,
-		}
+		};
 
 		// Make the request and propagate the events, storing the token for later
 		call(verb, path, params, headers, false)
 			.on('done', function(response) {
-				_token = response.access_token
-				emitter.emit('ready')
+				_token = response.access_token;
+				emitter.emit('ready');
 			}).on('error', function(error) {
-				emitter.emit('error', error)
-			})
+				emitter.emit('error', error);
+			});
 
-		return emitter
-	}
+		return emitter;
+	};
 
 	/**
 	 * This method abstracts away formatting the request and decoding the JSON of an API call.
@@ -157,14 +157,20 @@ function Connection(version, key, secret, practiceid) {
 	 * @returns {events.EventEmitter}
 	 */
 	var call = function(verb, path, body, headers, retry) {
-		var emitter = new events.EventEmitter
-		var output
+		var emitter = new events.EventEmitter;
+		var output;
+
+		console.log('verb: ' +verb+ '\n');
+        console.log('path: ' +path+ '\n');
+        console.log('body: ' +body+ '\n');
+        console.log('headers' +JSON.stringify(headers)+ '\n');
+        console.log('--------------------')
 
 		var req = https.request({
 			hostname: _hostname,
 			method: verb,
 			path: path,
-			headers: headers,
+			headers: headers
 		}, function(response) {
 			if (response.statusCode == 401 && retry) {
 				emitter.emit('401')
@@ -176,6 +182,7 @@ function Connection(version, key, secret, practiceid) {
 					content += data
 				})
 				response.on('end', function() {
+					// console.log(JSON.parse(content));
 					try {
 						output = JSON.parse(content)
 						emitter.emit('done', output)
@@ -269,19 +276,24 @@ function Connection(version, key, secret, practiceid) {
 	 * @returns {event.EventEmitter}
 	 */
 	this.GET = function(path, options) {
-		var extra = optional(options, {})
-		var params = optional(extra.params, {})
-		var headers = optional(extra.headers, {})
+		var extra = optional(options, {});
+
+		var params = optional(extra.params, {});
+        console.log('params: ' + JSON.stringify(params));
+
+		var headers = optional(extra.headers, {});
 
 		// In a GET request, params go in the URL
-		var query = querystring.stringify(params)
-		var new_path = path
+		var query = querystring.stringify(params);
+		console.log('query: ' + query);
+
+		var new_path = path;
 		if (query) {
 			new_path += '?' + query
 		}
 
-		return authorized_call('GET', new_path, {}, headers)
-	}
+		return authorized_call('GET', new_path, {}, headers);
+	};
 
 	/**
 	 * Perform a POST request.

@@ -7,13 +7,13 @@
 (function ($, window) {
     window.app = {
         page: {
-            init: function(){
+            init: function () {
                 return this;
             }
         }
     };
 
-    $('document').ready(function(){
+    $('document').ready(function () {
         var app = window.app;
         app.page.init();
     });
