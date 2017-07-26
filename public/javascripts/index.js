@@ -10,12 +10,11 @@
     app.homePage = {
         bindEvents: function(){
             $('.start-check-in').on('click', function(e){
+                var that = this;
+
                 e.preventDefault();
 
                 $('.loaderOverlay').show();
-
-                console.log('first POST to /appointments/:apptId/startcheckin/');
-                var that = this;
 
                 // start the check-in flow
                 $.ajax({

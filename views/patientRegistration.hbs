@@ -253,22 +253,25 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                          aria-labelledby="headingThree">
                         <div class="panel-body">
                             <!--Primary insurance-->
-                            <div class="form-group row">
+                            <div class="form-group row primaryInsurance">
                                 <div class="col-sm-4">
-                                    <label for="primaryInsuranceName">Primary Insurance name</label>
-                                    <input type="text" class="form-control" id="primaryInsuranceName"
-                                           name="primaryInsuranceName"
-                                           aria-describedby="primaryInsuranceName" placeholder="Primary insurance name">
+                                    <!--ircname-->
+                                    {{#if patient.insurances.[0].ircname}}
+                                        {{> patientDataFilled label="Primary Insurance name" text=this.patient.insurances.[0].ircname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="ircname" label="Primary Insurance name" placeholder="Primary Insurance name"}}
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="groupNumber">Group Number</label>
-                                    <input type="text" class="form-control" id="groupNumber" name="groupNumber"
-                                           aria-describedby="groupNumber" placeholder="Insurance group number">
+                                    {{#if patient.insurances.[0].policynumber}}
+                                        {{> patientDataFilled label="Group Number" text=this.patient.insurances.[0].policynumber show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="policynumber" label="Group Numbere" placeholder="Insurance Group Number"}}
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="idNumber">ID Number</label>
-                                    <input type="text" class="form-control" id="idNumber" name="idNumber"
-                                           aria-describedby="idNumber" placeholder="Insurance ID number">
+                                    {{#if patient.insurances.[0].insuranceidnumber}}
+                                        {{> patientDataFilled label="ID Number" text=this.patient.insurances.[0].insuranceidnumber show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insuranceidnumber" label="ID Number" placeholder="Insurance ID number"}}
                                 </div>
                             </div>
 

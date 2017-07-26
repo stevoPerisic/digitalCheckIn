@@ -18,5 +18,15 @@ router.get('/', function (req, res, next) {
     res.render('patientMedicalHistory', {title: 'Patient medical history'});
 });
 
+router.get('/:apptid/:patientid',
+    function(req, res, next){
+        var patient = AHAPI.GET('/patients/'+req.params.patientid, {params: {showinsurance: true}});
+        patient.on('done', function(data){
+            // res.send(data);
+            res.render('patientMedicalHistory', {patient: data[0], maritalStatusSelect: maritalStatusSelect, insuredRelationship: insuredRelationship});
+        });
+    }
+);
+
 module.exports = router;
 

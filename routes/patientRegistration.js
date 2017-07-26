@@ -7,30 +7,16 @@ var express = require('express');
 var router = express.Router();
 var athenaHealthAPI = require('../bin/athenahealthapi');
 var AHAPI = new athenaHealthAPI.Connection('preview1', process.env.ATHENA_KEY, process.env.ATHENA_SECRET, 195900);
-
-// should be moved to a forms config file
-var maritalStatusSelect = [
-    {"value": "D", "text": "Divorced"},
-    {"value": "M", "text": "Married"},
-    {"value": "S", "text": "Single"},
-    {"value": "W", "text": "Widowed"},
-    {"value": "X", "text": "Separated"},
-    {"value": "P", "text": "Partner"}
-];
-var insuredRelationship = [
-    {"value": "2", "text": "Spouse"},
-    {"value": "18", "text": "Parent"},
-    {"value": "10", "text": "Guardian"},
-    {"value": "1", "text": "Self"},
-    {"value": "13", "text": "None of the above"}
-];
+var formsConfig = require('../bin/formsConfig');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-
     console.log(req);
-
-    res.render('patientRegistration', {title: 'Patient registration', maritalStatusSelect: maritalStatusSelect, insuredRelationship: insuredRelationship});
+    res.render('patientRegistration', {
+        title: 'Patient registration',
+        maritalStatusSelect: formsConfig.maritalStatusSelect,
+        insuredRelationship: formsConfig.insuredRelationship
+    });
 });
 
 /*
@@ -46,7 +32,11 @@ router.get('/:apptid/:patientid',
         var patient = AHAPI.GET('/patients/'+req.params.patientid, {params: {showinsurance: true}});
         patient.on('done', function(data){
             // res.send(data);
-            res.render('patientRegistration', {patient: data[0], maritalStatusSelect: maritalStatusSelect, insuredRelationship: insuredRelationship});
+            res.render('patientRegistration', {
+                patient: data[0],
+                maritalStatusSelect: formsConfig.maritalStatusSelect,
+                insuredRelationship: formsConfig.insuredRelationship
+            });
         });
     }
 );
