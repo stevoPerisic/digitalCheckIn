@@ -21,17 +21,8 @@
                     method: 'GET'
                 }).then(function(data){
                     console.log(data);
+
                     window.location = '/patientRegistration/'+that.dataset.patientId;
-                    // fire off the form filling :)
-
-                    // 1) Demographics
-                    // 2) Consent Forms
-                    // 3) Health History Forms
-                    // 4) Insurance
-
-                    // Preferably some of this can be pre-filled at the front desk
-                    // by scanning the ID and insurance card
-
                 }).catch(function(err){
                     console.log(err);
                 });

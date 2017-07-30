@@ -5,6 +5,11 @@ https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#sec
 Patient relationship mapping
 https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapping
 -->
+<ul>
+{{#each aptInsurances}}
+    <li>ID: {{insuranceid}}, Package ID: {{insurancepackageid}}, Insurance ID number: {{insuranceidnumber}}, {{insuranceplanname}}, {{insurancepolicyholder}}, Sequence num: {{sequencenumber}}</li>
+{{/each}}
+</ul>
 
 <div class="row">
     <div class="col-sm-12">

@@ -30,10 +30,29 @@ router.get('/', function (req, res, next) {
 router.get('/:apptid/:patientid',
     function(req, res, next){
         var patient = AHAPI.GET('/patients/'+req.params.patientid, {params: {showinsurance: true}});
+        var aptInsurance = AHAPI.GET('/patients/'+req.params.patientid, {params: {showinsurance: true}});
         patient.on('done', function(data){
+            req.patient = data[0];
+            next();
             // res.send(data);
+            // res.render('patientRegistration', {
+            //     patient: data[0],
+            //     aptInsurances:
+            //     maritalStatusSelect: formsConfig.maritalStatusSelect,
+            //     insuredRelationship: formsConfig.insuredRelationship
+            // });
+        });
+    },
+    function(req, res, next){
+        // https://api.athenahealth.com/preview1/195900/patients/1/insurances
+        // https://api.athenahealth.com/preview1/195900/insurancepackages
+
+        var aptInsurance = AHAPI.GET('/patients/'+req.params.patientid+'/insurances', {});
+        aptInsurance.on('done', function(data){
+            console.log(data);
             res.render('patientRegistration', {
-                patient: data[0],
+                patient: req.patient,
+                aptInsurances: data.insurances,
                 maritalStatusSelect: formsConfig.maritalStatusSelect,
                 insuredRelationship: formsConfig.insuredRelationship
             });

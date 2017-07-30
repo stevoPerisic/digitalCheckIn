@@ -1,3 +1,7 @@
+<!--
+Health History forms docs
+https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
+-->
 <div class="row">
     <div class="col-sm-12">
         <h1>Patient Medical History</h1>
@@ -18,28 +22,31 @@
                         <div class="panel-body">
                             <div class="form-group row">
                                 <div class="col-sm-3">
-                                    <label for="lastname">Last name</label>
-                                    <input type="text" class="form-control" id="lastname" name="lastname"
-                                           aria-describedby="lastname" placeholder="Last name">
+                                    {{#if this.patient.lastname}}
+                                        {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
                                 </div>
                                 <div class="col-sm-3">
-                                    <label for="middleinitial">Middle initial</label>
-                                    <input type="text" class="form-control" id="middleinitial" name="middleinitial"
-                                           aria-describedby="middleinitial" placeholder="Middle initial">
+                                    {{#if this.patient.middlename}}
+                                        {{> patientDataFilled label="Middle initial" text=this.patient.lastname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="middlename" label="Middle initial" placeholder="Middle initial"}}
                                 </div>
                                 <div class="col-sm-3">
-                                    <label for="firstname">First name</label>
-                                    <input type="text" class="form-control" id="firstname" name="firstname"
-                                           aria-describedby="firstname" placeholder="First name">
+                                    {{#if this.patient.firstname}}
+                                        {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
                                 </div>
                                 <div class="col-sm-3"></div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-12">
-                                    <label for="preferredPharmacy">Preferred Pharmacy</label>
-                                    <input type="text" class="form-control" id="preferredPharmacy"
-                                           name="preferredPharmacy"
-                                           aria-describedby="preferredPharmacy" placeholder="Preferred Pharmacy">
+                                    {{#if this.patient.defaultpharmacyncpdpid}}
+                                        {{> patientDataFilled label="Preferred Pharmacy" text=this.patient.defaultpharmacyncpdpid show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Preferred Pharmacy"}}
                                 </div>
                             </div>
                             <div class="form-group row">
