@@ -5,11 +5,21 @@ https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#sec
 Patient relationship mapping
 https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapping
 -->
-<ul>
-{{#each aptInsurances}}
-    <li>ID: {{insuranceid}}, Package ID: {{insurancepackageid}}, Insurance ID number: {{insuranceidnumber}}, {{insuranceplanname}}, {{insurancepolicyholder}}, Sequence num: {{sequencenumber}}</li>
-{{/each}}
-</ul>
+<!--<ul>-->
+<!--{{#each patientInsurances}}-->
+    <!--<li>ID: {{insuranceid}}, Package ID: {{insurancepackageid}}, Insurance ID number: {{insuranceidnumber}}, {{insuranceplanname}}, {{insurancepolicyholder}}, Sequence num: {{sequencenumber}}</li>-->
+<!--{{/each}}-->
+<!--</ul>-->
+
+<!--<hr>-->
+<!--<h1>Primary Insurance</h1>-->
+<!--<p>{{primaryIns.address}}, {{primaryIns.city}}, {{primaryIns.state}}, {{primaryIns.zip}}</p>-->
+<!--<hr>-->
+
+<!--<hr>-->
+<!--<h1>Secondary Insurance</h1>-->
+<!--<p>{{secondaryIns.address}}, {{secondaryIns.city}}, {{secondaryIns.state}}, {{secondaryIns.zip}}</p>-->
+<!--<hr>-->
 
 <div class="row">
     <div class="col-sm-12">
@@ -282,31 +292,51 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
 
                             <div class="form-group row">
                                 <div class="col-sm-6">
-                                    <label for="insuranceStreetAddress">Street address</label>
-                                    <input type="text" class="form-control" id="insuranceStreetAddress"
-                                           name="insuranceStreetAddress"
-                                           aria-describedby="insuranceStreetAddress"
-                                           placeholder="3000 Insurance Pkwy Ste.302">
+                                    {{#if primaryIns.address}}
+                                        {{> patientDataFilled label="Street address" text=primaryIns.address show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insuranceStreetAddress" label="Street address" placeholder="3000 Insurance Pkwy Ste.302"}}
+
+                                    <!--<label for="insuranceStreetAddress">Street address</label>-->
+                                    <!--<input type="text" class="form-control" id="insuranceStreetAddress"-->
+                                           <!--name="insuranceStreetAddress"-->
+                                           <!--aria-describedby="insuranceStreetAddress"-->
+                                           <!--placeholder="3000 Insurance Pkwy Ste.302">-->
                                 </div>
                                 <div class="col-sm-3">
-                                    <label for="insuranceCity">City</label>
-                                    <input type="text" class="form-control" id="insuranceCity" name="insuranceCity"
-                                           aria-describedby="insuranceCity"
-                                           placeholder="Atlanta">
+                                    {{#if primaryIns.city}}
+                                        {{> patientDataFilled label="City" text=primaryIns.city show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insuranceCity" label="City" placeholder="Atlanta"}}
+
+                                    <!--<label for="insuranceCity">City</label>-->
+                                    <!--<input type="text" class="form-control" id="insuranceCity" name="insuranceCity"-->
+                                           <!--aria-describedby="insuranceCity"-->
+                                           <!--placeholder="Atlanta">-->
                                 </div>
                                 <div class="col-sm-3">
-                                    <label for="insuranceZipCode">ZIP Code</label>
-                                    <input type="text" class="form-control" id="insuranceZipCode"
-                                           name="insuranceZipCode"
-                                           aria-describedby="insuranceZipCode" placeholder="30675">
+                                    {{#if primaryIns.zip}}
+                                        {{> patientDataFilled label="ZIP Code" text=primaryIns.zip show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insuranceCity" label="ZIP Code" placeholder="30675"}}
+
+                                    <!--<label for="insuranceZipCode">ZIP Code</label>-->
+                                    <!--<input type="text" class="form-control" id="insuranceZipCode"-->
+                                           <!--name="insuranceZipCode"-->
+                                           <!--aria-describedby="insuranceZipCode" placeholder="30675">-->
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-3">
-                                    <label for="insurancePhone">P.I. Phone number</label>
-                                    <input type="tel" class="form-control" id="insurancePhone" name="insurancePhone"
-                                           aria-describedby="insurancePhone" placeholder="(***) *** - ****">
+                                    {{#if primaryIns.phone}}
+                                        {{> patientDataFilled label="Phone number" text=primaryIns.phone show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
+
+                                    <!--<label for="insurancePhone">P.I. Phone number</label>-->
+                                    <!--<input type="tel" class="form-control" id="insurancePhone" name="insurancePhone"-->
+                                           <!--aria-describedby="insurancePhone" placeholder="(***) *** - ****">-->
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="employerName">Employer</label>

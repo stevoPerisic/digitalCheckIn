@@ -25,13 +25,14 @@ router.get('/', function (req, res, next) {
 
  Patient relationship mapping:
  https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapping
-*/
+ */
 
 router.get('/:apptid/:patientid',
-    function(req, res, next){
-        var patient = AHAPI.GET('/patients/'+req.params.patientid, {params: {showinsurance: true}});
-        var aptInsurance = AHAPI.GET('/patients/'+req.params.patientid, {params: {showinsurance: true}});
-        patient.on('done', function(data){
+    // Get the patient first
+    function (req, res, next) {
+        var patient = AHAPI.GET('/patients/' + req.params.patientid, {params: {showinsurance: true}});
+
+        patient.on('done', function (data) {
             req.patient = data[0];
             next();
             // res.send(data);
@@ -43,18 +44,55 @@ router.get('/:apptid/:patientid',
             // });
         });
     },
-    function(req, res, next){
+    // get top insurance packages
+    function (req, res, next) {
+        var topInsurancePckgs = AHAPI.GET('/misc/topinsurancepackages', {});
+        topInsurancePckgs.on('done', function (data) {
+            // console.log(data);
+            req.topInsurancePckgs = data.insurancepackages;
+            next();
+        });
+    },
+    // get appointment related insurances - NOT SURE IF WE NEED THIS
+    function (req, res, next) {
+        var apptRelatedInsurance = AHAPI.GET('/appointments/' + req.params.apptid + '/insurances', {});
+        apptRelatedInsurance.on('done', function (data) {
+            // console.log(data);
+            req.apptRelatedInsurance = data[0];
+            next();
+        });
+    },
+    function (req, res, next) {
         // https://api.athenahealth.com/preview1/195900/patients/1/insurances
         // https://api.athenahealth.com/preview1/195900/insurancepackages
+        var patientInsurances = AHAPI.GET('/patients/' + req.params.patientid + '/insurances', {});
+        patientInsurances.on('done', function (data) {
+            // console.log(data.insurances);
+            // console.log(req.topInsurancePckgs);
 
-        var aptInsurance = AHAPI.GET('/patients/'+req.params.patientid+'/insurances', {});
-        aptInsurance.on('done', function(data){
-            console.log(data);
+            var packageId = (typeof(data.insurances[0].insurancepackageid) === 'string') ?
+                data.insurances[0].insurancepackageid :
+                data.insurances[0].insurancepackageid.toString();
+
             res.render('patientRegistration', {
                 patient: req.patient,
-                aptInsurances: data.insurances,
+                patientInsurances: data.insurances,
                 maritalStatusSelect: formsConfig.maritalStatusSelect,
-                insuredRelationship: formsConfig.insuredRelationship
+                insuredRelationship: formsConfig.insuredRelationship,
+                primaryIns: req.topInsurancePckgs.find(function (ins) {
+                    if (data.insurances[0]) {
+                        return (ins.insurancepackageid === packageId) ? ins : false;
+                    } else {
+                        return false;
+                    }
+                }),
+                secondaryIns: req.topInsurancePckgs.find(function (ins) {
+                    if (data.insurances[1]) {
+                        return (ins.insurancepackageid === packageId) ? ins : false;
+                    } else {
+                        return false;
+                    }
+                })
             });
         });
     }
