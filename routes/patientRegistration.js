@@ -70,9 +70,13 @@ router.get('/:apptid/:patientid',
             // console.log(data.insurances);
             // console.log(req.topInsurancePckgs);
 
-            var packageId = (typeof(data.insurances[0].insurancepackageid) === 'string') ?
-                data.insurances[0].insurancepackageid :
-                data.insurances[0].insurancepackageid.toString();
+            var packageId = '0';
+            if (Array.isArray(data.insurances) && data.insurances.length > 0) {
+                packageId = (typeof(data.insurances[0].insurancepackageid) === 'string') ?
+                    data.insurances[0].insurancepackageid :
+                    data.insurances[0].insurancepackageid.toString();
+            }
+
 
             res.render('patientRegistration', {
                 patient: req.patient,
