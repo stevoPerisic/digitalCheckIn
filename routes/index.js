@@ -5,10 +5,17 @@ var AHAPI = new athenaHealthAPI.Connection('preview1', process.env.ATHENA_KEY, p
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    var today = new Date();
+    console.log('Day ' + today.getDate());
+    console.log('Month ' + today.getMonth()+1); // since months start at 0
+    console.log('Year ' + today.getFullYear());
+
+    var enddate = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+
     var params = {
         appointmentstatus: 'f',
         departmentid: 1,
-        enddate: '04/29/2017',
+        enddate: enddate,
         ignorerestrictions: 'false',
         showcancelled: 'false',
         showclaimdetail: 'false',
@@ -17,13 +24,13 @@ router.get('/', function (req, res, next) {
         showinsurance: 'false',
         showpatientdetail: 'true',
         showremindercalldetail: 'false',
-        startdate: '04/21/2017'
+        startdate: enddate
     };
 
     var appointments = AHAPI.GET('/appointments/booked', {params: params});
     appointments.on('done', function(data){
         // res.send(data);
-        res.render('index', {appts: data.appointments});
+        res.render('index', {appts: data.appointments, today: enddate});
     });
 });
 

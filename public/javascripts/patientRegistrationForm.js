@@ -58,6 +58,8 @@
 
             me.formSetUp();
             me.bindEvents();
+
+            $('.loaderOverlay').hide();
         }
     };
 

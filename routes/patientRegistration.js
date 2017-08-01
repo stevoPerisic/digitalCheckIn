@@ -7,30 +7,16 @@ var express = require('express');
 var router = express.Router();
 var athenaHealthAPI = require('../bin/athenahealthapi');
 var AHAPI = new athenaHealthAPI.Connection('preview1', process.env.ATHENA_KEY, process.env.ATHENA_SECRET, 195900);
-
-// should be moved to a forms config file
-var maritalStatusSelect = [
-    {"value": "D", "text": "Divorced"},
-    {"value": "M", "text": "Married"},
-    {"value": "S", "text": "Single"},
-    {"value": "W", "text": "Widowed"},
-    {"value": "X", "text": "Separated"},
-    {"value": "P", "text": "Partner"}
-];
-var insuredRelationship = [
-    {"value": "2", "text": "Spouse"},
-    {"value": "18", "text": "Parent"},
-    {"value": "10", "text": "Guardian"},
-    {"value": "1", "text": "Self"},
-    {"value": "13", "text": "None of the above"}
-];
+var formsConfig = require('../bin/formsConfig');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-
     console.log(req);
-
-    res.render('patientRegistration', {title: 'Patient registration', maritalStatusSelect: maritalStatusSelect, insuredRelationship: insuredRelationship});
+    res.render('patientRegistration', {
+        title: 'Patient registration',
+        maritalStatusSelect: formsConfig.maritalStatusSelect,
+        insuredRelationship: formsConfig.insuredRelationship
+    });
 });
 
 /*
@@ -39,14 +25,75 @@ router.get('/', function (req, res, next) {
 
  Patient relationship mapping:
  https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapping
-*/
+ */
 
 router.get('/:apptid/:patientid',
-    function(req, res, next){
-        var patient = AHAPI.GET('/patients/'+req.params.patientid, {params: {showinsurance: true}});
-        patient.on('done', function(data){
+    // Get the patient first
+    function (req, res, next) {
+        var patient = AHAPI.GET('/patients/' + req.params.patientid, {params: {showinsurance: true}});
+
+        patient.on('done', function (data) {
+            req.patient = data[0];
+            next();
             // res.send(data);
-            res.render('patientRegistration', {patient: data[0], maritalStatusSelect: maritalStatusSelect, insuredRelationship: insuredRelationship});
+            // res.render('patientRegistration', {
+            //     patient: data[0],
+            //     aptInsurances:
+            //     maritalStatusSelect: formsConfig.maritalStatusSelect,
+            //     insuredRelationship: formsConfig.insuredRelationship
+            // });
+        });
+    },
+    // get top insurance packages
+    function (req, res, next) {
+        var topInsurancePckgs = AHAPI.GET('/misc/topinsurancepackages', {});
+        topInsurancePckgs.on('done', function (data) {
+            // console.log(data);
+            req.topInsurancePckgs = data.insurancepackages;
+            next();
+        });
+    },
+    // get appointment related insurances - NOT SURE IF WE NEED THIS
+    function (req, res, next) {
+        var apptRelatedInsurance = AHAPI.GET('/appointments/' + req.params.apptid + '/insurances', {});
+        apptRelatedInsurance.on('done', function (data) {
+            // console.log(data);
+            req.apptRelatedInsurance = data[0];
+            next();
+        });
+    },
+    function (req, res, next) {
+        // https://api.athenahealth.com/preview1/195900/patients/1/insurances
+        // https://api.athenahealth.com/preview1/195900/insurancepackages
+        var patientInsurances = AHAPI.GET('/patients/' + req.params.patientid + '/insurances', {});
+        patientInsurances.on('done', function (data) {
+            // console.log(data.insurances);
+            // console.log(req.topInsurancePckgs);
+
+            var packageId = (typeof(data.insurances[0].insurancepackageid) === 'string') ?
+                data.insurances[0].insurancepackageid :
+                data.insurances[0].insurancepackageid.toString();
+
+            res.render('patientRegistration', {
+                patient: req.patient,
+                patientInsurances: data.insurances,
+                maritalStatusSelect: formsConfig.maritalStatusSelect,
+                insuredRelationship: formsConfig.insuredRelationship,
+                primaryIns: req.topInsurancePckgs.find(function (ins) {
+                    if (data.insurances[0]) {
+                        return (ins.insurancepackageid === packageId) ? ins : false;
+                    } else {
+                        return false;
+                    }
+                }),
+                secondaryIns: req.topInsurancePckgs.find(function (ins) {
+                    if (data.insurances[1]) {
+                        return (ins.insurancepackageid === packageId) ? ins : false;
+                    } else {
+                        return false;
+                    }
+                })
+            });
         });
     }
 );

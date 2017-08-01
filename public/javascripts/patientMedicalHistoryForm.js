@@ -34,13 +34,32 @@
                 tbody.prepend(newRow);
             });
         },
+        formSetUp: function () {
+            // Update customToggle elements with selected values, if any
+            $('.custToggle-group').each(function (i, el) {
+                $(el).children('[data-value="' + el.dataset.selected + '"]')
+                    .removeClass('notActive')
+                    .addClass('active');
+            });
 
+            // Update the custom selects with the known patient data
+            $('.custSelect select').each(function (i, el) {
+                $(el).children('[value="' + el.dataset.selected + '"]')
+                    .prop('selected', 'selected')
+            });
+
+            // hide all the input fields next to the patient filled data from the server
+            $('.patientDataFilled[data-show="true"]').next().hide();
+        },
         init: function () {
             console.log('Patient Medical History Form started...');
 
             var me = app.patientMedicalHistoryForm;
 
             me.bindEvents();
+            me.formSetUp();
+
+            $('.loaderOverlay').hide();
         }
     };
 
