@@ -59,6 +59,18 @@ var appointments = require('./routes/appointments');
 
 var app = express();
 
+// set up local vars as template data
+hbs.localsAsTemplateData(app);
+app.locals.mainMenu = {
+    patientRegistration: (function () {
+        return (this.patientid) ? '/patientRegistration/' + this.apptid + '/' + this.patientid :'/patientRegistration/' ;
+    })(),
+    patientMedicalHistory: '/patientMedicalHistory',
+    annualWellnessVisit: '/annualWellnessVisit',
+    apptid: '',
+    patientid: ''
+};
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

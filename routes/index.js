@@ -15,16 +15,16 @@ router.get('/', function (req, res, next) {
     var params = {
         appointmentstatus: 'f',
         departmentid: 1,
-        enddate: enddate,
+        enddate: '08/02/2017',// enddate,
         ignorerestrictions: 'false',
         showcancelled: 'false',
         showclaimdetail: 'false',
         showcopay: 'false',
         showexpectedprocedurecodes: 'false',
-        showinsurance: 'false',
+        showinsurance: 'true',
         showpatientdetail: 'true',
         showremindercalldetail: 'false',
-        startdate: enddate
+        startdate: '07/30/2017'//enddate
     };
 
     var appointments = AHAPI.GET('/appointments/booked', {params: params});
