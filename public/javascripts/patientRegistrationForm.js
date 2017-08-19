@@ -1,14 +1,32 @@
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
  * Created by stevoperisic on 6/19/17.
  *
  * FE JS for the patient registration
  */
 
+
 (function ($, window) {
     var app = window.app;
 
     app.patientRegistrationForm = {
+        sigPad: $('canvas')[0],
+        // Adjust canvas coordinate space taking into account pixel ratio,
+        // to make it look crisp on mobile devices.
+        // This also causes canvas to be cleared.
+        resizeCanvas: function () {
+            var me = app.patientRegistrationForm;
+            // When zoomed out to less than 100%, for some very strange reason,
+            // some browsers report devicePixelRatio as less than 1
+            // and only part of the canvas is cleared then.
+            var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+            me.sigPad.width = me.sigPad.offsetWidth * ratio;
+            me.sigPad.height = me.sigPad.offsetHeight * ratio;
+            me.sigPad.getContext("2d").scale(ratio, ratio);
+        },
         bindEvents: function () {
+            var me = app.patientRegistrationForm;
+
             // custom choice inputs via https://bootsnipp.com/snippets/NBN6x
             $('.radioBtn').find('span').on('click', function () {
                 var sel = $(this).data('value');
@@ -25,6 +43,24 @@
 
                 $(this).parents('.patientDataFilled').next().show();
                 $(this).parents('.patientDataFilled').hide();
+            });
+
+            $('[data-action=clear]').on('click', function (event) {
+                me.signaturePad.clear();
+            });
+
+            $('[data-action=save]').on('click', function (event) {
+                if (me.signaturePad.isEmpty()) {
+                    alert("Please provide signature first.");
+                } else {
+                    window.open(me.signaturePad.toDataURL());
+                }
+            });
+
+            $('#collapseFive').on('shown.bs.collapse', function (e) {
+               // console.log(e);
+                me.resizeCanvas();
+                me.signaturePad = new SignaturePad(me.sigPad);
             });
         },
         formSetUp: function () {
@@ -59,6 +95,8 @@
             me.formSetUp();
             me.bindEvents();
 
+            window.onresize = me.resizeCanvas;
+
             $('.loaderOverlay').hide();
         }
     };
@@ -67,3 +105,5 @@
     app.page.init = app.patientRegistrationForm.init;
 
 })(jQuery, window);
+
+},{}]},{},[1]);

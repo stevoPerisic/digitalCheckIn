@@ -503,9 +503,19 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 </ul>
                             </div>
                             <div class="form-group">
-                                <label for="signature">Signature</label>
-                                <input type="text" class="form-control" id="signature" name="signature"
-                                       aria-describedby="signature" placeholder="SIGNATURE">
+                                <!--<label for="signature">Signature</label>-->
+                                <!--<input type="text" class="form-control" id="signature" name="signature"-->
+                                       <!--aria-describedby="signature" placeholder="SIGNATURE">-->
+                                <div id="signature-pad" class="m-signature-pad">
+                                    <div class="m-signature-pad--body">
+                                        <canvas></canvas>
+                                    </div>
+                                    <div class="m-signature-pad--footer">
+                                        <div class="description">Sign above</div>
+                                        <button type="button" class="button clear" data-action="clear">Clear</button>
+                                        <button type="button" class="button save" data-action="save">Save</button>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -549,6 +559,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
 <!--http://stackoverflow.com/questions/25300017/how-to-ensure-the-javascript-is-at-the-bottom-of-the-code-in-express-handlebars-->
 <!--http://stackoverflow.com/questions/34628978/register-custom-helper-express-and-hbs-->
 {{#section 'script'}}
+    <script src="/libs/signature_pad.js"></script>
     <script src="/javascripts/patientRegistrationForm.js"></script>
 {{/section}}
 {{#section 'style'}}
