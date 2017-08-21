@@ -9,20 +9,8 @@
     var app = window.app;
 
     app.patientRegistrationForm = {
-        sigPad: $('canvas')[0],
-        // Adjust canvas coordinate space taking into account pixel ratio,
-        // to make it look crisp on mobile devices.
-        // This also causes canvas to be cleared.
-        resizeCanvas: function () {
-            var me = app.patientRegistrationForm;
-            // When zoomed out to less than 100%, for some very strange reason,
-            // some browsers report devicePixelRatio as less than 1
-            // and only part of the canvas is cleared then.
-            var ratio =  Math.max(window.devicePixelRatio || 1, 1);
-            me.sigPad.width = me.sigPad.offsetWidth * ratio;
-            me.sigPad.height = me.sigPad.offsetHeight * ratio;
-            me.sigPad.getContext("2d").scale(ratio, ratio);
-        },
+        sigPad: $('#signature-pad canvas')[0],
+        sigPadWitness: $('#signature-pad-witness canvas')[0],
         bindEvents: function () {
             var me = app.patientRegistrationForm;
 
@@ -44,11 +32,11 @@
                 $(this).parents('.patientDataFilled').hide();
             });
 
-            $('[data-action=clear]').on('click', function (event) {
+            $('#signature-pad [data-action=clear]').on('click', function (event) {
                 me.signaturePad.clear();
             });
 
-            $('[data-action=save]').on('click', function (event) {
+            $('#signature-pad [data-action=save]').on('click', function (event) {
                 if (me.signaturePad.isEmpty()) {
                     alert("Please provide signature first.");
                 } else {
@@ -56,10 +44,22 @@
                 }
             });
 
+            $('#signature-pad-witness [data-action=clear]').on('click', function (event) {
+                me.signaturePadWitness.clear();
+            });
+
+            $('#signature-pad-witness [data-action=save]').on('click', function (event) {
+                if (me.signaturePadWitness.isEmpty()) {
+                    alert("Please provide signature first.");
+                } else {
+                    window.open(me.signaturePadWitness.toDataURL());
+                }
+            });
+
             $('#collapseFive').on('shown.bs.collapse', function (e) {
-               // console.log(e);
-                me.resizeCanvas();
+                app.utilities.resizeCanvas();
                 me.signaturePad = new SignaturePad(me.sigPad);
+                me.signaturePadWitness = new SignaturePad(me.sigPadWitness);
             });
         },
         formSetUp: function () {
@@ -94,7 +94,7 @@
             me.formSetUp();
             me.bindEvents();
 
-            window.onresize = me.resizeCanvas;
+            window.onresize = app.utilities.resizeCanvas;
 
             $('.loaderOverlay').hide();
         }

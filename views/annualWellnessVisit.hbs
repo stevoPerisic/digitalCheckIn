@@ -931,25 +931,62 @@
                     <div id="collapseTwelve" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingTwelve">
                         <div class="panel-body">
-                            <div class="row">
+                            <div class="form-group row">
                                 <div class="col-sm-6">
-                                    {{> custToggle id="ringingInEars"
+                                    {{> custToggle id="advancedDirective"
                                             label="Do you have an Advanced Directive (living will)?"
                                             dataVal1="YES" choice1="YES"
                                             dataVal2="NO" choice2="NO"}}
                                 </div>
-                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6">
+                                    <label for="text-input" class="col-2 col-form-label">Notes:</label>
+                                    <textarea class="form-control" name="text-input" rows="3"></textarea>
+                                </div>
                             </div>
                             <hr>
-                            <div class="form-group">
-                                <label for="text-input" class="col-2 col-form-label">Notes:</label>
-                                <textarea class="form-control" name="text-input" rows="3"></textarea>
-                            </div>
 
-                            <br>
-                            <b>insert signature field for Authorized Sig and date</b>
-                            <br>
-                            <b>insert signature filed for Reviewed By and date</b>
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="authorizedSignature">Authorized Signature</label>
+                                    <input type="hidden" name="authorizedSignature" id="authorizedSignature"/>
+                                    <div id="signature-pad-advancedDirective" class="m-signature-pad">
+                                        <div class="m-signature-pad--body">
+                                            <canvas></canvas>
+                                        </div>
+                                        <div class="m-signature-pad--footer">
+                                            <button type="button" class="clear btn btn-small btn-primary" data-action="clear">Clear</button>
+                                            <button type="button" class="save btn btn-small btn-primary pull-right" data-action="save">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    {{> custInputFld type="text" id="advancedDirectiveName" label="Print name" placeholder="John Doe"}}
+
+                                    {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="reviewedBySignature">Reviewed By</label>
+                                    <input type="hidden" name="reviewedBySignature" id="reviewedBySignature"/>
+                                    <div id="signature-pad-reviewedBySignature" class="m-signature-pad">
+                                        <div class="m-signature-pad--body">
+                                            <canvas></canvas>
+                                        </div>
+                                        <div class="m-signature-pad--footer">
+                                            <button type="button" class="clear btn btn-small btn-primary" data-action="clear">Clear</button>
+                                            <button type="button" class="save btn btn-small btn-primary pull-right" data-action="save">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    {{> custInputFld type="text" id="reviewedByName" label="Print name" placeholder="John Doe"}}
+
+                                    {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -965,6 +1002,7 @@
 <!--http://stackoverflow.com/questions/25300017/how-to-ensure-the-javascript-is-at-the-bottom-of-the-code-in-express-handlebars-->
 <!--http://stackoverflow.com/questions/34628978/register-custom-helper-express-and-hbs-->
 {{#section 'script'}}
+    <script src="/libs/signature_pad.js"></script>
     <script src="/javascripts/annualWellnessForm.js"></script>
 {{/section}}
 {{#section 'style'}}

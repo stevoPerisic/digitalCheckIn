@@ -482,67 +482,73 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingFive">
                         <div class="panel-body">
-                            <div>
-                                <p>I understand that:</p>
-                                <ul>
-                                    <li>Once "<u>this facility</u>" discloses my health information by my request, it
-                                        can not guarantee that Recipient will not re-disclose my health information to a
-                                        third party. The third party may not be required to abide by the Authorization
-                                        or applicable federal and state laws governing the use and disclosure of my
-                                        health information.
-                                    </li>
-                                    <li>I may make a request in writing at any time to inspect and/or obtain a copy of
-                                        my health information maintained at this facility as provided in the Federal
-                                        Privacy Rule 45 CFR (164.524).
-                                    </li>
-                                    <li>My records are protected and cannot be disclosed without written permission.
-                                    </li>
-                                    <li>This Authorization will remain in effect for one year or until I provide a
-                                        written notice of revocation to the Medical Record Department.
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="form-group">
-                                <!--<label for="signature">Signature</label>-->
-                                <!--<input type="text" class="form-control" id="signature" name="signature"-->
-                                       <!--aria-describedby="signature" placeholder="SIGNATURE">-->
-                                <div id="signature-pad" class="m-signature-pad">
-                                    <div class="m-signature-pad--body">
-                                        <canvas></canvas>
-                                    </div>
-                                    <div class="m-signature-pad--footer">
-                                        <div class="description">Sign above</div>
-                                        <button type="button" class="button clear" data-action="clear">Clear</button>
-                                        <button type="button" class="button save" data-action="save">Save</button>
-                                    </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p>I understand that:</p>
+                                    <ul>
+                                        <li>Once "<u>this facility</u>" discloses my health information by my request, it
+                                            can not guarantee that Recipient will not re-disclose my health information to a
+                                            third party. The third party may not be required to abide by the Authorization
+                                            or applicable federal and state laws governing the use and disclosure of my
+                                            health information.
+                                        </li>
+                                        <li>I may make a request in writing at any time to inspect and/or obtain a copy of
+                                            my health information maintained at this facility as provided in the Federal
+                                            Privacy Rule 45 CFR (164.524).
+                                        </li>
+                                        <li>My records are protected and cannot be disclosed without written permission.
+                                        </li>
+                                        <li>This Authorization will remain in effect for one year or until I provide a
+                                            written notice of revocation to the Medical Record Department.
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="signature">Sign below using finger or e-pen</label>
+                                    <input type="hidden" name="signature" id="signature"/>
+                                    <div id="signature-pad" class="m-signature-pad">
+                                        <div class="m-signature-pad--body">
+                                            <canvas></canvas>
+                                        </div>
+                                        <div class="m-signature-pad--footer">
+                                            <button type="button" class="clear btn btn-small btn-primary" data-action="clear">Clear</button>
+                                            <button type="button" class="save btn btn-small btn-primary pull-right" data-action="save">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    {{> custInputFld type="text" id="printName" label="Print name" placeholder="John Doe"}}
 
-                            <div class="form-group">
-                                <label for="date">Date</label>
-                                <input type="datetime" class="form-control" id="date" name="date"
-                                       aria-describedby="date" placeholder="DATE">
+                                    {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
+
+                                    {{> custInputFld type="text" id="consentRelationship"
+                                            label="If signed by legal representative - Relationship to patient"
+                                            placeholder="Relationship to patient"}}
+                                </div>
                             </div>
+                            <hr>
 
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                       aria-describedby="email" placeholder="username@email.com">
-                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="signatureWitness">Signature of Witness (Optional)</label>
+                                    <input type="hidden" name="signatureWitness" id="signatureWitness"/>
+                                    <div id="signature-pad-witness" class="m-signature-pad">
+                                        <div class="m-signature-pad--body">
+                                            <canvas></canvas>
+                                        </div>
+                                        <div class="m-signature-pad--footer">
+                                            <button type="button" class="clear btn btn-small btn-primary" data-action="clear">Clear</button>
+                                            <button type="button" class="save btn btn-small btn-primary pull-right" data-action="save">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    {{> custInputFld type="text" id="printNameWitness" label="Print name" placeholder="John Doe"}}
 
-                            <div class="form-group">
-                                <label for="consentRelationship">If signed by legal representative &mdash; Relationship
-                                    to patient</label>
-                                <input type="text" class="form-control" id="consentRelationship"
-                                       name="consentRelationship"
-                                       aria-describedby="consentRelationship" placeholder="Relationship to patient">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="witnessSignature">Signature of Witness (Optional)</label>
-                                <input type="text" class="form-control" id="witnessSignature"
-                                       name="witnessSignature"
-                                       aria-describedby="witnessSignature" placeholder="Signature of Witness">
+                                    {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
+                                </div>
                             </div>
                         </div>
                     </div>
