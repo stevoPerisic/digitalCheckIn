@@ -11,11 +11,7 @@
                     <th>Last Name</th>
                     <th>Appt. Time</th>
                     <th>Appt.Type</th>
-                    <!-- We can show provider name in the appointment-->
-                    <!--<th>Dept. ID</th>-->
-                    <!--<th>Primary Provider</th>-->
-                    <!--<th>Provider</th>-->
-                    <!--<th>Rendering Provider</th>-->
+                    <th>Provider</th>
                     <th>&nbsp;</th>
                 </tr>
                 </thead>
@@ -26,11 +22,7 @@
                         <td>{{this.patient.lastname}}</td>
                         <td>{{this.starttime}}</td>
                         <td>{{this.appointmenttype}}</td>
-                        <!-- We can show provider name in the appointment-->
-                        <!--<td>{{this.departmentid}}</td>-->
-                        <!--<td>{{this.patient.primaryproviderid}}</td>-->
-                        <!--<td>{{this.providerid}}</td>-->
-                        <!--<td>{{this.renderingproviderid}}</td>-->
+                        <td>{{{providerName ../this.providers}}}</td>
                         <td>
                             <a href="#" class="btn btn-small btn-primary start-check-in"
                            data-apptid="{{this.appointmentid}}" data-patientid="{{this.patient.patientid}}">Start Check-in</a>

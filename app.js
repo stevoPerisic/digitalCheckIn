@@ -33,6 +33,14 @@ hbs.registerHelper('parseJSON', function (data, options) {
 hbs.registerHelper('isInsurancePolicyHolder', function (data, options) {
     return (data === 1) ? options.fn(this) : options.inverse(this);
 });
+hbs.registerHelper('providerName', function (providers, options) {
+    var appointment = this;
+    var name = providers.find(function(provider){
+        // one id was a string and the other was an integer - WTF!
+        return (parseInt(provider.providerid, 10) === parseInt(appointment.providerid, 10)) ? provider : false;
+    });
+    return name.displayname;
+});
 // Handlebars partials for views
 // Thanks to https://gist.github.com/benw/3824204 !!!
 var fs = require('fs');
