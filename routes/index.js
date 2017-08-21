@@ -1,7 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var athenaHealthAPI = require('../bin/athenahealthapi');
-var AHAPI = new athenaHealthAPI.Connection('preview1', process.env.ATHENA_KEY, process.env.ATHENA_SECRET, 195900);
+var AHAPI = new athenaHealthAPI.Connection('preview1',
+    process.env.ATHENA_KEY,
+    process.env.ATHENA_SECRET,
+    process.env.NRIM_PRACTICE_ID
+);
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -14,8 +18,8 @@ router.get('/', function (req, res, next) {
 
     var params = {
         appointmentstatus: 'f',
-        departmentid: 1,
-        enddate: '08/02/2017',// enddate,
+        departmentid: 2,
+        enddate: '08/21/2017',// enddate,
         ignorerestrictions: 'false',
         showcancelled: 'false',
         showclaimdetail: 'false',
@@ -24,7 +28,7 @@ router.get('/', function (req, res, next) {
         showinsurance: 'true',
         showpatientdetail: 'true',
         showremindercalldetail: 'false',
-        startdate: '07/30/2017'//enddate
+        startdate: '06/30/2017'//enddate
     };
 
     var appointments = AHAPI.GET('/appointments/booked', {params: params});

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "browserify ./public/javascripts/patientRegistrationForm.js -o ./public/javascripts/patientRegistrationForm.js",
-    "start": "npm run build && nodemon ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
