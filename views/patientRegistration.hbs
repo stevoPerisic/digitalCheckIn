@@ -162,6 +162,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{> custInputFld type="text" id="employerzip" label="ZIP Code" placeholder="30675"}}
                                 </div>
                             </div>
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -252,6 +253,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                            name="insuredemplyername"
                                            aria-describedby="insuredemplyername" placeholder="Employer name"></div>
                             </div>
+
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -296,23 +299,12 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                         {{> patientDataFilled label="Street address" text=primaryIns.address show=true}}
                                     {{/if}}
                                     {{> custInputFld type="text" id="insuranceStreetAddress" label="Street address" placeholder="3000 Insurance Pkwy Ste.302"}}
-
-                                    <!--<label for="insuranceStreetAddress">Street address</label>-->
-                                    <!--<input type="text" class="form-control" id="insuranceStreetAddress"-->
-                                           <!--name="insuranceStreetAddress"-->
-                                           <!--aria-describedby="insuranceStreetAddress"-->
-                                           <!--placeholder="3000 Insurance Pkwy Ste.302">-->
                                 </div>
                                 <div class="col-sm-3">
                                     {{#if primaryIns.city}}
                                         {{> patientDataFilled label="City" text=primaryIns.city show=true}}
                                     {{/if}}
                                     {{> custInputFld type="text" id="insuranceCity" label="City" placeholder="Atlanta"}}
-
-                                    <!--<label for="insuranceCity">City</label>-->
-                                    <!--<input type="text" class="form-control" id="insuranceCity" name="insuranceCity"-->
-                                           <!--aria-describedby="insuranceCity"-->
-                                           <!--placeholder="Atlanta">-->
                                 </div>
                                 <div class="col-sm-3">
                                     {{#if primaryIns.zip}}
@@ -320,10 +312,6 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{/if}}
                                     {{> custInputFld type="text" id="insuranceCity" label="ZIP Code" placeholder="30675"}}
 
-                                    <!--<label for="insuranceZipCode">ZIP Code</label>-->
-                                    <!--<input type="text" class="form-control" id="insuranceZipCode"-->
-                                           <!--name="insuranceZipCode"-->
-                                           <!--aria-describedby="insuranceZipCode" placeholder="30675">-->
                                 </div>
                             </div>
 
@@ -333,10 +321,6 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                         {{> patientDataFilled label="Phone number" text=primaryIns.phone show=true}}
                                     {{/if}}
                                     {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
-
-                                    <!--<label for="insurancePhone">P.I. Phone number</label>-->
-                                    <!--<input type="tel" class="form-control" id="insurancePhone" name="insurancePhone"-->
-                                           <!--aria-describedby="insurancePhone" placeholder="(***) *** - ****">-->
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="employerName">Employer</label>
@@ -420,6 +404,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                            aria-describedby="secondaryEmployerTel" placeholder="(***) *** - ****">
                                 </div>
                             </div>
+
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -467,6 +453,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                            aria-describedby="emergencyContactTel" placeholder="(***) *** - ****">
                                 </div>
                             </div>
+
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
