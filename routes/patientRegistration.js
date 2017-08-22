@@ -48,13 +48,6 @@ router.get('/:apptid/:patientid',
         patient.on('done', function (data) {
             req.patient = data[0];
             next();
-            // res.send(data);
-            // res.render('patientRegistration', {
-            //     patient: data[0],
-            //     aptInsurances:
-            //     maritalStatusSelect: formsConfig.maritalStatusSelect,
-            //     insuredRelationship: formsConfig.insuredRelationship
-            // });
         });
     },
     // get top insurance packages
@@ -75,21 +68,29 @@ router.get('/:apptid/:patientid',
             next();
         });
     },
+    // get patient insurances
     function (req, res, next) {
+
+        // console.log(req.app.locals.providers);
+
         // https://api.athenahealth.com/preview1/195900/patients/1/insurances
         // https://api.athenahealth.com/preview1/195900/insurancepackages
         var patientInsurances = AHAPI.GET('/patients/' + req.params.patientid + '/insurances', {});
         patientInsurances.on('done', function (data) {
             // console.log(data.insurances);
+
+            // req.primaryInsID = data.insurances[0].insuranceid;
+
+            // next();
+
             // console.log(req.topInsurancePckgs);
 
-            var packageId = '0';
-            if (Array.isArray(data.insurances) && data.insurances.length > 0) {
-                packageId = (typeof(data.insurances[0].insurancepackageid) === 'string') ?
-                    data.insurances[0].insurancepackageid :
-                    data.insurances[0].insurancepackageid.toString();
-            }
-
+            // var packageId = '0';
+            // if (Array.isArray(data.insurances) && data.insurances.length > 0) {
+            //     packageId = (typeof(data.insurances[0].insurancepackageid) === 'string') ?
+            //         data.insurances[0].insurancepackageid :
+            //         data.insurances[0].insurancepackageid.toString();
+            // }
 
             res.render('patientRegistration', {
                 patient: req.patient,
@@ -98,22 +99,36 @@ router.get('/:apptid/:patientid',
                 insuredRelationship: formsConfig.insuredRelationship,
                 primaryIns: req.topInsurancePckgs.find(function (ins) {
                     if (data.insurances[0]) {
-                        return (ins.insurancepackageid === packageId) ? ins : false;
+                        return (ins.insurancepackageid === data.insurances[0].insurancepackageid.toString()) ? ins : false;
                     } else {
                         return false;
                     }
                 }),
                 secondaryIns: req.topInsurancePckgs.find(function (ins) {
                     if (data.insurances[1]) {
-                        return (ins.insurancepackageid === packageId) ? ins : false;
+                        return (ins.insurancepackageid === data.insurances[1].insurancepackageid.toString()) ? ins : false;
                     } else {
                         return false;
                     }
                 }),
-                // "primaryproviderid": "103",
+                primaryProvider: req.app.locals.providers.find(function (provider) {
+                    if (parseInt(provider.providerid, 10) === parseInt(req.patient.primaryproviderid, 10)) {
+                        return provider;
+                    } else {
+                        return false;
+                    }
+                })
             });
         });
     }
+    // ,
+    // get insurance card images
+    // function (req, res, next) {
+    //     var insuranceCard = AHAPI.GET('/patients/'+req.params.patientid+'/insurances/'+req.primaryInsID+'/image', {});
+    //     insuranceCard.on('done', function(data){
+    //         res.send(data);
+    //     })
+    // }
 );
 
 module.exports = router;
