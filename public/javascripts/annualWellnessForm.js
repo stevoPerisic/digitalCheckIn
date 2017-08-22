@@ -43,6 +43,10 @@
         bindEvents: function () {
             var me = app.annualWellnessForm;
 
+            $('.custChkBx.chkBx').on('click', function (e) {
+                $(e.currentTarget).toggleClass('checked');
+            });
+
             // custom choice inputs via https://bootsnipp.com/snippets/NBN6x
             $('.radioBtn').find('span').on('click', function () {
                 var sel = $(this).data('value');
