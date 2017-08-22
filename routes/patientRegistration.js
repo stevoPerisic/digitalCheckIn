@@ -70,6 +70,9 @@ router.get('/:apptid/:patientid',
     },
     // get patient insurances
     function (req, res, next) {
+
+        // console.log(req.app.locals.providers);
+
         // https://api.athenahealth.com/preview1/195900/patients/1/insurances
         // https://api.athenahealth.com/preview1/195900/insurancepackages
         var patientInsurances = AHAPI.GET('/patients/' + req.params.patientid + '/insurances', {});
@@ -108,7 +111,13 @@ router.get('/:apptid/:patientid',
                         return false;
                     }
                 }),
-                // "primaryproviderid": "103",
+                primaryProvider: req.app.locals.providers.find(function (provider) {
+                    if (parseInt(provider.providerid, 10) === parseInt(req.patient.primaryproviderid, 10)) {
+                        return provider;
+                    } else {
+                        return false;
+                    }
+                })
             });
         });
     }

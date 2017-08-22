@@ -12,9 +12,9 @@ router.get('/',
     function (req, res, next) {
         // get appointments
         var today = new Date();
-        console.log('Day ' + today.getDate());
-        console.log('Month ' + today.getMonth()+1); // since months start at 0
-        console.log('Year ' + today.getFullYear());
+        // console.log('Day ' + today.getDate());
+        // console.log('Month ' + today.getMonth()+1); // since months start at 0
+        // console.log('Year ' + today.getFullYear());
 
         var enddate = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
 
@@ -41,11 +41,26 @@ router.get('/',
             req.enddate = enddate;
             next();
         });
-    }, function (req, res, next) {
+    },
+    // load the available employers from the system
+    // function (req, res, next) {
+    //     var employers = AHAPI.GET('/employers', {});
+    //     employers.on('done', function(data) {
+    //         // console.log(data);
+    //         req.app.locals.employers = data.employers;
+    //         next();
+    //     });
+    // },
+    function (req, res, next) {
         // get providers so that we can display the name in the appts table
+        // THIS SHOULD BE LOADED INITIALLY BEFORE THE HOME SCREEN OPENS
+
+        console.log(req.app.locals.preloadedStuff);
+
         var providers = AHAPI.GET('/providers', {});
         providers.on('done', function (data) {
-            // res.send(data);
+            // save providers to local cache so we can query easier later
+            req.app.locals.providers = data.providers;
             res.render('index', {appts: req.appts, today: req.enddate, providers: data.providers});
         });
     }
