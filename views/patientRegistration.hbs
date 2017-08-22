@@ -108,6 +108,15 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{/if}}
                                     {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****"}}
                                 </div>
+                                <div class="col-sm-6">
+                                    {{#if this.patient.email}}
+                                        {{> patientDataFilled label="Email" text=this.patient.email show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="email" id="email" label="Email" placeholder="username@email.com"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
                                 <div class="col-md-3 col-sm-6">
                                     {{> custToggle id="sex" label="Sex" dataSelected=this.patient.sex dataVal1="M" choice1="Male" dataVal2="F" choice2="Female"}}
                                 </div>
