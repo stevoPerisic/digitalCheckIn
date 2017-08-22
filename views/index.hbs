@@ -10,6 +10,8 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Appt. Time</th>
+                    <th>Appt.Type</th>
+                    <th>Provider</th>
                     <th>&nbsp;</th>
                 </tr>
                 </thead>
@@ -19,6 +21,8 @@
                         <td>{{this.patient.firstname}}</td>
                         <td>{{this.patient.lastname}}</td>
                         <td>{{this.starttime}}</td>
+                        <td>{{this.appointmenttype}}</td>
+                        <td>{{{providerName ../this.providers}}}</td>
                         <td>
                             <a href="#" class="btn btn-small btn-primary start-check-in"
                            data-apptid="{{this.appointmentid}}" data-patientid="{{this.patient.patientid}}">Start Check-in</a>

@@ -5,8 +5,13 @@
  */
 var express = require('express');
 var router = express.Router();
+var app = require('../app');
 var athenaHealthAPI = require('../bin/athenahealthapi');
-var AHAPI = new athenaHealthAPI.Connection('preview1', process.env.ATHENA_KEY, process.env.ATHENA_SECRET, 195900);
+var AHAPI = new athenaHealthAPI.Connection('preview1',
+    process.env.ATHENA_KEY,
+    process.env.ATHENA_SECRET,
+    process.env.NRIM_PRACTICE_ID
+);
 var formsConfig = require('../bin/formsConfig');
 
 /* GET home page. */
@@ -20,7 +25,7 @@ router.get('/', function (req, res, next) {
 });
 
 /*
- DOCS regsrding the dempgraphics for a patient
+ DOCS regarding the demographics for a patient
  https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-6
 
  Patient relationship mapping:
@@ -30,6 +35,14 @@ router.get('/', function (req, res, next) {
 router.get('/:apptid/:patientid',
     // Get the patient first
     function (req, res, next) {
+        /*
+         * here we will set the appointment and the patient on all of the routes
+         * perhaps we could do this via cookie? or session var?
+         * for now we will set it as a local var for the express app
+         */
+        req.app.locals.mainMenu.apptid = req.params.apptid;
+        req.app.locals.mainMenu.patientid = req.params.patientid;
+
         var patient = AHAPI.GET('/patients/' + req.params.patientid, {params: {showinsurance: true}});
 
         patient.on('done', function (data) {
@@ -96,7 +109,8 @@ router.get('/:apptid/:patientid',
                     } else {
                         return false;
                     }
-                })
+                }),
+                // "primaryproviderid": "103",
             });
         });
     }

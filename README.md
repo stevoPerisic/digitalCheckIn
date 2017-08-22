@@ -13,3 +13,25 @@ https://www.google.com/search?q=implementing+SAML+with+node.js&oq=implementing+S
 
 TO REGISTER THE APP WITH ATHENA GO HERE:
 https://www.athenahealth.com/more-disruption-please/partner.
+
+----
+Athena docs links of interest:
+https://developer.athenahealth.com/docs/read/workflows/documents/Document_Classification_Guide
+https://developer.athenahealth.com/docs/read/workflows/Screening_Questionnaires
+https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
+
+----
+Verify Privacy Information
+https://developer.athenahealth.com/docs/read/forms_and_documents/Verify_Privacy_Information
+
+----
+E-Signature requirements:
+https://developer.athenahealth.com/docs/read/workflows/patients/ESignature_Information
+
+Use this plugin for capturing digital signature:
+https://github.com/szimek/signature_pad
+
+----
+
+NRIM PREVIEW site (#3619)
+

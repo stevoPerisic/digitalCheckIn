@@ -7,7 +7,11 @@
 var express = require('express');
 var router = express.Router();
 var athenaHealthAPI = require('../bin/athenahealthapi');
-var AHAPI = new athenaHealthAPI.Connection('preview1', process.env.ATHENA_KEY, process.env.ATHENA_SECRET, 195900);
+var AHAPI = new athenaHealthAPI.Connection('preview1',
+    process.env.ATHENA_KEY,
+    process.env.ATHENA_SECRET,
+    process.env.NRIM_PRACTICE_ID
+);
 var formsConfig = require('../bin/formsConfig');
 
 /* GET home page. */

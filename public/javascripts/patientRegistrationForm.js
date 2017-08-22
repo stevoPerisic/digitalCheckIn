@@ -4,11 +4,16 @@
  * FE JS for the patient registration
  */
 
+
 (function ($, window) {
     var app = window.app;
 
     app.patientRegistrationForm = {
+        sigPad: $('#signature-pad canvas')[0],
+        sigPadWitness: $('#signature-pad-witness canvas')[0],
         bindEvents: function () {
+            var me = app.patientRegistrationForm;
+
             // custom choice inputs via https://bootsnipp.com/snippets/NBN6x
             $('.radioBtn').find('span').on('click', function () {
                 var sel = $(this).data('value');
@@ -25,6 +30,36 @@
 
                 $(this).parents('.patientDataFilled').next().show();
                 $(this).parents('.patientDataFilled').hide();
+            });
+
+            $('#signature-pad [data-action=clear]').on('click', function (event) {
+                me.signaturePad.clear();
+            });
+
+            $('#signature-pad [data-action=save]').on('click', function (event) {
+                if (me.signaturePad.isEmpty()) {
+                    alert("Please provide signature first.");
+                } else {
+                    window.open(me.signaturePad.toDataURL());
+                }
+            });
+
+            $('#signature-pad-witness [data-action=clear]').on('click', function (event) {
+                me.signaturePadWitness.clear();
+            });
+
+            $('#signature-pad-witness [data-action=save]').on('click', function (event) {
+                if (me.signaturePadWitness.isEmpty()) {
+                    alert("Please provide signature first.");
+                } else {
+                    window.open(me.signaturePadWitness.toDataURL());
+                }
+            });
+
+            $('#collapseFive').on('shown.bs.collapse', function (e) {
+                app.utilities.resizeCanvas();
+                me.signaturePad = new SignaturePad(me.sigPad);
+                me.signaturePadWitness = new SignaturePad(me.sigPadWitness);
             });
         },
         formSetUp: function () {
@@ -58,6 +93,8 @@
 
             me.formSetUp();
             me.bindEvents();
+
+            window.onresize = app.utilities.resizeCanvas;
 
             $('.loaderOverlay').hide();
         }

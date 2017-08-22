@@ -5,7 +5,11 @@
  */
 var express = require('express');
 var athenaHealthAPI = require('../bin/athenahealthapi');
-var AHAPI = new athenaHealthAPI.Connection('preview1', process.env.ATHENA_KEY, process.env.ATHENA_SECRET, 195900);
+var AHAPI = new athenaHealthAPI.Connection('preview1',
+    process.env.ATHENA_KEY,
+    process.env.ATHENA_SECRET,
+    process.env.NRIM_PRACTICE_ID
+);
 var router = express.Router();
 
 router.get('/:id/startcheckin', function(req, res, next){
