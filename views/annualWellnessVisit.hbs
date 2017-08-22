@@ -92,6 +92,8 @@
                                     </div>
                                 </fieldset>
                             </div>
+
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -111,6 +113,8 @@
                             <p>List any current medical problems or conditions</p>
                             {{> custListInput inputId="condition" listClass="conditionList" label="Condition"
                                     placeholder="Condition" btnLabel="Add"}}
+
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -169,7 +173,7 @@
                                 </div>
                             </div>
 
-
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -191,6 +195,8 @@
                                               {"inputId": "reactions", "type": "text", "label": "Reaction", "placeholder":"Reaction"}]'}}
                                 {{> custListInput listClass="reasonList" btnLabel="Add" fields=this}}
                             {{/parseJSON}}
+
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -214,6 +220,8 @@
                                               {"inputId": "medPrescribedBy", "type": "text", "label": "Prescribed by", "placeholder":"Prescribed by"}]'}}
                                 {{> custListInput listClass="reasonList" btnLabel="Add" fields=this}}
                             {{/parseJSON}}
+
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -244,8 +252,6 @@
                                             dataVal1="Yes" choice1="YES" dataVal2="No" choice2="NO"}}
                                 </div>
                             </div>
-
-
 
                             <fieldset class="form-group">
                                 <legend>Diet:</legend>
@@ -342,6 +348,8 @@
                                     {{> custInputFld type="text" id="howMuchTobacco" label="If yes, how much?" placeholder=""}}
                                 </div>
                             </div>
+
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -436,6 +444,7 @@
                                 <div class="col-sm-3">
                                 </div>
                             </div>
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -563,6 +572,8 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -584,7 +595,6 @@
                                     <p>Please record the last year you had the following. If you do not know, leave blank.</p>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-3">
                                     {{> custInputFld id="hepBYear" type="text" label="HepB (shot)" srOnly=false placeholder="yyyy"}}
@@ -667,6 +677,7 @@
                                 </div>
                                 <div class="col-sm-3"></div>
                             </div>
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -807,6 +818,7 @@
                                             dataVal3="SOMETIMES" choice3="SOMETIMES"}}
                                 </div>
                             </div>
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -850,6 +862,7 @@
                                     {{/parseJSON}}
                                 </div>
                             </div>
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -915,6 +928,7 @@
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-3"></div>
                             </div>
+                            {{> accBtnNext text="Next"}}
                         </div>
                     </div>
                 </div>
@@ -944,7 +958,6 @@
                                 </div>
                             </div>
                             <hr>
-
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="authorizedSignature">Authorized Signature</label>
@@ -966,7 +979,6 @@
                                 </div>
                             </div>
                             <hr>
-
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="reviewedBySignature">Reviewed By</label>
@@ -993,7 +1005,7 @@
             </div>
 
             <hr>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary btn-lg submit">Submit</button>
         </form>
     </div>
 </div>
