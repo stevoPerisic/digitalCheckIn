@@ -84,6 +84,13 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                                 {{> custChkBx text="Wheat"}}
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <p>Is your allergy not listed? Enter it below:</p>
+                                                {{> custListInput inputId="customAllergies" listClass="customAllergiesList"
+                                                        label="Allergy name" placeholder="Allergy description" btnLabel="Add"}}
+                                            </div>
+                                        </div>
                                     </fieldset>
                                 </div>
                             </div>

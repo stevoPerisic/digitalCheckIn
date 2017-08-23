@@ -57,6 +57,7 @@
             var me = app.patientMedicalHistoryForm;
 
             me.bindEvents();
+            app.utilities.createCustListInputs();
             me.formSetUp();
 
             $('.loaderOverlay').hide();
