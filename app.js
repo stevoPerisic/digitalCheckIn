@@ -6,41 +6,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var hbs = require('./bin/hbsHelpers');
 
-// Load custon scripts - template specific
-// http://stackoverflow.com/questions/25300017/how-to-ensure-the-javascript-is-at-the-bottom-of-the-code-in-express-handlebars
-// http://stackoverflow.com/questions/34628978/register-custom-helper-express-and-hbs
-var hbs = require('hbs');
-hbs.registerHelper('section', function (name, options) {
-    if (!this._sections) {
-        this._sections = {};
-    }
-    this._sections[name] = options.fn(this);
-    return null;
-});
-hbs.registerHelper('parseJSON', function (data, options) {
-    // make an array out of the data string
-    if (typeof(data) === 'string') {
-        data = JSON.parse(data);
-    }
-
-    // for the special marital status selects we will add the patient object to the data array
-    if (typeof(this.patient) === 'object') {
-        data.patient = this.patient;
-    }
-    return options.fn(data);
-});
-hbs.registerHelper('isInsurancePolicyHolder', function (data, options) {
-    return (data === 1) ? options.fn(this) : options.inverse(this);
-});
-hbs.registerHelper('providerName', function (providers, options) {
-    var appointment = this;
-    var name = providers.find(function(provider){
-        // one id was a string and the other was an integer - WTF!
-        return (parseInt(provider.providerid, 10) === parseInt(appointment.providerid, 10)) ? provider : false;
-    });
-    return name.displayname;
-});
 // Handlebars partials for views
 // Thanks to https://gist.github.com/benw/3824204 !!!
 var fs = require('fs');
@@ -71,7 +38,7 @@ var app = express();
 hbs.localsAsTemplateData(app);
 app.locals.mainMenu = {
     patientRegistration: (function () {
-        return (this.patientid) ? '/patientRegistration/' + this.apptid + '/' + this.patientid :'/patientRegistration/' ;
+        return (this.patientid) ? '/patientRegistration/' + this.apptid + '/' + this.patientid : '/patientRegistration/';
     })(),
     patientMedicalHistory: '/patientMedicalHistory',
     annualWellnessVisit: '/annualWellnessVisit',

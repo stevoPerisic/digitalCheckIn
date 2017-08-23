@@ -19,27 +19,28 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingOne">
                         <div class="panel-body">
+                            <!--Personal info-->
                             <div class="form-group row">
-                                <div class="col-md-3 col-sm-4">
+                                <div class="col-sm-4">
                                     {{#if this.patient.lastname}}
                                         {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
                                     {{/if}}
                                     {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
                                 </div>
-                                <div class="col-md-3 col-sm-4">
+                                <div class="col-sm-4">
                                     {{#if this.patient.middlename}}
                                         {{> patientDataFilled label="Middle initial" text=this.patient.lastname show=true}}
                                     {{/if}}
                                     {{> custInputFld type="text" id="middlename" label="Middle initial" placeholder="Middle initial"}}
                                 </div>
-                                <div class="col-md-3 col-sm-4">
+                                <div class="col-sm-4">
                                     {{#if this.patient.firstname}}
                                         {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
                                     {{/if}}
                                     {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
                                 </div>
-                                <div class="col-md-3 hidden-sm"></div>
                             </div>
+                            <!--Pharmacy-->
                             <div class="form-group row">
                                 <div class="col-lg-12">
                                     {{#if this.patient.defaultpharmacyncpdpid}}
@@ -48,6 +49,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                     {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Preferred Pharmacy"}}
                                 </div>
                             </div>
+                            <!--Allergies-->
                             <div class="form-group row">
                                 <div class="col-lg-12">
                                     <fieldset class="form-group">
@@ -61,7 +63,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                                 {{> custChkBx text="Anesthesia"}}
                                             </div>
                                             <div class="col-md-3 col-sm-6">
-                                                {{> custChkBx text="Aspirin"}}
+                                                {{> custChkBx text="Aspirin" allergies=allergies}}
 
                                                 {{> custChkBx text="Codeine"}}
 
@@ -109,6 +111,18 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                             Please indicate if any of your immediate relatives have had any of the
                                             following by selecting the appropriate check-box.
                                         </legend>
+                                        <ul>
+                                            {{#each familyHistory}}
+                                                <li>
+                                                    {{relation}}
+                                                    <ul>
+                                                        {{#each this.problems}}
+                                                        <li>{{description}}</li>
+                                                        {{/each}}
+                                                    </ul>
+                                                </li>
+                                            {{/each}}
+                                        </ul>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>

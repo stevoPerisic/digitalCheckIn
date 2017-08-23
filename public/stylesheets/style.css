@@ -52,10 +52,13 @@ body {
     margin-bottom: 16px;
 }
 
-.patientDataFilled strong {
-    display: block;
-    margin-top: 10px;
+.table-responsive {
+    border-bottom: 2px solid #f2f2f2;
 }
+
+/**************************/
+/*Form display mods*/
+/**************************/
 
 .patientDataFilled p {
     margin: 0 0 5px 0;
@@ -76,8 +79,11 @@ body {
     right: 2px;
 }
 
-.table-responsive {
-    border-bottom: 2px solid #f2f2f2;
+@media screen and (max-width: 1024px) {
+    .patientDataFilled strong {
+        display: block;
+        margin-top: 10px;
+    }
 }
 
 /**************************/
@@ -124,7 +130,6 @@ body {
 .custChkBx.chkBx.checked .custChkBx.glyphicon {
     display: block;
 }
-
 
 @media screen and (max-width: 1024px) {
     .custChkBx.form-check-label {
