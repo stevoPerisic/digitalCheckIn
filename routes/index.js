@@ -55,7 +55,7 @@ router.get('/',
         // get providers so that we can display the name in the appts table
         // THIS SHOULD BE LOADED INITIALLY BEFORE THE HOME SCREEN OPENS
 
-        console.log(req.app.locals.preloadedStuff);
+        // console.log(req.app.locals.preloadedStuff);
 
         var providers = AHAPI.GET('/providers', {});
         providers.on('done', function (data) {

@@ -40,6 +40,36 @@
                     sigPad.getContext("2d").scale(ratio, ratio);
                 });
             },
+            /*
+             * creates the functionality for the custom inputs component
+             * user can enter data into th efileds and t=it will be listed out above the component on
+             * the click of the "Add" button
+             * this is used to generate lists of medication, medical procedures and such
+             * */
+            createCustListInputs: function () {
+                // get all the custom list inputs
+                var componentsArr = $('.custListInput');
+                var populateList = function (evt) {
+                    evt.preventDefault();
+
+                    var $list = $(this).parent().prev();
+                    var inputs = $(this).siblings('input');
+                    var values = '';
+
+                    inputs.each(function (i, el) {
+                        values = values + $(el).val() + ' ';
+                        $(el).val('');
+                    });
+
+                    $list.append('<li>' + values + '</li>');
+                };
+
+                // iterate over the array and process
+                componentsArr.each(function (i, component) {
+                    // assign the click event to the buttons
+                    $(component).find('.addToList').on('click', populateList);
+                });
+            },
         }
     };
 

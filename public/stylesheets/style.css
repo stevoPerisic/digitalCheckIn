@@ -40,22 +40,50 @@ body {
     display: block;
     padding: 20px 15px;
     font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.panel-title a:hover {
+    text-decoration: none;
 }
 
 .panel-body .row {
     margin-bottom: 16px;
 }
 
+.table-responsive {
+    border-bottom: 2px solid #f2f2f2;
+}
+
+/**************************/
+/*Form display mods*/
+/**************************/
+
 .patientDataFilled p {
     margin: 0 0 5px 0;
-    padding: 5px;
+    padding: 5px 50px 5px 10px;
     background: #fafafa;
     font-size: 24px;
     border-bottom: 1px solid #dadada;
+    display: block;
+    width: 100%;
+    position: relative;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .patientDataFilled .edit, .patientDataFilled i {
-    float: right;
+    position: absolute;
+    right: 2px;
+}
+
+@media screen and (max-width: 1024px) {
+    .patientDataFilled strong {
+        display: block;
+        margin-top: 10px;
+    }
 }
 
 /**************************/
@@ -101,6 +129,13 @@ body {
 
 .custChkBx.chkBx.checked .custChkBx.glyphicon {
     display: block;
+}
+
+@media screen and (max-width: 1024px) {
+    .custChkBx.form-check-label {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
 }
 
 /**************************/

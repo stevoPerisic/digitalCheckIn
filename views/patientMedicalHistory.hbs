@@ -6,7 +6,6 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
     <div class="col-sm-12">
         <h1>Patient Medical History</h1>
         <form>
-
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
@@ -20,27 +19,28 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingOne">
                         <div class="panel-body">
+                            <!--Personal info-->
                             <div class="form-group row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     {{#if this.patient.lastname}}
                                         {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
                                     {{/if}}
                                     {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     {{#if this.patient.middlename}}
                                         {{> patientDataFilled label="Middle initial" text=this.patient.lastname show=true}}
                                     {{/if}}
                                     {{> custInputFld type="text" id="middlename" label="Middle initial" placeholder="Middle initial"}}
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     {{#if this.patient.firstname}}
                                         {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
                                     {{/if}}
                                     {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
                                 </div>
-                                <div class="col-sm-3"></div>
                             </div>
+                            <!--Pharmacy-->
                             <div class="form-group row">
                                 <div class="col-lg-12">
                                     {{#if this.patient.defaultpharmacyncpdpid}}
@@ -49,38 +49,46 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                     {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Preferred Pharmacy"}}
                                 </div>
                             </div>
+                            <!--Allergies-->
                             <div class="form-group row">
                                 <div class="col-lg-12">
                                     <fieldset class="form-group">
                                         <legend>Allergies</legend>
                                         <div class="row">
-                                            <div class="col-sm-3">
+                                            <div class="col-md-3 col-sm-6">
                                                 {{> custChkBx text="NONE / No Known allergies"}}
 
                                                 {{> custChkBx text="Adhesive Tape"}}
 
                                                 {{> custChkBx text="Anesthesia"}}
                                             </div>
-                                            <div class="col-sm-3">
-                                                {{> custChkBx text="Aspirin"}}
+                                            <div class="col-md-3 col-sm-6">
+                                                {{> custChkBx text="Aspirin" allergies=allergies}}
 
                                                 {{> custChkBx text="Codeine"}}
 
                                                 {{> custChkBx text="Dairy Products"}}
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-md-3 col-sm-6">
                                                 {{> custChkBx text="Iodine / Shellfish / Contrast Dye"}}
 
                                                 {{> custChkBx text="Latex"}}
 
                                                 {{> custChkBx text="Morphine"}}
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-md-3 col-sm-6">
                                                 {{> custChkBx text="Penicillin"}}
 
                                                 {{> custChkBx text="Sulfa drugs"}}
 
                                                 {{> custChkBx text="Wheat"}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <p>Is your allergy not listed? Enter it below:</p>
+                                                {{> custListInput inputId="customAllergies" listClass="customAllergiesList"
+                                                        label="Allergy name" placeholder="Allergy description" btnLabel="Add"}}
                                             </div>
                                         </div>
                                     </fieldset>
@@ -108,10 +116,22 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                     <fieldset>
                                         <legend>
                                             Please indicate if any of your immediate relatives have had any of the
-                                            following by placing an X in the appropriate box.
+                                            following by selecting the appropriate check-box.
                                         </legend>
+                                        <ul>
+                                            {{#each familyHistory}}
+                                                <li>
+                                                    {{relation}}
+                                                    <ul>
+                                                        {{#each this.problems}}
+                                                        <li>{{description}}</li>
+                                                        {{/each}}
+                                                    </ul>
+                                                </li>
+                                            {{/each}}
+                                        </ul>
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-responsive">
+                                            <table class="table table-striped">
                                                 <thead>
                                                 <tr>
                                                     <th>Issue</th>
@@ -241,7 +261,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                          aria-labelledby="headingThree">
                         <div class="panel-body">
                             <div class="form-group row">
-                                <div class="col-sm-3">
+                                <div class="col-md-3 col-sm-6">
                                     {{#parseJSON    '[{"value": "Single", "text": "Single"},
                                                     {"value": "Married", "text": "Married"},
                                                     {"value": "Divorced", "text": "Widowed"},
@@ -249,7 +269,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                         {{> custSelect id="maritalStatus" label="Marital status" emptyOption=true options=this }}
                                     {{/parseJSON}}
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-md-3 col-sm-6">
                                     <fieldset>
                                         <div class="form-group">
                                             <label for="occupation">Occupation</label>
@@ -269,7 +289,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                         </div>
                                     </fieldset>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-md-3 col-sm-6">
 
                                     <!--
                                         custom choice inputs via https://bootsnipp.com/snippets/NBN6x
@@ -292,7 +312,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                         {{> custSelect id="alcoholFrequency" label="How often?" emptyOption=true options=this }}
                                     {{/parseJSON}}
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-md-3 col-sm-6">
                                     <!--
                                         custom choice inputs via https://bootsnipp.com/snippets/NBN6x
                                     -->
@@ -428,7 +448,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-3">
+                                    <div class="col-md-3 col-sm-6">
                                         {{> custChkBx text="None of the problems listed"}}
 
                                         {{> custChkBx text="Allergies"}}
@@ -453,7 +473,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
 
                                         {{> custChkBx text="Celiac Disease"}}
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-md-3 col-sm-6">
 
                                         {{> custChkBx text="Chest Pain"}}
 
@@ -479,7 +499,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
 
                                         {{> custChkBx text="Hyperinsulinemia"}}
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-md-3 col-sm-6">
                                         {{> custChkBx text="Hyperlipidemia"}}
 
                                         {{> custChkBx text="Hypertension"}}
@@ -504,7 +524,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
 
                                         {{> custChkBx text="Onychomicosis"}}
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-md-3 col-sm-6">
                                         {{> custChkBx text="Organ Injury"}}
 
                                         {{> custChkBx text="Osteoporosis"}}

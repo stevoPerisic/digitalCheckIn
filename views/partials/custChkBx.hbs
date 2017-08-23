@@ -1,7 +1,11 @@
 <div class="form-check">
     <label class="custChkBx form-check-label row">
-    <span class="col-xs-2 col-sm-4 col-md-3">
-        <span class="custChkBx chkBx">
+    <span class="col-xs-2 col-sm-3 col-md-3">
+        <span class="custChkBx chkBx
+            {{#if allergies}}
+                {{#checkAllergy allergies text=text className="checked"}}checked{{/checkAllergy}}
+            {{/if}}
+            ">
             <i class="custChkBx glyphicon glyphicon-ok"></i>
         </span>
     </span>
