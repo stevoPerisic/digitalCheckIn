@@ -92,6 +92,17 @@ router.get('/:apptid/:patientid',
             //         data.insurances[0].insurancepackageid.toString();
             // }
 
+            var primaryProvider = {};
+            if (req.app.locals.providers) {
+                primaryProvider = req.app.locals.providers.find(function (provider) {
+                    if (parseInt(provider.providerid, 10) === parseInt(req.patient.primaryproviderid, 10)) {
+                        return provider;
+                    } else {
+                        return false;
+                    }
+                })
+            }
+
             res.render('patientRegistration', {
                 patient: req.patient,
                 patientInsurances: data.insurances,
@@ -111,13 +122,7 @@ router.get('/:apptid/:patientid',
                         return false;
                     }
                 }),
-                primaryProvider: req.app.locals.providers.find(function (provider) {
-                    if (parseInt(provider.providerid, 10) === parseInt(req.patient.primaryproviderid, 10)) {
-                        return provider;
-                    } else {
-                        return false;
-                    }
-                })
+                primaryProvider: primaryProvider
             });
         });
     }
