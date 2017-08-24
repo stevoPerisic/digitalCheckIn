@@ -4,13 +4,19 @@
  * FE JS for the patient registration
  */
 
+/*
+* For submitting privacy verification refer to :
+* https://developer.athenahealth.com/docs/read/patientinfo/Verify_Privacy_Information
+*
+* */
+
 
 (function ($, window) {
     var app = window.app;
 
     app.patientRegistrationForm = {
-        sigPad: $('#signature-pad canvas')[0],
-        sigPadWitness: $('#signature-pad-witness canvas')[0],
+        sigPad: $('#signature-pad').find('canvas')[0],
+        sigPadWitness: $('#signature-pad-witness').find('canvas')[0],
         bindEvents: function () {
             var me = app.patientRegistrationForm;
 
@@ -97,6 +103,13 @@
             window.onresize = app.utilities.resizeCanvas;
 
             $('.loaderOverlay').hide();
+
+            $.validate({
+                modules : 'location, date, security, file',
+                onModulesLoaded : function() {
+                    $('#country').suggestCountry();
+                }
+            });
         }
     };
 
