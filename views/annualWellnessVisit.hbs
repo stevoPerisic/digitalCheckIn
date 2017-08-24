@@ -4,8 +4,9 @@
         <h1>Medicare Annual Wellness Visit Questionnaire</h1>
 
         <form>
-<!--Patient demographics-->
+
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<!--Patient demographics-->
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
                         <h4 class="panel-title">
@@ -86,15 +87,29 @@
 
                             <div class="row">
                                 <div class="col-sm-3">
+                                    {{#if patient.nextkinname}}
+                                        {{> patientDataFilled label="Next of Kin (for emergency)" text=patient.nextkinname show=true}}
+                                    {{/if}}
                                     {{> custInputFld type="text" id="nextOfKin" label="Next of Kin (for emergency)" placeholder=""}}
                                 </div>
                                 <div class="col-sm-3">
+                                    {{#if patient.nextkinphone}}
+                                        {{> patientDataFilled label="Contact phone" text=patient.nextkinphone show=true}}
+                                    {{/if}}
                                     {{> custInputFld type="tel" id="nextOfKinPhone" label="Contact phone" placeholder="(***) *** - ****"}}
                                 </div>
                                 <div class="col-sm-3">
+                                    <!--
+                                    We will figure out later, probably have to find the mapping and see if it is SPOUSE
+                                    https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapping
+                                    -->
                                     {{> custInputFld type="text" id="nameOfSpouse" label="Name of spouse (if applicable)" placeholder=""}}
                                 </div>
                                 <div class="col-sm-3">
+                                    <!--
+                                    We will figure out later, probably have to find the mapping and see if it is SPOUSE
+                                    https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapping
+                                    -->
                                     {{> custInputFld type="tel" id="spouseDayPhone" label="Contact phone" placeholder="(***) *** - ****"}}
                                 </div>
                             </div>
@@ -103,15 +118,27 @@
                                 <fieldset>
                                     <legend class="col-sm-12">Insurance</legend>
                                     <div class="col-sm-3">
-                                        {{> custInputFld type="text" id="primaryInsuranceName" label="Primary Insurance name" placeholder=""}}
+                                        {{#if patientData.insurances.0.insuranceplanname}}
+                                            {{> patientDataFilled label="Primary Insurance" text=patientData.insurances.0.insuranceplanname show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="primaryInsuranceName" label="Primary Insurance" placeholder=""}}
                                     </div>
                                     <div class="col-sm-3">
+                                        {{#if patientData.insurances.0.insurancephone}}
+                                            {{> patientDataFilled label="Phone number" text=patientData.insurances.0.insurancephone show=true}}
+                                        {{/if}}
                                         {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
                                     </div>
                                     <div class="col-sm-3">
+                                        {{#if patientData.insurances.0.policynumber}}
+                                            {{> patientDataFilled label="Group number" text=patientData.insurances.0.policynumber show=true}}
+                                        {{/if}}
                                         {{> custInputFld type="text" id="groupNumber" label="Group Number" placeholder=""}}
                                     </div>
                                     <div class="col-sm-3">
+                                        {{#if patientData.insurances.0.insuranceidnumber}}
+                                            {{> patientDataFilled label="ID Number" text=patientData.insurances.0.insuranceidnumber show=true}}
+                                        {{/if}}
                                         {{> custInputFld type="text" id="idNumber" label="ID Number" placeholder=""}}
                                     </div>
                                 </fieldset>
@@ -134,10 +161,24 @@
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            <p>List any current medical problems or conditions</p>
-                            {{> custListInput inputId="condition" listClass="conditionList" label="Condition"
-                                    placeholder="Condition" btnLabel="Add"}}
-
+                            {{#if medicalProblems.lastupdated}}
+                            <div class="row">
+                                <ul>
+                                    {{#each medicalProblems.problems}}
+                                        <li>{{name}}</li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                            {{/if}}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p><strong>
+                                        {{#if medicalProblems.lastupdated}}Enter any new{{else}}List any current{{/if}} medical problems or conditions
+                                    </strong></p>
+                                    {{> custListInput inputId="condition" listClass="conditionList" label="Condition"
+                                            placeholder="Condition" btnLabel="Add"}}
+                                </div>
+                            </div>
                             {{> accBtnNext text="Next"}}
                         </div>
                     </div>
@@ -157,12 +198,12 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <p>Childhood Illnesses</p>
+                                    <p><strong>Childhood Illnesses</strong></p>
                                     {{> custListInput inputId="childhoodIllness" listClass="childhoodIllnessesList"
                                             label="Childhood Illnesses" placeholder="Childhood Illness" btnLabel="Add"}}
                                 </div>
                                 <div class="col-sm-6">
-                                    <p>Chronic Illnesses</p>
+                                    <p><strong>Chronic Illnesses</strong></p>
                                     {{> custListInput inputId="chronicIllness" listClass="chronicIllnessList"
                                             label="Chronic Illnesses" placeholder="Chronic Illness" btnLabel="Add"}}
                                 </div>
@@ -170,13 +211,13 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <p>Past surgeries</p>
+                                    <p><strong>Past surgeries</strong></p>
                                     {{> custListInput inputId="surgeryName" listClass="surgeryNameList"
                                             label="Surgery" placeholder="Surgery" btnLabel="Add"
                                             showCalendar=true calendarId="surgeryDate" calendarLabel="Surgery date"}}
                                 </div>
                                 <div class="col-sm-6">
-                                    <p>List any other hospital stays</p>
+                                    <p><strong>List any other hospital stays</strong></p>
                                     {{> custListInput inputId="reason" listClass="reasonList"
                                             label="Reason" placeholder="Reason" btnLabel="Add"
                                             showCalendar=true calendarId="hospitalStayDate" calendarLabel="Date"}}
@@ -185,7 +226,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <p>Physicians/practitioners you currently see</p>
+                                    <p><strong>Physicians/practitioners you currently see</strong></p>
 
                                     {{#parseJSON    '[{"inputId": "physName", "type": "text", "label": "Name", "placeholder":"Name"},
                                                     {"inputId": "physSpecialty", "type": "text", "label": "Specialty", "placeholder":"Specialty"}]'}}
@@ -214,7 +255,7 @@
                     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingFour">
                         <div class="panel-body">
-                            <p>List any allergies to medication, x-ray dyes or food.</p>
+                            <p><strong>List any allergies to medication, x-ray dyes or food.</strong></p>
                             {{#parseJSON    '[{"inputId": "allergy", "type": "text", "label": "Allergy", "placeholder":"Allergy"},
                                               {"inputId": "reactions", "type": "text", "label": "Reaction", "placeholder":"Reaction"}]'}}
                                 {{> custListInput listClass="reasonList" btnLabel="Add" fields=this}}
@@ -237,7 +278,7 @@
                     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingFive">
                         <div class="panel-body">
-                            <p>List any medication that you currently take, including over-the-counter.</p>
+                            <p><strong>List any medication that you currently take, including over-the-counter.</strong></p>
                             {{#parseJSON    '[{"inputId": "medicationName", "type": "text", "label": "Name", "placeholder":"Name"},
                                               {"inputId": "medStrength", "type": "text", "label": "Strength", "placeholder":"Strength"},
                                               {"inputId": "medDirection", "type": "text", "label": "Direction", "placeholder":"Direction"},
@@ -356,7 +397,7 @@
 
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <p>List everyone in your household including pets:</p>
+                                    <p><strong>List everyone in your household including pets:</strong></p>
                                     {{> custListInput inputId="familyMembers" listClass="familyMembersList"
                                             label="Family Memberss" placeholder="Family Members" btnLabel="Add"}}
                                 </div>
@@ -377,101 +418,6 @@
                         </div>
                     </div>
                 </div>
-<!-- Routine tasks-->
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingRoutineTasks">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRoutineTasks"
-                               aria-expanded="true" aria-controls="collapseRoutineTasks">
-                                Routine Tasks
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseRoutineTasks" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingRoutineTasks">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <p>Please indicate if you do or do not need help performing these routine tasks.</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    {{> custToggle id="feedingSelf" label="Feeding yourself" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="bedToChair" label="Getting from bed to chair" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="gettingToToilet" label="Getting to the toilet" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="gettingDressed" label="Getting dressed" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    {{> custToggle id="bathingShowering" label="Bathing or showering" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="walking" label="Walking across the room (includes using cane or walker)" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="usingPhone" label="Using the telephone" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="takingMeds" label="Taking your medication" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    {{> custToggle id="preparingMeals" label="Preparing meals" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="managingMoney" label="Managing money (like keeping track of expenses or paying bills)" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="doingHousework" label="Moderately strenuous housework such as doing laundry" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="shoppingToiletries" label="Shopping for personal items like toiletries or medicines" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    {{> custToggle id="shoppingGroceries" label="Shopping for groceries" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="driving" label="Driving" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> custToggle id="climbingStairs" label="Climbing a flight of stairs" dataVal1="NO"
-                                            choice1="NO" dataVal2="YES" choice2="YES"}}
-                                </div>
-                                <div class="col-sm-3">
-                                </div>
-                            </div>
-                            {{> accBtnNext text="Next"}}
-                        </div>
-                    </div>
-                </div>
 <!-- Family history -->
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingSeven">
@@ -485,7 +431,7 @@
                     <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingSeven">
                         <div class="panel-body">
-                            <p>Please list any health problems and causes of death if applicable</p>
+                            <p><strong>Please list any health problems and causes of death if applicable.</strong></p>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -601,6 +547,101 @@
                         </div>
                     </div>
                 </div>
+<!-- Routine tasks-->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingRoutineTasks">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseRoutineTasks"
+                               aria-expanded="true" aria-controls="collapseRoutineTasks">
+                                Routine Tasks
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseRoutineTasks" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingRoutineTasks">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p><strong>Please indicate if you do or do not need help performing these routine tasks.</strong></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custToggle id="feedingSelf" label="Feeding yourself" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="bedToChair" label="Getting from bed to chair" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="gettingToToilet" label="Getting to the toilet" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="gettingDressed" label="Getting dressed" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custToggle id="bathingShowering" label="Bathing or showering" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="walking" label="Walking across the room (includes using cane or walker)" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="usingPhone" label="Using the telephone" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="takingMeds" label="Taking your medication" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custToggle id="preparingMeals" label="Preparing meals" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="managingMoney" label="Managing money (like keeping track of expenses or paying bills)" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="doingHousework" label="Moderately strenuous housework such as doing laundry" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="shoppingToiletries" label="Shopping for personal items like toiletries or medicines" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> custToggle id="shoppingGroceries" label="Shopping for groceries" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="driving" label="Driving" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> custToggle id="climbingStairs" label="Climbing a flight of stairs" dataVal1="NO"
+                                            choice1="NO" dataVal2="YES" choice2="YES"}}
+                                </div>
+                                <div class="col-sm-3">
+                                </div>
+                            </div>
+                            {{> accBtnNext text="Next"}}
+                        </div>
+                    </div>
+                </div>
 <!-- Health maintenance -->
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingEight">
@@ -616,7 +657,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <p>Please record the last year you had the following. If you do not know, leave blank.</p>
+                                    <p><strong>Please record the last year you had the following. If you do not know, leave blank.</strong></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -720,7 +761,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <p>Please check YES, NO or SOMETIMES for <u>each</u> question:</p>
+                                    <p><strong>Please check YES, NO or SOMETIMES for <u>each</u> question:</strong></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -861,7 +902,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <p>Please select the best answer below.</p>
+                                    <p><strong>Please select the best answer below.</strong></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -905,7 +946,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <p>Please check the appropriate answer.</p>
+                                    <p><strong>Please check the appropriate answer.</strong></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -925,7 +966,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <p>If yes please select the circumstances surrounding the fall.</p>
+                                    <p><strong>If yes please select the circumstances surrounding the fall.</strong></p>
                                 </div>
                             </div>
                             <div class="row">
