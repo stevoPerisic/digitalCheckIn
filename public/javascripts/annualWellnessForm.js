@@ -65,6 +65,7 @@
 
             me.bindEvents();
             app.utilities.createCustListInputs();
+            app.utilities.formSetUp();
 
             window.onresize = app.utilities.resizeCanvas;
 

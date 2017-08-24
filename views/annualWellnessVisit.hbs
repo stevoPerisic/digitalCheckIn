@@ -20,43 +20,67 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    {{> custInputFld type="text" id="lastname" label="Last name" placeholder="Last name"}}
+                                    {{#if patient.lastname}}
+                                        {{> patientDataFilled label="Last Name" text=patient.lastname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
                                 </div>
                                 <div class="col-sm-3">
+                                    {{#if patient.firstname}}
+                                        {{> patientDataFilled label="First name" text=patient.firstname show=true}}
+                                    {{/if}}
                                     {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
                                 </div>
                                 <div class="col-sm-3">
-                                    {{> custInputFld type="text" id="middleinitial" label="Middle initial" placeholder="Middle initial"}}
-                                </div>
+                                    {{#if patient.dob}}
+                                        {{> patientDataFilled label="Date of Birth" text=patient.dob show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="dob" label="Date of Birth" placeholder="mm/dd/yyyy"}}                                </div>
                                 <div class="col-sm-3">
-                                    {{> custInputFld type="tel" id="ssn" label="SSN" placeholder="*** - ** - ****"}}
-                                </div>
+                                    {{#if patient.ssn}}
+                                        {{> patientDataFilled label="SSN" text=patient.ssn show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="ssn" label="SSN" placeholder="*** - ** - ****"}}                                </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-sm-6">
-                                    {{> custInputFld type="text" id="streetaddress" label="Street address" placeholder="3000 Sunny LN #1-B"}}
-                                </div>
+                                    {{#if patient.address1}}
+                                        {{> patientDataFilled label="Street address" text=this.patient.address1 show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="address1" label="Street address" placeholder="3000 Sunny LN #1-B"}}                                </div>
                                 <div class="col-sm-3">
+                                    {{#if patient.city}}
+                                        {{> patientDataFilled label="City" text=patient.city show=true}}
+                                    {{/if}}
                                     {{> custInputFld type="text" id="city" label="City" placeholder="Atlanta"}}
                                 </div>
                                 <div class="col-sm-3">
-                                    {{> custInputFld type="text" id="zipcode" label="ZIP Code" placeholder="30675"}}
+                                    {{#if patient.zip}}
+                                        {{> patientDataFilled label="ZIP Code" text=patient.zip show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="zip" label="ZIP Code" placeholder="30675"}}
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-sm-3">
+                                    {{#if patient.homephone}}
+                                        {{> patientDataFilled label="Home phone" text=patient.homephone show=true}}
+                                    {{/if}}
                                     {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****"}}
                                 </div>
                                 <div class="col-sm-3">
-                                    {{> custInputFld type="tel" id="cellphone" label="Cell phone" placeholder="(***) *** - ****"}}
+                                    {{#if patient.mobilephone}}
+                                        {{> patientDataFilled label="Cell phone" text=patient.mobilephone show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****"}}
                                 </div>
                                 <div class="col-sm-3">
-                                    {{> custToggle id="sex" label="Sex" dataVal1="Male" choice1="Male" dataVal2="Female" choice2="Female"}}
+                                    {{> custToggle id="sex" label="Sex" dataSelected=this.patient.sex dataVal1="M" choice1="Male" dataVal2="F" choice2="Female"}}
                                 </div>
                                 <div class="col-sm-3">
-                                    {{> custInputFld type="text" id="referredBy" label="Referred by" placeholder=""}}
+                                    <!--{{> custInputFld type="text" id="referredBy" label="Referred by" placeholder=""}}-->
                                 </div>
                             </div>
 
