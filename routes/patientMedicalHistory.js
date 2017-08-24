@@ -31,6 +31,10 @@ var formsConfig = require('../bin/formsConfig');
 * GET /:practiceid/chart/:patientid/medications
 * PUT /:practiceid/chart/:patientid/medications
 * POST /:practiceid/chart/:patientid/medications
+*
+* Social history
+* GET /:practiceid/chart/:patientid/socialhistory
+* PUT /:practiceid/chart/:patientid/socialhistory
 * */
 
 
@@ -98,6 +102,42 @@ router.get('/',
             next();
         });
     },
+    // GET Social history
+    function (req, res, next) {
+        var params = {
+            departmentid: req.app.locals.currAppt.departmentid,
+            recipientcategory: 'PATIENT',
+            showunansweredquestions: true
+        };
+
+        var socialhistory = AHAPI.GET('/chart/'+req.cookies.patientid+'/socialhistory', {params: params});
+        socialhistory.on('done', function (data) {
+            // order by question id
+            data.questions.sort(function (a, b) {
+                return a.questionid - b.questionid;
+            });
+            req.app.locals.socialHistory = data.questions;
+            // res.send(data);
+            next();
+        });
+    },
+    // GET Surgical history
+    function (req, res, next) {
+        // docs https://developer.athenahealth.com/io-docs
+        // /preview1/:practiceid/chart/:patientid/surgicalhistory
+        // other possible params are
+        // PATIENTFACINGCALL
+        // THIRDPARTYUSERNAME
+        var params = {
+            departmentid: req.app.locals.currAppt.departmentid
+        };
+
+        var surgicalhistory = AHAPI.GET('/chart/'+req.cookies.patientid+'/surgicalhistory', {params: params});
+        surgicalhistory.on('done', function (data) {
+            req.app.locals.surgicalHistory = data.procedures;
+            next();
+        });
+    },
     // GET health history chart
     function (req, res, next) {
         var params = {
@@ -109,7 +149,20 @@ router.get('/',
             data.questions.sort(function (a, b) {
                 return a.questionid - b.questionid;
             });
+            req.app.locals.medicalHistory = data.questions;
             // res.send(data);
+            next();
+        });
+    },
+    // GET Medications history
+    function (req, res, next) {
+        var params = {
+            departmentid: req.app.locals.currAppt.departmentid
+        };
+        var medicationshistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/medications', {params: params});
+        medicationshistory.on('done', function (data) {
+            req.app.locals.medicationHistory = data;
+            // res.send(req.app.locals.medicationHistory);
             next();
         });
     },
