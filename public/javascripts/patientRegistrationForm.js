@@ -5,10 +5,10 @@
  */
 
 /*
-* For submitting privacy verification refer to :
-* https://developer.athenahealth.com/docs/read/patientinfo/Verify_Privacy_Information
-*
-* */
+ * For submitting privacy verification refer to :
+ * https://developer.athenahealth.com/docs/read/patientinfo/Verify_Privacy_Information
+ *
+ * */
 
 
 (function ($, window) {
@@ -17,8 +17,11 @@
     app.patientRegistrationForm = {
         sigPad: $('#signature-pad').find('canvas')[0],
         sigPadWitness: $('#signature-pad-witness').find('canvas')[0],
+        $patientRegistrationForm: $('#patientRegistrationForm'),
         bindEvents: function () {
             var me = app.patientRegistrationForm;
+            var sigPad = $('#signature-pad');
+            var sigPadWitness = $('#signature-pad-witness');
 
             // custom choice inputs via https://bootsnipp.com/snippets/NBN6x
             $('.radioBtn').find('span').on('click', function () {
@@ -38,11 +41,11 @@
                 $(this).parents('.patientDataFilled').hide();
             });
 
-            $('#signature-pad [data-action=clear]').on('click', function (event) {
+            sigPad.find('[data-action=clear]').on('click', function (event) {
                 me.signaturePad.clear();
             });
 
-            $('#signature-pad [data-action=save]').on('click', function (event) {
+            sigPad.find('[data-action=save]').on('click', function (event) {
                 if (me.signaturePad.isEmpty()) {
                     alert("Please provide signature first.");
                 } else {
@@ -50,11 +53,11 @@
                 }
             });
 
-            $('#signature-pad-witness [data-action=clear]').on('click', function (event) {
+            sigPadWitness.find('[data-action=clear]').on('click', function (event) {
                 me.signaturePadWitness.clear();
             });
 
-            $('#signature-pad-witness [data-action=save]').on('click', function (event) {
+            sigPadWitness.find('[data-action=save]').on('click', function (event) {
                 if (me.signaturePadWitness.isEmpty()) {
                     alert("Please provide signature first.");
                 } else {
@@ -67,49 +70,41 @@
                 me.signaturePad = new SignaturePad(me.sigPad);
                 me.signaturePadWitness = new SignaturePad(me.sigPadWitness);
             });
-        },
-        formSetUp: function () {
-            // Update customToggle elements with selected values, if any
-            $('.custToggle-group').each(function (i, el) {
-                $(el).children('[data-value="' + el.dataset.selected + '"]')
-                    .removeClass('notActive')
-                    .addClass('active');
-            });
-
-            // Update the custom selects with the known patient data
-            $('.custSelect select').each(function (i, el) {
-                $(el).children('[value="' + el.dataset.selected + '"]')
-                    .prop('selected', 'selected')
-            });
-
-            // hide all the input fields next to the patient filled data from the server
-            $('.patientDataFilled[data-show="true"]').next().hide();
 
             // insured/responsible party relationship select
-            $('#relationshiptoinsuredid').on('change', function(e){
-                if(e.currentTarget.value !== '1'){
-                    $('.relationshiptoinsurediddata').removeClass('hidden');
+            $('#relationshiptoinsuredid').on('change', function (e) {
+                var $relationshiptoinsurediddata = $('.relationshiptoinsurediddata');
+
+                if (e.currentTarget.value !== '1') {
+                    $relationshiptoinsurediddata.removeClass('hidden');
                 } else {
-                    $('.relationshiptoinsurediddata').addClass('hidden');
+                    $relationshiptoinsurediddata.addClass('hidden');
                 }
-            })
+                /**
+                 * @todo
+                 * remove the pre-filled insurance related data when the user changes
+                 * the relationship drop-down
+                 **/
+            });
+
+            /**
+             * Updating patient demographics
+             * https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-5
+             * */
+            $('.btn.submit').on('click',
+                {form: me.$patientRegistrationForm, URL:'/patientRegistration' },
+                app.utilities.formSubmit
+            );
         },
         init: function () {
             var me = app.patientRegistrationForm;
 
-            me.formSetUp();
+            app.utilities.formSetUp();
             me.bindEvents();
 
             window.onresize = app.utilities.resizeCanvas;
 
             $('.loaderOverlay').hide();
-
-            $.validate({
-                modules : 'location, date, security, file',
-                onModulesLoaded : function() {
-                    $('#country').suggestCountry();
-                }
-            });
         }
     };
 

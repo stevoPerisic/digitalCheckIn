@@ -9,7 +9,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
 <div class="row">
     <div class="col-sm-12">
         <h1>Patient Registration Form</h1>
-        <form>
+        <form id="patientRegistrationForm">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
@@ -83,13 +83,13 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                             <div class="form-group row">
                                 <div class="col-md-3 col-sm-6">
                                     {{#if this.patient.homephone}}
-                                        {{> patientDataFilled label="Home phone" text=this.patient.homephone show=true}}
+                                        {{> patientDataFilled label="Home phone" text=this.patient.homephone show=true tel=true}}
                                     {{/if}}
                                     {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****"}}
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     {{#if this.patient.mobilephone}}
-                                        {{> patientDataFilled label="Cell phone" text=this.patient.mobilephone show=true}}
+                                        {{> patientDataFilled label="Cell phone" text=this.patient.mobilephone show=true tel=true}}
                                     {{/if}}
                                     {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****"}}
                                 </div>

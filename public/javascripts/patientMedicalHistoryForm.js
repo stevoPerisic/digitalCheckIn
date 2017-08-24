@@ -8,7 +8,10 @@
     var app = window.app;
 
     app.patientMedicalHistoryForm = {
+        $medicalHistoryForm: $('#medicalHistoryForm'),
         bindEvents: function () {
+            var me = app.patientMedicalHistoryForm;
+
             $('.custChkBx.chkBx').on('click', function (e) {
                 $(e.currentTarget).toggleClass('checked');
             });
@@ -33,6 +36,15 @@
                 });
                 tbody.prepend(newRow);
             });
+
+            /**
+             * Updating medical history
+             * https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-5
+             * */
+            $('.btn.submit').on('click',
+                {form: me.$medicalHistoryForm, URL:'/patientMedicalHistory' },
+                app.utilities.formSubmit
+            );
         },
         init: function () {
             console.log('Patient Medical History Form started...');
