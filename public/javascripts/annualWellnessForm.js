@@ -8,6 +8,7 @@
     var app = window.app;
 
     app.annualWellnessForm = {
+        $annualWellnessForm: $('#annualWellnessForm'),
         sigPadAdvancedDirective: $('#signature-pad-advancedDirective canvas')[0],
         sigPadReviewedBy: $('#signature-pad-reviewedBySignature canvas')[0],
         bindEvents: function () {
@@ -56,6 +57,14 @@
                 me.signaturePadAdvancedDirective = new SignaturePad(me.sigPadAdvancedDirective);
                 me.signaturePadReviewedBy = new SignaturePad(me.sigPadReviewedBy);
             });
+
+            /**
+             * Updating Annual Wellness data
+             * */
+            $('.btn.submit').on('click',
+                {form: me.$annualWellnessForm, URL:'/annualWellnessVisit' },
+                app.utilities.formSubmit
+            );
         },
         /*
          * Init function for the page
@@ -65,6 +74,7 @@
 
             me.bindEvents();
             app.utilities.createCustListInputs();
+            app.utilities.formSetUp();
 
             window.onresize = app.utilities.resizeCanvas;
 

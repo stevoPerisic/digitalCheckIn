@@ -29,6 +29,12 @@ hbs.registerHelper('parseJSON', function (data, options) {
     return options.fn(data);
 });
 
+hbs.registerHelper('formatPhoneNumber', function (options) {
+    var s2 = ("" + options.hash.text).replace(/\D/g, '');
+    var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+    return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+});
+
 hbs.registerHelper('isInsurancePolicyHolder', function (data, options) {
     return (data === 1) ? options.fn(this) : options.inverse(this);
 });

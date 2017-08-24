@@ -12,9 +12,14 @@
 //	 implied.  See the License for the specific language governing
 //	 permissions and limitations under the License.
 
-var events = require('events')
-var https = require('https')
-var querystring = require('querystring')
+/**
+ * @todo Make sure to catch all thrown errors so that the app would not crash
+ **/
+
+
+var events = require('events');
+var https = require('https');
+var querystring = require('querystring');
 
 
 // Useful for making optional arguments look cleaner
@@ -78,11 +83,11 @@ function path_join() {
  */
 function Connection(version, key, secret, practiceid) {
 	// Private variables
-	var _version = ''
-	var _key = ''
-	var _secret = ''
-	var _token = ''
-	var _hostname = 'api.athenahealth.com'
+	var _version = '';
+	var _key = '';
+	var _secret = '';
+	var _token = '';
+	var _hostname = 'api.athenahealth.com';
 
 	/**
 	 * The practice ID to use when sending requests.
@@ -183,6 +188,11 @@ function Connection(version, key, secret, practiceid) {
 				})
 				response.on('end', function() {
 					// console.log(JSON.parse(content));
+					/**
+					 * @todo
+					 * Sometimes the response is not JSON from aNET
+					 * this causes the app to crash and has to be fixed
+					 **/
 					try {
 						output = JSON.parse(content)
 						emitter.emit('done', output)
@@ -193,14 +203,14 @@ function Connection(version, key, secret, practiceid) {
 					}
 				})
 			}
-		})
+		});
 
 		req.on('error', function(e) {
 			emitter.emit('error', e)
-		})
+		});
 
-		req.write(body)
-		req.end()
+		req.write(body);
+		req.end();
 
 		return emitter
 	}

@@ -68,9 +68,9 @@ h1, h2, h3 {
 
 .patientDataFilled p {
     margin: 0 0 5px 0;
-    padding: 5px 50px 5px 10px;
+    padding: 5px 50px 15px 10px;
     background: #fafafa;
-    font-size: 24px;
+    font-size: 18px;
     border-bottom: 1px solid #dadada;
     display: block;
     width: 100%;
