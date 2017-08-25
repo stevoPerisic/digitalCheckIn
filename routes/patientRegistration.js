@@ -141,4 +141,10 @@ router.post('/', function (req, res, next) {
    res.sendStatus(200);
 });
 
+router.post('/:aNetMapping', function (req, res, next) {
+    console.log(req.body);
+    console.log(req.params);
+    res.sendStatus(200);
+});
+
 module.exports = router;

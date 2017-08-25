@@ -93,6 +93,12 @@
                 {form: me.$patientRegistrationForm, URL:'/patientRegistration' },
                 app.utilities.formSubmit
             );
+
+
+            $('.btn.next').on('click',
+                {form: $('#patientDemographics'), URL:'/patientRegistration/patientDemographics' },
+                app.utilities.formSubmit
+            );
         },
         init: function () {
             var me = app.patientRegistrationForm;

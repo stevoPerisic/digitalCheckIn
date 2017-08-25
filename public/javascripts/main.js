@@ -148,7 +148,7 @@
                      * check if the input is still hidden and the user did NOT reveal it
                      * to update by clicking the Edit btn thus revealing the input field
                      **/
-                    if(!$('input[name='+input.name+']').parent().hasClass('hidden')) {
+                    if (!$('input[name=' + input.name + ']').parent().hasClass('hidden')) {
                         data[input.name] = input.value;
                     }
                 });
@@ -158,8 +158,12 @@
                     url: URL,
                     data: data,
                     contentType: 'application/x-www-form-urlencoded'
-                }).done(function (data) {
+                }).done(function (data, xhr) {
                     console.log(data);
+                    console.log(xhr);
+                    if (xhr === 'success') {
+                        $form.parents('.panel-collapse').siblings('.panel-heading').addClass('success');
+                    }
                 });
             },
         }

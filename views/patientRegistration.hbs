@@ -9,8 +9,9 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
 <div class="row">
     <div class="col-sm-12">
         <h1>Patient Registration Form</h1>
-        <form id="patientRegistrationForm">
+
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
                         <h4 class="panel-title">
@@ -24,142 +25,145 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                          aria-labelledby="headingOne">
                         <div class="panel-body">
                             <!--Patient name, DOB and SSN-->
-                            <div class="form-group row">
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if this.patient.lastname}}
-                                        {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
+                            <form id="patientDemographics">
+                                <div class="form-group row">
+                                    <div class="col-md-3 col-sm-6">
+                                        {{#if this.patient.lastname}}
+                                            {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        {{#if this.patient.firstname}}
+                                            {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        {{#if this.patient.dob}}
+                                            {{> patientDataFilled label="Date of Birth" text=this.patient.dob show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="dob" label="Date of Birth" placeholder="mm/dd/yyyy"}}
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        {{#if this.patient.ssn}}
+                                            {{> patientDataFilled label="SSN" text=this.patient.ssn show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="tel" id="ssn" label="SSN" placeholder="*** - ** - ****"}}
+                                    </div>
+                                </div>
+                                <!--Patient address-->
+                                <div class="form-group row">
+                                    <div class="col-md-6 col-sm-12">
+                                        {{#if this.patient.address1}}
+                                            {{> patientDataFilled label="Street address" text=this.patient.address1 show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="address1" label="Street address" placeholder="3000 Sunny LN #1-B"}}
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        {{#if this.patient.city}}
+                                            {{> patientDataFilled label="City" text=this.patient.city show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="city" label="City" placeholder="Atlanta"}}
+                                    </div>
+                                    <!--
+                                    <div class="col-sm-3">
+                                        {{#if this.patient.state}}
+                                        {{> patientDataFilled label="State" text=this.patient.state show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
+                                        {{> custInputFld type="text" id="state" label="State" placeholder="GA"}}
+                                    </div>
+                                    -->
+                                    <div class="col-md-3 col-sm-6">
+                                        {{#if this.patient.zip}}
+                                            {{> patientDataFilled label="ZIP Code" text=this.patient.zip show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="zip" label="ZIP Code" placeholder="30675"}}
+                                    </div>
                                 </div>
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if this.patient.firstname}}
-                                        {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
+                                <!--Patient phone, mobile phone, sex and marital status-->
+                                <div class="form-group row">
+                                    <div class="col-md-3 col-sm-6">
+                                        {{#if this.patient.homephone}}
+                                            {{> patientDataFilled label="Home phone" text=this.patient.homephone show=true tel=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****"}}
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        {{#if this.patient.mobilephone}}
+                                            {{> patientDataFilled label="Cell phone" text=this.patient.mobilephone show=true tel=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****"}}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{#if this.patient.email}}
+                                            {{> patientDataFilled label="Email" text=this.patient.email show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="email" id="email" label="Email" placeholder="username@email.com"}}
+                                    </div>
                                 </div>
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if this.patient.dob}}
-                                        {{> patientDataFilled label="Date of Birth" text=this.patient.dob show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="dob" label="Date of Birth" placeholder="mm/dd/yyyy"}}
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-md-3 col-sm-6">
+                                        {{> custToggle id="sex" label="Sex" dataSelected=this.patient.sex dataVal1="M" choice1="Male" dataVal2="F" choice2="Female"}}
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        {{#parseJSON maritalStatusSelect}}
+                                            {{> custSelect id="maritalstatus" label="Marital status" emptyOption=true options=this selected=this.patient.maritalstatus }}
+                                        {{/parseJSON}}
+                                    </div>
                                 </div>
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if this.patient.ssn}}
-                                        {{> patientDataFilled label="SSN" text=this.patient.ssn show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="tel" id="ssn" label="SSN" placeholder="*** - ** - ****"}}
+                                <hr>
+                                <!--Employer info-->
+                                <div class="form-group row">
+                                    <div class="col-sm-8">
+                                        {{#if this.patient.employername}}
+                                            {{> patientDataFilled label="Patient employer name" text=this.patient.employername show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="emplyername" label="Patient employer name" placeholder="Employer name"}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {{#if this.patient.employerphone}}
+                                            {{> patientDataFilled label="Employer phone number" text=this.patient.employerphone show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="tel" id="employerphone" label="Employer phone number" placeholder="(***) *** - ****"}}
+                                    </div>
                                 </div>
-                            </div>
-                            <!--Patient address-->
-                            <div class="form-group row">
-                                <div class="col-md-6 col-sm-12">
-                                    {{#if this.patient.address1}}
-                                        {{> patientDataFilled label="Street address" text=this.patient.address1 show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="address1" label="Street address" placeholder="3000 Sunny LN #1-B"}}
+                                <!--Employer location data-->
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        {{#if this.patient.employeraddress}}
+                                            {{> patientDataFilled label="Street address" text=this.patient.employeraddress show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="employeraddress" label="Patient employer name" placeholder="1234 Industrial Pkwy Suite 216"}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{#if this.patient.employercity}}
+                                            {{> patientDataFilled label="City" text=this.patient.employercity show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="employercity" label="City" placeholder="Atlanta"}}
+                                    </div>
+                                    <!--
+                                    <div class="col-sm-3">
+                                        {{#if this.patient.employerstate}}
+                                            {{> patientDataFilled label="State" text=this.patient.employerstate show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="employerstate" label="State" placeholder="GA"}}
+                                    </div>
+                                    -->
+                                    <div class="col-sm-3">
+                                        {{#if this.patient.employerzip}}
+                                            {{> patientDataFilled label="ZIP Code" text=this.patient.employerzip show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="employerzip" label="ZIP Code" placeholder="30675"}}
+                                    </div>
                                 </div>
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if this.patient.city}}
-                                        {{> patientDataFilled label="City" text=this.patient.city show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="city" label="City" placeholder="Atlanta"}}
-                                </div>
-                                <!--
-                                <div class="col-sm-3">
-                                    {{#if this.patient.state}}
-                                    {{> patientDataFilled label="State" text=this.patient.state show=true}}
-                                {{/if}}
-                                    {{> custInputFld type="text" id="state" label="State" placeholder="GA"}}
-                                </div>
-                                -->
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if this.patient.zip}}
-                                        {{> patientDataFilled label="ZIP Code" text=this.patient.zip show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="zip" label="ZIP Code" placeholder="30675"}}
-                                </div>
-                            </div>
-                            <!--Patient phone, mobile phone, sex and marital status-->
-                            <div class="form-group row">
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if this.patient.homephone}}
-                                        {{> patientDataFilled label="Home phone" text=this.patient.homephone show=true tel=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****"}}
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if this.patient.mobilephone}}
-                                        {{> patientDataFilled label="Cell phone" text=this.patient.mobilephone show=true tel=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****"}}
-                                </div>
-                                <div class="col-sm-6">
-                                    {{#if this.patient.email}}
-                                        {{> patientDataFilled label="Email" text=this.patient.email show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="email" id="email" label="Email" placeholder="username@email.com"}}
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-md-3 col-sm-6">
-                                    {{> custToggle id="sex" label="Sex" dataSelected=this.patient.sex dataVal1="M" choice1="Male" dataVal2="F" choice2="Female"}}
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    {{#parseJSON maritalStatusSelect}}
-                                        {{> custSelect id="maritalstatus" label="Marital status" emptyOption=true options=this selected=this.patient.maritalstatus }}
-                                    {{/parseJSON}}
-                                </div>
-                            </div>
-                            <hr>
-                            <!--Employer info-->
-                            <div class="form-group row">
-                                <div class="col-sm-8">
-                                    {{#if this.patient.employername}}
-                                        {{> patientDataFilled label="Patient employer name" text=this.patient.employername show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="emplyername" label="Patient employer name" placeholder="Employer name"}}
-                                </div>
-                                <div class="col-sm-4">
-                                    {{#if this.patient.employerphone}}
-                                        {{> patientDataFilled label="Employer phone number" text=this.patient.employerphone show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="tel" id="employerphone" label="Employer phone number" placeholder="(***) *** - ****"}}
-                                </div>
-                            </div>
-                            <!--Employer location data-->
-                            <div class="form-group row">
-                                <div class="col-sm-6">
-                                    {{#if this.patient.employeraddress}}
-                                        {{> patientDataFilled label="Street address" text=this.patient.employeraddress show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="employeraddress" label="Patient employer name" placeholder="1234 Industrial Pkwy Suite 216"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{#if this.patient.employercity}}
-                                        {{> patientDataFilled label="City" text=this.patient.employercity show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="employercity" label="City" placeholder="Atlanta"}}
-                                </div>
-                                <!--
-                                <div class="col-sm-3">
-                                    {{#if this.patient.employerstate}}
-                                        {{> patientDataFilled label="State" text=this.patient.employerstate show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="employerstate" label="State" placeholder="GA"}}
-                                </div>
-                                -->
-                                <div class="col-sm-3">
-                                    {{#if this.patient.employerzip}}
-                                        {{> patientDataFilled label="ZIP Code" text=this.patient.employerzip show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="employerzip" label="ZIP Code" placeholder="30675"}}
-                                </div>
-                            </div>
-                            {{> accBtnNext text="Next"}}
+                                {{> accBtnNext text="Next"}}
+                            </form>
                         </div>
                     </div>
                 </div>
+
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingTwo">
                         <h4 class="panel-title">
@@ -562,7 +566,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
 
             <hr>
             <button type="submit" class="btn btn-primary btn-lg submit">Submit</button>
-        </form>
+        <!--</form>-->
     </div>
 </div>
 
