@@ -95,9 +95,10 @@
                  * Update customToggle elements with selected values, if any
                  **/
                 $('.custToggle-group').each(function (i, el) {
-                    $(el).children('[data-value="' + el.dataset.selected + '"]')
-                        .removeClass('notActive')
-                        .addClass('active');
+                    var selectedToggle = $(el).children('[data-value="' + el.dataset.selected + '"]');
+
+                    selectedToggle.removeClass('notActive btn-default').addClass('active btn-primary');
+                    selectedToggle.siblings().removeClass('active btn-primary').addClass('notActive btn-default');
                 });
 
                 /**

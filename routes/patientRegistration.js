@@ -144,6 +144,12 @@ router.post('/', function (req, res, next) {
 router.post('/:aNetMapping', function (req, res, next) {
     console.log(req.body);
     console.log(req.params);
+
+    var postData = req.body;
+    var aNEtAPI = req.params;
+
+
+
     res.sendStatus(200);
 });
 
