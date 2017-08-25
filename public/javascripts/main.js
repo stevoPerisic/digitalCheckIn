@@ -139,8 +139,7 @@
                 var data = {};
 
                 /**
-                 * @todo add validator data attributes to the input fields
-                 * so that the validator would actually run
+                 * @todo add validator data attributes to the input fields so that the validator would actually run
                  **/
                 $form.validate();
 

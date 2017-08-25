@@ -189,9 +189,7 @@ function Connection(version, key, secret, practiceid) {
 				response.on('end', function() {
 					// console.log(JSON.parse(content));
 					/**
-					 * @todo
-					 * Sometimes the response is not JSON from aNET
-					 * this causes the app to crash and has to be fixed
+					 * @todo Sometimes the response is not JSON from aNET this causes the app to crash and has to be fixed
 					 **/
 					try {
 						output = JSON.parse(content)

@@ -81,9 +81,7 @@
                     $relationshiptoinsurediddata.addClass('hidden');
                 }
                 /**
-                 * @todo
-                 * remove the pre-filled insurance related data when the user changes
-                 * the relationship drop-down
+                 * @todo remove the pre-filled insurance related data when the user changes the relationship drop-down
                  **/
             });
 
