@@ -10,563 +10,575 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
     <div class="col-sm-12">
         <h1>Patient Registration Form</h1>
 
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                               aria-expanded="true" aria-controls="collapseOne">
-                                Personal Information
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
-                         aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            <!--Patient name, DOB and SSN-->
-                            <form id="patientDemographics">
-                                <div class="form-group row">
-                                    <div class="col-md-3 col-sm-6">
-                                        {{#if this.patient.lastname}}
-                                            {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        {{#if this.patient.firstname}}
-                                            {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        {{#if this.patient.dob}}
-                                            {{> patientDataFilled label="Date of Birth" text=this.patient.dob show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="dob" label="Date of Birth" placeholder="mm/dd/yyyy"}}
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        {{#if this.patient.ssn}}
-                                            {{> patientDataFilled label="SSN" text=this.patient.ssn show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="tel" id="ssn" label="SSN" placeholder="*** - ** - ****"}}
-                                    </div>
-                                </div>
-                                <!--Patient address-->
-                                <div class="form-group row">
-                                    <div class="col-md-6 col-sm-12">
-                                        {{#if this.patient.address1}}
-                                            {{> patientDataFilled label="Street address" text=this.patient.address1 show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="address1" label="Street address" placeholder="3000 Sunny LN #1-B"}}
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        {{#if this.patient.city}}
-                                            {{> patientDataFilled label="City" text=this.patient.city show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="city" label="City" placeholder="Atlanta"}}
-                                    </div>
-                                    <!--
-                                    <div class="col-sm-3">
-                                        {{#if this.patient.state}}
-                                        {{> patientDataFilled label="State" text=this.patient.state show=true}}
-                                    {{/if}}
-                                        {{> custInputFld type="text" id="state" label="State" placeholder="GA"}}
-                                    </div>
-                                    -->
-                                    <div class="col-md-3 col-sm-6">
-                                        {{#if this.patient.zip}}
-                                            {{> patientDataFilled label="ZIP Code" text=this.patient.zip show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="zip" label="ZIP Code" placeholder="30675"}}
-                                    </div>
-                                </div>
-                                <!--Patient phone, mobile phone, sex and marital status-->
-                                <div class="form-group row">
-                                    <div class="col-md-3 col-sm-6">
-                                        {{#if this.patient.homephone}}
-                                            {{> patientDataFilled label="Home phone" text=this.patient.homephone show=true tel=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****"}}
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        {{#if this.patient.mobilephone}}
-                                            {{> patientDataFilled label="Cell phone" text=this.patient.mobilephone show=true tel=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****"}}
-                                    </div>
-                                    <div class="col-sm-6">
-                                        {{#if this.patient.email}}
-                                            {{> patientDataFilled label="Email" text=this.patient.email show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="email" id="email" label="Email" placeholder="username@email.com"}}
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-md-3 col-sm-6">
-                                        {{> custToggle id="sex" label="Sex" dataSelected=this.patient.sex dataVal1="M" choice1="Male" dataVal2="F" choice2="Female"}}
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        {{#parseJSON maritalStatusSelect}}
-                                            {{> custSelect id="maritalstatus" label="Marital status" emptyOption=true options=this selected=this.patient.maritalstatus }}
-                                        {{/parseJSON}}
-                                    </div>
-                                </div>
-                                <hr>
-                                <!--Employer info-->
-                                <div class="form-group row">
-                                    <div class="col-sm-8">
-                                        {{#if this.patient.employername}}
-                                            {{> patientDataFilled label="Patient employer name" text=this.patient.employername show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="employername" label="Patient employer name" placeholder="Employer name"}}
-                                    </div>
-                                    <div class="col-sm-4">
-                                        {{#if this.patient.employerphone}}
-                                            {{> patientDataFilled label="Employer phone number" text=this.patient.employerphone show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="tel" id="employerphone" label="Employer phone number" placeholder="(***) *** - ****"}}
-                                    </div>
-                                </div>
-                                <!--Employer location data-->
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        {{#if this.patient.employeraddress}}
-                                            {{> patientDataFilled label="Street address" text=this.patient.employeraddress show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="employeraddress" label="Patient employer name" placeholder="1234 Industrial Pkwy Suite 216"}}
-                                    </div>
-                                    <div class="col-sm-3">
-                                        {{#if this.patient.employercity}}
-                                            {{> patientDataFilled label="City" text=this.patient.employercity show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="employercity" label="City" placeholder="Atlanta"}}
-                                    </div>
-                                    <!--
-                                    <div class="col-sm-3">
-                                        {{#if this.patient.employerstate}}
-                                            {{> patientDataFilled label="State" text=this.patient.employerstate show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="employerstate" label="State" placeholder="GA"}}
-                                    </div>
-                                    -->
-                                    <div class="col-sm-3">
-                                        {{#if this.patient.employerzip}}
-                                            {{> patientDataFilled label="ZIP Code" text=this.patient.employerzip show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="employerzip" label="ZIP Code" placeholder="30675"}}
-                                    </div>
-                                </div>
-                                {{> accBtnNext text="Next"}}
-                            </form>
-                        </div>
-                    </div>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                           aria-expanded="true" aria-controls="collapseOne">
+                            Personal Information
+                        </a>
+                    </h4>
                 </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Insured/Responsible Party Information
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse insuredRelationship" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <!--Patient name, DOB and SSN-->
+                        <form id="patientDemographics">
                             <div class="form-group row">
                                 <div class="col-md-3 col-sm-6">
-                                    {{#parseJSON insuredRelationship}}
-                                        {{> custSelect id="relationshiptoinsuredid" label="Relationship to patient" emptyOption=true options=this selected=this.patient.insurances.[0].relationshiptoinsuredid }}
+                                    {{#if this.patient.lastname}}
+                                        {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if this.patient.firstname}}
+                                        {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if this.patient.dob}}
+                                        {{> patientDataFilled label="Date of Birth" text=this.patient.dob show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="dob" label="Date of Birth" placeholder="mm/dd/yyyy"}}
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if this.patient.ssn}}
+                                        {{> patientDataFilled label="SSN" text=this.patient.ssn show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="ssn" label="SSN" placeholder="*** - ** - ****"}}
+                                </div>
+                            </div>
+                            <!--Patient address-->
+                            <div class="form-group row">
+                                <div class="col-md-6 col-sm-12">
+                                    {{#if this.patient.address1}}
+                                        {{> patientDataFilled label="Street address" text=this.patient.address1 show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="address1" label="Street address" placeholder="3000 Sunny LN #1-B"}}
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if this.patient.city}}
+                                        {{> patientDataFilled label="City" text=this.patient.city show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="city" label="City" placeholder="Atlanta"}}
+                                </div>
+                                <!--
+                                    <div class="col-sm-3">
+                                        {{#if this.patient.state}}
+                                    {{> patientDataFilled label="State" text=this.patient.state show=true}}
+                                {{/if}}
+                                    {{> custInputFld type="text" id="state" label="State" placeholder="GA"}}
+                                    </div>
+                                    -->
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if this.patient.zip}}
+                                        {{> patientDataFilled label="ZIP Code" text=this.patient.zip show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="zip" label="ZIP Code" placeholder="30675"}}
+                                </div>
+                            </div>
+                            <!--Patient phone, mobile phone, sex and marital status-->
+                            <div class="form-group row">
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if this.patient.homephone}}
+                                        {{> patientDataFilled label="Home phone" text=this.patient.homephone show=true tel=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****"}}
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if this.patient.mobilephone}}
+                                        {{> patientDataFilled label="Cell phone" text=this.patient.mobilephone show=true tel=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****"}}
+                                </div>
+                                <div class="col-sm-6">
+                                    {{#if this.patient.email}}
+                                        {{> patientDataFilled label="Email" text=this.patient.email show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="email" id="email" label="Email" placeholder="username@email.com"}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-md-3 col-sm-6">
+                                    {{> custToggle id="sex" label="Sex" dataSelected=this.patient.sex dataVal1="M" choice1="Male" dataVal2="F" choice2="Female"}}
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    {{#parseJSON maritalStatusSelect}}
+                                        {{> custSelect id="maritalstatus" label="Marital status" emptyOption=true options=this selected=this.patient.maritalstatus }}
                                     {{/parseJSON}}
                                 </div>
                             </div>
-
-                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if patient.insurances.[0].insurancepolicyholderlastname}}
-                                        {{> patientDataFilled label="Last name" text=this.patient.insurances.[0].insurancepolicyholderlastname show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="insurancepolicyholderlastname" label="Last name" placeholder="Last name"}}
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if patient.insurances.[0].insurancepolicyholdermiddlename}}
-                                        {{> patientDataFilled label="Middle initial" text=this.patient.insurances.[0].insurancepolicyholdermiddlename show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="insurancepolicyholdermiddlename" label="Middle initial" placeholder="Middle initial"}}
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if patient.insurances.[0].insurancepolicyholderfirstname}}
-                                        {{> patientDataFilled label="First name" text=this.patient.insurances.[0].insurancepolicyholderfirstname show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="insurancepolicyholderfirstname" label="First name" placeholder="First name"}}
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    {{#if patient.insurances.[0].insurancepolicyholderssn}}
-                                        {{> patientDataFilled label="SSN" text=this.patient.insurances.[0].insurancepolicyholderssn show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="tel" id="insurancepolicyholderssn" label="SSN" placeholder="*** - ** - ****"}}
-                                </div>
-                            </div>
-
-                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
-                                <div class="col-sm-6">
-                                    {{#if patient.insurances.[0].insurancepolicyholderaddress1}}
-                                        {{> patientDataFilled label="Street address (if different from above)" text=this.patient.insurances.[0].insurancepolicyholderaddress1 show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="insurancepolicyholderaddress1" label="Street address (if different from above)" placeholder="3000 Sunny LN #1-B"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{#if patient.insurances.[0].insurancepolicyholdercity}}
-                                        {{> patientDataFilled label="City" text=this.patient.insurances.[0].insurancepolicyholdercity show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="insurancepolicyholdercity" label="City" placeholder="Atlanta"}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{#if patient.insurances.[0].insurancepolicyholderzip}}
-                                        {{> patientDataFilled label="ZIP Code" text=this.patient.insurances.[0].insurancepolicyholderzip show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="insurancepolicyholdercity" label="ZIP Code" placeholder="30675"}}
-                                </div>
-                            </div>
-                            <!-- *******************************************
-                                These below are not mapping to Athena data,
-                                they must be custom fields for this practice
-                            ******************************************* -->
-                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
-                                <div class="col-sm-3">
-                                    <label for="insuredhomephone">Home phone</label>
-                                    <input type="tel" class="form-control" id="insuredhomephone" name="insuredhomephone"
-                                           aria-describedby="insuredhomephone" placeholder="(***) *** - ****">
-                                </div>
-                                <div class="col-sm-3">
-                                    <label for="insuredworkphone">Cell phone</label>
-                                    <input type="tel" class="form-control" id="insuredworkphone" name="insuredworkphone"
-                                           aria-describedby="insuredworkphone" placeholder="(***) *** - ****">
-                                </div>
-                                <div class="col-sm-6"><label for="insuredemplyername">Employer name</label>
-                                    <input type="text" class="form-control" id="insuredemplyername"
-                                           name="insuredemplyername"
-                                           aria-describedby="insuredemplyername" placeholder="Employer name"></div>
-                            </div>
-
-                            {{> accBtnNext text="Next"}}
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingThree">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Insurance Information
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingThree">
-                        <div class="panel-body">
-                            <!--Primary insurance-->
-                            <div class="form-group row primaryInsurance">
-                                <div class="col-sm-4">
-                                    <!--ircname-->
-                                    {{#if patient.insurances.[0].ircname}}
-                                        {{> patientDataFilled label="Primary Insurance" text=this.patient.insurances.[0].ircname show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="ircname" label="Primary Insurance" placeholder="Primary Insurance name"}}
-                                </div>
-                                <div class="col-sm-4">
-                                    {{#if patient.insurances.[0].policynumber}}
-                                        {{> patientDataFilled label="Group Number" text=this.patient.insurances.[0].policynumber show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="policynumber" label="Group Number" placeholder="Insurance Group Number"}}
-                                </div>
-                                <div class="col-sm-4">
-                                    {{#if patient.insurances.[0].insuranceidnumber}}
-                                        {{> patientDataFilled label="ID Number" text=this.patient.insurances.[0].insuranceidnumber show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="insuranceidnumber" label="ID Number" placeholder="Insurance ID number"}}
-                                </div>
-                            </div>
-                            <!--Primary Insurance 2-->
-                            <div class="form-group row">
-                                <div class="col-sm-8">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            {{#if primaryIns.address}}
-                                                {{> patientDataFilled label="Street address" text=primaryIns.address show=true}}
-                                            {{/if}}
-                                            {{> custInputFld type="text" id="insuranceStreetAddress" label="Street address" placeholder="3000 Insurance Pkwy Ste.302"}}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            {{#if primaryIns.city}}
-                                                {{> patientDataFilled label="City" text=primaryIns.city show=true}}
-                                            {{/if}}
-                                            {{> custInputFld type="text" id="insuranceCity" label="City" placeholder="Atlanta"}}
-                                        </div>
-                                        <div class="col-sm-6">
-                                            {{#if primaryIns.zip}}
-                                                {{> patientDataFilled label="ZIP Code" text=primaryIns.zip show=true}}
-                                            {{/if}}
-                                            {{> custInputFld type="text" id="insuranceZip" label="ZIP Code" placeholder="30675"}}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            {{#if primaryIns.phone}}
-                                                {{> patientDataFilled label="Phone number" text=primaryIns.phone show=true}}
-                                            {{/if}}
-                                            {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <img class="img-responsive" src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
-                                </div>
-                            </div>
-                            <!--
-                            Seems like the insurance related employer data is not collected
-                            For now commenting out...
-                            -->
-                            <!--<div class="form-group row">-->
-
-                                <!--<div class="col-sm-6">-->
-                                    <!--<label for="employerName">Employer</label>-->
-                                    <!--<input type="text" class="form-control" id="employerName" name="employerName"-->
-                                           <!--aria-describedby="employerName" placeholder="Employer name">-->
-                                <!--</div>-->
-                                <!--<div class="col-sm-3">-->
-                                    <!--<label for="employerTel">Employer Phone</label>-->
-                                    <!--<input type="tel" class="form-control" id="employerTel" name="employerTel"-->
-                                           <!--aria-describedby="employerTel" placeholder="(***) *** - ****">-->
-                                <!--</div>-->
-                            <!--</div>-->
                             <hr>
-
-                            <!--Secondary insurance-->
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <!--ircname-->
-                                    {{#if patient.insurances.[1].ircname}}
-                                        {{> patientDataFilled label="Secondary Insurance" text=this.patient.insurances.[1].ircname show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="ircname2" label="Secondary Insurance" placeholder="Secondary Insurance name"}}
-                                </div>
-                                <div class="col-sm-4">
-                                    {{#if patient.insurances.[1].policynumber}}
-                                        {{> patientDataFilled label="Group Number" text=this.patient.insurances.[1].policynumber show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="policynumberSecondary" label="Group Number" placeholder="Insurance Group Number"}}
-                                </div>
-                                <div class="col-sm-4">
-                                    {{#if patient.insurances.[1].insuranceidnumber}}
-                                        {{> patientDataFilled label="ID Number" text=this.patient.insurances.[1].insuranceidnumber show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="insuranceidnumberSecondary" label="ID Number" placeholder="Insurance ID number"}}
-                                </div>
-                            </div>
-                            <!--Secondary Insurance 2-->
+                            <!--Employer info-->
                             <div class="form-group row">
                                 <div class="col-sm-8">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            {{#if secondaryIns.address}}
-                                                {{> patientDataFilled label="Street address" text=secondaryIns.address show=true}}
-                                            {{/if}}
-                                            {{> custInputFld type="text" id="secondaryInsStreetAddress" label="Street address" placeholder="3000 Insurance Pkwy Ste.302"}}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            {{#if secondaryIns.city}}
-                                                {{> patientDataFilled label="City" text=secondaryIns.city show=true}}
-                                            {{/if}}
-                                            {{> custInputFld type="text" id="secondaryInsCity" label="City" placeholder="Atlanta"}}
-                                        </div>
-                                        <div class="col-sm-6">
-                                            {{#if secondaryIns.zip}}
-                                                {{> patientDataFilled label="ZIP Code" text=secondaryIns.zip show=true}}
-                                            {{/if}}
-                                            {{> custInputFld type="text" id="secondaryInsZipCode" label="ZIP Code" placeholder="30675"}}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            {{#if secondaryIns.phone}}
-                                                {{> patientDataFilled label="Phone number" text=secondaryIns.phone show=true}}
-                                            {{/if}}
-                                            {{> custInputFld type="tel" id="secondaryInsPhone" label="Phone number" placeholder="(***) *** - ****"}}
-                                        </div>
-                                    </div>
+                                    {{#if this.patient.employername}}
+                                        {{> patientDataFilled label="Patient employer name" text=this.patient.employername show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="employername" label="Patient employer name" placeholder="Employer name"}}
                                 </div>
                                 <div class="col-sm-4">
-                                    <img class="img-responsive" src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
+                                    {{#if this.patient.employerphone}}
+                                        {{> patientDataFilled label="Employer phone number" text=this.patient.employerphone show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="employerphone" label="Employer phone number" placeholder="(***) *** - ****"}}
                                 </div>
                             </div>
-
-                            {{> accBtnNext text="Next"}}
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFour">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                Additional Information
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingFour">
-                        <div class="panel-body">
+                            <!--Employer location data-->
                             <div class="form-group row">
                                 <div class="col-sm-6">
-                                    {{#if this.primaryProvider.displayname}}
-                                        {{> patientDataFilled label="Primary / Family Doctor" text=this.primaryProvider.displayname show=true}}
+                                    {{#if this.patient.employeraddress}}
+                                        {{> patientDataFilled label="Street address" text=this.patient.employeraddress show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="text" id="primaryDoctor" label="Primary / Family Doctor" placeholder="Primary / Family Doctor"}}
+                                    {{> custInputFld type="text" id="employeraddress" label="Patient employer name" placeholder="1234 Industrial Pkwy Suite 216"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{#if this.patient.employercity}}
+                                        {{> patientDataFilled label="City" text=this.patient.employercity show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="employercity" label="City" placeholder="Atlanta"}}
                                 </div>
                                 <!--
-                                NOT DISPLAYING THIS FIELD AS THIS PRACTICE DOES NOT GET REFERRALS
-                                THEY ARE A PRIMARY CARE PROVIDER AND THE REFERR TO THER PRACTICES
-                                -->
-                                <!--<div class="col-sm-6">-->
-                                    <!--<label for="refferingDoctor">Reffering Doctor</label>-->
-                                    <!--<input type="text" class="form-control" id="refferingDoctor" name="refferingDoctor"-->
-                                           <!--aria-describedby="refferingDoctor" placeholder="Reffering Doctor">-->
-                                <!--</div>-->
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <!--contactname-->
-                                    {{#if patient.contactname}}
-                                        {{> patientDataFilled label="Emergency Contact" text=patient.contactname show=true}}
+                                    <div class="col-sm-3">
+                                        {{#if this.patient.employerstate}}
+                                    {{> patientDataFilled label="State" text=this.patient.employerstate show=true}}
+                                {{/if}}
+                                    {{> custInputFld type="text" id="employerstate" label="State" placeholder="GA"}}
+                                    </div>
+                                    -->
+                                <div class="col-sm-3">
+                                    {{#if this.patient.employerzip}}
+                                        {{> patientDataFilled label="ZIP Code" text=this.patient.employerzip show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="text" id="emergencyContact" label="Emergency Contact" placeholder="Emergency Contact"}}
-                                </div>
-                                <div class="col-sm-4">
-                                    <!--contactrelationship-->
-                                    {{#if patient.contactrelationship}}
-                                        {{> patientDataFilled label="Relationship to Patient" text=patient.contactrelationship show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="emergencyContactRelationship" label="Relationship to Patient" placeholder="Relationship to Patient"}}
-                                </div>
-                                <div class="col-sm-4">
-                                    <!--contacthomephone-->
-                                    {{#if patient.contacthomephone}}
-                                        <!--contactmobilephone-->
-                                        {{#if patient.contacthomephone}}
-                                            {{> patientDataFilled label="Phone Number" text=patient.contacthomephone show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
-                                    {{else}}
-                                        <!--contactmobilephone-->
-                                        {{#if patient.contactmobilephone}}
-                                            {{> patientDataFilled label="Phone Number" text=patient.contactmobilephone show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
-                                    {{/if}}
+                                    {{> custInputFld type="text" id="employerzip" label="ZIP Code" placeholder="30675"}}
                                 </div>
                             </div>
-
                             {{> accBtnNext text="Next"}}
-                        </div>
+                        </form>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFive">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                Release of Information Consent
-                            </a>
-                        </h4>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Insured/Responsible Party Information
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse insuredRelationship" role="tabpanel"
+                     aria-labelledby="headingTwo">
+                    <div class="panel-body">
+
+                        <div class="form-group row">
+                            <div class="col-md-3 col-sm-6">
+                                {{#parseJSON insuredRelationship}}
+                                    {{> custSelect id="relationshiptoinsuredid" label="Relationship to patient" emptyOption=true options=this selected=this.patient.insurances.[0].relationshiptoinsuredid }}
+                                {{/parseJSON}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
+                                patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                            <div class="col-md-3 col-sm-6">
+                                {{#if patient.insurances.[0].insurancepolicyholderlastname}}
+                                    {{> patientDataFilled label="Last name" text=this.patient.insurances.[0].insurancepolicyholderlastname show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="insurancepolicyholderlastname" label="Last name" placeholder="Last name"}}
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                {{#if patient.insurances.[0].insurancepolicyholdermiddlename}}
+                                    {{> patientDataFilled label="Middle initial" text=this.patient.insurances.[0].insurancepolicyholdermiddlename show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="insurancepolicyholdermiddlename" label="Middle initial" placeholder="Middle initial"}}
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                {{#if patient.insurances.[0].insurancepolicyholderfirstname}}
+                                    {{> patientDataFilled label="First name" text=this.patient.insurances.[0].insurancepolicyholderfirstname show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="insurancepolicyholderfirstname" label="First name" placeholder="First name"}}
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                {{#if patient.insurances.[0].insurancepolicyholderssn}}
+                                    {{> patientDataFilled label="SSN" text=this.patient.insurances.[0].insurancepolicyholderssn show=true}}
+                                {{/if}}
+                                {{> custInputFld type="tel" id="insurancepolicyholderssn" label="SSN" placeholder="*** - ** - ****"}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
+                                patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                            <div class="col-sm-6">
+                                {{#if patient.insurances.[0].insurancepolicyholderaddress1}}
+                                    {{> patientDataFilled label="Street address (if different from above)" text=this.patient.insurances.[0].insurancepolicyholderaddress1 show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="insurancepolicyholderaddress1" label="Street address (if different from above)" placeholder="3000 Sunny LN #1-B"}}
+                            </div>
+                            <div class="col-sm-3">
+                                {{#if patient.insurances.[0].insurancepolicyholdercity}}
+                                    {{> patientDataFilled label="City" text=this.patient.insurances.[0].insurancepolicyholdercity show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="insurancepolicyholdercity" label="City" placeholder="Atlanta"}}
+                            </div>
+                            <div class="col-sm-3">
+                                {{#if patient.insurances.[0].insurancepolicyholderzip}}
+                                    {{> patientDataFilled label="ZIP Code" text=this.patient.insurances.[0].insurancepolicyholderzip show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="insurancepolicyholdercity" label="ZIP Code" placeholder="30675"}}
+                            </div>
+                        </div>
+                        <!-- *******************************************
+                            These below are not mapping to Athena data,
+                            they must be custom fields for this practice
+                        ******************************************* -->
+                        <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
+                                patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                            <div class="col-sm-3">
+                                <label for="insuredhomephone">Home phone</label>
+                                <input type="tel" class="form-control" id="insuredhomephone" name="insuredhomephone"
+                                       aria-describedby="insuredhomephone" placeholder="(***) *** - ****">
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="insuredworkphone">Cell phone</label>
+                                <input type="tel" class="form-control" id="insuredworkphone" name="insuredworkphone"
+                                       aria-describedby="insuredworkphone" placeholder="(***) *** - ****">
+                            </div>
+                            <div class="col-sm-6"><label for="insuredemplyername">Employer name</label>
+                                <input type="text" class="form-control" id="insuredemplyername"
+                                       name="insuredemplyername"
+                                       aria-describedby="insuredemplyername" placeholder="Employer name"></div>
+                        </div>
+
+                        {{> accBtnNext text="Next"}}
                     </div>
-                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingFive">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <p>I understand that:</p>
-                                    <ul>
-                                        <li>Once "<u>this facility</u>" discloses my health information by my request, it
-                                            can not guarantee that Recipient will not re-disclose my health information to a
-                                            third party. The third party may not be required to abide by the Authorization
-                                            or applicable federal and state laws governing the use and disclosure of my
-                                            health information.
-                                        </li>
-                                        <li>I may make a request in writing at any time to inspect and/or obtain a copy of
-                                            my health information maintained at this facility as provided in the Federal
-                                            Privacy Rule 45 CFR (164.524).
-                                        </li>
-                                        <li>My records are protected and cannot be disclosed without written permission.
-                                        </li>
-                                        <li>This Authorization will remain in effect for one year or until I provide a
-                                            written notice of revocation to the Medical Record Department.
-                                        </li>
-                                    </ul>
-                                </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Insurance Information
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        <!--Primary insurance-->
+                        <div class="form-group row primaryInsurance">
+                            <div class="col-sm-4">
+                                <!--ircname-->
+                                {{#if patient.insurances.[0].ircname}}
+                                    {{> patientDataFilled label="Primary Insurance" text=this.patient.insurances.[0].ircname show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="ircname" label="Primary Insurance" placeholder="Primary Insurance name"}}
                             </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="signature">Sign below using finger or e-pen</label>
-                                    <input type="hidden" name="signature" id="signature"/>
-                                    <div id="signature-pad" class="m-signature-pad">
-                                        <div class="m-signature-pad--body">
-                                            <canvas></canvas>
-                                        </div>
-                                        <div class="m-signature-pad--footer">
-                                            <button type="button" class="clear btn btn-small btn-primary" data-action="clear">Clear</button>
-                                            <button type="button" class="save btn btn-small btn-primary pull-right" data-action="save">Save</button>
-                                        </div>
+                            <div class="col-sm-4">
+                                {{#if patient.insurances.[0].policynumber}}
+                                    {{> patientDataFilled label="Group Number" text=this.patient.insurances.[0].policynumber show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="policynumber" label="Group Number" placeholder="Insurance Group Number"}}
+                            </div>
+                            <div class="col-sm-4">
+                                {{#if patient.insurances.[0].insuranceidnumber}}
+                                    {{> patientDataFilled label="ID Number" text=this.patient.insurances.[0].insuranceidnumber show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="insuranceidnumber" label="ID Number" placeholder="Insurance ID number"}}
+                            </div>
+                        </div>
+                        <!--Primary Insurance 2-->
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {{#if primaryIns.address}}
+                                            {{> patientDataFilled label="Street address" text=primaryIns.address show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="insuranceStreetAddress" label="Street address" placeholder="3000 Insurance Pkwy Ste.302"}}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    {{> custInputFld type="text" id="printName" label="Print name" placeholder="John Doe"}}
-
-                                    {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
-
-                                    {{> custInputFld type="text" id="consentRelationship"
-                                            label="If signed by legal representative - Relationship to patient"
-                                            placeholder="Relationship to patient"}}
-                                </div>
-                            </div>
-                            <hr>
-
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="signatureWitness">Signature of Witness (Optional)</label>
-                                    <input type="hidden" name="signatureWitness" id="signatureWitness"/>
-                                    <div id="signature-pad-witness" class="m-signature-pad">
-                                        <div class="m-signature-pad--body">
-                                            <canvas></canvas>
-                                        </div>
-                                        <div class="m-signature-pad--footer">
-                                            <button type="button" class="clear btn btn-small btn-primary" data-action="clear">Clear</button>
-                                            <button type="button" class="save btn btn-small btn-primary pull-right" data-action="save">Save</button>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        {{#if primaryIns.city}}
+                                            {{> patientDataFilled label="City" text=primaryIns.city show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="insuranceCity" label="City" placeholder="Atlanta"}}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{#if primaryIns.zip}}
+                                            {{> patientDataFilled label="ZIP Code" text=primaryIns.zip show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="insuranceZip" label="ZIP Code" placeholder="30675"}}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    {{> custInputFld type="text" id="printNameWitness" label="Print name" placeholder="John Doe"}}
-
-                                    {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        {{#if primaryIns.phone}}
+                                            {{> patientDataFilled label="Phone number" text=primaryIns.phone show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <img class="img-responsive"
+                                     src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
+                            </div>
+                        </div>
+                        <!--
+                        Seems like the insurance related employer data is not collected
+                        For now commenting out...
+                        -->
+                        <!--<div class="form-group row">-->
+
+                        <!--<div class="col-sm-6">-->
+                        <!--<label for="employerName">Employer</label>-->
+                        <!--<input type="text" class="form-control" id="employerName" name="employerName"-->
+                        <!--aria-describedby="employerName" placeholder="Employer name">-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-3">-->
+                        <!--<label for="employerTel">Employer Phone</label>-->
+                        <!--<input type="tel" class="form-control" id="employerTel" name="employerTel"-->
+                        <!--aria-describedby="employerTel" placeholder="(***) *** - ****">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <hr>
+
+                        <!--Secondary insurance-->
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <!--ircname-->
+                                {{#if patient.insurances.[1].ircname}}
+                                    {{> patientDataFilled label="Secondary Insurance" text=this.patient.insurances.[1].ircname show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="ircname2" label="Secondary Insurance" placeholder="Secondary Insurance name"}}
+                            </div>
+                            <div class="col-sm-4">
+                                {{#if patient.insurances.[1].policynumber}}
+                                    {{> patientDataFilled label="Group Number" text=this.patient.insurances.[1].policynumber show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="policynumberSecondary" label="Group Number" placeholder="Insurance Group Number"}}
+                            </div>
+                            <div class="col-sm-4">
+                                {{#if patient.insurances.[1].insuranceidnumber}}
+                                    {{> patientDataFilled label="ID Number" text=this.patient.insurances.[1].insuranceidnumber show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="insuranceidnumberSecondary" label="ID Number" placeholder="Insurance ID number"}}
+                            </div>
+                        </div>
+                        <!--Secondary Insurance 2-->
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {{#if secondaryIns.address}}
+                                            {{> patientDataFilled label="Street address" text=secondaryIns.address show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="secondaryInsStreetAddress" label="Street address" placeholder="3000 Insurance Pkwy Ste.302"}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        {{#if secondaryIns.city}}
+                                            {{> patientDataFilled label="City" text=secondaryIns.city show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="secondaryInsCity" label="City" placeholder="Atlanta"}}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{#if secondaryIns.zip}}
+                                            {{> patientDataFilled label="ZIP Code" text=secondaryIns.zip show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="secondaryInsZipCode" label="ZIP Code" placeholder="30675"}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        {{#if secondaryIns.phone}}
+                                            {{> patientDataFilled label="Phone number" text=secondaryIns.phone show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="tel" id="secondaryInsPhone" label="Phone number" placeholder="(***) *** - ****"}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <img class="img-responsive"
+                                     src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
+                            </div>
+                        </div>
+
+                        {{> accBtnNext text="Next"}}
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingFour">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Additional Information
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingFour">
+                    <div class="panel-body">
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                {{#if this.primaryProvider.displayname}}
+                                    {{> patientDataFilled label="Primary / Family Doctor" text=this.primaryProvider.displayname show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="primaryDoctor" label="Primary / Family Doctor" placeholder="Primary / Family Doctor"}}
+                            </div>
+                            <!--
+                            NOT DISPLAYING THIS FIELD AS THIS PRACTICE DOES NOT GET REFERRALS
+                            THEY ARE A PRIMARY CARE PROVIDER AND THE REFERR TO THER PRACTICES
+                            -->
+                            <!--<div class="col-sm-6">-->
+                            <!--<label for="refferingDoctor">Reffering Doctor</label>-->
+                            <!--<input type="text" class="form-control" id="refferingDoctor" name="refferingDoctor"-->
+                            <!--aria-describedby="refferingDoctor" placeholder="Reffering Doctor">-->
+                            <!--</div>-->
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <!--contactname-->
+                                {{#if patient.contactname}}
+                                    {{> patientDataFilled label="Emergency Contact" text=patient.contactname show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="emergencyContact" label="Emergency Contact" placeholder="Emergency Contact"}}
+                            </div>
+                            <div class="col-sm-4">
+                                <!--contactrelationship-->
+                                {{#if patient.contactrelationship}}
+                                    {{> patientDataFilled label="Relationship to Patient" text=patient.contactrelationship show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="emergencyContactRelationship" label="Relationship to Patient" placeholder="Relationship to Patient"}}
+                            </div>
+                            <div class="col-sm-4">
+                                <!--contacthomephone-->
+                                {{#if patient.contacthomephone}}
+                                    <!--contactmobilephone-->
+                                    {{#if patient.contacthomephone}}
+                                        {{> patientDataFilled label="Phone Number" text=patient.contacthomephone show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
+                                {{else}}
+                                    <!--contactmobilephone-->
+                                    {{#if patient.contactmobilephone}}
+                                        {{> patientDataFilled label="Phone Number" text=patient.contactmobilephone show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
+                                {{/if}}
+                            </div>
+                        </div>
+
+                        {{> accBtnNext text="Next"}}
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingFive">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Release of Information Consent
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingFive">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>I understand that:</p>
+                                <ul>
+                                    <li>Once "<u>this facility</u>" discloses my health information by my request, it
+                                        can not guarantee that Recipient will not re-disclose my health information to a
+                                        third party. The third party may not be required to abide by the Authorization
+                                        or applicable federal and state laws governing the use and disclosure of my
+                                        health information.
+                                    </li>
+                                    <li>I may make a request in writing at any time to inspect and/or obtain a copy of
+                                        my health information maintained at this facility as provided in the Federal
+                                        Privacy Rule 45 CFR (164.524).
+                                    </li>
+                                    <li>My records are protected and cannot be disclosed without written permission.
+                                    </li>
+                                    <li>This Authorization will remain in effect for one year or until I provide a
+                                        written notice of revocation to the Medical Record Department.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="signature">Sign below using finger or e-pen</label>
+                                <input type="hidden" name="signature" id="signature"/>
+                                <div id="signature-pad" class="m-signature-pad">
+                                    <div class="m-signature-pad--body">
+                                        <canvas></canvas>
+                                    </div>
+                                    <div class="m-signature-pad--footer">
+                                        <button type="button" class="clear btn btn-small btn-primary"
+                                                data-action="clear">Clear
+                                        </button>
+                                        <button type="button" class="save btn btn-small btn-primary pull-right"
+                                                data-action="save">Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                {{> custInputFld type="text" id="printName" label="Print name" placeholder="John Doe"}}
+
+                                {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
+
+                                {{> custInputFld type="text" id="consentRelationship"
+                                        label="If signed by legal representative - Relationship to patient"
+                                        placeholder="Relationship to patient"}}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="signatureWitness">Signature of Witness (Optional)</label>
+                                <input type="hidden" name="signatureWitness" id="signatureWitness"/>
+                                <div id="signature-pad-witness" class="m-signature-pad">
+                                    <div class="m-signature-pad--body">
+                                        <canvas></canvas>
+                                    </div>
+                                    <div class="m-signature-pad--footer">
+                                        <button type="button" class="clear btn btn-small btn-primary"
+                                                data-action="clear">Clear
+                                        </button>
+                                        <button type="button" class="save btn btn-small btn-primary pull-right"
+                                                data-action="save">Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                {{> custInputFld type="text" id="printNameWitness" label="Print name" placeholder="John Doe"}}
+
+                                {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <hr>
-            <button type="submit" class="btn btn-primary btn-lg submit">Submit</button>
-        <!--</form>-->
+        <hr>
+        <button type="submit" class="btn btn-primary btn-lg submit">Submit</button>
     </div>
 </div>
 

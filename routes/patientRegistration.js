@@ -137,10 +137,17 @@ router.get('/:apptid/:patientid',
 );
 
 router.post('/', function (req, res, next) {
-   console.log(req.body);
-   res.sendStatus(200);
+    console.log(req.body);
+    res.sendStatus(200);
 });
 
+/**
+ * @description POST route for updating the patient registration form
+ *
+ * - Goal is to be able to re-use this for all portions of the Patient Registration form
+ *
+ * @param aNetMapping {string} this is the Athena Net API URI
+ **/
 router.post('/:aNetMapping', function (req, res, next) {
     console.log(req.body);
     console.log(req.params);
@@ -148,9 +155,13 @@ router.post('/:aNetMapping', function (req, res, next) {
     var postData = req.body;
     var aNEtAPI = req.params;
 
-
-
-    res.sendStatus(200);
+    var submitData = AHAPI.PUT(aNEtAPI + req.cookies.patientid, {params: postData});
+    submitData.on('done', function (data) {
+        // console.log(data);
+        if (!data[0].error) {
+            res.sendStatus(200);
+        }
+    });
 });
 
 module.exports = router;

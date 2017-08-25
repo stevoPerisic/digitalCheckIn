@@ -7,61 +7,90 @@ var AHAPI = new athenaHealthAPI.Connection('preview1',
     process.env.NRIM_PRACTICE_ID
 );
 
-/* GET home page. */
+/**
+ * @description GET home page - show list off appointments
+ *
+ * Ideas:
+ * @todo We need to have a login page, 
+ * @todo There should be a home page where the user can choose the departments
+ **/
 router.get('/',
+    /**
+     * @description GET all teh available departments for the practice
+     **/
     function (req, res, next) {
-        // get appointments
-        var today = new Date();
-        // console.log('Day ' + today.getDate());
-        // console.log('Month ' + today.getMonth()+1); // since months start at 0
-        // console.log('Year ' + today.getFullYear());
-
-        var enddate = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
-
         var params = {
-            appointmentstatus: 'f',
-            departmentid: 2,
-            enddate: '08/21/2017',// enddate,
-            ignorerestrictions: 'false',
-            showcancelled: 'false',
-            showclaimdetail: 'false',
-            showcopay: 'false',
-            showexpectedprocedurecodes: 'false',
-            showinsurance: 'true',
-            showpatientdetail: 'true',
-            showremindercalldetail: 'false',
-            startdate: '06/30/2017'//enddate
+            providerlist: true,
+            showalldepartments: false
         };
 
+        var departments = AHAPI.GET('/departments', {params: params});
+        departments.on('done', function (data) {
+            if (!data.error) {
+                /**
+                 * @todo offer a dropdown to select depts. for practices, currently only one valid dept in this practice
+                 * so we will select the first dept and pick it's id to pass down to the appointment middleware
+                 * The department ID needs to be an integer and it comes back as a string from this call
+                 **/
+                // console.log(data.departments);
+                req.departmentid = parseInt(data.departments[0].departmentid, 10);
+            } else {
+                /**
+                 * @todo handle error appropriately for the front-end, currently the appt. list just doesn't show
+                 **/
+                console.log(data.error);
+            }
+            next();
+        });
+    },
+    /**
+     * @description GET all appointments for the selected department for the chosen practice
+     * @todo For scale we will have to make the practice ID a setting in the dashboard (to be created) once we start serving more than one practice
+     **/
+    function (req, res, next) {
+        // get appointments
+        var today = new Date(),
+            enddate = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear(),
+            params = {
+                appointmentstatus: 'f',
+                departmentid: req.departmentid,
+                enddate: '08/21/2017',// enddate,
+                ignorerestrictions: 'false',
+                showcancelled: 'false',
+                showclaimdetail: 'false',
+                showcopay: 'false',
+                showexpectedprocedurecodes: 'false',
+                showinsurance: 'true',
+                showpatientdetail: 'true',
+                showremindercalldetail: 'false',
+                startdate: '06/30/2017'//enddate
+            };
+
         var appointments = AHAPI.GET('/appointments/booked', {params: params});
-        appointments.on('done', function(data){
-            // res.send(data);
-            // res.render('index', {appts: data.appointments, today: enddate});
+        appointments.on('done', function (data) {
             req.appts = data.appointments;
             req.enddate = enddate;
             next();
         });
     },
-    // load the available employers from the system
-    // function (req, res, next) {
-    //     var employers = AHAPI.GET('/employers', {});
-    //     employers.on('done', function(data) {
-    //         // console.log(data);
-    //         req.app.locals.employers = data.employers;
-    //         next();
-    //     });
-    // },
+    /**
+     * @description GET available providers so that we can display their name in the appt. table
+     * Also save the providers to the locals so that we can query later
+     * @todo The providers could be loaded initially before we start the application
+     **/
     function (req, res, next) {
-        // get providers so that we can display the name in the appts table
-        // THIS SHOULD BE LOADED INITIALLY BEFORE THE HOME SCREEN OPENS
         var providers = AHAPI.GET('/providers', {});
         providers.on('done', function (data) {
-            // save providers to local cache so we can query easier later
             req.app.locals.providers = data.providers;
-            res.render('index', {appts: req.appts, today: req.enddate, providers: data.providers});
+            next();
         });
+    },
+    /**
+     * @description Render the appointments table on the page
+     **/
+    function (req, res, next) {
+        res.render('index', {appts: req.appts, today: req.enddate, providers: data.providers});
     }
-
 );
 
 module.exports = router;

@@ -81,8 +81,13 @@
                     $relationshiptoinsurediddata.addClass('hidden');
                 }
                 /**
-                 * @todo remove the pre-filled insurance related data when the user changes the relationship drop-down
+                 * Remove the pre-filled insurance related data when the user changes the relationship drop-down
                  **/
+                var prefilledfields = $('.insuredRelationship').find('.patientDataFilled[data-show=true]');
+                $.each(prefilledfields, function(i, item){
+                    $(item).addClass('hidden');
+                    $(item).next().removeClass('hidden');
+                });
             });
 
             /**
@@ -96,7 +101,7 @@
 
 
             $('.btn.next').on('click',
-                {form: $('#patientDemographics'), URL:'/patientRegistration/patientDemographics' },
+                {form: $('#patientDemographics'), URL:'/patientRegistration/patient' },
                 app.utilities.formSubmit
             );
         },

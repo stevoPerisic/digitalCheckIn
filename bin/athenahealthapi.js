@@ -133,6 +133,12 @@ function Connection(version, key, secret, practiceid) {
 		// Make the request and propagate the events, storing the token for later
 		call(verb, path, params, headers, false)
 			.on('done', function(response) {
+
+				if(!response.access_token){
+                    console.log('Missing token!');
+                    console.log(response.access_token);
+                }
+
 				_token = response.access_token;
 				emitter.emit('ready');
 			}).on('error', function(error) {
