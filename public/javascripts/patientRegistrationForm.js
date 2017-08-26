@@ -17,6 +17,7 @@
     app.patientRegistrationForm = {
         sigPad: $('#signature-pad').find('canvas')[0],
         sigPadWitness: $('#signature-pad-witness').find('canvas')[0],
+        sigPadPatResps: $('#signature-pad-patResps').find('canvas')[0],
         $patientRegistrationForm: $('#patientRegistrationForm'),
         bindEvents: function () {
             var me = app.patientRegistrationForm;
@@ -63,6 +64,11 @@
                 } else {
                     window.open(me.signaturePadWitness.toDataURL());
                 }
+            });
+
+            $('#collapsePatRespos').on('shown.bs.collapse', function (e) {
+                app.utilities.resizeCanvas();
+                me.signaturePadPatResps = new SignaturePad(me.sigPadPatResps);
             });
 
             $('#collapseFive').on('shown.bs.collapse', function (e) {

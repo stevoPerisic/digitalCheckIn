@@ -484,6 +484,88 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                     </div>
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingPatRespos">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapsePatRespos" aria-expanded="false" aria-controls="collapsePatRespos">
+                            Patient Rights and Responsibilities
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapsePatRespos" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingPatRespos">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p class="lead">You have the right:</p>
+                                <ul>
+                                    <li>TO be treated with respect, consideration and dignity at all times.</li>
+                                    <li>TO receive assistance in a responsible manner.</li>
+                                    <li>TO receiver information about your health, including associated risks that may be involved in your
+                                        procedures and medical alternatives including associated risks that may be involved in your healthcare.</li>
+                                    <li>TO know the identity and professional status of individuals proving services to you.</li>
+                                    <li>TO expect that your medical records and communications will be treated in a confidential manner.</li>
+                                    <li>TO refuse treatment and may be advised of the alternatives and likely consequences of your decision.</li>
+                                    <li>TO express a complaint to the Practice Manager, Physician, or staff respectfully .</li>
+                                </ul>
+                                <p class="lead">You have the responsibility:</p>
+                                <ul>
+                                    <li>TO review and understand your health insurance coverage and benefits .</li>
+                                    <li>TO learn and understand the proper use of your insurance plan services and procedures for obtaining
+                                        coverage This is includes knowing the referral process of your plan, laboratory restrictions and outpatient
+                                        facilities covered by your plan as well as co-pay requirements.</li>
+                                    <li>TO always carry your insurance plan identification card and be prepared at each visit. Patient will be
+                                        required to pay for all services at the times of service if the patient does not provide all the insurance
+                                        information or the insurance information is inaccurate.</li>
+                                    <li>TO treat all office personnel respectfully and with courtesy.</li>
+                                    <li>TO keep scheduled appointments and to notify the office promptly if you will be delayed or unable to keep
+                                        an appointment.</li>
+                                    <li>TO pay all charges for co-pays, deductibles, non-covered services at the time of service.</li>
+                                    <li>TO ask questions and seek clarification until you fully understand the care you are receiving.</li>
+                                    <li>TO follow the advice of the medical provider and consider the alternatives and/or likely consequences if
+                                        you refuse to comply.</li>
+                                    <li>TO provide honest and complete information to those providing medical care.</li>
+                                    <li>TO express you opinions, concerns, or complaints in a constructive and appropriate manner.</li>
+                                    <li>TO understand that there may be times that the physician may require you to return to the office for
+                                        additional treatment/test to aid in the diagnosis of your exam.</li>
+                                    <li>TO understand that late arrival for an appointment may result in the need to reschedule that appointment.
+                                        Every effort will be made to accommodate the patient’s needs without compromising the interest of other
+                                        patients.</li>
+                                </ul>
+                                <p><strong>I have read and understand the office policy as stated above and accept responsibility as described. I give
+                                    my consent to obtain treatment from Goga Vukotic, D.D.,P.C. and their staff.</strong></p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="signature">Please sign below</label>
+                                <input type="hidden" name="signaturePatResps" id="signaturePatResps"/>
+                                <div id="signature-pad-patResps" class="m-signature-pad">
+                                    <div class="m-signature-pad--body">
+                                        <canvas></canvas>
+                                    </div>
+                                    <div class="m-signature-pad--footer">
+                                        <button type="button" class="clear btn btn-small btn-primary"
+                                                data-action="clear">Clear
+                                        </button>
+                                        <button type="button" class="save btn btn-small btn-primary pull-right"
+                                                data-action="save">Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                {{> custInputFld type="text" id="printNamePatResps" label="Print name" placeholder="John Doe"}}
+
+                                {{> custInputFld type="date" id="datePatResps" label="Date" placeholder="mm/dd/yyyy"}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFive">
                     <h4 class="panel-title">
@@ -520,7 +602,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label for="signature">Sign below using finger or e-pen</label>
+                                <label for="signature">Please sign below</label>
                                 <input type="hidden" name="signature" id="signature"/>
                                 <div id="signature-pad" class="m-signature-pad">
                                     <div class="m-signature-pad--body">
