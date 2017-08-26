@@ -1,7 +1,5 @@
 /**
- * Created by stevoperisic on 5/1/17.
- *
- * patient registration controller
+ * Patient Registration Form controller - Created by stevoperisic on 5/1/17.
  */
 var express = require('express');
 var router = express.Router();
@@ -14,9 +12,10 @@ var AHAPI = new athenaHealthAPI.Connection('preview1',
 );
 var formsConfig = require('../bin/formsConfig');
 
-/* GET home page. */
+/**
+ * @description Patient registration form basic GET route, renders the form without any pre-populated data.
+ **/
 router.get('/', function (req, res, next) {
-    console.log(req);
     res.render('patientRegistration', {
         title: 'Patient registration',
         maritalStatusSelect: formsConfig.maritalStatusSelect,
@@ -32,25 +31,31 @@ router.get('/', function (req, res, next) {
  https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapping
  */
 
+/**
+ * @description Patient registration form GET route,
+ * Middleware:
+ * - get the patient info
+ * - get practice level insurance packages
+ * - get appointment related insurances - NOT SURE IF THIS IS NEEDED
+ * - get patient assigned incurances
+ * - render the page
+ * @param apptid {String} Appointment ID
+ * @param patientid {String} Patient ID
+ **/
 router.get('/:apptid/:patientid',
-    // Get the patient first
+    /**
+     * @description GET the patient information first
+     **/
     function (req, res, next) {
-        /*
-         * here we will set the appointment and the patient on all of the routes
-         * perhaps we could do this via cookie? or session var?
-         * for now we will set it as a local var for the express app
-         */
-        req.app.locals.mainMenu.apptid = req.params.apptid;
-        req.app.locals.mainMenu.patientid = req.params.patientid;
-
         var patient = AHAPI.GET('/patients/' + req.params.patientid, {params: {showinsurance: true}});
-
         patient.on('done', function (data) {
             req.patient = data[0];
             next();
         });
     },
-    // get top insurance packages
+    /**
+     * @description GET top insurance packages from aNET for this practice
+     **/
     function (req, res, next) {
         var topInsurancePckgs = AHAPI.GET('/misc/topinsurancepackages', {});
         topInsurancePckgs.on('done', function (data) {
@@ -59,7 +64,9 @@ router.get('/:apptid/:patientid',
             next();
         });
     },
-    // get appointment related insurances - NOT SURE IF WE NEED THIS
+    /**
+     * @description GET appointment related insurances - NOT SURE IF WE NEED THIS
+     **/
     function (req, res, next) {
         var apptRelatedInsurance = AHAPI.GET('/appointments/' + req.params.apptid + '/insurances', {});
         apptRelatedInsurance.on('done', function (data) {
@@ -68,72 +75,71 @@ router.get('/:apptid/:patientid',
             next();
         });
     },
-    // get patient insurances
+    /**
+     * @description GET patient insurances
+     **/
     function (req, res, next) {
-
-        // console.log(req.app.locals.providers);
-
         // https://api.athenahealth.com/preview1/195900/patients/1/insurances
         // https://api.athenahealth.com/preview1/195900/insurancepackages
         var patientInsurances = AHAPI.GET('/patients/' + req.params.patientid + '/insurances', {});
         patientInsurances.on('done', function (data) {
-            // console.log(data.insurances);
-
-            // req.primaryInsID = data.insurances[0].insuranceid;
-
-            // next();
-
-            // console.log(req.topInsurancePckgs);
-
-            // var packageId = '0';
-            // if (Array.isArray(data.insurances) && data.insurances.length > 0) {
-            //     packageId = (typeof(data.insurances[0].insurancepackageid) === 'string') ?
-            //         data.insurances[0].insurancepackageid :
-            //         data.insurances[0].insurancepackageid.toString();
-            // }
-
-            var primaryProvider = {};
-            if (req.app.locals.providers) {
-                primaryProvider = req.app.locals.providers.find(function (provider) {
-                    if (parseInt(provider.providerid, 10) === parseInt(req.patient.primaryproviderid, 10)) {
-                        return provider;
-                    } else {
-                        return false;
-                    }
-                })
+            if (!data.error) {
+                req.insurances = data.insurances;
+                if (req.app.locals.providers) {
+                    req.primaryProvider = req.app.locals.providers.find(function (provider) {
+                        if (parseInt(provider.providerid, 10) === parseInt(req.patient.primaryproviderid, 10)) {
+                            return provider;
+                        } else {
+                            return false;
+                        }
+                    })
+                }
+            } else {
+                console.log('Error getting patient level insurance: '+ data.error);
             }
-
-            res.render('patientRegistration', {
-                patient: req.patient,
-                patientInsurances: data.insurances,
-                maritalStatusSelect: formsConfig.maritalStatusSelect,
-                insuredRelationship: formsConfig.insuredRelationship,
-                primaryIns: req.topInsurancePckgs.find(function (ins) {
-                    if (data.insurances[0]) {
-                        return (ins.insurancepackageid === data.insurances[0].insurancepackageid.toString()) ? ins : false;
-                    } else {
-                        return false;
-                    }
-                }),
-                secondaryIns: req.topInsurancePckgs.find(function (ins) {
-                    if (data.insurances[1]) {
-                        return (ins.insurancepackageid === data.insurances[1].insurancepackageid.toString()) ? ins : false;
-                    } else {
-                        return false;
-                    }
-                }),
-                primaryProvider: primaryProvider
-            });
+            next();
+        });
+    },
+    /**
+     * @description GET insurance card images
+     **/
+    function (req, res, next) {
+        var insuranceCard = AHAPI.GET('/patients/' + req.params.patientid + '/insurances/' + req.primaryInsID + '/image', {});
+        insuranceCard.on('done', function (data) {
+            if (!data.error) {
+                req.inscardImgs = data;
+            } else {
+                console.log('Error: ' + data.error);
+            }
+            next();
+        });
+    },
+    /**
+     * @description Render the form
+     **/
+    function (req, res, next) {
+        res.render('patientRegistration', {
+            patient: req.patient,
+            patientInsurances: req.insurances,
+            maritalStatusSelect: formsConfig.maritalStatusSelect,
+            insuredRelationship: formsConfig.insuredRelationship,
+            primaryIns: req.topInsurancePckgs.find(function (ins) {
+                if (req.insurances[0]) {
+                    return (ins.insurancepackageid === req.insurances[0].insurancepackageid.toString()) ? ins : false;
+                } else {
+                    return false;
+                }
+            }),
+            secondaryIns: req.topInsurancePckgs.find(function (ins) {
+                if (req.insurances[1]) {
+                    return (ins.insurancepackageid === req.insurances[1].insurancepackageid.toString()) ? ins : false;
+                } else {
+                    return false;
+                }
+            }),
+            primaryProvider: req.primaryProvider
         });
     }
-    // ,
-    // get insurance card images
-    // function (req, res, next) {
-    //     var insuranceCard = AHAPI.GET('/patients/'+req.params.patientid+'/insurances/'+req.primaryInsID+'/image', {});
-    //     insuranceCard.on('done', function(data){
-    //         res.send(data);
-    //     })
-    // }
 );
 
 router.post('/', function (req, res, next) {
@@ -146,9 +152,9 @@ router.post('/', function (req, res, next) {
  *
  * - Goal is to be able to re-use this for all portions of the Patient Registration form
  *
- * @param aNetMapping {string} this is the Athena Net API URI
+ * @param aNetAPI {string} this is the Athena Net API URI
  **/
-router.post('/:aNetMapping', function (req, res, next) {
+router.post('/:aNetAPI', function (req, res, next) {
     console.log(req.body);
     console.log(req.params);
 
@@ -158,8 +164,10 @@ router.post('/:aNetMapping', function (req, res, next) {
     var submitData = AHAPI.PUT(aNEtAPI + req.cookies.patientid, {params: postData});
     submitData.on('done', function (data) {
         // console.log(data);
-        if (!data[0].error) {
+        if (!data.error) {
             res.sendStatus(200);
+        } else {
+            console.log('Error POSTing to API: '+aNEtAPI+', '+data.error);
         }
     });
 });
