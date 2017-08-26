@@ -11,7 +11,7 @@ var AHAPI = new athenaHealthAPI.Connection('preview1',
  * @description GET home page - show list off appointments
  *
  * Ideas:
- * @todo We need to have a login page, 
+ * @todo We need to have a login page,
  * @todo There should be a home page where the user can choose the departments
  **/
 router.get('/',
@@ -89,7 +89,7 @@ router.get('/',
      * @description Render the appointments table on the page
      **/
     function (req, res, next) {
-        res.render('index', {appts: req.appts, today: req.enddate, providers: data.providers});
+        res.render('index', {appts: req.appts, today: req.enddate});
     }
 );
 
