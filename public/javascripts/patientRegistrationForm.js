@@ -100,16 +100,15 @@
              * Updating patient demographics
              * https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-5
              * */
-            $('.btn.submit').on('click',
-                {form: me.$patientRegistrationForm, URL:'/patientRegistration' },
-                app.utilities.formSubmit
-            );
+            // $('.btn.submit').on('click',
+            //     {form: me.$patientRegistrationForm, URL:'/patientRegistration' },
+            //     app.utilities.formSubmit
+            // );
 
-
-            $('.btn.next').on('click',
-                {form: $('#patientDemographics'), URL:'/patientRegistration/patient' },
-                app.utilities.formSubmit
-            );
+            /**
+             * Submit the forms by clicking the "Next" button
+             **/
+            $('.btn.next').on('click', app.utilities.formSubmit);
         },
         init: function () {
             var me = app.patientRegistrationForm;

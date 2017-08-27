@@ -134,8 +134,10 @@
              **/
             formSubmit: function (evt) {
                 evt.preventDefault();
-                var $form = evt.data.form;
-                var URL = evt.data.URL;
+                // var $form = evt.data.form(evt.currentTarget);
+                // var URL = evt.data.URL;
+                var $form = $(evt.currentTarget).parents('form');
+                var URL = $form[0].dataset.url;
                 var formData = $form.serializeArray();
                 var data = {};
 

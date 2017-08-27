@@ -24,7 +24,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                      aria-labelledby="headingOne">
                     <div class="panel-body">
                         <!--Patient name, DOB and SSN-->
-                        <form id="patientDemographics">
+                        <form id="patientDemographics" data-url="/patientRegistration/demographics">
                             <div class="form-group row">
                                 <div class="col-md-3 col-sm-6">
                                     {{#if this.patient.lastname}}
@@ -175,87 +175,85 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 <div id="collapseTwo" class="panel-collapse collapse insuredRelationship" role="tabpanel"
                      aria-labelledby="headingTwo">
                     <div class="panel-body">
+                        <form id="insuredParty" data-url="/patientRegistration/insuredParty">
+                            <div class="form-group row">
+                                <div class="col-md-3 col-sm-6">
+                                    {{#parseJSON insuredRelationship}}
+                                        {{> custSelect id="relationshiptoinsuredid" label="Relationship to patient" emptyOption=true options=this selected=this.patient.insurances.[0].relationshiptoinsuredid }}
+                                    {{/parseJSON}}
+                                </div>
+                            </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-3 col-sm-6">
-                                {{#parseJSON insuredRelationship}}
-                                    {{> custSelect id="relationshiptoinsuredid" label="Relationship to patient" emptyOption=true options=this selected=this.patient.insurances.[0].relationshiptoinsuredid }}
-                                {{/parseJSON}}
+                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if patient.insurances.[0].insurancepolicyholderlastname}}
+                                        {{> patientDataFilled label="Last name" text=this.patient.insurances.[0].insurancepolicyholderlastname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insurancepolicyholderlastname" label="Last name" placeholder="Last name"}}
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if patient.insurances.[0].insurancepolicyholdermiddlename}}
+                                        {{> patientDataFilled label="Middle initial" text=this.patient.insurances.[0].insurancepolicyholdermiddlename show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insurancepolicyholdermiddlename" label="Middle initial" placeholder="Middle initial"}}
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if patient.insurances.[0].insurancepolicyholderfirstname}}
+                                        {{> patientDataFilled label="First name" text=this.patient.insurances.[0].insurancepolicyholderfirstname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insurancepolicyholderfirstname" label="First name" placeholder="First name"}}
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    {{#if patient.insurances.[0].insurancepolicyholderssn}}
+                                        {{> patientDataFilled label="SSN" text=this.patient.insurances.[0].insurancepolicyholderssn show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="insurancepolicyholderssn" label="SSN" placeholder="*** - ** - ****"}}
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
-                                patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
-                            <div class="col-md-3 col-sm-6">
-                                {{#if patient.insurances.[0].insurancepolicyholderlastname}}
-                                    {{> patientDataFilled label="Last name" text=this.patient.insurances.[0].insurancepolicyholderlastname show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="insurancepolicyholderlastname" label="Last name" placeholder="Last name"}}
+                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                                <div class="col-sm-6">
+                                    {{#if patient.insurances.[0].insurancepolicyholderaddress1}}
+                                        {{> patientDataFilled label="Street address (if different from above)" text=this.patient.insurances.[0].insurancepolicyholderaddress1 show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insurancepolicyholderaddress1" label="Street address (if different from above)" placeholder="3000 Sunny LN #1-B"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{#if patient.insurances.[0].insurancepolicyholdercity}}
+                                        {{> patientDataFilled label="City" text=this.patient.insurances.[0].insurancepolicyholdercity show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insurancepolicyholdercity" label="City" placeholder="Atlanta"}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{#if patient.insurances.[0].insurancepolicyholderzip}}
+                                        {{> patientDataFilled label="ZIP Code" text=this.patient.insurances.[0].insurancepolicyholderzip show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insurancepolicyholdercity" label="ZIP Code" placeholder="30675"}}
+                                </div>
                             </div>
-                            <div class="col-md-3 col-sm-6">
-                                {{#if patient.insurances.[0].insurancepolicyholdermiddlename}}
-                                    {{> patientDataFilled label="Middle initial" text=this.patient.insurances.[0].insurancepolicyholdermiddlename show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="insurancepolicyholdermiddlename" label="Middle initial" placeholder="Middle initial"}}
+                            <!-- *******************************************
+                                These below are not mapping to Athena data,
+                                they must be custom fields for this practice
+                            ******************************************* -->
+                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                                <div class="col-sm-3">
+                                    <label for="insuredhomephone">Home phone</label>
+                                    <input type="tel" class="form-control" id="insuredhomephone" name="insuredhomephone"
+                                           aria-describedby="insuredhomephone" placeholder="(***) *** - ****">
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="insuredworkphone">Cell phone</label>
+                                    <input type="tel" class="form-control" id="insuredworkphone" name="insuredworkphone"
+                                           aria-describedby="insuredworkphone" placeholder="(***) *** - ****">
+                                </div>
+                                <div class="col-sm-6"><label for="insuredemplyername">Employer name</label>
+                                    <input type="text" class="form-control" id="insuredemplyername"
+                                           name="insuredemplyername"
+                                           aria-describedby="insuredemplyername" placeholder="Employer name"></div>
                             </div>
-                            <div class="col-md-3 col-sm-6">
-                                {{#if patient.insurances.[0].insurancepolicyholderfirstname}}
-                                    {{> patientDataFilled label="First name" text=this.patient.insurances.[0].insurancepolicyholderfirstname show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="insurancepolicyholderfirstname" label="First name" placeholder="First name"}}
-                            </div>
-                            <div class="col-md-3 col-sm-6">
-                                {{#if patient.insurances.[0].insurancepolicyholderssn}}
-                                    {{> patientDataFilled label="SSN" text=this.patient.insurances.[0].insurancepolicyholderssn show=true}}
-                                {{/if}}
-                                {{> custInputFld type="tel" id="insurancepolicyholderssn" label="SSN" placeholder="*** - ** - ****"}}
-                            </div>
-                        </div>
 
-                        <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
-                                patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
-                            <div class="col-sm-6">
-                                {{#if patient.insurances.[0].insurancepolicyholderaddress1}}
-                                    {{> patientDataFilled label="Street address (if different from above)" text=this.patient.insurances.[0].insurancepolicyholderaddress1 show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="insurancepolicyholderaddress1" label="Street address (if different from above)" placeholder="3000 Sunny LN #1-B"}}
-                            </div>
-                            <div class="col-sm-3">
-                                {{#if patient.insurances.[0].insurancepolicyholdercity}}
-                                    {{> patientDataFilled label="City" text=this.patient.insurances.[0].insurancepolicyholdercity show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="insurancepolicyholdercity" label="City" placeholder="Atlanta"}}
-                            </div>
-                            <div class="col-sm-3">
-                                {{#if patient.insurances.[0].insurancepolicyholderzip}}
-                                    {{> patientDataFilled label="ZIP Code" text=this.patient.insurances.[0].insurancepolicyholderzip show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="insurancepolicyholdercity" label="ZIP Code" placeholder="30675"}}
-                            </div>
-                        </div>
-                        <!-- *******************************************
-                            These below are not mapping to Athena data,
-                            they must be custom fields for this practice
-                        ******************************************* -->
-                        <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
-                                patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
-                            <div class="col-sm-3">
-                                <label for="insuredhomephone">Home phone</label>
-                                <input type="tel" class="form-control" id="insuredhomephone" name="insuredhomephone"
-                                       aria-describedby="insuredhomephone" placeholder="(***) *** - ****">
-                            </div>
-                            <div class="col-sm-3">
-                                <label for="insuredworkphone">Cell phone</label>
-                                <input type="tel" class="form-control" id="insuredworkphone" name="insuredworkphone"
-                                       aria-describedby="insuredworkphone" placeholder="(***) *** - ****">
-                            </div>
-                            <div class="col-sm-6"><label for="insuredemplyername">Employer name</label>
-                                <input type="text" class="form-control" id="insuredemplyername"
-                                       name="insuredemplyername"
-                                       aria-describedby="insuredemplyername" placeholder="Employer name"></div>
-                        </div>
-
-                        {{> accBtnNext text="Next"}}
+                            {{> accBtnNext text="Next"}}
+                        </form>
                     </div>
                 </div>
             </div>
