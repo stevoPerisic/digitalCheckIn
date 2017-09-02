@@ -25,6 +25,10 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                     <div class="panel-body">
                         <!--Patient name, DOB and SSN-->
                         <form id="patientDemographics" data-url="/patientRegistration/demographics">
+                            <!--
+                            @todo add a link/modal for the "Notice of Privacy Practices"
+                             http://northroswellinternalmedicine.com/forms/3privacypolicy.pdf
+                            -->
                             <div class="form-group row">
                                 <div class="col-md-3 col-sm-6">
                                     {{#if this.patient.lastname}}
@@ -184,7 +188,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 </div>
                             </div>
 
-                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
+                                    patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
                                 <div class="col-md-3 col-sm-6">
                                     {{#if patient.insurances.[0].insurancepolicyholderlastname}}
                                         {{> patientDataFilled label="Last name" text=this.patient.insurances.[0].insurancepolicyholderlastname show=true}}
@@ -211,7 +216,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 </div>
                             </div>
 
-                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
+                                    patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
                                 <div class="col-sm-6">
                                     {{#if patient.insurances.[0].insurancepolicyholderaddress1}}
                                         {{> patientDataFilled label="Street address (if different from above)" text=this.patient.insurances.[0].insurancepolicyholderaddress1 show=true}}
@@ -235,7 +241,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 These below are not mapping to Athena data,
                                 they must be custom fields for this practice
                             ******************************************* -->
-                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
+                                    patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
                                 <div class="col-sm-3">
                                     <label for="insuredhomephone">Home phone</label>
                                     <input type="tel" class="form-control" id="insuredhomephone" name="insuredhomephone"
@@ -269,149 +276,147 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
                      aria-labelledby="headingThree">
                     <div class="panel-body">
-                        <!--Primary insurance-->
-                        <div class="form-group row primaryInsurance">
-                            <div class="col-sm-4">
-                                <!--ircname-->
-                                {{#if patient.insurances.[0].ircname}}
-                                    {{> patientDataFilled label="Primary Insurance" text=this.patient.insurances.[0].ircname show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="ircname" label="Primary Insurance" placeholder="Primary Insurance name"}}
-                            </div>
-                            <div class="col-sm-4">
-                                {{#if patient.insurances.[0].policynumber}}
-                                    {{> patientDataFilled label="Group Number" text=this.patient.insurances.[0].policynumber show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="policynumber" label="Group Number" placeholder="Insurance Group Number"}}
-                            </div>
-                            <div class="col-sm-4">
-                                {{#if patient.insurances.[0].insuranceidnumber}}
-                                    {{> patientDataFilled label="ID Number" text=this.patient.insurances.[0].insuranceidnumber show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="insuranceidnumber" label="ID Number" placeholder="Insurance ID number"}}
-                            </div>
-                        </div>
-                        <!--Primary Insurance 2-->
-                        <div class="form-group row">
-                            <div class="col-sm-8">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        {{#if primaryIns.address}}
-                                            {{> patientDataFilled label="Street address" text=primaryIns.address show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="insuranceStreetAddress" label="Street address" placeholder="3000 Insurance Pkwy Ste.302"}}
-                                    </div>
+                        <form id="insuranceInfo" data-url="/patientRegistration/insuranceInfo">
+                            <!--Primary insurance-->
+                            <div class="form-group row primaryInsurance">
+                                <div class="col-sm-4">
+                                    <!--ircname-->
+                                    {{#if patient.insurances.[0].ircname}}
+                                        {{> patientDataFilled label="Primary Insurance" text=this.patient.insurances.[0].ircname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="ircname" label="Primary Insurance" placeholder="Primary Insurance name"}}
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        {{#if primaryIns.city}}
-                                            {{> patientDataFilled label="City" text=primaryIns.city show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="insuranceCity" label="City" placeholder="Atlanta"}}
-                                    </div>
-                                    <div class="col-sm-6">
-                                        {{#if primaryIns.zip}}
-                                            {{> patientDataFilled label="ZIP Code" text=primaryIns.zip show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="insuranceZip" label="ZIP Code" placeholder="30675"}}
-                                    </div>
+                                <div class="col-sm-4">
+                                    {{#if patient.insurances.[0].policynumber}}
+                                        {{> patientDataFilled label="Group Number" text=this.patient.insurances.[0].policynumber show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="policynumber" label="Group Number" placeholder="Insurance Group Number"}}
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        {{#if primaryIns.phone}}
-                                            {{> patientDataFilled label="Phone number" text=primaryIns.phone show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
-                                    </div>
+                                <div class="col-sm-4">
+                                    {{#if patient.insurances.[0].insuranceidnumber}}
+                                        {{> patientDataFilled label="ID Number" text=this.patient.insurances.[0].insuranceidnumber show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insuranceidnumber" label="ID Number" placeholder="Insurance ID number"}}
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <img class="img-responsive"
-                                     src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
+                            <!--Primary Insurance 2-->
+                            <div class="form-group row">
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            {{#if primaryIns.address}}
+                                                {{> patientDataFilled label="Street address" text=primaryIns.address show=true}}
+                                            {{/if}}
+                                            {{> custInputFld type="text" id="insuranceStreetAddress" label="Street address" placeholder="3000 Insurance Pkwy Ste.302"}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            {{#if primaryIns.city}}
+                                                {{> patientDataFilled label="City" text=primaryIns.city show=true}}
+                                            {{/if}}
+                                            {{> custInputFld type="text" id="insuranceCity" label="City" placeholder="Atlanta"}}
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{#if primaryIns.zip}}
+                                                {{> patientDataFilled label="ZIP Code" text=primaryIns.zip show=true}}
+                                            {{/if}}
+                                            {{> custInputFld type="text" id="insuranceZip" label="ZIP Code" placeholder="30675"}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            {{#if primaryIns.phone}}
+                                                {{> patientDataFilled label="Phone number" text=primaryIns.phone show=true}}
+                                            {{/if}}
+                                            {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <!--
+                                               Employer data helps determine the correct package ID of the insurance in the Athena Net DB
+                                               -->
+                                            <label for="employerName">Employer</label>
+                                            <input type="text" class="form-control" id="employerName" name="employerName"
+                                                   aria-describedby="employerName" placeholder="Employer name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <img class="img-responsive"
+                                         src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
+                                </div>
                             </div>
-                        </div>
-                        <!--
-                        Seems like the insurance related employer data is not collected
-                        For now commenting out...
-                        -->
-                        <!--<div class="form-group row">-->
 
-                        <!--<div class="col-sm-6">-->
-                        <!--<label for="employerName">Employer</label>-->
-                        <!--<input type="text" class="form-control" id="employerName" name="employerName"-->
-                        <!--aria-describedby="employerName" placeholder="Employer name">-->
-                        <!--</div>-->
-                        <!--<div class="col-sm-3">-->
-                        <!--<label for="employerTel">Employer Phone</label>-->
-                        <!--<input type="tel" class="form-control" id="employerTel" name="employerTel"-->
-                        <!--aria-describedby="employerTel" placeholder="(***) *** - ****">-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <hr>
+                            <hr>
 
-                        <!--Secondary insurance-->
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <!--ircname-->
-                                {{#if patient.insurances.[1].ircname}}
-                                    {{> patientDataFilled label="Secondary Insurance" text=this.patient.insurances.[1].ircname show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="ircname2" label="Secondary Insurance" placeholder="Secondary Insurance name"}}
-                            </div>
-                            <div class="col-sm-4">
-                                {{#if patient.insurances.[1].policynumber}}
-                                    {{> patientDataFilled label="Group Number" text=this.patient.insurances.[1].policynumber show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="policynumberSecondary" label="Group Number" placeholder="Insurance Group Number"}}
-                            </div>
-                            <div class="col-sm-4">
-                                {{#if patient.insurances.[1].insuranceidnumber}}
-                                    {{> patientDataFilled label="ID Number" text=this.patient.insurances.[1].insuranceidnumber show=true}}
-                                {{/if}}
-                                {{> custInputFld type="text" id="insuranceidnumberSecondary" label="ID Number" placeholder="Insurance ID number"}}
-                            </div>
-                        </div>
-                        <!--Secondary Insurance 2-->
-                        <div class="form-group row">
-                            <div class="col-sm-8">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        {{#if secondaryIns.address}}
-                                            {{> patientDataFilled label="Street address" text=secondaryIns.address show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="secondaryInsStreetAddress" label="Street address" placeholder="3000 Insurance Pkwy Ste.302"}}
-                                    </div>
+                            <!--Secondary insurance-->
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <!--ircname-->
+                                    {{#if patient.insurances.[1].ircname}}
+                                        {{> patientDataFilled label="Secondary Insurance" text=this.patient.insurances.[1].ircname show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="ircname2" label="Secondary Insurance" placeholder="Secondary Insurance name"}}
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        {{#if secondaryIns.city}}
-                                            {{> patientDataFilled label="City" text=secondaryIns.city show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="secondaryInsCity" label="City" placeholder="Atlanta"}}
-                                    </div>
-                                    <div class="col-sm-6">
-                                        {{#if secondaryIns.zip}}
-                                            {{> patientDataFilled label="ZIP Code" text=secondaryIns.zip show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="text" id="secondaryInsZipCode" label="ZIP Code" placeholder="30675"}}
-                                    </div>
+                                <div class="col-sm-4">
+                                    {{#if patient.insurances.[1].policynumber}}
+                                        {{> patientDataFilled label="Group Number" text=this.patient.insurances.[1].policynumber show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="policynumberSecondary" label="Group Number" placeholder="Insurance Group Number"}}
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        {{#if secondaryIns.phone}}
-                                            {{> patientDataFilled label="Phone number" text=secondaryIns.phone show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="tel" id="secondaryInsPhone" label="Phone number" placeholder="(***) *** - ****"}}
-                                    </div>
+                                <div class="col-sm-4">
+                                    {{#if patient.insurances.[1].insuranceidnumber}}
+                                        {{> patientDataFilled label="ID Number" text=this.patient.insurances.[1].insuranceidnumber show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="text" id="insuranceidnumberSecondary" label="ID Number" placeholder="Insurance ID number"}}
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <img class="img-responsive"
-                                     src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
+                            <!--Secondary Insurance 2-->
+                            <div class="form-group row">
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            {{#if secondaryIns.address}}
+                                                {{> patientDataFilled label="Street address" text=secondaryIns.address show=true}}
+                                            {{/if}}
+                                            {{> custInputFld type="text" id="secondaryInsStreetAddress" label="Street address" placeholder="3000 Insurance Pkwy Ste.302"}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            {{#if secondaryIns.city}}
+                                                {{> patientDataFilled label="City" text=secondaryIns.city show=true}}
+                                            {{/if}}
+                                            {{> custInputFld type="text" id="secondaryInsCity" label="City" placeholder="Atlanta"}}
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{#if secondaryIns.zip}}
+                                                {{> patientDataFilled label="ZIP Code" text=secondaryIns.zip show=true}}
+                                            {{/if}}
+                                            {{> custInputFld type="text" id="secondaryInsZipCode" label="ZIP Code" placeholder="30675"}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            {{#if secondaryIns.phone}}
+                                                {{> patientDataFilled label="Phone number" text=secondaryIns.phone show=true}}
+                                            {{/if}}
+                                            {{> custInputFld type="tel" id="secondaryInsPhone" label="Phone number" placeholder="(***) *** - ****"}}
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="secondaryEmployerName">Employer</label>
+                                            <input type="text" class="form-control" id="secondaryEmployerName" name="secondaryEmployerName"
+                                                   aria-describedby="secondaryEmployerName" placeholder="Employer name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <img class="img-responsive"
+                                         src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
+                                </div>
                             </div>
-                        </div>
-
-                        {{> accBtnNext text="Next"}}
+                            {{> accBtnNext text="Next"}}
+                        </form>
                     </div>
                 </div>
             </div>
@@ -430,7 +435,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 {{#if this.primaryProvider.displayname}}
-                                    {{> patientDataFilled label="Primary / Family Doctor" text=this.primaryProvider.displayname show=true}}
+                                    {{> patientDataFilled label="Primary/Family Doctor" text=this.primaryProvider.displayname show=true}}
                                 {{/if}}
                                 {{> custInputFld type="text" id="primaryDoctor" label="Primary / Family Doctor" placeholder="Primary / Family Doctor"}}
                             </div>
@@ -501,39 +506,73 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 <ul>
                                     <li>TO be treated with respect, consideration and dignity at all times.</li>
                                     <li>TO receive assistance in a responsible manner.</li>
-                                    <li>TO receiver information about your health, including associated risks that may be involved in your
-                                        procedures and medical alternatives including associated risks that may be involved in your healthcare.</li>
-                                    <li>TO know the identity and professional status of individuals proving services to you.</li>
-                                    <li>TO expect that your medical records and communications will be treated in a confidential manner.</li>
-                                    <li>TO refuse treatment and may be advised of the alternatives and likely consequences of your decision.</li>
-                                    <li>TO express a complaint to the Practice Manager, Physician, or staff respectfully .</li>
+                                    <li>TO receiver information about your health, including associated risks that may
+                                        be involved in your
+                                        procedures and medical alternatives including associated risks that may be
+                                        involved in your healthcare.
+                                    </li>
+                                    <li>TO know the identity and professional status of individuals proving services to
+                                        you.
+                                    </li>
+                                    <li>TO expect that your medical records and communications will be treated in a
+                                        confidential manner.
+                                    </li>
+                                    <li>TO refuse treatment and may be advised of the alternatives and likely
+                                        consequences of your decision.
+                                    </li>
+                                    <li>TO express a complaint to the Practice Manager, Physician, or staff respectfully
+                                        .
+                                    </li>
                                 </ul>
                                 <p class="lead">You have the responsibility:</p>
                                 <ul>
                                     <li>TO review and understand your health insurance coverage and benefits .</li>
-                                    <li>TO learn and understand the proper use of your insurance plan services and procedures for obtaining
-                                        coverage This is includes knowing the referral process of your plan, laboratory restrictions and outpatient
-                                        facilities covered by your plan as well as co-pay requirements.</li>
-                                    <li>TO always carry your insurance plan identification card and be prepared at each visit. Patient will be
-                                        required to pay for all services at the times of service if the patient does not provide all the insurance
-                                        information or the insurance information is inaccurate.</li>
+                                    <li>TO learn and understand the proper use of your insurance plan services and
+                                        procedures for obtaining
+                                        coverage This is includes knowing the referral process of your plan, laboratory
+                                        restrictions and outpatient
+                                        facilities covered by your plan as well as co-pay requirements.
+                                    </li>
+                                    <li>TO always carry your insurance plan identification card and be prepared at each
+                                        visit. Patient will be
+                                        required to pay for all services at the times of service if the patient does not
+                                        provide all the insurance
+                                        information or the insurance information is inaccurate.
+                                    </li>
                                     <li>TO treat all office personnel respectfully and with courtesy.</li>
-                                    <li>TO keep scheduled appointments and to notify the office promptly if you will be delayed or unable to keep
-                                        an appointment.</li>
-                                    <li>TO pay all charges for co-pays, deductibles, non-covered services at the time of service.</li>
-                                    <li>TO ask questions and seek clarification until you fully understand the care you are receiving.</li>
-                                    <li>TO follow the advice of the medical provider and consider the alternatives and/or likely consequences if
-                                        you refuse to comply.</li>
+                                    <li>TO keep scheduled appointments and to notify the office promptly if you will be
+                                        delayed or unable to keep
+                                        an appointment.
+                                    </li>
+                                    <li>TO pay all charges for co-pays, deductibles, non-covered services at the time of
+                                        service.
+                                    </li>
+                                    <li>TO ask questions and seek clarification until you fully understand the care you
+                                        are receiving.
+                                    </li>
+                                    <li>TO follow the advice of the medical provider and consider the alternatives
+                                        and/or likely consequences if
+                                        you refuse to comply.
+                                    </li>
                                     <li>TO provide honest and complete information to those providing medical care.</li>
-                                    <li>TO express you opinions, concerns, or complaints in a constructive and appropriate manner.</li>
-                                    <li>TO understand that there may be times that the physician may require you to return to the office for
-                                        additional treatment/test to aid in the diagnosis of your exam.</li>
-                                    <li>TO understand that late arrival for an appointment may result in the need to reschedule that appointment.
-                                        Every effort will be made to accommodate the patient’s needs without compromising the interest of other
-                                        patients.</li>
+                                    <li>TO express you opinions, concerns, or complaints in a constructive and
+                                        appropriate manner.
+                                    </li>
+                                    <li>TO understand that there may be times that the physician may require you to
+                                        return to the office for
+                                        additional treatment/test to aid in the diagnosis of your exam.
+                                    </li>
+                                    <li>TO understand that late arrival for an appointment may result in the need to
+                                        reschedule that appointment.
+                                        Every effort will be made to accommodate the patient’s needs without
+                                        compromising the interest of other
+                                        patients.
+                                    </li>
                                 </ul>
-                                <p><strong>I have read and understand the office policy as stated above and accept responsibility as described. I give
-                                    my consent to obtain treatment from Goga Vukotic, D.D.,P.C. and their staff.</strong></p>
+                                <p><strong>I have read and understand the office policy as stated above and accept
+                                    responsibility as described. I give
+                                    my consent to obtain treatment from Goga Vukotic, D.D.,P.C. and their
+                                    staff.</strong></p>
                             </div>
                         </div>
                         <div class="form-group row">

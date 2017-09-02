@@ -12,15 +12,31 @@ var AHAPI = new athenaHealthAPI.Connection('preview1',
 );
 var router = express.Router();
 
-router.get('/:id/startcheckin', function(req, res, next){
-    console.log(req.params);
-    // res.send('starting checkin');
-    var appt = AHAPI.POST('/appointments/'+req.params.id+'/startcheckin');
-    appt.on('done', function(data){
-        console.log(data);
-        res.send(data);
-        // res.render('index', {appts: data.appointments});
-    });
-});
+router.get('/:apptid/startcheckin',
+    /**
+     * @description GET Appointment Check-in readiness
+     * @todo what makes the appt. ready?
+     **/
+    function (req, res, next) {
+        var apptreadiness = AHAPI.GET('/appointments/' + req.params.apptid + '/checkin', {params: {}});
+        apptreadiness.on('done', function (data) {
+            console.log(data);
+            next();
+        });
+    },
+    /**
+     * @description POST Start check-in for this appointment
+     * @todo perhaps create a cancel-check-in in case something goes wrong...
+     **/
+    function (req, res, next) {
+        console.log(req.params);
+        var appt = AHAPI.POST('/appointments/' + req.params.apptid + '/startcheckin');
+        appt.on('done', function (data) {
+            console.log(data);
+            res.send(data);
+            // res.render('index', {appts: data.appointments});
+        });
+    }
+);
 
 module.exports = router;

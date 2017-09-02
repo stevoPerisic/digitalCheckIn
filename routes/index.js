@@ -16,7 +16,7 @@ var AHAPI = new athenaHealthAPI.Connection('preview1',
  **/
 router.get('/',
     /**
-     * @description GET all teh available departments for the practice
+     * @description GET all the available departments for the practice
      **/
     function (req, res, next) {
         var params = {
@@ -54,7 +54,7 @@ router.get('/',
             params = {
                 appointmentstatus: 'f',
                 departmentid: req.departmentid,
-                enddate: '08/21/2017',// enddate,
+                enddate: enddate,
                 ignorerestrictions: 'false',
                 showcancelled: 'false',
                 showclaimdetail: 'false',

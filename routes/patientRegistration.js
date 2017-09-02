@@ -45,11 +45,23 @@ router.get('/', function (req, res, next) {
 router.get('/:apptid/:patientid',
     /**
      * @description GET the patient information first
+     * @todo We must surface and record the Race and Ethnicity data for the patient
      **/
     function (req, res, next) {
         var patient = AHAPI.GET('/patients/' + req.params.patientid, {params: {showinsurance: true}});
         patient.on('done', function (data) {
             req.app.locals.patient = data[0];
+            next();
+        });
+    },
+    /**
+     * @description GET Appointment Check-in requirements so that we can tell which forms need filing-out
+     * @todo we need to check with practice manager of this is necessary to guide the check-in process
+     **/
+    function (req, res, next) {
+        var checkInReqs = AHAPI.GET('/appointments/'+req.params.apptid+'/checkin', {params: {}});
+        checkInReqs.on('done', function (data) {
+            console.log(JSON.stringify(data));
             next();
         });
     },
@@ -104,20 +116,25 @@ router.get('/:apptid/:patientid',
     },
     /**
      * @description GET insurance card images
+     * - first check if there is an insurance recorded for the patient
      **/
     function (req, res, next) {
-        var params = {};
-        var patientID = req.app.locals.patient.patientid;
-        var primaryInsID = req.app.locals.patient.insurances[0].insuranceid;
-        var insuranceCard = AHAPI.GET('/patients/' + patientID + '/insurances/' + primaryInsID + '/image', {params: params});
-        insuranceCard.on('done', function (data) {
-            if (!data.error) {
-                req.inscardImgs = data;
-            } else {
-                console.log('Error: ' + data.error);
-            }
+        if(req.app.locals.patient.insurances[0]) {
+            var params = {};
+            var patientID = req.app.locals.patient.patientid;
+            var primaryInsID = req.app.locals.patient.insurances[0].insuranceid;
+            var insuranceCard = AHAPI.GET('/patients/' + patientID + '/insurances/' + primaryInsID + '/image', {params: params});
+            insuranceCard.on('done', function (data) {
+                if (!data.error) {
+                    req.inscardImgs = data;
+                } else {
+                    console.log('Error: ' + data.error);
+                }
+                next();
+            });
+        } else {
             next();
-        });
+        }
     },
     /**
      * @description Render the form
@@ -199,11 +216,55 @@ router.post('/insuredParty', function (req, res, next) {
         });
     } else {
         res.status(500).send({
-            insiranceid: req.app.locals.patient.insurances,
+            insuranceid: insuranceid,
             message: 'Insurance ID not present this patient has no insurance configured on their aNet account.'
         });
         console.log('Insurance ID not present this patient has no insurance configured on their aNet account.');
     }
 });
+
+/**
+ * @description Submit the Primary and Secondary Insurance data
+ * - an insurance package ID must be supplied in order to successfully POST insurance data
+ * - we will call the available insurances Athena API to get those
+ * @todo double check this is needed at all, per Athena Net the front desk staff is supposed to collect this via the
+ *       insurance card scan before the check-in process starts
+ **/
+router.post('/insuranceInfo',
+    /**
+     * @description GET available insurance packages in Athena NET
+     * @todo finish insurance submit
+     **/
+    function (req, res, next) {
+        var params = {
+            insuranceplanname: req.body.insuranceplanname,
+            memberid: req.body.memberid
+        };
+        var insurancePckg = AHAPI.GET('/insurancepackages', {params: params});
+        insurancePckg.on('done', function (data) {
+            console.log(data);
+            if(req.body.insurances) {
+                /**
+                 * We need to find the best matching insurance package ID
+                 * using the address provided and the emplyer name
+                 **/
+
+            }
+
+            next();
+        });
+    },
+    /**
+     * @description POST the insurance data to the patient record in Athena
+     **/
+    function (req, res, next) {
+        // var postData = req.body,
+        //     patientid = req.cookies.patientid,
+        //     primaryInsID = req.app.locals.patient.insurances[0].insuranceid,
+        //     secondaryInsID = req.app.locals.patient.insurances[1].insuranceid;
+
+        res.status(200).send('Posted stuff ;)');
+    }
+);
 
 module.exports = router;
