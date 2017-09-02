@@ -42,6 +42,25 @@ h1, h2, h3 {
     padding: 0;
 }
 
+.panel-heading.success {
+    background-color: #18A3AC;
+    position: relative;
+}
+
+.panel-heading.success:before {
+    content: "\e013";
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 24px;
+}
+
 .panel-title a {
     display: block;
     padding: 20px 15px;

@@ -95,9 +95,10 @@
                  * Update customToggle elements with selected values, if any
                  **/
                 $('.custToggle-group').each(function (i, el) {
-                    $(el).children('[data-value="' + el.dataset.selected + '"]')
-                        .removeClass('notActive')
-                        .addClass('active');
+                    var selectedToggle = $(el).children('[data-value="' + el.dataset.selected + '"]');
+
+                    selectedToggle.removeClass('notActive btn-default').addClass('active btn-primary');
+                    selectedToggle.siblings().removeClass('active btn-primary').addClass('notActive btn-default');
                 });
 
                 /**
@@ -133,14 +134,15 @@
              **/
             formSubmit: function (evt) {
                 evt.preventDefault();
-                var $form = evt.data.form;
-                var URL = evt.data.URL;
+                // var $form = evt.data.form(evt.currentTarget);
+                // var URL = evt.data.URL;
+                var $form = $(evt.currentTarget).parents('form');
+                var URL = $form[0].dataset.url;
                 var formData = $form.serializeArray();
                 var data = {};
 
                 /**
-                 * @todo add validator data attributes to the input fields
-                 * so that the validator would actually run
+                 * @todo add validator data attributes to the input fields so that the validator would actually run
                  **/
                 $form.validate();
 
@@ -149,7 +151,7 @@
                      * check if the input is still hidden and the user did NOT reveal it
                      * to update by clicking the Edit btn thus revealing the input field
                      **/
-                    if(!$('input[name='+input.name+']').parent().hasClass('hidden')) {
+                    if (!$('input[name=' + input.name + ']').parent().hasClass('hidden')) {
                         data[input.name] = input.value;
                     }
                 });
@@ -159,8 +161,12 @@
                     url: URL,
                     data: data,
                     contentType: 'application/x-www-form-urlencoded'
-                }).done(function (data) {
+                }).done(function (data, xhr) {
                     console.log(data);
+                    console.log(xhr);
+                    if (xhr === 'success') {
+                        $form.parents('.panel-collapse').siblings('.panel-heading').addClass('success');
+                    }
                 });
             },
         }

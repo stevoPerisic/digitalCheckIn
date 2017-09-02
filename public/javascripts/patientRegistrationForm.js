@@ -17,6 +17,7 @@
     app.patientRegistrationForm = {
         sigPad: $('#signature-pad').find('canvas')[0],
         sigPadWitness: $('#signature-pad-witness').find('canvas')[0],
+        sigPadPatResps: $('#signature-pad-patResps').find('canvas')[0],
         $patientRegistrationForm: $('#patientRegistrationForm'),
         bindEvents: function () {
             var me = app.patientRegistrationForm;
@@ -65,6 +66,11 @@
                 }
             });
 
+            $('#collapsePatRespos').on('shown.bs.collapse', function (e) {
+                app.utilities.resizeCanvas();
+                me.signaturePadPatResps = new SignaturePad(me.sigPadPatResps);
+            });
+
             $('#collapseFive').on('shown.bs.collapse', function (e) {
                 app.utilities.resizeCanvas();
                 me.signaturePad = new SignaturePad(me.sigPad);
@@ -81,20 +87,28 @@
                     $relationshiptoinsurediddata.addClass('hidden');
                 }
                 /**
-                 * @todo
-                 * remove the pre-filled insurance related data when the user changes
-                 * the relationship drop-down
+                 * Remove the pre-filled insurance related data when the user changes the relationship drop-down
                  **/
+                var prefilledfields = $('.insuredRelationship').find('.patientDataFilled[data-show=true]');
+                $.each(prefilledfields, function(i, item){
+                    $(item).addClass('hidden');
+                    $(item).next().removeClass('hidden');
+                });
             });
 
             /**
              * Updating patient demographics
              * https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-5
              * */
-            $('.btn.submit').on('click',
-                {form: me.$patientRegistrationForm, URL:'/patientRegistration' },
-                app.utilities.formSubmit
-            );
+            // $('.btn.submit').on('click',
+            //     {form: me.$patientRegistrationForm, URL:'/patientRegistration' },
+            //     app.utilities.formSubmit
+            // );
+
+            /**
+             * Submit the forms by clicking the "Next" button
+             **/
+            $('.btn.next').on('click', app.utilities.formSubmit);
         },
         init: function () {
             var me = app.patientRegistrationForm;

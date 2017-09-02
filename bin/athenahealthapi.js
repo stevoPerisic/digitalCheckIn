@@ -133,6 +133,12 @@ function Connection(version, key, secret, practiceid) {
 		// Make the request and propagate the events, storing the token for later
 		call(verb, path, params, headers, false)
 			.on('done', function(response) {
+
+				if(!response.access_token){
+                    console.log('Missing token!');
+                    console.log(response.access_token);
+                }
+
 				_token = response.access_token;
 				emitter.emit('ready');
 			}).on('error', function(error) {
@@ -189,9 +195,7 @@ function Connection(version, key, secret, practiceid) {
 				response.on('end', function() {
 					// console.log(JSON.parse(content));
 					/**
-					 * @todo
-					 * Sometimes the response is not JSON from aNET
-					 * this causes the app to crash and has to be fixed
+					 * @todo Sometimes the response is not JSON from aNET this causes the app to crash and has to be fixed
 					 **/
 					try {
 						output = JSON.parse(content)

@@ -9,21 +9,26 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
 <div class="row">
     <div class="col-sm-12">
         <h1>Patient Registration Form</h1>
-        <form id="patientRegistrationForm">
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                               aria-expanded="true" aria-controls="collapseOne">
-                                Personal Information
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
-                         aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            <!--Patient name, DOB and SSN-->
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                           aria-expanded="true" aria-controls="collapseOne">
+                            Personal Information
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <!--Patient name, DOB and SSN-->
+                        <form id="patientDemographics" data-url="/patientRegistration/demographics">
+                            <!--
+                            @todo add a link/modal for the "Notice of Privacy Practices"
+                             http://northroswellinternalmedicine.com/forms/3privacypolicy.pdf
+                            -->
                             <div class="form-group row">
                                 <div class="col-md-3 col-sm-6">
                                     {{#if this.patient.lastname}}
@@ -65,13 +70,13 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{> custInputFld type="text" id="city" label="City" placeholder="Atlanta"}}
                                 </div>
                                 <!--
-                                <div class="col-sm-3">
-                                    {{#if this.patient.state}}
+                                    <div class="col-sm-3">
+                                        {{#if this.patient.state}}
                                     {{> patientDataFilled label="State" text=this.patient.state show=true}}
                                 {{/if}}
                                     {{> custInputFld type="text" id="state" label="State" placeholder="GA"}}
-                                </div>
-                                -->
+                                    </div>
+                                    -->
                                 <div class="col-md-3 col-sm-6">
                                     {{#if this.patient.zip}}
                                         {{> patientDataFilled label="ZIP Code" text=this.patient.zip show=true}}
@@ -118,7 +123,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if this.patient.employername}}
                                         {{> patientDataFilled label="Patient employer name" text=this.patient.employername show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="text" id="emplyername" label="Patient employer name" placeholder="Employer name"}}
+                                    {{> custInputFld type="text" id="employername" label="Patient employer name" placeholder="Employer name"}}
                                 </div>
                                 <div class="col-sm-4">
                                     {{#if this.patient.employerphone}}
@@ -142,13 +147,13 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{> custInputFld type="text" id="employercity" label="City" placeholder="Atlanta"}}
                                 </div>
                                 <!--
-                                <div class="col-sm-3">
-                                    {{#if this.patient.employerstate}}
-                                        {{> patientDataFilled label="State" text=this.patient.employerstate show=true}}
-                                    {{/if}}
+                                    <div class="col-sm-3">
+                                        {{#if this.patient.employerstate}}
+                                    {{> patientDataFilled label="State" text=this.patient.employerstate show=true}}
+                                {{/if}}
                                     {{> custInputFld type="text" id="employerstate" label="State" placeholder="GA"}}
-                                </div>
-                                -->
+                                    </div>
+                                    -->
                                 <div class="col-sm-3">
                                     {{#if this.patient.employerzip}}
                                         {{> patientDataFilled label="ZIP Code" text=this.patient.employerzip show=true}}
@@ -157,21 +162,24 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 </div>
                             </div>
                             {{> accBtnNext text="Next"}}
-                        </div>
+                        </form>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Insured/Responsible Party Information
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse insuredRelationship" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
+            </div>
 
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Insured/Responsible Party Information
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse insuredRelationship" role="tabpanel"
+                     aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <form id="insuredParty" data-url="/patientRegistration/insuredParty">
                             <div class="form-group row">
                                 <div class="col-md-3 col-sm-6">
                                     {{#parseJSON insuredRelationship}}
@@ -180,7 +188,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 </div>
                             </div>
 
-                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
+                                    patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
                                 <div class="col-md-3 col-sm-6">
                                     {{#if patient.insurances.[0].insurancepolicyholderlastname}}
                                         {{> patientDataFilled label="Last name" text=this.patient.insurances.[0].insurancepolicyholderlastname show=true}}
@@ -207,7 +216,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 </div>
                             </div>
 
-                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
+                                    patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
                                 <div class="col-sm-6">
                                     {{#if patient.insurances.[0].insurancepolicyholderaddress1}}
                                         {{> patientDataFilled label="Street address (if different from above)" text=this.patient.insurances.[0].insurancepolicyholderaddress1 show=true}}
@@ -231,7 +241,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 These below are not mapping to Athena data,
                                 they must be custom fields for this practice
                             ******************************************* -->
-                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
+                            <div class="form-group row relationshiptoinsurediddata{{#isInsurancePolicyHolder
+                                    patient.insurances.[0].relationshiptoinsuredid}} hidden{{else}}{{/isInsurancePolicyHolder}}">
                                 <div class="col-sm-3">
                                     <label for="insuredhomephone">Home phone</label>
                                     <input type="tel" class="form-control" id="insuredhomephone" name="insuredhomephone"
@@ -249,21 +260,23 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                             </div>
 
                             {{> accBtnNext text="Next"}}
-                        </div>
+                        </form>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingThree">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Insurance Information
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingThree">
-                        <div class="panel-body">
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Insurance Information
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        <form id="insuranceInfo" data-url="/patientRegistration/insuranceInfo">
                             <!--Primary insurance-->
                             <div class="form-group row primaryInsurance">
                                 <div class="col-sm-4">
@@ -318,29 +331,22 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                             {{/if}}
                                             {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
                                         </div>
+                                        <div class="col-sm-6">
+                                            <!--
+                                               Employer data helps determine the correct package ID of the insurance in the Athena Net DB
+                                               -->
+                                            <label for="employerName">Employer</label>
+                                            <input type="text" class="form-control" id="employerName" name="employerName"
+                                                   aria-describedby="employerName" placeholder="Employer name">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <img class="img-responsive" src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
+                                    <img class="img-responsive"
+                                         src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
                                 </div>
                             </div>
-                            <!--
-                            Seems like the insurance related employer data is not collected
-                            For now commenting out...
-                            -->
-                            <!--<div class="form-group row">-->
 
-                                <!--<div class="col-sm-6">-->
-                                    <!--<label for="employerName">Employer</label>-->
-                                    <!--<input type="text" class="form-control" id="employerName" name="employerName"-->
-                                           <!--aria-describedby="employerName" placeholder="Employer name">-->
-                                <!--</div>-->
-                                <!--<div class="col-sm-3">-->
-                                    <!--<label for="employerTel">Employer Phone</label>-->
-                                    <!--<input type="tel" class="form-control" id="employerTel" name="employerTel"-->
-                                           <!--aria-describedby="employerTel" placeholder="(***) *** - ****">-->
-                                <!--</div>-->
-                            <!--</div>-->
                             <hr>
 
                             <!--Secondary insurance-->
@@ -397,172 +403,301 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                             {{/if}}
                                             {{> custInputFld type="tel" id="secondaryInsPhone" label="Phone number" placeholder="(***) *** - ****"}}
                                         </div>
+                                        <div class="col-sm-6">
+                                            <label for="secondaryEmployerName">Employer</label>
+                                            <input type="text" class="form-control" id="secondaryEmployerName" name="secondaryEmployerName"
+                                                   aria-describedby="secondaryEmployerName" placeholder="Employer name">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <img class="img-responsive" src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
+                                    <img class="img-responsive"
+                                         src="http://via.placeholder.com/350x150?text=Insurance+Card+Image">
                                 </div>
                             </div>
-
                             {{> accBtnNext text="Next"}}
-                        </div>
+                        </form>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFour">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                Additional Information
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingFour">
-                        <div class="panel-body">
-                            <div class="form-group row">
-                                <div class="col-sm-6">
-                                    {{#if this.primaryProvider.displayname}}
-                                        {{> patientDataFilled label="Primary / Family Doctor" text=this.primaryProvider.displayname show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="primaryDoctor" label="Primary / Family Doctor" placeholder="Primary / Family Doctor"}}
-                                </div>
-                                <!--
-                                NOT DISPLAYING THIS FIELD AS THIS PRACTICE DOES NOT GET REFERRALS
-                                THEY ARE A PRIMARY CARE PROVIDER AND THE REFERR TO THER PRACTICES
-                                -->
-                                <!--<div class="col-sm-6">-->
-                                    <!--<label for="refferingDoctor">Reffering Doctor</label>-->
-                                    <!--<input type="text" class="form-control" id="refferingDoctor" name="refferingDoctor"-->
-                                           <!--aria-describedby="refferingDoctor" placeholder="Reffering Doctor">-->
-                                <!--</div>-->
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingFour">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Additional Information
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingFour">
+                    <div class="panel-body">
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                {{#if this.primaryProvider.displayname}}
+                                    {{> patientDataFilled label="Primary/Family Doctor" text=this.primaryProvider.displayname show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="primaryDoctor" label="Primary / Family Doctor" placeholder="Primary / Family Doctor"}}
                             </div>
+                            <!--
+                            NOT DISPLAYING THIS FIELD AS THIS PRACTICE DOES NOT GET REFERRALS
+                            THEY ARE A PRIMARY CARE PROVIDER AND THE REFERR TO THER PRACTICES
+                            -->
+                            <!--<div class="col-sm-6">-->
+                            <!--<label for="refferingDoctor">Reffering Doctor</label>-->
+                            <!--<input type="text" class="form-control" id="refferingDoctor" name="refferingDoctor"-->
+                            <!--aria-describedby="refferingDoctor" placeholder="Reffering Doctor">-->
+                            <!--</div>-->
+                        </div>
 
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <!--contactname-->
-                                    {{#if patient.contactname}}
-                                        {{> patientDataFilled label="Emergency Contact" text=patient.contactname show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="emergencyContact" label="Emergency Contact" placeholder="Emergency Contact"}}
-                                </div>
-                                <div class="col-sm-4">
-                                    <!--contactrelationship-->
-                                    {{#if patient.contactrelationship}}
-                                        {{> patientDataFilled label="Relationship to Patient" text=patient.contactrelationship show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="emergencyContactRelationship" label="Relationship to Patient" placeholder="Relationship to Patient"}}
-                                </div>
-                                <div class="col-sm-4">
-                                    <!--contacthomephone-->
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <!--contactname-->
+                                {{#if patient.contactname}}
+                                    {{> patientDataFilled label="Emergency Contact" text=patient.contactname show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="emergencyContact" label="Emergency Contact" placeholder="Emergency Contact"}}
+                            </div>
+                            <div class="col-sm-4">
+                                <!--contactrelationship-->
+                                {{#if patient.contactrelationship}}
+                                    {{> patientDataFilled label="Relationship to Patient" text=patient.contactrelationship show=true}}
+                                {{/if}}
+                                {{> custInputFld type="text" id="emergencyContactRelationship" label="Relationship to Patient" placeholder="Relationship to Patient"}}
+                            </div>
+                            <div class="col-sm-4">
+                                <!--contacthomephone-->
+                                {{#if patient.contacthomephone}}
+                                    <!--contactmobilephone-->
                                     {{#if patient.contacthomephone}}
-                                        <!--contactmobilephone-->
-                                        {{#if patient.contacthomephone}}
-                                            {{> patientDataFilled label="Phone Number" text=patient.contacthomephone show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
-                                    {{else}}
-                                        <!--contactmobilephone-->
-                                        {{#if patient.contactmobilephone}}
-                                            {{> patientDataFilled label="Phone Number" text=patient.contactmobilephone show=true}}
-                                        {{/if}}
-                                        {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
+                                        {{> patientDataFilled label="Phone Number" text=patient.contacthomephone show=true}}
                                     {{/if}}
-                                </div>
+                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
+                                {{else}}
+                                    <!--contactmobilephone-->
+                                    {{#if patient.contactmobilephone}}
+                                        {{> patientDataFilled label="Phone Number" text=patient.contactmobilephone show=true}}
+                                    {{/if}}
+                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
+                                {{/if}}
                             </div>
-
-                            {{> accBtnNext text="Next"}}
                         </div>
+
+                        {{> accBtnNext text="Next"}}
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFive">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                Release of Information Consent
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingFive">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <p>I understand that:</p>
-                                    <ul>
-                                        <li>Once "<u>this facility</u>" discloses my health information by my request, it
-                                            can not guarantee that Recipient will not re-disclose my health information to a
-                                            third party. The third party may not be required to abide by the Authorization
-                                            or applicable federal and state laws governing the use and disclosure of my
-                                            health information.
-                                        </li>
-                                        <li>I may make a request in writing at any time to inspect and/or obtain a copy of
-                                            my health information maintained at this facility as provided in the Federal
-                                            Privacy Rule 45 CFR (164.524).
-                                        </li>
-                                        <li>My records are protected and cannot be disclosed without written permission.
-                                        </li>
-                                        <li>This Authorization will remain in effect for one year or until I provide a
-                                            written notice of revocation to the Medical Record Department.
-                                        </li>
-                                    </ul>
-                                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingPatRespos">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapsePatRespos" aria-expanded="false" aria-controls="collapsePatRespos">
+                            Patient Rights and Responsibilities
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapsePatRespos" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingPatRespos">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p class="lead">You have the right:</p>
+                                <ul>
+                                    <li>TO be treated with respect, consideration and dignity at all times.</li>
+                                    <li>TO receive assistance in a responsible manner.</li>
+                                    <li>TO receiver information about your health, including associated risks that may
+                                        be involved in your
+                                        procedures and medical alternatives including associated risks that may be
+                                        involved in your healthcare.
+                                    </li>
+                                    <li>TO know the identity and professional status of individuals proving services to
+                                        you.
+                                    </li>
+                                    <li>TO expect that your medical records and communications will be treated in a
+                                        confidential manner.
+                                    </li>
+                                    <li>TO refuse treatment and may be advised of the alternatives and likely
+                                        consequences of your decision.
+                                    </li>
+                                    <li>TO express a complaint to the Practice Manager, Physician, or staff respectfully
+                                        .
+                                    </li>
+                                </ul>
+                                <p class="lead">You have the responsibility:</p>
+                                <ul>
+                                    <li>TO review and understand your health insurance coverage and benefits .</li>
+                                    <li>TO learn and understand the proper use of your insurance plan services and
+                                        procedures for obtaining
+                                        coverage This is includes knowing the referral process of your plan, laboratory
+                                        restrictions and outpatient
+                                        facilities covered by your plan as well as co-pay requirements.
+                                    </li>
+                                    <li>TO always carry your insurance plan identification card and be prepared at each
+                                        visit. Patient will be
+                                        required to pay for all services at the times of service if the patient does not
+                                        provide all the insurance
+                                        information or the insurance information is inaccurate.
+                                    </li>
+                                    <li>TO treat all office personnel respectfully and with courtesy.</li>
+                                    <li>TO keep scheduled appointments and to notify the office promptly if you will be
+                                        delayed or unable to keep
+                                        an appointment.
+                                    </li>
+                                    <li>TO pay all charges for co-pays, deductibles, non-covered services at the time of
+                                        service.
+                                    </li>
+                                    <li>TO ask questions and seek clarification until you fully understand the care you
+                                        are receiving.
+                                    </li>
+                                    <li>TO follow the advice of the medical provider and consider the alternatives
+                                        and/or likely consequences if
+                                        you refuse to comply.
+                                    </li>
+                                    <li>TO provide honest and complete information to those providing medical care.</li>
+                                    <li>TO express you opinions, concerns, or complaints in a constructive and
+                                        appropriate manner.
+                                    </li>
+                                    <li>TO understand that there may be times that the physician may require you to
+                                        return to the office for
+                                        additional treatment/test to aid in the diagnosis of your exam.
+                                    </li>
+                                    <li>TO understand that late arrival for an appointment may result in the need to
+                                        reschedule that appointment.
+                                        Every effort will be made to accommodate the patient’s needs without
+                                        compromising the interest of other
+                                        patients.
+                                    </li>
+                                </ul>
+                                <p><strong>I have read and understand the office policy as stated above and accept
+                                    responsibility as described. I give
+                                    my consent to obtain treatment from Goga Vukotic, D.D.,P.C. and their
+                                    staff.</strong></p>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="signature">Sign below using finger or e-pen</label>
-                                    <input type="hidden" name="signature" id="signature"/>
-                                    <div id="signature-pad" class="m-signature-pad">
-                                        <div class="m-signature-pad--body">
-                                            <canvas></canvas>
-                                        </div>
-                                        <div class="m-signature-pad--footer">
-                                            <button type="button" class="clear btn btn-small btn-primary" data-action="clear">Clear</button>
-                                            <button type="button" class="save btn btn-small btn-primary pull-right" data-action="save">Save</button>
-                                        </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="signature">Please sign below</label>
+                                <input type="hidden" name="signaturePatResps" id="signaturePatResps"/>
+                                <div id="signature-pad-patResps" class="m-signature-pad">
+                                    <div class="m-signature-pad--body">
+                                        <canvas></canvas>
+                                    </div>
+                                    <div class="m-signature-pad--footer">
+                                        <button type="button" class="clear btn btn-small btn-primary"
+                                                data-action="clear">Clear
+                                        </button>
+                                        <button type="button" class="save btn btn-small btn-primary pull-right"
+                                                data-action="save">Save
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    {{> custInputFld type="text" id="printName" label="Print name" placeholder="John Doe"}}
-
-                                    {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
-
-                                    {{> custInputFld type="text" id="consentRelationship"
-                                            label="If signed by legal representative - Relationship to patient"
-                                            placeholder="Relationship to patient"}}
-                                </div>
                             </div>
-                            <hr>
+                            <div class="col-md-6">
+                                {{> custInputFld type="text" id="printNamePatResps" label="Print name" placeholder="John Doe"}}
 
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="signatureWitness">Signature of Witness (Optional)</label>
-                                    <input type="hidden" name="signatureWitness" id="signatureWitness"/>
-                                    <div id="signature-pad-witness" class="m-signature-pad">
-                                        <div class="m-signature-pad--body">
-                                            <canvas></canvas>
-                                        </div>
-                                        <div class="m-signature-pad--footer">
-                                            <button type="button" class="clear btn btn-small btn-primary" data-action="clear">Clear</button>
-                                            <button type="button" class="save btn btn-small btn-primary pull-right" data-action="save">Save</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    {{> custInputFld type="text" id="printNameWitness" label="Print name" placeholder="John Doe"}}
-
-                                    {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
-                                </div>
+                                {{> custInputFld type="date" id="datePatResps" label="Date" placeholder="mm/dd/yyyy"}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <hr>
-            <button type="submit" class="btn btn-primary btn-lg submit">Submit</button>
-        </form>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingFive">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Release of Information Consent
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingFive">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>I understand that:</p>
+                                <ul>
+                                    <li>Once "<u>this facility</u>" discloses my health information by my request, it
+                                        can not guarantee that Recipient will not re-disclose my health information to a
+                                        third party. The third party may not be required to abide by the Authorization
+                                        or applicable federal and state laws governing the use and disclosure of my
+                                        health information.
+                                    </li>
+                                    <li>I may make a request in writing at any time to inspect and/or obtain a copy of
+                                        my health information maintained at this facility as provided in the Federal
+                                        Privacy Rule 45 CFR (164.524).
+                                    </li>
+                                    <li>My records are protected and cannot be disclosed without written permission.
+                                    </li>
+                                    <li>This Authorization will remain in effect for one year or until I provide a
+                                        written notice of revocation to the Medical Record Department.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="signature">Please sign below</label>
+                                <input type="hidden" name="signature" id="signature"/>
+                                <div id="signature-pad" class="m-signature-pad">
+                                    <div class="m-signature-pad--body">
+                                        <canvas></canvas>
+                                    </div>
+                                    <div class="m-signature-pad--footer">
+                                        <button type="button" class="clear btn btn-small btn-primary"
+                                                data-action="clear">Clear
+                                        </button>
+                                        <button type="button" class="save btn btn-small btn-primary pull-right"
+                                                data-action="save">Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                {{> custInputFld type="text" id="printName" label="Print name" placeholder="John Doe"}}
+
+                                {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
+
+                                {{> custInputFld type="text" id="consentRelationship"
+                                        label="If signed by legal representative - Relationship to patient"
+                                        placeholder="Relationship to patient"}}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="signatureWitness">Signature of Witness (Optional)</label>
+                                <input type="hidden" name="signatureWitness" id="signatureWitness"/>
+                                <div id="signature-pad-witness" class="m-signature-pad">
+                                    <div class="m-signature-pad--body">
+                                        <canvas></canvas>
+                                    </div>
+                                    <div class="m-signature-pad--footer">
+                                        <button type="button" class="clear btn btn-small btn-primary"
+                                                data-action="clear">Clear
+                                        </button>
+                                        <button type="button" class="save btn btn-small btn-primary pull-right"
+                                                data-action="save">Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                {{> custInputFld type="text" id="printNameWitness" label="Print name" placeholder="John Doe"}}
+
+                                {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <button type="submit" class="btn btn-primary btn-lg submit">Submit</button>
     </div>
 </div>
 

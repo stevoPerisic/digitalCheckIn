@@ -8,8 +8,11 @@
     var app = window.app;
 
     app.homePage = {
-        bindEvents: function(){
-            $('.start-check-in').on('click', function(e){
+        /**
+         * @todo MUST CHECK Patient readiness before starting check-in process
+         **/
+        bindEvents: function () {
+            $('.start-check-in').on('click', function (e) {
                 var that = this;
 
                 e.preventDefault();
@@ -18,28 +21,33 @@
 
                 // start the check-in flow
                 $.ajax({
-                    url: '/appointments/'+that.dataset.apptid+'/startcheckin/',
+                    url: '/appointments/' + that.dataset.apptid + '/startcheckin/',
                     method: 'GET'
-                }).then(function(data){
+                }).then(function (data) {
                     console.log(data);
 
-                    // set the apptId cookie
-                    var date = new Date();
-                    var minutes = 30;
-                    date.setTime(date.getTime() + (minutes * 60 * 1000));
-                    console.log(document.cookie);
+                    if (data.success) {
+                        // set the apptId cookie
+                        var date = new Date();
+                        var minutes = 30;
+                        date.setTime(date.getTime() + (minutes * 60 * 1000));
+                        console.log(document.cookie);
 
-                    document.cookie = 'apptid='+that.dataset.apptid+'; path="/"; expires='+date.toGMTString();
-                    document.cookie = 'patientid='+that.dataset.patientid+'; path="/"; expires='+date.toGMTString();
+                        document.cookie = 'apptid=' + that.dataset.apptid + '; path="/"; expires=' + date.toGMTString();
+                        document.cookie = 'patientid=' + that.dataset.patientid + '; path="/"; expires=' + date.toGMTString();
 
-                    window.location = '/patientRegistration/'+that.dataset.apptid+'/'+that.dataset.patientid;
-                }).catch(function(err){
+                        window.location = '/patientRegistration/' + that.dataset.apptid + '/' + that.dataset.patientid;
+                    } else {
+                        $('.loaderOverlay').hide();
+                        $('#myModal').modal();
+                    }
+                }).catch(function (err) {
                     console.log(err);
                     $('.loaderOverlay').hide();
                 });
             });
         },
-        init: function(){
+        init: function () {
             console.log('Init home page');
             var me = app.homePage;
 
