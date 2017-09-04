@@ -88,7 +88,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                             <div class="col-sm-12">
                                                 <p>Is your allergy not listed? Enter it below:</p>
                                                 {{> custListInput inputId="customAllergies" listClass="customAllergiesList"
-                                                        label="Allergy name" placeholder="Allergy description" btnLabel="Add"}}
+                                                        label="Allergy name" placeholder="Allergy description" btnLabel="Add Allergy"}}
                                             </div>
                                         </div>
                                     </fieldset>
@@ -273,11 +273,8 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-3 col-sm-6">
-                                    {{#parseJSON    '[{"value": "Single", "text": "Single"},
-                                                    {"value": "Married", "text": "Married"},
-                                                    {"value": "Divorced", "text": "Widowed"},
-                                                    {"value": "Separated", "text": "Separated"}]'}}
-                                        {{> custSelect id="maritalStatus" label="Marital status" emptyOption=true options=this }}
+                                    {{#parseJSON maritalStatusSelect}}
+                                        {{> custSelect id="maritalstatus" label="Marital status" emptyOption=true options=this selected=this.patient.maritalstatus }}
                                     {{/parseJSON}}
                                 </div>
                                 <div class="col-md-3 col-sm-6">
@@ -377,17 +374,6 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingFour">
                         <div class="panel-body">
-                            <div class="row">
-                                <ul>
-                                    {{#each surgicalHistory}}
-                                        <li>
-                                            Type of surgery: {{description}} <br>
-                                            Date: {{proceduredate}} <br>
-                                            Note: {{note}}
-                                        </li>
-                                    {{/each}}
-                                </ul>
-                            </div>
                             <fieldset>
                                 <legend>Please list any <strong>hospitalizations</strong>, <strong>surgeries</strong>,
                                     <strong>fractures</strong> or <strong>major illnesses</strong> you have had.
@@ -403,6 +389,14 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        {{#each surgicalHistory}}
+                                            <tr>
+                                                <td>{{description}} &mdash; {{note}}</td>
+                                                <td>{{proceduredate}}</td>
+                                                <td>{{providerid}}</td>
+                                                <td></td>
+                                            </tr>
+                                        {{/each}}
                                         <tr class="tableFormInputs">
                                             <td>
                                                 <div class="form-group">
@@ -598,17 +592,6 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     <div id="collapseSix" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingSix">
                         <div class="panel-body">
-                            <div class="row">
-                                <ul>
-                                    {{#each medicationHistory.medications}}
-                                        <li>
-                                            Med: {{this.0.medication}}<br>
-                                            Dosage: {{this.0.structuredsig.dosagequantityvalue}} {{this.0.structuredsig.dosagequantityunit}}<br>
-                                            Pescr. Doc.: {{this.0.source}}
-                                        </li>
-                                    {{/each}}
-                                </ul>
-                            </div>
                             <fieldset>
                                 <legend>
                                     List any medications you are currently taking (please include over the counter medications).
@@ -623,6 +606,13 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        {{#each medicationHistory.medications}}
+                                            <tr>
+                                                <td>{{this.0.medication}}</td>
+                                                <td>{{this.0.structuredsig.dosagequantityvalue}} {{this.0.structuredsig.dosagequantityunit}}</td>
+                                                <td>{{this.0.source}}</td>
+                                            </tr>
+                                        {{/each}}
                                         <tr class="tableFormInputs">
                                             <td>
                                                 <div class="form-group">
@@ -649,7 +639,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                             <td></td>
                                             <td></td>
                                             <td style="text-align: left;">
-                                                <input type="button" class="btn btn-primary btn-block addrow" value="Add Row"/>
+                                                <input type="button" class="btn btn-primary btn-block addrow" value="Add Medication"/>
                                             </td>
                                         </tr>
                                         <tr>

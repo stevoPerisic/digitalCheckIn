@@ -26,16 +26,19 @@ router.get('/:apptid/startcheckin',
     },
     /**
      * @description POST Start check-in for this appointment
-     * @todo perhaps create a cancel-check-in in case something goes wrong...
+     * @todo - ENABLE LATER - for now we will NOT be starting the checkin because that freezes the patient
      **/
     function (req, res, next) {
         console.log(req.params);
-        var appt = AHAPI.POST('/appointments/' + req.params.apptid + '/startcheckin');
-        appt.on('done', function (data) {
-            console.log(data);
-            res.send(data);
-            // res.render('index', {appts: data.appointments});
-        });
+
+        res.send({success: true});
+
+        // var appt = AHAPI.POST('/appointments/' + req.params.apptid + '/startcheckin');
+        // appt.on('done', function (data) {
+        //     console.log(data);
+        //     res.send(data);
+        //     // res.render('index', {appts: data.appointments});
+        // });
     }
 );
 

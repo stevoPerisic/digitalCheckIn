@@ -14,7 +14,7 @@ var AHAPI = new athenaHealthAPI.Connection('preview1',
 );
 var formsConfig = require('../bin/formsConfig');
 
-/*
+/**
 * Patient Allergies recorded in aNet
 * GET /:practiceid/chart/:patientid/allergies?departmentid=2
 * PUT /:practiceid/chart/:patientid/allergies
@@ -35,12 +35,12 @@ var formsConfig = require('../bin/formsConfig');
 * Social history
 * GET /:practiceid/chart/:patientid/socialhistory
 * PUT /:practiceid/chart/:patientid/socialhistory
-* */
+**/
 
 
 /* GET home page. */
 router.get('/',
-    // GET current appt. with patient data
+    /** GET current appt. with patient data **/
     function (req, res, next) {
         if (req.cookies.apptid) {
             var params = {
@@ -62,7 +62,7 @@ router.get('/',
             res.render('patientMedicalHistory', {title: 'Patient medical history'});
         }
     },
-    // GET recorded allergies for patient
+    /** GET recorded allergies for patient **/
     function (req, res, next) {
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
@@ -73,9 +73,9 @@ router.get('/',
            next();
         });
     },
-    // GET family health history
+    /** GET family health history **/
     function (req, res, next) {
-        /*
+        /**
         * In order to display and update the family history correctly we must import a list of SNOMED codes
         * ----
         * SOLUTION!
@@ -92,7 +92,7 @@ router.get('/',
         * https://uts.nlm.nih.gov/home.html
         * or download here:
         * https://www.nlm.nih.gov/healthit/snomedct/international.html
-        * */
+        **/
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
@@ -121,13 +121,14 @@ router.get('/',
             next();
         });
     },
-    // GET Surgical history
+    /** GET Surgical history **/
     function (req, res, next) {
-        // docs https://developer.athenahealth.com/io-docs
-        // /preview1/:practiceid/chart/:patientid/surgicalhistory
-        // other possible params are
-        // PATIENTFACINGCALL
-        // THIRDPARTYUSERNAME
+        /** docs https://developer.athenahealth.com/io-docs
+         * /preview1/:practiceid/chart/:patientid/surgicalhistory
+         * other possible params are
+         * PATIENTFACINGCALL
+         * THIRDPARTYUSERNAME
+         **/
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
@@ -138,14 +139,14 @@ router.get('/',
             next();
         });
     },
-    // GET health history chart
+    /** GET health history chart **/
     function (req, res, next) {
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
         var medicalhistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/medicalhistory', {params: params});
         medicalhistory.on('done', function (data) {
-            // order by question id
+            /** order by question id **/
             data.questions.sort(function (a, b) {
                 return a.questionid - b.questionid;
             });
@@ -154,7 +155,7 @@ router.get('/',
             next();
         });
     },
-    // GET Medications history
+    /** GET Medications history **/
     function (req, res, next) {
         var params = {
             departmentid: req.app.locals.currAppt.departmentid

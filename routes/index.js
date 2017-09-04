@@ -63,11 +63,15 @@ router.get('/',
                 showinsurance: 'true',
                 showpatientdetail: 'true',
                 showremindercalldetail: 'false',
-                startdate: '06/30/2017'//enddate
+                startdate: '08/31/2017'//enddate
             };
 
         var appointments = AHAPI.GET('/appointments/booked', {params: params});
         appointments.on('done', function (data) {
+            /** order by date **/
+            data.appointments.sort(function (a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
             req.appts = data.appointments;
             req.enddate = enddate;
             next();

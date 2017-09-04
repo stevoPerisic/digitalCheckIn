@@ -34,7 +34,7 @@
                     newRow.append('<td>'+$(el).val()+'</td>');
                     $(el).val('');
                 });
-                tbody.prepend(newRow);
+                tbody.find('tr:last-child').prepend(newRow);
             });
 
             /**
