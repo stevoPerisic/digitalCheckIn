@@ -10,14 +10,25 @@
             init: function () {
                 return this;
             },
+            /**
+             * @description bindGlobalEvents | Bind app wide events
+             * - click event for the "Next" button in the accordion, also SUBMITS THE PARENT FORM!
+             **/
             bindGlobalEvents: function () {
                 console.log('Binding global events');
+
                 $('.panel-collapse .btn.next').on('click', function (e) {
                     e.preventDefault();
                     var parentCollapse = $(e.currentTarget).parents('.panel-collapse');
-                    console.log('Run form verification on the fields here');
+
+                    /**
+                     * Submit the parent form
+                     * @todo form validation
+                     **/
+                    $(e.currentTarget).parents('form').submit();
+
                     parentCollapse.collapse('hide');
-                    parentCollapse.parents('.panel').next().find('.panel-collapse').collapse('show')
+                    parentCollapse.parents('.panel').next().find('.panel-collapse').collapse('show');
                 });
             }
         },
@@ -126,26 +137,13 @@
                 });
             },
             /**
-             * @description General form submit helper to get only the inputs that are being updated
-             * @function formSubmit
-             * @param evt {object} the submit button event so that we can preventDefault
-             * @param evt.data.form {object} jQuery form object that is collected on each form page
-             * @param evt.data.URL {string} URL to POST to
+             * @description Serializes the form inputs into an array and transforms it into a JSON onbect for submission
+             * @function getFormData
+             * @param $form {object} form DOM element
              **/
-            formSubmit: function (evt) {
-                evt.preventDefault();
-                // var $form = evt.data.form(evt.currentTarget);
-                // var URL = evt.data.URL;
-                var $form = $(evt.currentTarget).parents('form');
-                var URL = $form[0].dataset.url;
-                var formData = $form.serializeArray();
+            getFormData: function ($form) {
                 var data = {};
-
-                /**
-                 * @todo add validator data attributes to the input fields so that the validator would actually run
-                 **/
-                $form.validate();
-
+                var formData = $form.serializeArray();
                 formData.forEach(function (input, i) {
                     /**
                      * check if the input is still hidden and the user did NOT reveal it
@@ -155,10 +153,18 @@
                         data[input.name] = input.value;
                     }
                 });
-
+                return data;
+            },
+            /**
+             * @description General form submit helper to send a POST request
+             * @function formSubmit
+             * @param data {object} data to send via the POST
+             * @param $form {object} jQuery form object that is collected on each form page
+             **/
+            formSubmit: function (data, $form) {
                 $.ajax({
                     method: 'POST',
-                    url: URL,
+                    url: $form[0].dataset.url,
                     data: data,
                     contentType: 'application/x-www-form-urlencoded'
                 }).done(function (data, xhr) {

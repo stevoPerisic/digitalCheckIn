@@ -1,5 +1,9 @@
 <div class="row">
     <div class="col-sm-12">
-        <button class="btn next btn-primary btn-lg pull-right">{{text}}</button>
+        <button class="btn next btn-primary btn-lg pull-right"
+            {{#if submit}}
+                type="submit"
+            {{/if}}
+        >{{text}}</button>
     </div>
 </div>

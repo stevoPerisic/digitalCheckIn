@@ -15,27 +15,27 @@ var AHAPI = new athenaHealthAPI.Connection('preview1',
 var formsConfig = require('../bin/formsConfig');
 
 /**
-* Patient Allergies recorded in aNet
-* GET /:practiceid/chart/:patientid/allergies?departmentid=2
-* PUT /:practiceid/chart/:patientid/allergies
-*
-* Family history
-* GET /:practiceid/chart/:patientid/familyhistory
-* PUT /:practiceid/chart/:patientid/familyhistory
-*
-* Medical History
-* GET /:practiceid/chart/:patientid/medicalhistory
-* PUT /:practiceid/chart/:patientid/medicalhistory
-*
-* Medications
-* GET /:practiceid/chart/:patientid/medications
-* PUT /:practiceid/chart/:patientid/medications
-* POST /:practiceid/chart/:patientid/medications
-*
-* Social history
-* GET /:practiceid/chart/:patientid/socialhistory
-* PUT /:practiceid/chart/:patientid/socialhistory
-**/
+ * Patient Allergies recorded in aNet
+ * GET /:practiceid/chart/:patientid/allergies?departmentid=2
+ * PUT /:practiceid/chart/:patientid/allergies
+ *
+ * Family history
+ * GET /:practiceid/chart/:patientid/familyhistory
+ * PUT /:practiceid/chart/:patientid/familyhistory
+ *
+ * Medical History
+ * GET /:practiceid/chart/:patientid/medicalhistory
+ * PUT /:practiceid/chart/:patientid/medicalhistory
+ *
+ * Medications
+ * GET /:practiceid/chart/:patientid/medications
+ * PUT /:practiceid/chart/:patientid/medications
+ * POST /:practiceid/chart/:patientid/medications
+ *
+ * Social history
+ * GET /:practiceid/chart/:patientid/socialhistory
+ * PUT /:practiceid/chart/:patientid/socialhistory
+ **/
 
 
 /* GET home page. */
@@ -51,7 +51,7 @@ router.get('/',
                 showinsurance: false,
                 showpatientdetail: true
             };
-            var appointment = AHAPI.GET('/appointments/'+req.cookies.apptid, { params: params});
+            var appointment = AHAPI.GET('/appointments/' + req.cookies.apptid, {params: params});
 
             appointment.on('done', function (data) {
                 req.app.locals.currAppt = data[0];
@@ -67,36 +67,36 @@ router.get('/',
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
-        var allergies = AHAPI.GET('/chart/'+req.cookies.patientid+'/allergies', {params: params});
+        var allergies = AHAPI.GET('/chart/' + req.cookies.patientid + '/allergies', {params: params});
         allergies.on('done', function (data) {
-           req.app.locals.allergies = data.allergies;
-           next();
+            req.app.locals.allergies = data.allergies;
+            next();
         });
     },
     /** GET family health history **/
     function (req, res, next) {
         /**
-        * In order to display and update the family history correctly we must import a list of SNOMED codes
-        * ----
-        * SOLUTION!
-        * https://uts.nlm.nih.gov//license.html - fill out licence request form
-        * to access:
-        * https://documentation.uts.nlm.nih.gov/rest/search/
-        * The above is the official SNOMED code search for diagnoses
-        * ----
-        * Other ideas:
-        * http://browser.ihtsdotools.org/?
-        * or run my own API for this
-        * https://github.com/IHTSDO/sct-snapshot-rest-api
-        * or
-        * https://uts.nlm.nih.gov/home.html
-        * or download here:
-        * https://www.nlm.nih.gov/healthit/snomedct/international.html
-        **/
+         * In order to display and update the family history correctly we must import a list of SNOMED codes
+         * ----
+         * SOLUTION!
+         * https://uts.nlm.nih.gov//license.html - fill out licence request form
+         * to access:
+         * https://documentation.uts.nlm.nih.gov/rest/search/
+         * The above is the official SNOMED code search for diagnoses
+         * ----
+         * Other ideas:
+         * http://browser.ihtsdotools.org/?
+         * or run my own API for this
+         * https://github.com/IHTSDO/sct-snapshot-rest-api
+         * or
+         * https://uts.nlm.nih.gov/home.html
+         * or download here:
+         * https://www.nlm.nih.gov/healthit/snomedct/international.html
+         **/
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
-        var familyHistory = AHAPI.GET('/chart/'+req.cookies.patientid+'/familyhistory', {params: params});
+        var familyHistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/familyhistory', {params: params});
         familyHistory.on('done', function (data) {
             req.app.locals.familyHistory = data.relatives;
             next();
@@ -110,7 +110,7 @@ router.get('/',
             showunansweredquestions: true
         };
 
-        var socialhistory = AHAPI.GET('/chart/'+req.cookies.patientid+'/socialhistory', {params: params});
+        var socialhistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/socialhistory', {params: params});
         socialhistory.on('done', function (data) {
             // order by question id
             data.questions.sort(function (a, b) {
@@ -133,7 +133,7 @@ router.get('/',
             departmentid: req.app.locals.currAppt.departmentid
         };
 
-        var surgicalhistory = AHAPI.GET('/chart/'+req.cookies.patientid+'/surgicalhistory', {params: params});
+        var surgicalhistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/surgicalhistory', {params: params});
         surgicalhistory.on('done', function (data) {
             req.app.locals.surgicalHistory = data.procedures;
             next();
@@ -202,10 +202,47 @@ router.get('/:apptid/:patientid',
     }
 );
 
+var postMessage = 'Posted Medical History';
+
 router.post('/', function (req, res, next) {
-   console.log(req.body);
-   res.sendStatus(200);
+    console.log(req.body);
+    res.sendStatus(200);
 });
+
+router.post('/personalInfo', function (req, res, next) {
+    console.log(req.body);
+    /**
+     * @todo post the data to the personal info and allergies section
+     *
+     * Before submitting allergies we should get the athena NET Id for the allergy
+     * - if the allergy is not supported than we should not show it.... maybe
+     *
+     * Submit allergies in this form
+     * {"allergenname": "aspirin", "allergenid": 13279, "reactions": [], "note": "DUE TO LOW PLATELTS"}
+     **/
+    res.status(200).send({message: postMessage, data: req.body});
+});
+
+router.post('/familyHistory', function (req, res, next) {
+    console.log(req.body);
+    res.status(200).send({message: postMessage, data: req.body});
+});
+
+router.post('/socialHistory', function (req, res, next) {
+    console.log(req.body);
+    res.status(200).send({message: postMessage, data: req.body});
+});
+
+router.post('/medicalHistory', function (req, res, next) {
+    console.log(req.body);
+    res.status(200).send({message: postMessage, data: req.body});
+});
+
+router.post('/medications', function (req, res, next) {
+    console.log(req.body);
+    res.status(200).send({message: postMessage, data: req.body});
+});
+
 
 module.exports = router;
 

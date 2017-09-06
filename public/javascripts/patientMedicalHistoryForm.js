@@ -13,6 +13,12 @@
             var me = app.patientMedicalHistoryForm;
 
             $('.custChkBx.chkBx').on('click', function (e) {
+                var checkBox = $(e.currentTarget)
+                    .parents('.form-check')
+                    .find('input.custChkBx.form-check-input');
+
+                checkBox.attr('checked', !checkBox.attr('checked'));
+
                 $(e.currentTarget).toggleClass('checked');
             });
 
@@ -41,10 +47,28 @@
              * Updating medical history
              * https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-5
              * */
-            $('.btn.submit').on('click',
-                {form: me.$medicalHistoryForm, URL:'/patientMedicalHistory' },
-                app.utilities.formSubmit
-            );
+            // $('.btn.submit').on('click',
+            //     {form: me.$medicalHistoryForm, URL:'/patientMedicalHistory' },
+            //     app.utilities.formSubmit
+            // );
+
+
+            $('#personalInformationForm').on('submit', function (e) {
+                e.preventDefault();
+                var data = app.utilities.getFormData($(e.currentTarget)),
+                    $form = $(e.currentTarget),
+                    /** Having issues picking up the checkboxes using form.serializeArray() **/
+                    $checkboxes = $form.find('input[type="checkbox"]');
+                /** Create an allergies array to store allergies **/
+                data.allergies = [];
+                $checkboxes.each(function (i, chkbox) {
+                    if (chkbox.attributes.checked) {
+                        console.log(chkbox.value);
+                        data.allergies.push(chkbox.value)
+                    }
+                });
+                app.utilities.formSubmit(data, $form);
+            });
         },
         init: function () {
             console.log('Patient Medical History Form started...');

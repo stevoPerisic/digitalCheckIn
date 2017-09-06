@@ -5,7 +5,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
 <div class="row">
     <div class="col-sm-12">
         <h1>Patient Medical History</h1>
-        <form id="medicalHistoryForm">
+        <!-- <form id="medicalHistoryForm"> -->
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
@@ -19,82 +19,84 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
                          aria-labelledby="headingOne">
                         <div class="panel-body">
-                            <!--Personal info-->
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    {{#if this.patient.lastname}}
-                                        {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
+                            <form action="" id="personalInformationForm" data-url="/patientMedicalHistory/personalInfo">
+                                <!--Personal info-->
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        {{#if this.patient.lastname}}
+                                            {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {{#if this.patient.middlename}}
+                                            {{> patientDataFilled label="Middle initial" text=this.patient.lastname show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="middlename" label="Middle initial" placeholder="Middle initial"}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {{#if this.patient.firstname}}
+                                            {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
+                                    </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    {{#if this.patient.middlename}}
-                                        {{> patientDataFilled label="Middle initial" text=this.patient.lastname show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="middlename" label="Middle initial" placeholder="Middle initial"}}
+                                <!--Pharmacy-->
+                                <div class="form-group row">
+                                    <div class="col-lg-12">
+                                        {{#if this.patient.defaultpharmacyncpdpid}}
+                                            {{> patientDataFilled label="Preferred Pharmacy" text=this.patient.defaultpharmacyncpdpid show=true}}
+                                        {{/if}}
+                                        {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Preferred Pharmacy"}}
+                                    </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    {{#if this.patient.firstname}}
-                                        {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
+                                <!--Allergies-->
+                                <div class="form-group row">
+                                    <div class="col-lg-12">
+                                        <fieldset class="form-group">
+                                            <legend>Allergies</legend>
+                                            <div class="row">
+                                                <div class="col-md-3 col-sm-6">
+                                                    {{> custChkBx text="NONE / No Known allergies"}}
+
+                                                    {{> custChkBx text="Adhesive Tape"}}
+
+                                                    {{> custChkBx text="Anesthesia"}}
+                                                </div>
+                                                <div class="col-md-3 col-sm-6">
+                                                    {{> custChkBx text="Aspirin"}}
+
+                                                    {{> custChkBx text="Codeine"}}
+
+                                                    {{> custChkBx text="Dairy Products"}}
+                                                </div>
+                                                <div class="col-md-3 col-sm-6">
+                                                    {{> custChkBx text="Iodine / Shellfish / Contrast Dye"}}
+
+                                                    {{> custChkBx text="Latex"}}
+
+                                                    {{> custChkBx text="Morphine"}}
+                                                </div>
+                                                <div class="col-md-3 col-sm-6">
+                                                    {{> custChkBx text="Penicillin"}}
+
+                                                    {{> custChkBx text="Sulfa drugs"}}
+
+                                                    {{> custChkBx text="Wheat"}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <p>Is your allergy not listed? Enter it below:</p>
+                                                    {{> custListInput inputId="customAllergies" listClass="customAllergiesList"
+                                                            label="Allergy name" placeholder="Allergy description" btnLabel="Add Allergy"}}
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--Pharmacy-->
-                            <div class="form-group row">
-                                <div class="col-lg-12">
-                                    {{#if this.patient.defaultpharmacyncpdpid}}
-                                        {{> patientDataFilled label="Preferred Pharmacy" text=this.patient.defaultpharmacyncpdpid show=true}}
-                                    {{/if}}
-                                    {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Preferred Pharmacy"}}
-                                </div>
-                            </div>
-                            <!--Allergies-->
-                            <div class="form-group row">
-                                <div class="col-lg-12">
-                                    <fieldset class="form-group">
-                                        <legend>Allergies</legend>
-                                        <div class="row">
-                                            <div class="col-md-3 col-sm-6">
-                                                {{> custChkBx text="NONE / No Known allergies"}}
-
-                                                {{> custChkBx text="Adhesive Tape"}}
-
-                                                {{> custChkBx text="Anesthesia"}}
-                                            </div>
-                                            <div class="col-md-3 col-sm-6">
-                                                {{> custChkBx text="Aspirin" allergies=allergies}}
-
-                                                {{> custChkBx text="Codeine"}}
-
-                                                {{> custChkBx text="Dairy Products"}}
-                                            </div>
-                                            <div class="col-md-3 col-sm-6">
-                                                {{> custChkBx text="Iodine / Shellfish / Contrast Dye"}}
-
-                                                {{> custChkBx text="Latex"}}
-
-                                                {{> custChkBx text="Morphine"}}
-                                            </div>
-                                            <div class="col-md-3 col-sm-6">
-                                                {{> custChkBx text="Penicillin"}}
-
-                                                {{> custChkBx text="Sulfa drugs"}}
-
-                                                {{> custChkBx text="Wheat"}}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <p>Is your allergy not listed? Enter it below:</p>
-                                                {{> custListInput inputId="customAllergies" listClass="customAllergiesList"
-                                                        label="Allergy name" placeholder="Allergy description" btnLabel="Add Allergy"}}
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            {{> accBtnNext text="Next"}}
+                                {{> accBtnNext text="Next" submit=true}}
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -655,7 +657,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
 
             <hr>
             <button type="submit" class="btn btn-primary btn-lg submit">Submit</button>
-        </form>
+        <!-- </form> -->
     </div>
 </div>
 
