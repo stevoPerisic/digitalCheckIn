@@ -34,13 +34,6 @@
                 $('span[data-toggle="' + tog + '"][data-value="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-primary');
             });
 
-            // if patient wants to edit just click the edit link and show the input field
-            $('.patientDataFilled .edit').on('click', function (e) {
-                e.preventDefault();
-
-                $(this).parents('.patientDataFilled').next().show();
-                $(this).parents('.patientDataFilled').hide();
-            });
 
             sigPad.find('[data-action=clear]').on('click', function (event) {
                 me.signaturePad.clear();

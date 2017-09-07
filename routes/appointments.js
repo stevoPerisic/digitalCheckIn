@@ -4,12 +4,6 @@
  * Appointments route and controller
  */
 var express = require('express');
-var athenaHealthAPI = require('../bin/athenahealthapi');
-var AHAPI = new athenaHealthAPI.Connection('preview1',
-    process.env.ATHENA_KEY,
-    process.env.ATHENA_SECRET,
-    process.env.NRIM_PRACTICE_ID
-);
 var router = express.Router();
 
 router.get('/:apptid/startcheckin',
@@ -18,7 +12,7 @@ router.get('/:apptid/startcheckin',
      * @todo what makes the appt. ready?
      **/
     function (req, res, next) {
-        var apptreadiness = AHAPI.GET('/appointments/' + req.params.apptid + '/checkin', {params: {}});
+        var apptreadiness = req.app.locals.AHAPI.GET('/appointments/' + req.params.apptid + '/checkin', {params: {}});
         apptreadiness.on('done', function (data) {
             console.log(data);
             next();
@@ -33,7 +27,7 @@ router.get('/:apptid/startcheckin',
 
         res.send({success: true});
 
-        // var appt = AHAPI.POST('/appointments/' + req.params.apptid + '/startcheckin');
+        // var appt = req.app.locals.AHAPI.POST('/appointments/' + req.params.apptid + '/startcheckin');
         // appt.on('done', function (data) {
         //     console.log(data);
         //     res.send(data);

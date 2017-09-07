@@ -36,7 +36,7 @@
                         document.cookie = 'apptid=' + that.dataset.apptid + '; path="/"; expires=' + date.toGMTString();
                         document.cookie = 'patientid=' + that.dataset.patientid + '; path="/"; expires=' + date.toGMTString();
 
-                        window.location = '/patientRegistration/' + that.dataset.apptid + '/' + that.dataset.patientid;
+                        window.location = '/patientRegistration/';
                     } else {
                         $('.loaderOverlay').hide();
                         $('#myModal').modal();

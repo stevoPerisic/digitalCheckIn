@@ -112,6 +112,7 @@ function Connection(version, key, secret, practiceid) {
 	 * @returns {events.EventEmitter}
 	 */
 	var authenticate = function() {
+
 		var emitter = new events.EventEmitter
 
 		var auth_prefixes = {

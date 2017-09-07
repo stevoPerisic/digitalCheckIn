@@ -30,6 +30,16 @@
                     parentCollapse.collapse('hide');
                     parentCollapse.parents('.panel').next().find('.panel-collapse').collapse('show');
                 });
+
+                /**
+                 * Click the edit link and show the input field
+                 **/
+                $('.patientDataFilled .edit').on('click', function (e) {
+                    e.preventDefault();
+
+                    $(this).parents('.patientDataFilled').next().removeClass('hidden').find('input').focus();
+                    $(this).parents('.patientDataFilled').addClass('hidden');
+                });
             }
         },
         utilities: {

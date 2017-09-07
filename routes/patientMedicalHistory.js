@@ -6,12 +6,6 @@
 
 var express = require('express');
 var router = express.Router();
-var athenaHealthAPI = require('../bin/athenahealthapi');
-var AHAPI = new athenaHealthAPI.Connection('preview1',
-    process.env.ATHENA_KEY,
-    process.env.ATHENA_SECRET,
-    process.env.NRIM_PRACTICE_ID
-);
 var formsConfig = require('../bin/formsConfig');
 
 /**
@@ -53,7 +47,7 @@ router.get('/',
                 showinsurance: false,
                 showpatientdetail: true
             };
-            var appointment = AHAPI.GET('/appointments/' + req.cookies.apptid, {params: params});
+            var appointment = req.app.locals.AHAPI.GET('/appointments/' + req.cookies.apptid, {params: params});
 
             appointment.on('done', function (data) {
                 req.app.locals.currAppt = data[0];
@@ -71,7 +65,7 @@ router.get('/',
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
-        var defaultPharmacy = AHAPI.GET('/chart/' + + req.cookies.patientid + '/pharmacies/default', {params: params});
+        var defaultPharmacy = req.app.locals.AHAPI.GET('/chart/' + + req.cookies.patientid + '/pharmacies/default', {params: params});
         defaultPharmacy.on('done', function (data) {
            req.app.locals.defaultPharmacy = data;
            next();
@@ -84,7 +78,7 @@ router.get('/',
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
-        var allergies = AHAPI.GET('/chart/' + req.cookies.patientid + '/allergies', {params: params});
+        var allergies = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/allergies', {params: params});
         allergies.on('done', function (data) {
             req.app.locals.allergies = data.allergies;
             next();
@@ -113,7 +107,7 @@ router.get('/',
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
-        var familyHistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/familyhistory', {params: params});
+        var familyHistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/familyhistory', {params: params});
         familyHistory.on('done', function (data) {
             req.app.locals.familyHistory = data.relatives;
             next();
@@ -127,7 +121,7 @@ router.get('/',
             showunansweredquestions: true
         };
 
-        var socialhistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/socialhistory', {params: params});
+        var socialhistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/socialhistory', {params: params});
         socialhistory.on('done', function (data) {
             // order by question id
             data.questions.sort(function (a, b) {
@@ -150,7 +144,7 @@ router.get('/',
             departmentid: req.app.locals.currAppt.departmentid
         };
 
-        var surgicalhistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/surgicalhistory', {params: params});
+        var surgicalhistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/surgicalhistory', {params: params});
         surgicalhistory.on('done', function (data) {
             req.app.locals.surgicalHistory = data.procedures;
             next();
@@ -161,7 +155,7 @@ router.get('/',
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
-        var medicalhistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/medicalhistory', {params: params});
+        var medicalhistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/medicalhistory', {params: params});
         medicalhistory.on('done', function (data) {
             /** order by question id **/
             data.questions.sort(function (a, b) {
@@ -177,7 +171,7 @@ router.get('/',
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
-        var medicationshistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/medications', {params: params});
+        var medicationshistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/medications', {params: params});
         medicationshistory.on('done', function (data) {
             req.app.locals.medicationHistory = data;
             // res.send(req.app.locals.medicationHistory);
@@ -207,7 +201,7 @@ router.get('/:apptid/:patientid',
 
         console.log('Cookies: ', req.cookies);
 
-        var patient = AHAPI.GET('/patients/' + req.params.patientid, {params: {showinsurance: true}});
+        var patient = req.app.locals.AHAPI.GET('/patients/' + req.params.patientid, {params: {showinsurance: true}});
         patient.on('done', function (data) {
             // res.send(data);
             res.render('patientMedicalHistory', {
