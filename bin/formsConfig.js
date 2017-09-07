@@ -22,7 +22,86 @@ var insuredRelationship = [
     {"value": "13", "text": "None of the above"}
 ];
 
+/**
+ * This is a custom created array for the NRIM practice
+ * I created it by calling below API for each allergy that was listed in the paper form
+ * https://api.athenahealth.com/preview1/3619/reference/allergies?searchvalue={search term}
+ * @todo must sit with Stephanie and figure out the list, most allergies have multiple types like adhesives have three
+ * or anesthetics have three, which one do we pick?
+ * ---
+ * If patient answers with "NONE / No known allergies" we must send the "nkda" flag instead of JSON.
+ **/
+var allergies = {
+    "Adhesive Tape": {
+        "allergy": "adhesive tape",
+        "allergenname": "adhesive tape",
+        "allergyid": 14454,
+        "allergenid": 14454
+    },
+    "Anesthesia": {
+        "allergy": "Anesthetics - Ester Type- Parabens",
+        "allergenname": "Anesthetics - Ester Type- Parabens",
+        "allergyid": 24281,
+        "allergenid": 24281
+    },
+    "Aspirin": {
+        "allergy": "aspirin",
+        "allergenname": "aspirin",
+        "allergyid": 13279,
+        "allergenid": 13279
+    },
+    "Codeine": {
+        "allergy": "codeine",
+        "allergenname": "codeine",
+        "allergyid": 13264,
+        "allergenid": 13264
+    },
+    "Dairy": {
+        "allergy": "Milk Containing Products",
+        "allergenname": "Milk Containing Products",
+        "allergyid": 24458,
+        "allergenid": 24458
+    },
+    "Iodine": {
+        "allergy": "Iodinated Contrast- Oral and IV Dye",
+        "allergenname": "Iodinated Contrast- Oral and IV Dye",
+        "allergyid": 12157,
+        "allergenid": 12157
+    },
+    "Latex": {
+        "allergy": "latex",
+        "allergenname": "latex",
+        "allergyid": 18939,
+        "allergenid": 18939
+    },
+    "Morphine": {
+        "allergy": "morphine",
+        "allergenname": "morphine",
+        "allergyid": 13262,
+        "allergenid": 13262
+    },
+    "Penicillin": {
+        "allergy": "Penicillins",
+        "allergenname": "Penicillins",
+        "allergyid": 12449,
+        "allergenid": 12449
+    },
+    "Sulfa": {
+        "allergy": "Sulfa (Sulfonamide Antibiotics)",
+        "allergenname": "Sulfa (Sulfonamide Antibiotics)",
+        "allergyid": 12459,
+        "allergenid": 12459
+    },
+    "Wheat": {
+        "allergy": "wheat",
+        "allergenname": "wheat",
+        "allergyid": 28693,
+        "allergenid": 28693
+    }
+};
+
 module.exports = {
     maritalStatusSelect: maritalStatusSelect,
-    insuredRelationship: insuredRelationship
+    insuredRelationship: insuredRelationship,
+    allergies: allergies
 };

@@ -6,12 +6,6 @@
 
 var express = require('express');
 var router = express.Router();
-var athenaHealthAPI = require('../bin/athenahealthapi');
-var AHAPI = new athenaHealthAPI.Connection('preview1',
-    process.env.ATHENA_KEY,
-    process.env.ATHENA_SECRET,
-    process.env.NRIM_PRACTICE_ID
-);
 var formsConfig = require('../bin/formsConfig');
 
 /* GET home page. */
@@ -28,7 +22,7 @@ router.get('/',
         };
 
         if (req.cookies.apptid) {
-            var appointment = AHAPI.GET('/appointments/' + req.cookies.apptid, {params: params});
+            var appointment = req.app.locals.AHAPI.GET('/appointments/' + req.cookies.apptid, {params: params});
 
             appointment.on('done', function (data) {
                 req.app.locals.currAppt = data[0];
@@ -52,7 +46,7 @@ router.get('/',
             showinsurance: true
         };
         if (req.cookies.patientid) {
-            var patient = AHAPI.GET('/patients/enhancedbestmatch', {params: params});
+            var patient = req.app.locals.AHAPI.GET('/patients/enhancedbestmatch', {params: params});
             patient.on('done', function (data) {
                 // res.send(data);
                 req.app.locals.patientData = data[0];
@@ -67,7 +61,7 @@ router.get('/',
             showinactive: false
         };
 
-        var medicalProblems = AHAPI.GET('/chart/' + req.app.locals.currAppt.patient.patientid + '/problems', {params: params});
+        var medicalProblems = req.app.locals.AHAPI.GET('/chart/' + req.app.locals.currAppt.patient.patientid + '/problems', {params: params});
         medicalProblems.on('done', function (data) {
             // res.send(data);
             req.app.locals.medicalProblems = data;
@@ -79,7 +73,7 @@ router.get('/',
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
-        var allergies = AHAPI.GET('/chart/'+req.cookies.patientid+'/allergies', {params: params});
+        var allergies = req.app.locals.AHAPI.GET('/chart/'+req.cookies.patientid+'/allergies', {params: params});
         allergies.on('done', function (data) {
             req.app.locals.allergies = data.allergies;
             next();
@@ -90,7 +84,7 @@ router.get('/',
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
-        var medicationshistory = AHAPI.GET('/chart/' + req.cookies.patientid + '/medications', {params: params});
+        var medicationshistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/medications', {params: params});
         medicationshistory.on('done', function (data) {
             req.app.locals.medicationHistory = data;
             // res.send(req.app.locals.medicationHistory);
@@ -105,7 +99,7 @@ router.get('/',
             showunansweredquestions: true
         };
 
-        var socialhistory = AHAPI.GET('/chart/'+req.cookies.patientid+'/socialhistory', {params: params});
+        var socialhistory = req.app.locals.AHAPI.GET('/chart/'+req.cookies.patientid+'/socialhistory', {params: params});
         socialhistory.on('done', function (data) {
             // order by question id
             data.questions.sort(function (a, b) {
@@ -126,24 +120,6 @@ router.get('/',
             insuredRelationship: formsConfig.insuredRelationship
         });
     }
-    // Remove below
-    // function (req, res, next) {
-    //     if(req.cookies.patientid){
-    //         var patient = AHAPI.GET('/patients/'+req.cookies.patientid, {params: {showinsurance: true}});
-    //         patient.on('done', function(data){
-    //             // res.send(data);
-    //             res.render('annualWellnessVisit', {
-    //                 title: 'Medicare Annual Wellness Visit Questionnaire',
-    //                 patient: data[0],
-    //                 maritalStatusSelect: formsConfig.maritalStatusSelect,
-    //                 insuredRelationship: formsConfig.insuredRelationship
-    //             });
-    //         });
-    //     } else {
-    //
-    //         res.render('annualWellnessVisit', {title: 'Medicare Annual Wellness Visit Questionnaire'});
-    //     }
-    // }
 );
 
 router.post('/', function(req, res, next) {

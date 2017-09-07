@@ -1,11 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var athenaHealthAPI = require('../bin/athenahealthapi');
-var AHAPI = new athenaHealthAPI.Connection('preview1',
-    process.env.ATHENA_KEY,
-    process.env.ATHENA_SECRET,
-    process.env.NRIM_PRACTICE_ID
-);
 
 /**
  * @description GET home page - show list off appointments
@@ -24,7 +18,7 @@ router.get('/',
             showalldepartments: false
         };
 
-        var departments = AHAPI.GET('/departments', {params: params});
+        var departments = req.app.locals.AHAPI.GET('/departments', {params: params});
         departments.on('done', function (data) {
             if (!data.error) {
                 /**
@@ -63,11 +57,15 @@ router.get('/',
                 showinsurance: 'true',
                 showpatientdetail: 'true',
                 showremindercalldetail: 'false',
-                startdate: '06/30/2017'//enddate
+                startdate: '08/31/2017'//enddate
             };
 
-        var appointments = AHAPI.GET('/appointments/booked', {params: params});
+        var appointments = req.app.locals.AHAPI.GET('/appointments/booked', {params: params});
         appointments.on('done', function (data) {
+            /** order by date **/
+            data.appointments.sort(function (a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
             req.appts = data.appointments;
             req.enddate = enddate;
             next();
@@ -79,7 +77,7 @@ router.get('/',
      * @todo The providers could be loaded initially before we start the application
      **/
     function (req, res, next) {
-        var providers = AHAPI.GET('/providers', {});
+        var providers = req.app.locals.AHAPI.GET('/providers', {});
         providers.on('done', function (data) {
             req.app.locals.providers = data.providers;
             next();

@@ -4,24 +4,19 @@
 var express = require('express');
 var router = express.Router();
 var app = require('../app');
-var athenaHealthAPI = require('../bin/athenahealthapi');
-var AHAPI = new athenaHealthAPI.Connection('preview1',
-    process.env.ATHENA_KEY,
-    process.env.ATHENA_SECRET,
-    process.env.NRIM_PRACTICE_ID
-);
+
 var formsConfig = require('../bin/formsConfig');
 
 /**
  * @description Patient registration form basic GET route, renders the form without any pre-populated data.
  **/
-router.get('/', function (req, res, next) {
-    res.render('patientRegistration', {
-        title: 'Patient registration',
-        maritalStatusSelect: formsConfig.maritalStatusSelect,
-        insuredRelationship: formsConfig.insuredRelationship
-    });
-});
+// router.get('/', function (req, res, next) {
+//     res.render('patientRegistration', {
+//         title: 'Patient registration',
+//         maritalStatusSelect: formsConfig.maritalStatusSelect,
+//         insuredRelationship: formsConfig.insuredRelationship
+//     });
+// });
 
 /*
  DOCS regarding the demographics for a patient
@@ -42,24 +37,32 @@ router.get('/', function (req, res, next) {
  * @param apptid {String} Appointment ID
  * @param patientid {String} Patient ID
  **/
-router.get('/:apptid/:patientid',
+router.get('/',
     /**
      * @description GET the patient information first
      * @todo We must surface and record the Race and Ethnicity data for the patient
      **/
     function (req, res, next) {
-        var patient = AHAPI.GET('/patients/' + req.params.patientid, {params: {showinsurance: true}});
-        patient.on('done', function (data) {
-            req.app.locals.patient = data[0];
-            next();
-        });
+        if (req.cookies.patientid) {
+            var patient = req.app.locals.AHAPI.GET('/patients/' + req.cookies.patientid, {params: {showinsurance: true}});
+            patient.on('done', function (data) {
+                req.app.locals.patient = data[0];
+                next();
+            });
+        } else {
+            res.render('patientRegistration', {
+                title: 'Patient registration',
+                maritalStatusSelect: formsConfig.maritalStatusSelect,
+                insuredRelationship: formsConfig.insuredRelationship
+            });
+        }
     },
     /**
      * @description GET Appointment Check-in requirements so that we can tell which forms need filing-out
      * @todo we need to check with practice manager of this is necessary to guide the check-in process
      **/
     function (req, res, next) {
-        var checkInReqs = AHAPI.GET('/appointments/'+req.params.apptid+'/checkin', {params: {}});
+        var checkInReqs = req.app.locals.AHAPI.GET('/appointments/' + req.cookies.apptid + '/checkin', {params: {}});
         checkInReqs.on('done', function (data) {
             console.log(JSON.stringify(data));
             next();
@@ -69,7 +72,7 @@ router.get('/:apptid/:patientid',
      * @description GET top insurance packages from aNET for this practice
      **/
     function (req, res, next) {
-        var topInsurancePckgs = AHAPI.GET('/misc/topinsurancepackages', {});
+        var topInsurancePckgs = req.app.locals.AHAPI.GET('/misc/topinsurancepackages', {});
         topInsurancePckgs.on('done', function (data) {
             // console.log(data);
             req.topInsurancePckgs = data.insurancepackages;
@@ -80,7 +83,7 @@ router.get('/:apptid/:patientid',
      * @description GET appointment related insurances - NOT SURE IF WE NEED THIS
      **/
     function (req, res, next) {
-        var apptRelatedInsurance = AHAPI.GET('/appointments/' + req.params.apptid + '/insurances', {});
+        var apptRelatedInsurance = req.app.locals.AHAPI.GET('/appointments/' + req.cookies.apptid + '/insurances', {});
         apptRelatedInsurance.on('done', function (data) {
             // console.log(data);
             req.apptRelatedInsurance = data[0];
@@ -94,7 +97,7 @@ router.get('/:apptid/:patientid',
         // https://api.athenahealth.com/preview1/195900/patients/1/insurances
         // https://api.athenahealth.com/preview1/195900/insurancepackages
         var patient = req.app.locals.patient;
-        var patientInsurances = AHAPI.GET('/patients/' + patient.patientid + '/insurances', {});
+        var patientInsurances = req.app.locals.AHAPI.GET('/patients/' + patient.patientid + '/insurances', {});
 
         patientInsurances.on('done', function (data) {
             if (!data.error) {
@@ -119,11 +122,11 @@ router.get('/:apptid/:patientid',
      * - first check if there is an insurance recorded for the patient
      **/
     function (req, res, next) {
-        if(req.app.locals.patient.insurances[0]) {
+        if (req.app.locals.patient.insurances[0]) {
             var params = {};
             var patientID = req.app.locals.patient.patientid;
             var primaryInsID = req.app.locals.patient.insurances[0].insuranceid;
-            var insuranceCard = AHAPI.GET('/patients/' + patientID + '/insurances/' + primaryInsID + '/image', {params: params});
+            var insuranceCard = req.app.locals.AHAPI.GET('/patients/' + patientID + '/insurances/' + primaryInsID + '/image', {params: params});
             insuranceCard.on('done', function (data) {
                 if (!data.error) {
                     req.inscardImgs = data;
@@ -182,7 +185,7 @@ router.post('/demographics', function (req, res, next) {
         aNEtAPI = req.params.aNetAPI,
         patientid = req.cookies.patientid;
 
-    var submitData = AHAPI.PUT('patients/' + patientid, {params: postData});
+    var submitData = req.app.locals.AHAPI.PUT('patients/' + patientid, {params: postData});
     submitData.on('done', function (data) {
         console.log(data);
         if (!data.error) {
@@ -204,7 +207,7 @@ router.post('/insuredParty', function (req, res, next) {
         insuranceid = req.app.locals.patient.insurances[0].insuranceid;
 
     if (insuranceid) {
-        var submitInsuredParty = AHAPI.PUT('patients/' + patientid + '/insurances/' + insuranceid, {params: postData});
+        var submitInsuredParty = req.app.locals.AHAPI.PUT('patients/' + patientid + '/insurances/' + insuranceid, {params: postData});
         submitInsuredParty.on('done', function (data) {
             console.log(data);
             if (!data.error) {
@@ -240,10 +243,10 @@ router.post('/insuranceInfo',
             insuranceplanname: req.body.insuranceplanname,
             memberid: req.body.memberid
         };
-        var insurancePckg = AHAPI.GET('/insurancepackages', {params: params});
+        var insurancePckg = req.app.locals.AHAPI.GET('/insurancepackages', {params: params});
         insurancePckg.on('done', function (data) {
             console.log(data);
-            if(req.body.insurances) {
+            if (req.body.insurances) {
                 /**
                  * We need to find the best matching insurance package ID
                  * using the address provided and the emplyer name

@@ -34,13 +34,6 @@
                 $('span[data-toggle="' + tog + '"][data-value="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-primary');
             });
 
-            // if patient wants to edit just click the edit link and show the input field
-            $('.patientDataFilled .edit').on('click', function (e) {
-                e.preventDefault();
-
-                $(this).parents('.patientDataFilled').next().show();
-                $(this).parents('.patientDataFilled').hide();
-            });
 
             sigPad.find('[data-action=clear]').on('click', function (event) {
                 me.signaturePad.clear();
@@ -100,15 +93,14 @@
              * Updating patient demographics
              * https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-5
              * */
-            // $('.btn.submit').on('click',
-            //     {form: me.$patientRegistrationForm, URL:'/patientRegistration' },
-            //     app.utilities.formSubmit
-            // );
+            $('#patientDemographics').on('submit', function (e) {
+                e.preventDefault();
+                var data = app.utilities.getFormData($(e.currentTarget)),
+                    $form = $(e.currentTarget);
+                app.utilities.formSubmit(data, $form);
+            });
 
-            /**
-             * Submit the forms by clicking the "Next" button
-             **/
-            $('.btn.next').on('click', app.utilities.formSubmit);
+
         },
         init: function () {
             var me = app.patientRegistrationForm;

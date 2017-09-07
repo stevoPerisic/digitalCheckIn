@@ -31,6 +31,7 @@ var patientRegistration = require('./routes/patientRegistration');
 var patientMedicalHistory = require('./routes/patientMedicalHistory');
 var annualWellnessVisit = require('./routes/annualWellnessVisit');
 var appointments = require('./routes/appointments');
+var athenaHealthAPI = require('./bin/athenahealthapi');
 
 var app = express();
 
@@ -45,6 +46,15 @@ app.locals.mainMenu = {
     apptid: '',
     patientid: ''
 };
+
+/**
+ * Start the Athena NET API connection
+ **/
+app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
+    process.env.ATHENA_KEY,
+    process.env.ATHENA_SECRET,
+    process.env.NRIM_PRACTICE_ID
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
