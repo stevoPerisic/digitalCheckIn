@@ -40,7 +40,9 @@ var formsConfig = require('../bin/formsConfig');
 
 /* GET home page. */
 router.get('/',
-    /** GET current appt. with patient data **/
+    /**
+     * @description GET current appt. with patient data
+     **/
     function (req, res, next) {
         if (req.cookies.apptid) {
             var params = {
@@ -62,7 +64,22 @@ router.get('/',
             res.render('patientMedicalHistory', {title: 'Patient medical history'});
         }
     },
-    /** GET recorded allergies for patient **/
+    /**
+     * @description GET Default pharmacy data if available
+     **/
+    function (req, res, next) {
+        var params = {
+            departmentid: req.app.locals.currAppt.departmentid
+        };
+        var defaultPharmacy = AHAPI.GET('/chart/' + + req.cookies.patientid + '/pharmacies/default', {params: params});
+        defaultPharmacy.on('done', function (data) {
+           req.app.locals.defaultPharmacy = data;
+           next();
+        });
+    },
+    /**
+     * @description GET recorded allergies for patient
+     **/
     function (req, res, next) {
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
@@ -209,19 +226,37 @@ router.post('/', function (req, res, next) {
     res.sendStatus(200);
 });
 
-router.post('/personalInfo', function (req, res, next) {
-    console.log(req.body);
-    /**
-     * @todo post the data to the personal info and allergies section
-     *
-     * Before submitting allergies we should get the athena NET Id for the allergy
-     * - if the allergy is not supported than we should not show it.... maybe
-     *
-     * Submit allergies in this form
-     * {"allergenname": "aspirin", "allergenid": 13279, "reactions": [], "note": "DUE TO LOW PLATELTS"}
-     **/
-    res.status(200).send({message: postMessage, data: req.body});
+/**
+ * @description POST to /chart/configuration/facilities
+ * - query string ?departmentid=2&name=Walgreens&ordertype=PRESCRIPTION&patientid=7496
+ * - use to get closest pharmacy to the patient
+ **/
+router.post('/pharmacies', function(req, res, next){
+
 });
+
+router.post('/personalInfo',
+    /**
+     * @description First POST the personal info such as Preferred Pharmacy
+     * - patients will doubtfully have changed their names on this form
+     **/
+    function (req, res, next) {
+        next();
+    },
+    function (req, res, next) {
+        console.log(req.body);
+        /**
+         * @todo post the data to the personal info and allergies section
+         *
+         * Before submitting allergies we should get the athena NET Id for the allergy
+         * - if the allergy is not supported than we should not show it.... maybe
+         *
+         * Submit allergies in this form
+         * {"allergenname": "aspirin", "allergenid": 13279, "reactions": [], "note": "DUE TO LOW PLATELTS"}
+         **/
+        res.status(200).send({message: postMessage, data: req.body});
+    }
+);
 
 router.post('/familyHistory', function (req, res, next) {
     console.log(req.body);

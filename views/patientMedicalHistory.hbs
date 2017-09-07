@@ -44,8 +44,8 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                 <!--Pharmacy-->
                                 <div class="form-group row">
                                     <div class="col-lg-12">
-                                        {{#if this.patient.defaultpharmacyncpdpid}}
-                                            {{> patientDataFilled label="Preferred Pharmacy" text=this.patient.defaultpharmacyncpdpid show=true}}
+                                        {{#if this.defaultPharmacy}}
+                                            {{> patientDataFilled label="Preferred Pharmacy" text=this.defaultPharmacy.clinicalprovidername show=true}}
                                         {{/if}}
                                         {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Preferred Pharmacy"}}
                                     </div>
@@ -57,7 +57,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                             <legend>Allergies</legend>
                                             <div class="row">
                                                 <div class="col-md-3 col-sm-6">
-                                                    {{> custChkBx text="NONE / No Known allergies"}}
+                                                    {{> custChkBx text="NONE / No known allergies"}}
 
                                                     {{> custChkBx text="Adhesive Tape"}}
 

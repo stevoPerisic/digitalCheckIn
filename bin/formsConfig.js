@@ -28,69 +28,71 @@ var insuredRelationship = [
  * https://api.athenahealth.com/preview1/3619/reference/allergies?searchvalue={search term}
  * @todo must sit with Stephanie and figure out the list, most allergies have multiple types like adhesives have three
  * or anesthetics have three, which one do we pick?
+ * ---
+ * If patient answers with "NONE / No known allergies" we must send the "nkda" flag instead of JSON.
  **/
 var allergies = {
-    adhesiveTape: {
+    "Adhesive Tape": {
         "allergy": "adhesive tape",
         "allergenname": "adhesive tape",
         "allergyid": 14454,
         "allergenid": 14454
     },
-    anesthesia: {
+    "Anesthesia": {
         "allergy": "Anesthetics - Ester Type- Parabens",
         "allergenname": "Anesthetics - Ester Type- Parabens",
         "allergyid": 24281,
         "allergenid": 24281
     },
-    aspirin: {
+    "Aspirin": {
         "allergy": "aspirin",
         "allergenname": "aspirin",
         "allergyid": 13279,
         "allergenid": 13279
     },
-    codeine: {
+    "Codeine": {
         "allergy": "codeine",
         "allergenname": "codeine",
         "allergyid": 13264,
         "allergenid": 13264
     },
-    dairy: {
+    "Dairy": {
         "allergy": "Milk Containing Products",
         "allergenname": "Milk Containing Products",
         "allergyid": 24458,
         "allergenid": 24458
     },
-    iodine: {
+    "Iodine": {
         "allergy": "Iodinated Contrast- Oral and IV Dye",
         "allergenname": "Iodinated Contrast- Oral and IV Dye",
         "allergyid": 12157,
         "allergenid": 12157
     },
-    latex: {
+    "Latex": {
         "allergy": "latex",
         "allergenname": "latex",
         "allergyid": 18939,
         "allergenid": 18939
     },
-    morphine: {
+    "Morphine": {
         "allergy": "morphine",
         "allergenname": "morphine",
         "allergyid": 13262,
         "allergenid": 13262
     },
-    penicillin: {
+    "Penicillin": {
         "allergy": "Penicillins",
         "allergenname": "Penicillins",
         "allergyid": 12449,
         "allergenid": 12449
     },
-    sulfa: {
+    "Sulfa": {
         "allergy": "Sulfa (Sulfonamide Antibiotics)",
         "allergenname": "Sulfa (Sulfonamide Antibiotics)",
         "allergyid": 12459,
         "allergenid": 12459
     },
-    wheat: {
+    "Wheat": {
         "allergy": "wheat",
         "allergenname": "wheat",
         "allergyid": 28693,
