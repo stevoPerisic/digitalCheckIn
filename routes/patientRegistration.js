@@ -4,27 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var app = require('../app');
-
 var formsConfig = require('../bin/formsConfig');
-
-/**
- * @description Patient registration form basic GET route, renders the form without any pre-populated data.
- **/
-// router.get('/', function (req, res, next) {
-//     res.render('patientRegistration', {
-//         title: 'Patient registration',
-//         maritalStatusSelect: formsConfig.maritalStatusSelect,
-//         insuredRelationship: formsConfig.insuredRelationship
-//     });
-// });
-
-/*
- DOCS regarding the demographics for a patient
- https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-6
-
- Patient relationship mapping:
- https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapping
- */
 
 /**
  * @description Patient registration form GET route,
