@@ -87,7 +87,12 @@ router.get('/',
      * @description Render the appointments table on the page
      **/
     function (req, res, next) {
-        res.render('index', {appts: req.appts, today: req.enddate});
+        res.render('index', {
+            appts: req.appts,
+            today: req.enddate,
+            message: req.flash('loginMessage'),
+            isAuthenticated: req.isAuthenticated()
+        });
     }
 );
 
