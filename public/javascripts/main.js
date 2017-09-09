@@ -40,6 +40,13 @@
                     $(this).parents('.patientDataFilled').next().removeClass('hidden').find('input').focus();
                     $(this).parents('.patientDataFilled').addClass('hidden');
                 });
+
+                /**
+                 * Login form submit loading overlay
+                 **/
+                $('.logInForm').on('submit', function () {
+                    $('.loaderOverlay').show();
+                })
             }
         },
         utilities: {

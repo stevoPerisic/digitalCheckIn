@@ -10,13 +10,13 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = {
     users: [
         {
-            id: 1, username: 'bob', password: 'secret', email: 'bob@example.com',
+            id: 1, username: 'Stevo', password: '5uper5ecretmeg@pa%%word', email: 'stevo@perisicdesigns.com',
             validPassword: function (pass) {
                 return pass === this.password;
             }
         },
         {
-            id: 2, username: 'test', password: 'password1', email: 'test@example.com',
+            id: 2, username: 'Stephanie', password: 'lozink@N@jbolj@', email: 'stephaniefalkoff@gmail.com',
             validPassword: function (pass) {
                 return pass === this.password;
             }
