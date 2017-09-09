@@ -8,8 +8,8 @@
                 <table class="table table-striped appointments">
                     <thead>
                     <tr>
-                        <th>First Name</th>
                         <th>Last Name</th>
+                        <th>First Name</th>
                         <th>Appt. Time</th>
                         <th>Appt.Type</th>
                         <th>Provider</th>
@@ -19,8 +19,8 @@
                     <tbody>
                     {{#each appts}}
                         <tr class="apptRow" data-appt-id="{{this.appointmentid}}" data-patient-id="{{this.patient.patientid}}">
-                            <td>{{this.patient.firstname}}</td>
                             <td>{{this.patient.lastname}}</td>
+                            <td>{{this.patient.firstname}}</td>
                             <td>{{this.starttime}}</td>
                             <td>{{this.appointmenttype}}</td>
                             <td>{{{providerName ../this.providers}}}</td>

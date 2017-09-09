@@ -25,7 +25,6 @@
                     method: 'GET'
                 }).then(function (data) {
                     console.log(data);
-
                     if (data.success) {
                         // set the apptId cookie
                         var date = new Date();

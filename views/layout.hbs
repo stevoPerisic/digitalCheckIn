@@ -43,14 +43,15 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Forms <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{@mainMenu.patientRegistration}}">Patient Registration</a></li>
-                            <li><a href="{{@mainMenu.patientMedicalHistory}}">Patient Medical History</a></li>
-                            <li><a href="{{@mainMenu.annualWellnessVisit}}">Medicare Annual Wellness Visit
-                                Questionnaire</a></li>
+                            <li><a href="/patientRegistration">Patient Registration</a></li>
+                            <li><a href="/patientMedicalHistory">Patient Medical History</a></li>
+                            <li><a href="/annualWellnessVisit">Medicare Annual Wellness Visit Questionnaire</a></li>
                         </ul>
                     </li>
-
                     <li><a href="/users/logout">Log Out</a></li>
+                    {{#if apptid}}
+                    <li><a href="/appointments/checkin/cancel">Cancel Check-in</a></li>
+                    {{/if}}
                 </ul>
             </div><!--/.nav-collapse -->
         {{/if}}

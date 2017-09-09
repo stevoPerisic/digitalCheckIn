@@ -20,6 +20,12 @@ var User = {
             validPassword: function (pass) {
                 return pass === this.password;
             }
+        },
+        {
+            id: 3, username: 'test', password: 'secret', email: 'stevo.perisic@gmail.com',
+            validPassword: function (pass) {
+                return pass === this.password;
+            }
         }
     ],
     findById: function (id, fn) {

@@ -80,6 +80,7 @@ router.get('/',
         };
         var allergies = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/allergies', {params: params});
         allergies.on('done', function (data) {
+            console.log(data);
             req.app.locals.allergies = data.allergies;
             next();
         });
@@ -184,6 +185,7 @@ router.get('/',
         res.render('patientMedicalHistory', {
             patient: req.app.locals.currAppt.patient,
             allergies: req.app.locals.allergies,
+            socialHistory: req.app.locals.socialHistory,
             maritalStatusSelect: formsConfig.maritalStatusSelect,
             insuredRelationship: formsConfig.insuredRelationship,
             isAuthenticated: req.isAuthenticated()

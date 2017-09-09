@@ -142,6 +142,7 @@ router.get('/',
                 }
             }),
             primaryProvider: req.primaryProvider,
+            apptid: req.cookies.apptid,
             isAuthenticated: req.isAuthenticated()
         });
     }
