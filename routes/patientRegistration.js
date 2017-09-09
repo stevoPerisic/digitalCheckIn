@@ -141,7 +141,8 @@ router.get('/',
                     return false;
                 }
             }),
-            primaryProvider: req.primaryProvider
+            primaryProvider: req.primaryProvider,
+            isAuthenticated: req.isAuthenticated()
         });
     }
 );
