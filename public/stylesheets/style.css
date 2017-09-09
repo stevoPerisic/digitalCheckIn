@@ -91,6 +91,34 @@ h1, h2, h3 {
 /*Form display mods*/
 /**************************/
 
+.logIn{
+    margin-top: 20px;
+}
+
+.logIn h1 {
+    font-weight: 400;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logIn .form-inline .form-control,.logIn .btn.btn-default {
+    width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .logIn .form-inline .form-control {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .logIn .btn.btn-default {
+        width: 80%;
+        display: block;
+        margin: 10px auto;
+    }
+}
+
 .patientDataFilled p {
     margin: 0 0 5px 0;
     padding: 5px 50px 15px 10px;

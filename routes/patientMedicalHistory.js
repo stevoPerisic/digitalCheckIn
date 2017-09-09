@@ -35,7 +35,7 @@ var formsConfig = require('../bin/formsConfig');
 /* GET home page. */
 router.get('/',
     /**
-     * @description GET current appt. with patient data
+     * @description GET current appointment with patient data
      **/
     function (req, res, next) {
         if (req.cookies.apptid) {

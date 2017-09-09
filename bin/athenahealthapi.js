@@ -390,7 +390,7 @@ function Connection(version, key, secret, practiceid) {
 	 */
 	this.getToken = function() {
 		return _token
-	}
+	};
 
 	return __construct(this)
 }
