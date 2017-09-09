@@ -117,7 +117,8 @@ router.get('/',
             patient: req.app.locals.currAppt.patient,
             // allergies: req.app.locals.allergies,
             maritalStatusSelect: formsConfig.maritalStatusSelect,
-            insuredRelationship: formsConfig.insuredRelationship
+            insuredRelationship: formsConfig.insuredRelationship,
+            isAuthenticated: req.isAuthenticated()
         });
     }
 );
