@@ -65,7 +65,7 @@ router.get('/',
                     showinsurance: 'true',
                     showpatientdetail: 'true',
                     showremindercalldetail: 'false',
-                    startdate: enddate
+                    startdate: '09/09/2017'//enddate
                 };
 
             var appointments = req.app.locals.AHAPI.GET('/appointments/booked', {params: params});
