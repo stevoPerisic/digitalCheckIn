@@ -30,7 +30,12 @@ router.get('/',
                 next();
             });
         } else {
-            res.render('annualWellnessVisit', {title: 'Medicare Annual Wellness Visit Questionnaire'});
+            res.render('annualWellnessVisit', {
+                title: 'Medicare Annual Wellness Visit Questionnaire',
+                maritalStatusSelect: formsConfig.maritalStatusSelect,
+                insuredRelationship: formsConfig.insuredRelationship,
+                isAuthenticated: req.isAuthenticated()
+            });
         }
     },
     // GET the full patient record

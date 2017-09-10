@@ -38,6 +38,13 @@ router.get('/',
      * @description GET current appointment with patient data
      **/
     function (req, res, next) {
+
+        console.log('*************');
+        console.log(req.session.passport.user);
+        console.log(req.user);
+        console.log(req.isAuthenticated());
+        console.log('*************');
+
         if (req.cookies.apptid) {
             var params = {
                 ignorerestrictions: true,
@@ -55,7 +62,12 @@ router.get('/',
                 next();
             });
         } else {
-            res.render('patientMedicalHistory', {title: 'Patient medical history'});
+            res.render('patientMedicalHistory', {
+                title: 'Patient medical history',
+                maritalStatusSelect: formsConfig.maritalStatusSelect,
+                insuredRelationship: formsConfig.insuredRelationship,
+                isAuthenticated: req.isAuthenticated()
+            });
         }
     },
     /**
@@ -181,6 +193,13 @@ router.get('/',
     },
     // Render page
     function (req, res, next) {
+
+        console.log('*************');
+        console.log(req.session.passport.user);
+        console.log(req.user);
+        console.log(req.isAuthenticated());
+        console.log('*************');
+
         // we've gathered all the patient med history data so render the screen
         res.render('patientMedicalHistory', {
             patient: req.app.locals.currAppt.patient,

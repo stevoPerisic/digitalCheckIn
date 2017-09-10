@@ -33,7 +33,8 @@ router.get('/',
             res.render('patientRegistration', {
                 title: 'Patient registration',
                 maritalStatusSelect: formsConfig.maritalStatusSelect,
-                insuredRelationship: formsConfig.insuredRelationship
+                insuredRelationship: formsConfig.insuredRelationship,
+                isAuthenticated: req.isAuthenticated()
             });
         }
     },
