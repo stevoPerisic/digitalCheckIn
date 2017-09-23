@@ -19,6 +19,16 @@ var formsConfig = require('../bin/formsConfig');
  **/
 router.get('/',
     /**
+     * @description Check if the user is authenticated, if not redirect back to home-page (log-in)
+     **/
+    function (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.redirect('/');
+        } else {
+            next();
+        }
+    },
+    /**
      * @description GET the patient information first
      * @todo We must surface and record the Race and Ethnicity data for the patient
      **/

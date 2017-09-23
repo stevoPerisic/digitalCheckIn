@@ -35,16 +35,19 @@ var formsConfig = require('../bin/formsConfig');
 /* GET home page. */
 router.get('/',
     /**
+     * @description Check if the user is authenticated, if not redirect back to home-page (log-in)
+     **/
+    function (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.redirect('/');
+        } else {
+            next();
+        }
+    },
+    /**
      * @description GET current appointment with patient data
      **/
     function (req, res, next) {
-
-        console.log('*************');
-        console.log(req.session.passport.user);
-        console.log(req.user);
-        console.log(req.isAuthenticated());
-        console.log('*************');
-
         if (req.cookies.apptid) {
             var params = {
                 ignorerestrictions: true,

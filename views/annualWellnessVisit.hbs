@@ -254,12 +254,20 @@
                     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingFour">
                         <div class="panel-body">
-                            <p><strong>List any allergies to medication, x-ray dyes or food.</strong></p>
-                            {{#parseJSON    '[{"inputId": "allergy", "type": "text", "label": "Allergy", "placeholder":"Allergy"},
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p><strong>List any allergies to medication, x-ray dyes or food.</strong></p>
+                                    {{#parseJSON    '[{"inputId": "allergy", "type": "text", "label": "Allergy", "placeholder":"Allergy"},
                                               {"inputId": "reactions", "type": "text", "label": "Reaction", "placeholder":"Reaction"}]'}}
-                                {{> custListInput listClass="reasonList" btnLabel="Add" fields=this}}
-                            {{/parseJSON}}
-
+                                        {{> custListInput listClass="reasonList" btnLabel="Add" fields=this}}
+                                    {{/parseJSON}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    {{> custChkBx text="NONE / No known allergies"}}
+                                </div>
+                            </div>
                             {{> accBtnNext text="Next"}}
                         </div>
                     </div>
