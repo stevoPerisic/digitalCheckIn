@@ -70,6 +70,12 @@ router.get('/',
 
             var appointments = req.app.locals.AHAPI.GET('/appointments/booked', {params: params});
             appointments.on('done', function (data) {
+
+                /**
+                 * @todo should be able to handle errors such as
+                 * { error: 'Invalid practice.',  detailedmessage: 'The practice ID does not exist.' }
+                 **/
+
                 /** order by date **/
                 data.appointments.sort(function (a, b) {
                     return new Date(b.date) - new Date(a.date);
