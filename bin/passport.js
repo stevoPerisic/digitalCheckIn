@@ -10,19 +10,19 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = {
     users: [
         {
-            id: 1, username: 'Stevo', password: process.env.PASS3, email: 'stevo@perisicdesigns.com',
+            id: 1, username: 'Stevo', password: process.env.PASS3, email: 'stevo@test.com',
             validPassword: function (pass) {
                 return pass === this.password;
             }
         },
         {
-            id: 2, username: 'Stephanie', password: process.env.PASS2, email: 'stephaniefalkoff@gmail.com',
+            id: 2, username: 'Stephanie', password: process.env.PASS2, email: 'test@test.com',
             validPassword: function (pass) {
                 return pass === this.password;
             }
         },
         {
-            id: 3, username: 'test', password: process.env.PASS1, email: 'stevo.perisic@gmail.com',
+            id: 3, username: 'test', password: process.env.PASS1, email: 'stevo.test@email.com',
             validPassword: function (pass) {
                 return pass === this.password;
             }
