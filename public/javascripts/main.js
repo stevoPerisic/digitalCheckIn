@@ -197,6 +197,11 @@
 
     $('document').ready(function () {
         var app = window.app;
+
+        console.log('Remove appt. related cookies');
+        document.cookie = "apptid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "patientid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
         app.page.bindGlobalEvents();
         app.page.init();
     });

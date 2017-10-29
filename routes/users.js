@@ -18,8 +18,12 @@ module.exports = function (passport) {
      * - using the req.logout
      **/
     router.get('/logout', function (req, res, next) {
-       req.logout();
-       res.redirect('/');
+        req.logout();
+        res.redirect('/');
+    });
+
+    router.get('/', function (req, res) {
+        res.redirect('/');
     });
 
     return router;

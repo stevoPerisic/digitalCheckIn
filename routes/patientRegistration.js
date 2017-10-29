@@ -19,6 +19,16 @@ var formsConfig = require('../bin/formsConfig');
  **/
 router.get('/',
     /**
+     * @description Check if the user is authenticated, if not redirect back to home-page (log-in)
+     **/
+    function (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.redirect('/');
+        } else {
+            next();
+        }
+    },
+    /**
      * @description GET the patient information first
      * @todo We must surface and record the Race and Ethnicity data for the patient
      **/
@@ -33,7 +43,8 @@ router.get('/',
             res.render('patientRegistration', {
                 title: 'Patient registration',
                 maritalStatusSelect: formsConfig.maritalStatusSelect,
-                insuredRelationship: formsConfig.insuredRelationship
+                insuredRelationship: formsConfig.insuredRelationship,
+                isAuthenticated: req.isAuthenticated()
             });
         }
     },
@@ -142,6 +153,7 @@ router.get('/',
                 }
             }),
             primaryProvider: req.primaryProvider,
+            apptid: req.cookies.apptid,
             isAuthenticated: req.isAuthenticated()
         });
     }

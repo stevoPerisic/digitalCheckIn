@@ -20,6 +20,12 @@ var User = {
             validPassword: function (pass) {
                 return pass === this.password;
             }
+        },
+        {
+            id: 3, username: 'test', password: 'secret', email: 'stevo.perisic@gmail.com',
+            validPassword: function (pass) {
+                return pass === this.password;
+            }
         }
     ],
     findById: function (id, fn) {
@@ -76,29 +82,33 @@ module.exports = function (passport) {
         },
         function (req, email, password, done) {
             console.log('local-login' + email + ' / ' + password);
-            // find a user whose email is the same as the forms email
-            // we are checking to see if the user trying to login already exists
-            User.findByUserEmail(email, function (err, user) {
-                // if there are any errors, return the error
-                if (err) {
-                    return done(err);
-                }
 
-                // if no user is found, return the message
-                if (!user) {
-                    // req.flash is the way to set flashdata using connect-flash
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
-                }
+            process.nextTick(function () {
+                // find a user whose email is the same as the forms email
+                // we are checking to see if the user trying to login already exists
+                User.findByUserEmail(email, function (err, user) {
+                    // if there are any errors, return the error
+                    if (err) {
+                        return done(err);
+                    }
 
-                // if the user is found but the password is wrong
-                if (!user.validPassword(password)) {
-                    // create the loginMessage and save it to session as flashdata
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-                }
+                    // if no user is found, return the message
+                    if (!user) {
+                        // req.flash is the way to set flashdata using connect-flash
+                        return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    }
 
-                // all is well, return successful user
-                return done(null, user);
+                    // if the user is found but the password is wrong
+                    if (!user.validPassword(password)) {
+                        // create the loginMessage and save it to session as flashdata
+                        return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                    }
+
+                    // all is well, return successful user
+                    return done(null, user);
+                });
             });
+
         })
     );
 };

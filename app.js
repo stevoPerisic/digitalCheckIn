@@ -8,7 +8,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('./bin/hbsHelpers');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var flash = require('connect-flash');
 
@@ -57,7 +56,8 @@ app.locals.mainMenu = {
 app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
     process.env.ATHENA_KEY,
     process.env.ATHENA_SECRET,
-    process.env.NRIM_PRACTICE_ID
+    process.env.ATHENA_PREVIEW_PRACTICE_ID
+    // process.env.NRIM_PRACTICE_ID
 );
 
 // view engine setup
@@ -85,7 +85,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-
+// set up routes
 app.use('/', index);
 app.use('/users', users);
 app.use('/patientRegistration', patientRegistration);

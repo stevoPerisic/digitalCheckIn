@@ -113,139 +113,141 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            <div class="form-group row">
-                                <div class="col-lg-12">
-                                    <fieldset>
-                                        <legend>
-                                            Please indicate if any of your immediate relatives have had any of the
-                                            following by selecting the appropriate check-box.
-                                        </legend>
-                                        <ul>
-                                            {{#each familyHistory}}
-                                                <li>
-                                                    {{relation}}
-                                                    <ul>
-                                                        {{#each this.problems}}
-                                                        <li>{{description}}</li>
-                                                        {{/each}}
-                                                    </ul>
-                                                </li>
-                                            {{/each}}
-                                        </ul>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>Issue</th>
-                                                    <th>Mother</th>
-                                                    <th>Father</th>
-                                                    <th>Sibling (sister/brother)</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>Anesthesia Problems</td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Arthritis</td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Cancer</td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Diabetes</td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Heart Problems</td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Hypertension</td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Stroke</td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Thyroid Disorder</td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                    <td>
-                                                        {{> custChkBx text=""}}
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </fieldset>
+                            <form action="" id="familyHistory" data-url="/patientMedicalHistory/familyHistory">
+                                <div class="form-group row">
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <legend>
+                                                Please indicate if any of your immediate relatives have had any of the
+                                                following by selecting the appropriate check-box.
+                                            </legend>
+                                            <ul>
+                                                {{#each familyHistory}}
+                                                    <li>
+                                                        {{relation}}
+                                                        <ul>
+                                                            {{#each this.problems}}
+                                                            <li>{{description}}</li>
+                                                            {{/each}}
+                                                        </ul>
+                                                    </li>
+                                                {{/each}}
+                                            </ul>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Issue</th>
+                                                        <th>Mother</th>
+                                                        <th>Father</th>
+                                                        <th>Sibling (sister/brother)</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Anesthesia Problems</td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Arthritis</td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Cancer</td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Diabetes</td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Heart Problems</td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hypertension</td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Stroke</td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Thyroid Disorder</td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                        <td>
+                                                            {{> custChkBx text=""}}
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                 </div>
-                            </div>
-                            {{> accBtnNext text="Next"}}
+                                {{> accBtnNext text="Next" submit=true}}
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -262,104 +264,106 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingThree">
                         <div class="panel-body">
-                            <div class="row">
-                                <ul>
-                                    {{#each socialHistory}}
-                                        <li>
-                                            Q: {{question}} <br>
-                                            A: {{answer}} <br>
-                                            Q-key: {{key}}
-                                        </li>
-                                    {{/each}}
-                                </ul>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-3 col-sm-6">
-                                    {{#parseJSON maritalStatusSelect}}
-                                        {{> custSelect id="maritalstatus" label="Marital status" emptyOption=true options=this selected=this.patient.maritalstatus }}
-                                    {{/parseJSON}}
+                            <form action="" id="socialHistroy" data-url="/patientMedicalHistory/socialHistory">
+                                <div class="row">
+                                    <ul>
+                                        {{#each socialHistory}}
+                                            <li>
+                                                Q: {{question}} <br>
+                                                A: {{answer}} <br>
+                                                Q-key: {{key}}
+                                            </li>
+                                        {{/each}}
+                                    </ul>
                                 </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <fieldset>
+                                <div class="form-group row">
+                                    <div class="col-md-3 col-sm-6">
+                                        {{#parseJSON maritalStatusSelect}}
+                                            {{> custSelect id="maritalstatus" label="Marital status" emptyOption=true options=this selected=this.patient.maritalstatus }}
+                                        {{/parseJSON}}
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label for="occupation">Occupation</label>
+                                                <input type="text" class="form-control" id="occupation" name="occupation"
+                                                       aria-describedby="occupation" placeholder="Occupation">
+                                            </div>
+
+                                            {{> custChkBx text="Retired?"}}
+
+                                            {{> custChkBx text="Disabled?"}}
+
+                                            <div class="form-group">
+                                                <label for="disabilityReason">Disability Reason</label>
+                                                <input type="text" class="form-control" id="disabilityReason"
+                                                       name="disabilityReason"
+                                                       aria-describedby="disabilityReason" placeholder="Disability Reason">
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+
+                                        <!--
+                                            custom choice inputs via https://bootsnipp.com/snippets/NBN6x
+                                        -->
+                                        <div class="input-group" style="width: 100%;">
+                                            <label for="drinkAlcohol">Do you drink alcohol?</label>
+                                            <br>
+                                            <div class="radioBtn btn-group" style="width: 100%;">
+                                                <span style="width: 50%;" class="btn btn-primary active" data-toggle="drinkAlcohol" data-value="Yes">Yes</span>
+                                                <span style="width: 50%;" class="btn btn-default notActive" data-toggle="drinkAlcohol" data-value="No">No</span>
+                                            </div>
+                                            <input type="hidden" name="drinkAlcohol" id="drinkAlcohol">
+                                        </div>
+                                        <br>
+
+                                        {{#parseJSON    '[{"value": "Daily", "text": "Daily"},
+                                                        {"value": "Weekly", "text": "Weekly"},
+                                                        {"value": "Infrequently", "text": "Infrequently"},
+                                                        {"value": "Recovering Alcoholic", "text": "Recovering Alcoholic"}]'}}
+                                            {{> custSelect id="alcoholFrequency" label="How often?" emptyOption=true options=this }}
+                                        {{/parseJSON}}
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        <!--
+                                            custom choice inputs via https://bootsnipp.com/snippets/NBN6x
+                                        -->
+                                        <div class="input-group" style="width: 100%;">
+                                            <label for="useTobacco">Do you use tobacco?</label>
+                                            <br>
+                                            <div class="radioBtn btn-group" style="width: 100%;">
+                                                <span style="width: 50%;" class="btn btn-primary active" data-toggle="useTobacco" data-value="Yes">Yes</span>
+                                                <span style="width: 50%;" class="btn btn-default notActive" data-toggle="useTobacco" data-value="No">No</span>
+                                            </div>
+                                            <input type="hidden" name="useTobacco" id="useTobacco">
+                                        </div>
+                                        <br>
+
+                                        <!--
+                                            custom choice inputs via https://bootsnipp.com/snippets/NBN6x
+                                        -->
+                                        <div class="input-group" style="width: 100%;">
+                                            <label for="useTobaccoWay">Preferred way of use?</label>
+                                            <br>
+                                            <div class="radioBtn btn-group" style="width: 100%;">
+                                                <span style="width: 50%;" class="btn btn-primary active" data-toggle="useTobaccoWay" data-value="Yes">Smoke</span>
+                                                <span style="width: 50%;" class="btn btn-default notActive" data-toggle="useTobaccoWay" data-value="No">Chew</span>
+                                            </div>
+                                            <input type="hidden" name="useTobaccoWay" id="useTobaccoWay">
+                                        </div>
+                                        <br>
+
                                         <div class="form-group">
-                                            <label for="occupation">Occupation</label>
-                                            <input type="text" class="form-control" id="occupation" name="occupation"
-                                                   aria-describedby="occupation" placeholder="Occupation">
+                                            <label for="cigPacksPerDay">Packs a day?</label>
+                                            <input type="number" class="form-control" id="cigPacksPerDay"
+                                                   name="cigPacksPerDay"
+                                                   aria-describedby="cigPacksPerDay" placeholder="0">
                                         </div>
-
-                                        {{> custChkBx text="Retired?"}}
-
-                                        {{> custChkBx text="Disabled?"}}
-
-                                        <div class="form-group">
-                                            <label for="disabilityReason">Disability Reason</label>
-                                            <input type="text" class="form-control" id="disabilityReason"
-                                                   name="disabilityReason"
-                                                   aria-describedby="disabilityReason" placeholder="Disability Reason">
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-
-                                    <!--
-                                        custom choice inputs via https://bootsnipp.com/snippets/NBN6x
-                                    -->
-                                    <div class="input-group" style="width: 100%;">
-                                        <label for="drinkAlcohol">Do you drink alcohol?</label>
-                                        <br>
-                                        <div class="radioBtn btn-group" style="width: 100%;">
-                                            <span style="width: 50%;" class="btn btn-primary active" data-toggle="drinkAlcohol" data-value="Yes">Yes</span>
-                                            <span style="width: 50%;" class="btn btn-default notActive" data-toggle="drinkAlcohol" data-value="No">No</span>
-                                        </div>
-                                        <input type="hidden" name="drinkAlcohol" id="drinkAlcohol">
-                                    </div>
-                                    <br>
-
-                                    {{#parseJSON    '[{"value": "Daily", "text": "Daily"},
-                                                    {"value": "Weekly", "text": "Weekly"},
-                                                    {"value": "Infrequently", "text": "Infrequently"},
-                                                    {"value": "Recovering Alcoholic", "text": "Recovering Alcoholic"}]'}}
-                                        {{> custSelect id="alcoholFrequency" label="How often?" emptyOption=true options=this }}
-                                    {{/parseJSON}}
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <!--
-                                        custom choice inputs via https://bootsnipp.com/snippets/NBN6x
-                                    -->
-                                    <div class="input-group" style="width: 100%;">
-                                        <label for="useTobacco">Do you use tobacco?</label>
-                                        <br>
-                                        <div class="radioBtn btn-group" style="width: 100%;">
-                                            <span style="width: 50%;" class="btn btn-primary active" data-toggle="useTobacco" data-value="Yes">Yes</span>
-                                            <span style="width: 50%;" class="btn btn-default notActive" data-toggle="useTobacco" data-value="No">No</span>
-                                        </div>
-                                        <input type="hidden" name="useTobacco" id="useTobacco">
-                                    </div>
-                                    <br>
-
-                                    <!--
-                                        custom choice inputs via https://bootsnipp.com/snippets/NBN6x
-                                    -->
-                                    <div class="input-group" style="width: 100%;">
-                                        <label for="useTobaccoWay">Preferred way of use?</label>
-                                        <br>
-                                        <div class="radioBtn btn-group" style="width: 100%;">
-                                            <span style="width: 50%;" class="btn btn-primary active" data-toggle="useTobaccoWay" data-value="Yes">Smoke</span>
-                                            <span style="width: 50%;" class="btn btn-default notActive" data-toggle="useTobaccoWay" data-value="No">Chew</span>
-                                        </div>
-                                        <input type="hidden" name="useTobaccoWay" id="useTobaccoWay">
-                                    </div>
-                                    <br>
-
-                                    <div class="form-group">
-                                        <label for="cigPacksPerDay">Packs a day?</label>
-                                        <input type="number" class="form-control" id="cigPacksPerDay"
-                                               name="cigPacksPerDay"
-                                               aria-describedby="cigPacksPerDay" placeholder="0">
                                     </div>
                                 </div>
-                            </div>
-                            {{> accBtnNext text="Next"}}
+                                {{> accBtnNext text="Next" submit=true}}
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -376,7 +380,8 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingFour">
                         <div class="panel-body">
-                            <fieldset>
+                            <form action="" id="surgicalHistory" data-url="/patientMedicalHistory/surgicalHistory">
+                                <fieldset>
                                 <legend>Please list any <strong>hospitalizations</strong>, <strong>surgeries</strong>,
                                     <strong>fractures</strong> or <strong>major illnesses</strong> you have had.
                                 </legend>
@@ -442,7 +447,8 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                     </table>
                                 </div>
                             </fieldset>
-                            {{> accBtnNext text="Next"}}
+                                {{> accBtnNext text="Next" submit=true}}
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -459,7 +465,8 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingFive">
                         <div class="panel-body">
-                            <fieldset>
+                            <form action="" id="medicalHistory" data-url="/patientMedicalHistory/medicalHistory">
+                                <fieldset>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <legend>Have you ever had any of the following?</legend>
@@ -577,7 +584,8 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                     </div>
                                 </div>
                             </fieldset>
-                            {{> accBtnNext text="Next"}}
+                                {{> accBtnNext text="Next" submit=true}}
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -594,7 +602,8 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     <div id="collapseSix" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingSix">
                         <div class="panel-body">
-                            <fieldset>
+                            <form action="" id="medications" data-url="/patientMedicalHistory/medications">
+                                <fieldset>
                                 <legend>
                                     List any medications you are currently taking (please include over the counter medications).
                                 </legend>
@@ -650,13 +659,12 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                     </table>
                                 </div>
                             </fieldset>
+                                {{> accBtnNext text="Next" submit=true}}
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <hr>
-            <button type="submit" class="btn btn-primary btn-lg submit">Submit</button>
         <!-- </form> -->
     </div>
 </div>

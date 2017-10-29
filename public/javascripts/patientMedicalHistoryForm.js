@@ -43,42 +43,42 @@
                 tbody.find('tr:last-child').prepend(newRow);
             });
 
-            /**
-             * Updating medical history
-             * https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-5
-             * */
-            // $('.btn.submit').on('click',
-            //     {form: me.$medicalHistoryForm, URL:'/patientMedicalHistory' },
-            //     app.utilities.formSubmit
-            // );
+            $('#personalInformationForm').on('submit', me.pIFormSubmit);
 
+            $('#familyHistory').on('submit', me.fHFormSubmit);
+        },
+        pIFormSubmit: function (e) {
+            e.preventDefault();
+            var data = app.utilities.getFormData($(e.currentTarget)),
+                $form = $(e.currentTarget),
+                /** Having issues picking up the checkboxes using form.serializeArray() **/
+                $checkboxes = $form.find('input[type="checkbox"]'),
+                $customAllergies = $('.customAllergiesList');
 
-            $('#personalInformationForm').on('submit', function (e) {
-                e.preventDefault();
-                var data = app.utilities.getFormData($(e.currentTarget)),
-                    $form = $(e.currentTarget),
-                    /** Having issues picking up the checkboxes using form.serializeArray() **/
-                    $checkboxes = $form.find('input[type="checkbox"]'),
-                    $customAllergies = $('.customAllergiesList');
-
-                /** Create an allergies array to store allergies **/
-                data.allergies = [];
-                $checkboxes.each(function (i, chkbox) {
-                    if (chkbox.attributes.checked) {
-                        console.log(chkbox.value);
-                        data.allergies.push(chkbox.value)
-                    }
-                });
-
-                if ($customAllergies.length > 0) {
-                    data.customAllergies = [];
-                    $customAllergies.children().each(function (i, li) {
-                        data.customAllergies.push(li.textContent);
-                    });
+            /** Create an allergies array to store allergies **/
+            data.allergies = [];
+            $checkboxes.each(function (i, chkbox) {
+                if (chkbox.attributes.checked) {
+                    console.log(chkbox.value);
+                    data.allergies.push(chkbox.value)
                 }
-
-                app.utilities.formSubmit(data, $form);
             });
+
+            if ($customAllergies.length > 0) {
+                data.customAllergies = [];
+                $customAllergies.children().each(function (i, li) {
+                    data.customAllergies.push(li.textContent);
+                });
+            }
+
+            app.utilities.formSubmit(data, $form);
+        },
+        fHFormSubmit: function (e) {
+            e.preventDefault();
+            var data = app.utilities.getFormData($(e.currentTarget)),
+                $form = $(e.currentTarget);
+
+            console.log(data);
         },
         init: function () {
             console.log('Patient Medical History Form started...');

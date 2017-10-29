@@ -35,6 +35,16 @@ var formsConfig = require('../bin/formsConfig');
 /* GET home page. */
 router.get('/',
     /**
+     * @description Check if the user is authenticated, if not redirect back to home-page (log-in)
+     **/
+    function (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.redirect('/');
+        } else {
+            next();
+        }
+    },
+    /**
      * @description GET current appointment with patient data
      **/
     function (req, res, next) {
@@ -55,7 +65,12 @@ router.get('/',
                 next();
             });
         } else {
-            res.render('patientMedicalHistory', {title: 'Patient medical history'});
+            res.render('patientMedicalHistory', {
+                title: 'Patient medical history',
+                maritalStatusSelect: formsConfig.maritalStatusSelect,
+                insuredRelationship: formsConfig.insuredRelationship,
+                isAuthenticated: req.isAuthenticated()
+            });
         }
     },
     /**
@@ -80,6 +95,7 @@ router.get('/',
         };
         var allergies = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/allergies', {params: params});
         allergies.on('done', function (data) {
+            console.log(data);
             req.app.locals.allergies = data.allergies;
             next();
         });
@@ -180,10 +196,18 @@ router.get('/',
     },
     // Render page
     function (req, res, next) {
+
+        console.log('*************');
+        console.log(req.session.passport.user);
+        console.log(req.user);
+        console.log(req.isAuthenticated());
+        console.log('*************');
+
         // we've gathered all the patient med history data so render the screen
         res.render('patientMedicalHistory', {
             patient: req.app.locals.currAppt.patient,
             allergies: req.app.locals.allergies,
+            socialHistory: req.app.locals.socialHistory,
             maritalStatusSelect: formsConfig.maritalStatusSelect,
             insuredRelationship: formsConfig.insuredRelationship,
             isAuthenticated: req.isAuthenticated()

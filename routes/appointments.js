@@ -2,6 +2,8 @@
  * Created by stevoperisic on 5/8/17.
  *
  * Appointments route and controller
+ *
+ * @todo create a data baseline for the day - a few appointments with basic data entered
  */
 var express = require('express');
 var router = express.Router();
@@ -15,6 +17,7 @@ router.get('/:apptid/startcheckin',
         var apptreadiness = req.app.locals.AHAPI.GET('/appointments/' + req.params.apptid + '/checkin', {params: {}});
         apptreadiness.on('done', function (data) {
             console.log(data);
+            req.app.locals.apptReadiness = data;
             next();
         });
     },
@@ -24,16 +27,21 @@ router.get('/:apptid/startcheckin',
      **/
     function (req, res, next) {
         console.log(req.params);
-
-        res.send({success: true});
-
-        // var appt = req.app.locals.AHAPI.POST('/appointments/' + req.params.apptid + '/startcheckin');
-        // appt.on('done', function (data) {
-        //     console.log(data);
-        //     res.send(data);
-        //     // res.render('index', {appts: data.appointments});
-        // });
+        var appt = req.app.locals.AHAPI.POST('/appointments/' + req.params.apptid + '/startcheckin');
+        appt.on('done', function (data) {
+            console.log(data);
+            res.send(data);
+            // res.render('index', {appts: data.appointments});
+        });
     }
 );
+
+router.get('/checkin/cancel', function (req, res, next) {
+    var cancelCheckIn = req.app.locals.AHAPI.POST('/appointments/' + req.cookies.apptid + '/cancelcheckin', {params: {}});
+    cancelCheckIn.on('done', function (data) {
+        console.log('Cancel check-in '+JSON.stringify(data));
+        res.redirect('/');
+    });
+});
 
 module.exports = router;

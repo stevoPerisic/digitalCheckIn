@@ -10,6 +10,16 @@ var formsConfig = require('../bin/formsConfig');
 
 /* GET home page. */
 router.get('/',
+    /**
+     * @description Check if the user is authenticated, if not redirect back to home-page (log-in)
+     **/
+    function (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.redirect('/');
+        } else {
+            next();
+        }
+    },
     // GET current appt. with patient data
     function (req, res, next) {
         var params = {
@@ -30,7 +40,12 @@ router.get('/',
                 next();
             });
         } else {
-            res.render('annualWellnessVisit', {title: 'Medicare Annual Wellness Visit Questionnaire'});
+            res.render('annualWellnessVisit', {
+                title: 'Medicare Annual Wellness Visit Questionnaire',
+                maritalStatusSelect: formsConfig.maritalStatusSelect,
+                insuredRelationship: formsConfig.insuredRelationship,
+                isAuthenticated: req.isAuthenticated()
+            });
         }
     },
     // GET the full patient record

@@ -11,9 +11,9 @@ var router = express.Router();
 router.get('/',
     /**
      * @description GET all the available departments for the practice
+     * @todo offer a dropdown to select depts. for practices, currently only one valid dept in this practice
      **/
     function (req, res, next) {
-
         if (!req.isAuthenticated()) {
             next();
         } else {
@@ -26,8 +26,7 @@ router.get('/',
             departments.on('done', function (data) {
                 if (!data.error) {
                     /**
-                     * @todo offer a dropdown to select depts. for practices, currently only one valid dept in this practice
-                     * so we will select the first dept and pick it's id to pass down to the appointment middleware
+                     * Select the first dept and pick it's id to pass down to the appointment middleware
                      * The department ID needs to be an integer and it comes back as a string from this call
                      **/
                     // console.log(data.departments);
@@ -44,10 +43,10 @@ router.get('/',
     },
     /**
      * @description GET all appointments for the selected department for the chosen practice
+     * - getting only the appointments for today's date
      * @todo For scale we will have to make the practice ID a setting in the dashboard (to be created) once we start serving more than one practice
      **/
     function (req, res, next) {
-
         if (!req.isAuthenticated()) {
             next();
         } else {
@@ -66,11 +65,17 @@ router.get('/',
                     showinsurance: 'true',
                     showpatientdetail: 'true',
                     showremindercalldetail: 'false',
-                    startdate: '08/31/2017'//enddate
+                    startdate: '10/20/2017'//\\enddate
                 };
 
             var appointments = req.app.locals.AHAPI.GET('/appointments/booked', {params: params});
             appointments.on('done', function (data) {
+
+                /**
+                 * @todo should be able to handle errors such as
+                 * { error: 'Invalid practice.',  detailedmessage: 'The practice ID does not exist.' }
+                 **/
+
                 /** order by date **/
                 data.appointments.sort(function (a, b) {
                     return new Date(b.date) - new Date(a.date);
