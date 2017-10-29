@@ -1,3 +1,15 @@
+#Athena Health Digital Check-In
+https://developer.athenahealth.com/docs/read/workflows/Digital_CheckIn
+
+Application features:
+- Front desk staff login
+- List of the days appointments
+- electronically collects and verifies key patient information
+- 
+
+----
+#Flows:
+
 To achieve HIPAA compliance
 https://www.truevault.com/blog/how-do-i-become-hipaa-compliant.html
 https://www.medforward.com/f/MF_Forms_HIPAA_Guidelines.pdf

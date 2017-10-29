@@ -2,6 +2,8 @@
  * Created by stevoperisic on 5/8/17.
  *
  * Appointments route and controller
+ *
+ * @todo create a data baseline for the day - a few appointments with basic data entered
  */
 var express = require('express');
 var router = express.Router();
