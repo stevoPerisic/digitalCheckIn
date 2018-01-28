@@ -6,6 +6,7 @@ module.exports = function (passport) {
     /**
      * @description user/login route
      * - POST to login the user via the local-login Passport Local Strategy
+     * @todo We need to implement SAML auth on the login page,
      **/
     router.post('/login', passport.authenticate('local-login', {
         successRedirect: '/', // redirect to the secure profile section

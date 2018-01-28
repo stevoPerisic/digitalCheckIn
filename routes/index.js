@@ -5,7 +5,6 @@ var router = express.Router();
  * @description GET home page - show list off appointments
  *
  * Ideas:
- * @todo We need to implement SAML auth on the login page,
  * @todo There should be a home page where the user can choose the departments
  **/
 router.get('/',
@@ -44,7 +43,8 @@ router.get('/',
     /**
      * @description GET all appointments for the selected department for the chosen practice
      * - getting only the appointments for today's date
-     * @todo For scale we will have to make the practice ID a setting in the dashboard (to be created) once we start serving more than one practice
+     * @todo For scale we will have to make the practice ID a setting in the dashboard (to be created),
+     *       once we start serving more than one practice
      **/
     function (req, res, next) {
         if (!req.isAuthenticated()) {
