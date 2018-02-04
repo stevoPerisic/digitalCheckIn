@@ -61,6 +61,9 @@ router.get('/',
     },
     /**
      * @description GET top insurance packages from aNET for this practice
+     * @todo move this out to the applicatuon set-up step, this is practice level info not appointment level and it
+     * should be loaded ahead of time
+     * @todo PERHAPS NOT NECESSARY AS THE INSURANCE CARD IS SCANNED BEFORE THE USER SEES THE FORM
      **/
     function (req, res, next) {
         var topInsurancePckgs = req.app.locals.AHAPI.GET('/misc/topinsurancepackages', {});
@@ -71,7 +74,8 @@ router.get('/',
         });
     },
     /**
-     * @description GET appointment related insurances - NOT SURE IF WE NEED THIS
+     * @description GET appointment related insurances -
+     * @todo NOT SURE IF WE NEED THIS - take it out
      **/
     function (req, res, next) {
         var apptRelatedInsurance = req.app.locals.AHAPI.GET('/appointments/' + req.cookies.apptid + '/insurances', {});
@@ -83,6 +87,8 @@ router.get('/',
     },
     /**
      * @description GET patient insurances
+     * @todo also might not be necessary as the insurance is checked at the front-desk before the patient gets the tablet
+     * PERHAPS TAKE OUT - OR OFFER AS A SEPARATE UPDATING SERVICE
      **/
     function (req, res, next) {
         // https://api.athenahealth.com/preview1/195900/patients/1/insurances
@@ -93,6 +99,8 @@ router.get('/',
         patientInsurances.on('done', function (data) {
             if (!data.error) {
                 req.insurances = data.insurances;
+
+                /**@todo what is this doing here - it has nothing to do with insurance ?? - should be moved or deleted**/
                 if (req.app.locals.providers) {
                     req.primaryProvider = req.app.locals.providers.find(function (provider) {
                         if (parseInt(provider.providerid, 10) === parseInt(patient.primaryproviderid, 10)) {
@@ -102,6 +110,8 @@ router.get('/',
                         }
                     })
                 }
+
+
             } else {
                 console.log('Error getting patient level insurance: ' + data.error);
             }
@@ -111,6 +121,7 @@ router.get('/',
     /**
      * @description GET insurance card images
      * - first check if there is an insurance recorded for the patient
+     * @todo - not sure if this is necessary also take out upon verification
      **/
     function (req, res, next) {
         if (req.app.locals.patient.insurances[0]) {
@@ -192,7 +203,10 @@ router.post('/demographics', function (req, res, next) {
 
 /**
  * @description Submit the Insured/Responsible Party information pertaining to the insurance
+ * @todo THIS SHOULD BE HANDLED ALREADY AT THE FRONT DESK AS TEH USER IS SUPPOSED TO PRESENT THE INSURANCE CARD
+ * @todo TO THE FRONT DESK STAFF BEFORE RECEIVING THE DEVICE TO CHECK-IN
  * @todo handle the "self" case by taking the info from the demographics data for the patient
+ *
  **/
 router.post('/insuredParty', function (req, res, next) {
     var postData = req.body,
@@ -224,7 +238,7 @@ router.post('/insuredParty', function (req, res, next) {
  * - an insurance package ID must be supplied in order to successfully POST insurance data
  * - we will call the available insurances Athena API to get those
  * @todo double check this is needed at all, per Athena Net the front desk staff is supposed to collect this via the
- *       insurance card scan before the check-in process starts
+ * @todo insurance card scan before the check-in process starts
  **/
 router.post('/insuranceInfo',
     /**
