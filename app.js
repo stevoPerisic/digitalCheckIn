@@ -60,6 +60,16 @@ app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
     // process.env.NRIM_PRACTICE_ID
 );
 
+/**
+ * Cache all the practice data (providers, appointments)
+ **/
+app.locals.AHAPI.status.on('ready', function () {
+    // console.log(app.locals.AHAPI.getToken());
+    require('./bin/practiceData')(app);
+});
+// require('./bin/practiceData')(app);
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
