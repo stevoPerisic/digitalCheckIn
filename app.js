@@ -64,10 +64,8 @@ app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
  * Cache all the practice data (providers, appointments)
  **/
 app.locals.AHAPI.status.on('ready', function () {
-    // console.log(app.locals.AHAPI.getToken());
-    require('./bin/practiceData')(app);
+    app.locals.practiceData = require('./bin/practiceData.js')(app);
 });
-// require('./bin/practiceData')(app);
 
 
 // view engine setup
