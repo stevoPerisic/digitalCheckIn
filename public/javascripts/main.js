@@ -179,11 +179,18 @@
              * @param $form {object} jQuery form object that is collected on each form page
              **/
             formSubmit: function (data, $form) {
+                /**
+                 * add patient and appt id from session storage to the data
+                 **/
                 $.ajax({
                     method: 'POST',
                     url: $form[0].dataset.url,
                     data: data,
                     contentType: 'application/x-www-form-urlencoded'
+                    /*beforeSend: function(request) {
+                        request.setRequestHeader('patientid', sessionStorage.getItem('patientid'));
+                        request.setRequestHeader('apptid', sessionStorage.getItem('apptid'));
+                    }*/
                 }).done(function (data, xhr) {
                     console.log(data);
                     console.log(xhr);
@@ -199,6 +206,11 @@
         var app = window.app;
 
         console.log('Remove appt. related cookies');
+        /**
+         * @todo Why am I removing cookies here????
+         * @todo perhaps store the patient id and teh appt id in the session storage?
+         * @todo clear the session once the user has checked in
+         **/
         document.cookie = "apptid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "patientid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 

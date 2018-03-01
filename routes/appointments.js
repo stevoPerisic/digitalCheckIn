@@ -16,6 +16,7 @@ router.get('/:apptid/startcheckin',
     function (req, res, next) {
         var apptreadiness = req.app.locals.AHAPI.GET('/appointments/' + req.params.apptid + '/checkin', {params: {}});
         apptreadiness.on('done', function (data) {
+            console.log('****** APPT Readiness response ******');
             console.log(data);
             req.app.locals.apptReadiness = data;
             next();
@@ -29,6 +30,7 @@ router.get('/:apptid/startcheckin',
         console.log(req.params);
         var appt = req.app.locals.AHAPI.POST('/appointments/' + req.params.apptid + '/startcheckin');
         appt.on('done', function (data) {
+            console.log('****** Start Check-In response ******');
             console.log(data);
             res.send(data);
             // res.render('index', {appts: data.appointments});

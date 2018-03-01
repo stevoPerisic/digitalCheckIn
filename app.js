@@ -1,5 +1,10 @@
 require('dotenv').config();
 
+/**
+ * @todo Encrypt traffic between browser and server
+ * - https://medium.com/@weblab_tech/encrypted-client-server-communication-protection-of-privacy-and-integrity-with-aes-and-rsa-in-c7b180fe614e
+ **/
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -30,6 +35,7 @@ filenames.forEach(function (filename) {
 
 var index = require('./routes/index');
 var users = require('./routes/users')(passport);
+var patients = require('./routes/patients');
 var patientRegistration = require('./routes/patientRegistration');
 var patientMedicalHistory = require('./routes/patientMedicalHistory');
 var annualWellnessVisit = require('./routes/annualWellnessVisit');
@@ -96,6 +102,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // set up routes
 app.use('/', index);
 app.use('/users', users);
+app.use('/patients', patients);
 app.use('/patientRegistration', patientRegistration);
 app.use('/patientMedicalHistory', patientMedicalHistory);
 app.use('/annualWellnessVisit', annualWellnessVisit);

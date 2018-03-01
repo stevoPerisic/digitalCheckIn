@@ -19,7 +19,7 @@ var formsConfig = require('../bin/formsConfig');
  **/
 router.get('/',
     /**
-     * @description Check if the user is authenticated, if not redirect back to home-page (log-in)
+     * @description Check if the user is authenticated, if not redirect back to log-in page
      **/
     function (req, res, next) {
         if (!req.isAuthenticated()) {
@@ -34,11 +34,12 @@ router.get('/',
      **/
     function (req, res, next) {
         if (req.cookies.patientid) {
-            var patient = req.app.locals.AHAPI.GET('/patients/' + req.cookies.patientid, {params: {showinsurance: true}});
-            patient.on('done', function (data) {
-                req.app.locals.patient = data[0];
-                next();
-            });
+            next();
+            // var patient = req.app.locals.AHAPI.GET('/patients/' + req.cookies.patientid, {params: {showinsurance: true}});
+            // patient.on('done', function (data) {
+            //     req.app.locals.patient = data[0];
+            //     next();
+            // });
         } else {
             res.render('patientRegistration', {
                 title: 'Patient registration',
@@ -61,8 +62,7 @@ router.get('/',
     },
     /**
      * @description GET top insurance packages from aNET for this practice
-     * @todo move this out to the applicatuon set-up step, this is practice level info not appointment level and it
-     * should be loaded ahead of time
+     * @todo move this out to the applicatuon set-up step, this is practice level info not appointment level and it should be loaded ahead of time
      * @todo PERHAPS NOT NECESSARY AS THE INSURANCE CARD IS SCANNED BEFORE THE USER SEES THE FORM
      **/
     function (req, res, next) {
@@ -188,6 +188,10 @@ router.post('/demographics', function (req, res, next) {
     var postData = req.body,
         aNEtAPI = req.params.aNetAPI,
         patientid = req.cookies.patientid;
+
+    console.log(postData);
+    console.log(aNEtAPI);
+    console.log()
 
     var submitData = req.app.locals.AHAPI.PUT('patients/' + patientid, {params: postData});
     submitData.on('done', function (data) {

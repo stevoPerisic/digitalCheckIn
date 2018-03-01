@@ -92,7 +92,7 @@
             /**
              * Updating patient demographics
              * https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-5
-             * */
+             **/
             $('#patientDemographics').on('submit', function (e) {
                 e.preventDefault();
                 var data = app.utilities.getFormData($(e.currentTarget)),

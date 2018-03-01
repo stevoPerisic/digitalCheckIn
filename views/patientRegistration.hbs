@@ -1,5 +1,5 @@
 <!--
-DOCS regsrding the dempgraphics for a patient
+DOCS regarding the demographics for a patient
 https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-6
 
 Patient relationship mapping
@@ -138,7 +138,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if this.patient.employeraddress}}
                                         {{> patientDataFilled label="Street address" text=this.patient.employeraddress show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="text" id="employeraddress" label="Patient employer name" placeholder="1234 Industrial Pkwy Suite 216"}}
+                                    {{> custInputFld type="text" id="employeraddress" label="Street address" placeholder="1234 Industrial Pkwy Suite 216"}}
                                 </div>
                                 <div class="col-sm-3">
                                     {{#if this.patient.employercity}}
@@ -267,6 +267,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                     </div>
                 </div>
             </div>
+
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingThree">
                     <h4 class="panel-title">
@@ -426,6 +427,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                     </div>
                 </div>
             </div>
+
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFour">
                     <h4 class="panel-title">
