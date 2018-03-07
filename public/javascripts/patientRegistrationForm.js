@@ -132,11 +132,17 @@
              * Updating patient demographics
              * https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-5
              **/
-            $('#patientDemographics').on('submit', function (e) {
+            // $('#patientDemographics').on('submit', function (e) {
+            //     e.preventDefault();
+            //     var data = app.utilities.getFormData($(e.currentTarget)),
+            //         $form = $(e.currentTarget);
+            //     app.utilities.formSubmit(data, $form);
+            // });
+
+            $('form').on('submit', function (e) {
                 e.preventDefault();
-                var data = app.utilities.getFormData($(e.currentTarget)),
-                    $form = $(e.currentTarget);
-                app.utilities.formSubmit(data, $form);
+                var $form = $(e.currentTarget);
+                app.utilities.formSubmit( app.utilities.getFormData($form), $form )
             });
 
 

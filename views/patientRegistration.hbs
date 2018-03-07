@@ -11,6 +11,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
         <h1>Patient Registration Form</h1>
 
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <!-- ************ Personal Information **************-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
@@ -167,6 +168,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 </div>
             </div>
 
+            <!--******** Insured/Responsible Party Information **********-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title">
@@ -268,6 +270,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 </div>
             </div>
 
+            <!--**************** Insurance Information *****************-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingThree">
                     <h4 class="panel-title">
@@ -428,6 +431,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 </div>
             </div>
 
+            <!--************* Additional Information ************-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFour">
                     <h4 class="panel-title">
@@ -440,25 +444,17 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
                      aria-labelledby="headingFour">
                     <div class="panel-body">
-                        <div class="form-group row">
+                        <form id="additionalInfo" data-url="/patientRegistration/additionalInfo">
+                            <div class="form-group row">
                             <div class="col-sm-6">
                                 {{#if this.primaryProvider.displayname}}
                                     {{> patientDataFilled label="Primary/Family Doctor" text=this.primaryProvider.displayname show=true}}
                                 {{/if}}
                                 {{> custInputFld type="text" id="primaryDoctor" label="Primary / Family Doctor" placeholder="Primary / Family Doctor"}}
                             </div>
-                            <!--
-                            NOT DISPLAYING THIS FIELD AS THIS PRACTICE DOES NOT GET REFERRALS
-                            THEY ARE A PRIMARY CARE PROVIDER AND THE REFERR TO THER PRACTICES
-                            -->
-                            <!--<div class="col-sm-6">-->
-                            <!--<label for="refferingDoctor">Reffering Doctor</label>-->
-                            <!--<input type="text" class="form-control" id="refferingDoctor" name="refferingDoctor"-->
-                            <!--aria-describedby="refferingDoctor" placeholder="Reffering Doctor">-->
-                            <!--</div>-->
                         </div>
 
-                        <div class="form-group row">
+                            <div class="form-group row">
                             <div class="col-sm-4">
                                 <!--contactname-->
                                 {{#if patient.contactname}}
@@ -491,11 +487,13 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                             </div>
                         </div>
 
-                        {{> accBtnNext text="Next"}}
+                            {{> accBtnNext text="Next"}}
+                        </form>
                     </div>
                 </div>
             </div>
 
+            <!--************** Patient Rights and Responsibilities ***********-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingPatRespos">
                     <h4 class="panel-title">
@@ -508,7 +506,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 <div id="collapsePatRespos" class="panel-collapse collapse" role="tabpanel"
                      aria-labelledby="headingPatRespos">
                     <div class="panel-body">
-                        <div class="row">
+                        <form id="patientRights" data-url="/patientRegistration/patientRights">
+                            <div class="row">
                             <div class="col-sm-12">
                                 <p class="lead">You have the right:</p>
                                 <ul>
@@ -583,7 +582,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     staff.</strong></p>
                             </div>
                         </div>
-                        <div class="form-group row">
+                            <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="signature">Please sign below</label>
                                 <input type="hidden" name="signaturePatResps" id="signaturePatResps"/>
@@ -607,10 +606,13 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 {{> custInputFld type="date" id="datePatResps" label="Date" placeholder="mm/dd/yyyy"}}
                             </div>
                         </div>
+                            {{> accBtnNext text="Next"}}
+                        </form>
                     </div>
                 </div>
             </div>
 
+            <!--**************** Release of Information Consent ************-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFive">
                     <h4 class="panel-title">
@@ -623,7 +625,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
                      aria-labelledby="headingFive">
                     <div class="panel-body">
-                        <div class="row">
+                        <form id="releaseInfoConsent" data-url="/patientRegistration/releaseInfoConsent">
+                            <div class="row">
                             <div class="col-sm-12">
                                 <p>I understand that:</p>
                                 <ul>
@@ -645,7 +648,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 </ul>
                             </div>
                         </div>
-                        <div class="form-group row">
+                            <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="signature">Please sign below</label>
                                 <input type="hidden" name="signature" id="signature"/>
@@ -673,9 +676,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                         placeholder="Relationship to patient"}}
                             </div>
                         </div>
-                        <hr>
-
-                        <div class="form-group row">
+                            <hr>
+                            <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="signatureWitness">Signature of Witness (Optional)</label>
                                 <input type="hidden" name="signatureWitness" id="signatureWitness"/>
@@ -699,6 +701,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
                             </div>
                         </div>
+                            {{> accBtnNext text="Next"}}
+                        </form>
                     </div>
                 </div>
             </div>
