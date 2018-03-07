@@ -52,7 +52,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if this.patient.ssn}}
                                         {{> patientDataFilled label="SSN" text=this.patient.ssn show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="ssn" label="SSN" placeholder="*** - ** - ****"}}
+                                    {{> custInputFld type="text" id="ssn" label="SSN" placeholder="*** - ** - ****"}}
                                 </div>
                             </div>
                             <!--Patient address-->
@@ -90,13 +90,13 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if this.patient.homephone}}
                                         {{> patientDataFilled label="Home phone" text=this.patient.homephone show=true tel=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****"}}
+                                    {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****" maxlength="14"}}
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     {{#if this.patient.mobilephone}}
                                         {{> patientDataFilled label="Cell phone" text=this.patient.mobilephone show=true tel=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****"}}
+                                    {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****" maxlength="14"}}
                                 </div>
                                 <div class="col-sm-6">
                                     {{#if this.patient.email}}
@@ -129,7 +129,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if this.patient.employerphone}}
                                         {{> patientDataFilled label="Employer phone number" text=this.patient.employerphone show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="employerphone" label="Employer phone number" placeholder="(***) *** - ****"}}
+                                    {{> custInputFld type="tel" id="employerphone" label="Employer phone number" placeholder="(***) *** - ****" maxlength="14"}}
                                 </div>
                             </div>
                             <!--Employer location data-->
@@ -215,7 +215,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if patient.insurances.[0].insurancepolicyholderssn}}
                                         {{> patientDataFilled label="SSN" text=this.patient.insurances.[0].insurancepolicyholderssn show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="insurancepolicyholderssn" label="SSN" placeholder="*** - ** - ****"}}
+                                    {{> custInputFld type="text" id="insurancepolicyholderssn" label="SSN" placeholder="*** - ** - ****"}}
                                 </div>
                             </div>
 
@@ -249,12 +249,12 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 <div class="col-sm-3">
                                     <label for="insuredhomephone">Home phone</label>
                                     <input type="tel" class="form-control" id="insuredhomephone" name="insuredhomephone"
-                                           aria-describedby="insuredhomephone" placeholder="(***) *** - ****">
+                                           aria-describedby="insuredhomephone" placeholder="(***) *** - ****" maxlength="14">
                                 </div>
                                 <div class="col-sm-3">
                                     <label for="insuredworkphone">Cell phone</label>
                                     <input type="tel" class="form-control" id="insuredworkphone" name="insuredworkphone"
-                                           aria-describedby="insuredworkphone" placeholder="(***) *** - ****">
+                                           aria-describedby="insuredworkphone" placeholder="(***) *** - ****" maxlength="14">
                                 </div>
                                 <div class="col-sm-6"><label for="insuredemplyername">Employer name</label>
                                     <input type="text" class="form-control" id="insuredemplyername"
@@ -336,7 +336,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                             {{#if primaryIns.phone}}
                                                 {{> patientDataFilled label="Phone number" text=primaryIns.phone show=true}}
                                             {{/if}}
-                                            {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
+                                            {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****" maxlength="14"}}
                                         </div>
                                         <div class="col-sm-6">
                                             <!--
@@ -408,7 +408,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                             {{#if secondaryIns.phone}}
                                                 {{> patientDataFilled label="Phone number" text=secondaryIns.phone show=true}}
                                             {{/if}}
-                                            {{> custInputFld type="tel" id="secondaryInsPhone" label="Phone number" placeholder="(***) *** - ****"}}
+                                            {{> custInputFld type="tel" id="secondaryInsPhone" label="Phone number" placeholder="(***) *** - ****" maxlength="14"}}
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="secondaryEmployerName">Employer</label>
@@ -480,13 +480,13 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if patient.contacthomephone}}
                                         {{> patientDataFilled label="Phone Number" text=patient.contacthomephone show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
+                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****" maxlength="14"}}
                                 {{else}}
                                     <!--contactmobilephone-->
                                     {{#if patient.contactmobilephone}}
                                         {{> patientDataFilled label="Phone Number" text=patient.contactmobilephone show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
+                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****" maxlength="14"}}
                                 {{/if}}
                             </div>
                         </div>

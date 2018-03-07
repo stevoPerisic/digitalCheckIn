@@ -1,5 +1,14 @@
 <div class="form-group">
-    <label for="{{id}}" {{#if srOnly}}class="sr-only"{{/if}}>{{label}}</label>
-    <input type="{{type}}" class="form-control" id="{{id}}" name="{{id}}"
-           aria-describedby="{{id}}" placeholder="{{placeholder}}">
+    <label for="{{id}}"
+           {{#if srOnly}}class="sr-only"{{/if}}
+    >
+        {{label}}
+    </label>
+    <input type="{{type}}"
+           class="form-control"
+           id="{{id}}"
+           name="{{id}}"
+           aria-describedby="{{id}}"
+           placeholder="{{placeholder}}"
+           {{#if maxlength}}maxlength="{{maxlength}}"{{/if}}>
 </div>

@@ -34,6 +34,45 @@
                 $('span[data-toggle="' + tog + '"][data-value="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-primary');
             });
 
+            // format the SSN filed input in the XXX-XX-XXXX always
+            $('#ssn, #insurancepolicyholderssn').on('keyup', function (e) {
+                var val = e.currentTarget.value.replace(/\D/g, '');
+                var newVal = '';
+                if (val.length > 4) {
+                    this.value = val;
+                }
+                if ((val.length > 3) && (val.length < 6)) {
+                    newVal += val.substr(0, 3) + '-';
+                    val = val.substr(3);
+                }
+                if (val.length > 5) {
+                    newVal += val.substr(0, 3) + '-';
+                    newVal += val.substr(3, 2) + '-';
+                    val = val.substr(5);
+                }
+                newVal += val;
+                e.currentTarget.value = newVal.substring(0, 11);
+            });
+
+            // auto format the phone number
+            $('[type="tel"]').on('keyup', function (e) {
+                var val = e.currentTarget.value.replace(/\D/g, '');
+                var newVal = '';
+                if (val.length > 4) {
+                    this.value = val;
+                }
+                if ((val.length > 3) && (val.length < 6)) {
+                    newVal += '(' + val.substr(0, 3) + ')-';
+                    val = val.substr(3);
+                }
+                if (val.length > 5) {
+                    newVal += '(' + val.substr(0, 3) + ')-';
+                    newVal += val.substr(3, 3) + '-';
+                    val = val.substr(6);
+                }
+                newVal += val;
+                e.currentTarget.value = newVal.substring(0, 14);
+            });
 
             sigPad.find('[data-action=clear]').on('click', function (event) {
                 me.signaturePad.clear();
@@ -83,7 +122,7 @@
                  * Remove the pre-filled insurance related data when the user changes the relationship drop-down
                  **/
                 var prefilledfields = $('.insuredRelationship').find('.patientDataFilled[data-show=true]');
-                $.each(prefilledfields, function(i, item){
+                $.each(prefilledfields, function (i, item) {
                     $(item).addClass('hidden');
                     $(item).next().removeClass('hidden');
                 });
