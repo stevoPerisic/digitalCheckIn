@@ -14,27 +14,36 @@
         bindEvents: function () {
             $('.start-check-in').on('click', function (e) {
                 var that = this;
-
                 e.preventDefault();
+
+                var date = new Date();
+                var minutes = 30;
+                date.setTime(date.getTime() + (minutes * 60 * 1000));
+                console.log(document.cookie);
+                document.cookie = 'apptid=' + that.dataset.apptid + '; path="/"; expires=' + date.toGMTString();
+                document.cookie = 'patientid=' + that.dataset.patientid + '; path="/"; expires=' + date.toGMTString();
+
+                /**
+                 * @todo start loading patient data async with the start-check-in call
+                 * - this way some of the data should be pre-loaded
+                 **/
+                $.ajax({
+                    url: '/patients/'+that.dataset.patientid+'/loadData/',
+                    method: 'GET'
+                }).then(function(data){
+                    console.log('patient loaded');
+                    console.log(data);
+                });
 
                 $('.loaderOverlay').show();
 
-                // start the check-in flow
+                /** start the check-in flow **/
                 $.ajax({
-                    url: '/appointments/' + that.dataset.apptid + '/startcheckin/',
-                    method: 'GET'
+                    url: '/appointments/checkin/startcheckin/',
+                    method: 'POST'
                 }).then(function (data) {
                     console.log(data);
                     if (data.success) {
-                        // set the apptId cookie
-                        var date = new Date();
-                        var minutes = 30;
-                        date.setTime(date.getTime() + (minutes * 60 * 1000));
-                        console.log(document.cookie);
-
-                        document.cookie = 'apptid=' + that.dataset.apptid + '; path="/"; expires=' + date.toGMTString();
-                        document.cookie = 'patientid=' + that.dataset.patientid + '; path="/"; expires=' + date.toGMTString();
-
                         window.location = '/patientRegistration/';
                     } else {
                         $('.loaderOverlay').hide();

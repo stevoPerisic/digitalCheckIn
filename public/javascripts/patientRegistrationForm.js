@@ -23,6 +23,7 @@
             var me = app.patientRegistrationForm;
             var sigPad = $('#signature-pad');
             var sigPadWitness = $('#signature-pad-witness');
+            var sigPadPatResps = $('#signature-pad-patResps');
 
             // custom choice inputs via https://bootsnipp.com/snippets/NBN6x
             $('.radioBtn').find('span').on('click', function () {
@@ -34,6 +35,45 @@
                 $('span[data-toggle="' + tog + '"][data-value="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-primary');
             });
 
+            // format the SSN filed input in the XXX-XX-XXXX always
+            $('#ssn, #insurancepolicyholderssn').on('keyup', function (e) {
+                var val = e.currentTarget.value.replace(/\D/g, '');
+                var newVal = '';
+                if (val.length > 4) {
+                    this.value = val;
+                }
+                if ((val.length > 3) && (val.length < 6)) {
+                    newVal += val.substr(0, 3) + '-';
+                    val = val.substr(3);
+                }
+                if (val.length > 5) {
+                    newVal += val.substr(0, 3) + '-';
+                    newVal += val.substr(3, 2) + '-';
+                    val = val.substr(5);
+                }
+                newVal += val;
+                e.currentTarget.value = newVal.substring(0, 11);
+            });
+
+            // auto format the phone number
+            $('[type="tel"]').on('keyup', function (e) {
+                var val = e.currentTarget.value.replace(/\D/g, '');
+                var newVal = '';
+                if (val.length > 4) {
+                    this.value = val;
+                }
+                if ((val.length > 3) && (val.length < 6)) {
+                    newVal += '(' + val.substr(0, 3) + ')-';
+                    val = val.substr(3);
+                }
+                if (val.length > 5) {
+                    newVal += '(' + val.substr(0, 3) + ')-';
+                    newVal += val.substr(3, 3) + '-';
+                    val = val.substr(6);
+                }
+                newVal += val;
+                e.currentTarget.value = newVal.substring(0, 14);
+            });
 
             sigPad.find('[data-action=clear]').on('click', function (event) {
                 me.signaturePad.clear();
@@ -56,6 +96,18 @@
                     alert("Please provide signature first.");
                 } else {
                     window.open(me.signaturePadWitness.toDataURL());
+                }
+            });
+
+            sigPadPatResps.find('[data-action=clear]').on('click', function (event) {
+                me.signaturePadPatResps.clear();
+            });
+
+            sigPadPatResps.find('[data-action=save]').on('click', function (event) {
+                if (me.signaturePadPatResps.isEmpty()) {
+                    alert("Please provide signature first.");
+                } else {
+                    window.open(me.signaturePadPatResps.toDataURL('image/svg+xml'));
                 }
             });
 
@@ -83,7 +135,7 @@
                  * Remove the pre-filled insurance related data when the user changes the relationship drop-down
                  **/
                 var prefilledfields = $('.insuredRelationship').find('.patientDataFilled[data-show=true]');
-                $.each(prefilledfields, function(i, item){
+                $.each(prefilledfields, function (i, item) {
                     $(item).addClass('hidden');
                     $(item).next().removeClass('hidden');
                 });
@@ -92,12 +144,18 @@
             /**
              * Updating patient demographics
              * https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-5
-             * */
-            $('#patientDemographics').on('submit', function (e) {
+             **/
+            // $('#patientDemographics').on('submit', function (e) {
+            //     e.preventDefault();
+            //     var data = app.utilities.getFormData($(e.currentTarget)),
+            //         $form = $(e.currentTarget);
+            //     app.utilities.formSubmit(data, $form);
+            // });
+
+            $('form').on('submit', function (e) {
                 e.preventDefault();
-                var data = app.utilities.getFormData($(e.currentTarget)),
-                    $form = $(e.currentTarget);
-                app.utilities.formSubmit(data, $form);
+                var $form = $(e.currentTarget);
+                app.utilities.formSubmit( app.utilities.getFormData($form), $form )
             });
 
 

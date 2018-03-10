@@ -9,9 +9,14 @@
 
     app.patientMedicalHistoryForm = {
         $medicalHistoryForm: $('#medicalHistoryForm'),
+        /**
+         * @function bindEvents
+         * @description Bind jQuery events to DOM elements
+         **/
         bindEvents: function () {
             var me = app.patientMedicalHistoryForm;
 
+            /** Custom check-box click event **/
             $('.custChkBx.chkBx').on('click', function (e) {
                 var checkBox = $(e.currentTarget)
                     .parents('.form-check')
@@ -22,7 +27,10 @@
                 $(e.currentTarget).toggleClass('checked');
             });
 
-            // custom choice inputs via https://bootsnipp.com/snippets/NBN6x
+            /**
+             * Custom choice inputs Click event
+             * via https://bootsnipp.com/snippets/NBN6x
+             **/
             $('.radioBtn').find('span').on('click', function () {
                 var sel = $(this).data('value');
                 var tog = $(this).data('toggle');
@@ -32,6 +40,7 @@
                 $('span[data-toggle="' + tog + '"][data-value="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-primary');
             });
 
+            /** Add a row on the table **/
             $('.addrow').on('click', function (e) {
                 e.preventDefault();
                 var tbody = $(this).parents('table').find('tbody');
@@ -43,10 +52,17 @@
                 tbody.find('tr:last-child').prepend(newRow);
             });
 
+            /** Personal Information form Submit event **/
             $('#personalInformationForm').on('submit', me.pIFormSubmit);
 
+            /** Family History form Submit event **/
             $('#familyHistory').on('submit', me.fHFormSubmit);
         },
+        /**
+         * @function pIFormSubmit
+         * @description Submit the Personal Information form
+         * @param {object} e Event object passed in by the $.on func call
+         **/
         pIFormSubmit: function (e) {
             e.preventDefault();
             var data = app.utilities.getFormData($(e.currentTarget)),
@@ -73,6 +89,11 @@
 
             app.utilities.formSubmit(data, $form);
         },
+        /**
+         * @function fHFormSubmit
+         * @description Submit the Family History form
+         * @param {object} e Event object passed in by the $.on func call
+         **/
         fHFormSubmit: function (e) {
             e.preventDefault();
             var data = app.utilities.getFormData($(e.currentTarget)),
@@ -80,6 +101,10 @@
 
             console.log(data);
         },
+        /**
+         * @function init
+         * @description Initialize the Patient Medical History Form page
+         **/
         init: function () {
             console.log('Patient Medical History Form started...');
 

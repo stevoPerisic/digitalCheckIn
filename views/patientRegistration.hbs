@@ -1,5 +1,5 @@
 <!--
-DOCS regsrding the dempgraphics for a patient
+DOCS regarding the demographics for a patient
 https://developer.athenahealth.com/docs/read/patientinfo/Patient_Information#section-6
 
 Patient relationship mapping
@@ -11,6 +11,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
         <h1>Patient Registration Form</h1>
 
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <!-- ************ Personal Information **************-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
@@ -52,7 +53,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if this.patient.ssn}}
                                         {{> patientDataFilled label="SSN" text=this.patient.ssn show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="ssn" label="SSN" placeholder="*** - ** - ****"}}
+                                    {{> custInputFld type="text" id="ssn" label="SSN" placeholder="*** - ** - ****"}}
                                 </div>
                             </div>
                             <!--Patient address-->
@@ -90,13 +91,13 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if this.patient.homephone}}
                                         {{> patientDataFilled label="Home phone" text=this.patient.homephone show=true tel=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****"}}
+                                    {{> custInputFld type="tel" id="homephone" label="Home phone" placeholder="(***) *** - ****" maxlength="14"}}
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     {{#if this.patient.mobilephone}}
                                         {{> patientDataFilled label="Cell phone" text=this.patient.mobilephone show=true tel=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****"}}
+                                    {{> custInputFld type="tel" id="mobilephone" label="Cell phone" placeholder="(***) *** - ****" maxlength="14"}}
                                 </div>
                                 <div class="col-sm-6">
                                     {{#if this.patient.email}}
@@ -129,7 +130,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if this.patient.employerphone}}
                                         {{> patientDataFilled label="Employer phone number" text=this.patient.employerphone show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="employerphone" label="Employer phone number" placeholder="(***) *** - ****"}}
+                                    {{> custInputFld type="tel" id="employerphone" label="Employer phone number" placeholder="(***) *** - ****" maxlength="14"}}
                                 </div>
                             </div>
                             <!--Employer location data-->
@@ -138,7 +139,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if this.patient.employeraddress}}
                                         {{> patientDataFilled label="Street address" text=this.patient.employeraddress show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="text" id="employeraddress" label="Patient employer name" placeholder="1234 Industrial Pkwy Suite 216"}}
+                                    {{> custInputFld type="text" id="employeraddress" label="Street address" placeholder="1234 Industrial Pkwy Suite 216"}}
                                 </div>
                                 <div class="col-sm-3">
                                     {{#if this.patient.employercity}}
@@ -167,6 +168,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 </div>
             </div>
 
+            <!--******** Insured/Responsible Party Information **********-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title">
@@ -215,7 +217,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if patient.insurances.[0].insurancepolicyholderssn}}
                                         {{> patientDataFilled label="SSN" text=this.patient.insurances.[0].insurancepolicyholderssn show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="insurancepolicyholderssn" label="SSN" placeholder="*** - ** - ****"}}
+                                    {{> custInputFld type="text" id="insurancepolicyholderssn" label="SSN" placeholder="*** - ** - ****"}}
                                 </div>
                             </div>
 
@@ -249,12 +251,12 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 <div class="col-sm-3">
                                     <label for="insuredhomephone">Home phone</label>
                                     <input type="tel" class="form-control" id="insuredhomephone" name="insuredhomephone"
-                                           aria-describedby="insuredhomephone" placeholder="(***) *** - ****">
+                                           aria-describedby="insuredhomephone" placeholder="(***) *** - ****" maxlength="14">
                                 </div>
                                 <div class="col-sm-3">
                                     <label for="insuredworkphone">Cell phone</label>
                                     <input type="tel" class="form-control" id="insuredworkphone" name="insuredworkphone"
-                                           aria-describedby="insuredworkphone" placeholder="(***) *** - ****">
+                                           aria-describedby="insuredworkphone" placeholder="(***) *** - ****" maxlength="14">
                                 </div>
                                 <div class="col-sm-6"><label for="insuredemplyername">Employer name</label>
                                     <input type="text" class="form-control" id="insuredemplyername"
@@ -267,6 +269,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                     </div>
                 </div>
             </div>
+
+            <!--**************** Insurance Information *****************-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingThree">
                     <h4 class="panel-title">
@@ -335,7 +339,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                             {{#if primaryIns.phone}}
                                                 {{> patientDataFilled label="Phone number" text=primaryIns.phone show=true}}
                                             {{/if}}
-                                            {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****"}}
+                                            {{> custInputFld type="tel" id="insurancePhone" label="Phone number" placeholder="(***) *** - ****" maxlength="14"}}
                                         </div>
                                         <div class="col-sm-6">
                                             <!--
@@ -407,7 +411,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                             {{#if secondaryIns.phone}}
                                                 {{> patientDataFilled label="Phone number" text=secondaryIns.phone show=true}}
                                             {{/if}}
-                                            {{> custInputFld type="tel" id="secondaryInsPhone" label="Phone number" placeholder="(***) *** - ****"}}
+                                            {{> custInputFld type="tel" id="secondaryInsPhone" label="Phone number" placeholder="(***) *** - ****" maxlength="14"}}
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="secondaryEmployerName">Employer</label>
@@ -426,6 +430,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                     </div>
                 </div>
             </div>
+
+            <!--************* Additional Information ************-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFour">
                     <h4 class="panel-title">
@@ -438,25 +444,17 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
                      aria-labelledby="headingFour">
                     <div class="panel-body">
-                        <div class="form-group row">
+                        <form id="additionalInfo" data-url="/patientRegistration/additionalInfo">
+                            <div class="form-group row">
                             <div class="col-sm-6">
                                 {{#if this.primaryProvider.displayname}}
                                     {{> patientDataFilled label="Primary/Family Doctor" text=this.primaryProvider.displayname show=true}}
                                 {{/if}}
                                 {{> custInputFld type="text" id="primaryDoctor" label="Primary / Family Doctor" placeholder="Primary / Family Doctor"}}
                             </div>
-                            <!--
-                            NOT DISPLAYING THIS FIELD AS THIS PRACTICE DOES NOT GET REFERRALS
-                            THEY ARE A PRIMARY CARE PROVIDER AND THE REFERR TO THER PRACTICES
-                            -->
-                            <!--<div class="col-sm-6">-->
-                            <!--<label for="refferingDoctor">Reffering Doctor</label>-->
-                            <!--<input type="text" class="form-control" id="refferingDoctor" name="refferingDoctor"-->
-                            <!--aria-describedby="refferingDoctor" placeholder="Reffering Doctor">-->
-                            <!--</div>-->
                         </div>
 
-                        <div class="form-group row">
+                            <div class="form-group row">
                             <div class="col-sm-4">
                                 <!--contactname-->
                                 {{#if patient.contactname}}
@@ -478,22 +476,24 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if patient.contacthomephone}}
                                         {{> patientDataFilled label="Phone Number" text=patient.contacthomephone show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
+                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****" maxlength="14"}}
                                 {{else}}
                                     <!--contactmobilephone-->
                                     {{#if patient.contactmobilephone}}
                                         {{> patientDataFilled label="Phone Number" text=patient.contactmobilephone show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****"}}
+                                    {{> custInputFld type="tel" id="emergencyContactTel" label="Phone Number" placeholder="(***) *** - ****" maxlength="14"}}
                                 {{/if}}
                             </div>
                         </div>
 
-                        {{> accBtnNext text="Next"}}
+                            {{> accBtnNext text="Next"}}
+                        </form>
                     </div>
                 </div>
             </div>
 
+            <!--************** Patient Rights and Responsibilities ***********-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingPatRespos">
                     <h4 class="panel-title">
@@ -506,7 +506,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 <div id="collapsePatRespos" class="panel-collapse collapse" role="tabpanel"
                      aria-labelledby="headingPatRespos">
                     <div class="panel-body">
-                        <div class="row">
+                        <form id="patientRights" data-url="/patientRegistration/patientRights">
+                            <div class="row">
                             <div class="col-sm-12">
                                 <p class="lead">You have the right:</p>
                                 <ul>
@@ -581,7 +582,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     staff.</strong></p>
                             </div>
                         </div>
-                        <div class="form-group row">
+                            <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="signature">Please sign below</label>
                                 <input type="hidden" name="signaturePatResps" id="signaturePatResps"/>
@@ -605,10 +606,13 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 {{> custInputFld type="date" id="datePatResps" label="Date" placeholder="mm/dd/yyyy"}}
                             </div>
                         </div>
+                            {{> accBtnNext text="Next"}}
+                        </form>
                     </div>
                 </div>
             </div>
 
+            <!--**************** Release of Information Consent ************-->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFive">
                     <h4 class="panel-title">
@@ -621,7 +625,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                 <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
                      aria-labelledby="headingFive">
                     <div class="panel-body">
-                        <div class="row">
+                        <form id="releaseInfoConsent" data-url="/patientRegistration/releaseInfoConsent">
+                            <div class="row">
                             <div class="col-sm-12">
                                 <p>I understand that:</p>
                                 <ul>
@@ -643,7 +648,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 </ul>
                             </div>
                         </div>
-                        <div class="form-group row">
+                            <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="signature">Please sign below</label>
                                 <input type="hidden" name="signature" id="signature"/>
@@ -671,9 +676,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                         placeholder="Relationship to patient"}}
                             </div>
                         </div>
-                        <hr>
-
-                        <div class="form-group row">
+                            <hr>
+                            <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="signatureWitness">Signature of Witness (Optional)</label>
                                 <input type="hidden" name="signatureWitness" id="signatureWitness"/>
@@ -697,6 +701,8 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                 {{> custInputFld type="date" id="date" label="Date" placeholder="mm/dd/yyyy"}}
                             </div>
                         </div>
+                            {{> accBtnNext text="Next"}}
+                        </form>
                     </div>
                 </div>
             </div>

@@ -246,6 +246,13 @@ router.post('/', function (req, res, next) {
 });
 
 /**
+ * Online Check-In and Health History forms
+ * https://athenahealth.csod.com/clientimg/athenahealth/KB/Slides_Online%20Check-in%20and%20Health%20History%20Form%20Builder_June%2026_635092319714436137.pdf
+ *
+ * https://developer.athenahealth.com/docs/read/workflows/digital_checkin/Digital_CheckIn_Health_History_Forms
+ **/
+
+/**
  * @description POST to /chart/configuration/facilities
  * - query string ?departmentid=2&name=Walgreens&ordertype=PRESCRIPTION&patientid=7496
  * - use to get closest pharmacy to the patient

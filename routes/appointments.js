@@ -8,39 +8,38 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/:apptid/startcheckin',
-    /**
-     * @description GET Appointment Check-in readiness
-     * @todo what makes the appt. ready?
-     **/
-    function (req, res, next) {
-        var apptreadiness = req.app.locals.AHAPI.GET('/appointments/' + req.params.apptid + '/checkin', {params: {}});
-        apptreadiness.on('done', function (data) {
-            console.log(data);
-            req.app.locals.apptReadiness = data;
-            next();
-        });
-    },
-    /**
-     * @description POST Start check-in for this appointment
-     * @todo - ENABLE LATER - for now we will NOT be starting the checkin because that freezes the patient
-     **/
-    function (req, res, next) {
-        console.log(req.params);
-        var appt = req.app.locals.AHAPI.POST('/appointments/' + req.params.apptid + '/startcheckin');
-        appt.on('done', function (data) {
-            console.log(data);
-            res.send(data);
-            // res.render('index', {appts: data.appointments});
-        });
-    }
-);
+/** GET routes **/
+router.get('/checkin/getcheckinrequirements', function (req, res, next) {
+    var apptreadiness = req.app.locals.AHAPI.GET('/appointments/' + req.cookies.apptid + '/checkin', {params: {}});
+    apptreadiness.on('done', function (data) {
+        console.log('****** APPT Readiness response ******');
+        console.log(data);
+        req.app.locals.apptReadiness = data;
+        res.status(200).send(data);
+    });
+});
 
 router.get('/checkin/cancel', function (req, res, next) {
     var cancelCheckIn = req.app.locals.AHAPI.POST('/appointments/' + req.cookies.apptid + '/cancelcheckin', {params: {}});
     cancelCheckIn.on('done', function (data) {
-        console.log('Cancel check-in '+JSON.stringify(data));
+        console.log('Cancel check-in ' + JSON.stringify(data));
         res.redirect('/');
+    });
+});
+
+/** POST routes **/
+router.post('/checkin/startcheckin', function (req, res, next) {
+    /**
+     * @description POST Start check-in for this appointment
+     * @todo - ENABLE LATER - for now we will NOT be starting the checkin because that freezes the patient
+     **/
+    console.log(req.params);
+    var appt = req.app.locals.AHAPI.POST('/appointments/' + req.cookies.apptid + '/startcheckin');
+    appt.on('done', function (data) {
+        console.log('****** Start Check-In response ******');
+        console.log(data);
+        res.status(200).send(data);
+        // res.render('index', {appts: data.appointments});
     });
 });
 
