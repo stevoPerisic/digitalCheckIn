@@ -23,6 +23,7 @@
             var me = app.patientRegistrationForm;
             var sigPad = $('#signature-pad');
             var sigPadWitness = $('#signature-pad-witness');
+            var sigPadPatResps = $('#signature-pad-patResps');
 
             // custom choice inputs via https://bootsnipp.com/snippets/NBN6x
             $('.radioBtn').find('span').on('click', function () {
@@ -95,6 +96,18 @@
                     alert("Please provide signature first.");
                 } else {
                     window.open(me.signaturePadWitness.toDataURL());
+                }
+            });
+
+            sigPadPatResps.find('[data-action=clear]').on('click', function (event) {
+                me.signaturePadPatResps.clear();
+            });
+
+            sigPadPatResps.find('[data-action=save]').on('click', function (event) {
+                if (me.signaturePadPatResps.isEmpty()) {
+                    alert("Please provide signature first.");
+                } else {
+                    window.open(me.signaturePadPatResps.toDataURL('image/svg+xml'));
                 }
             });
 

@@ -39,8 +39,8 @@
 
                 /** start the check-in flow **/
                 $.ajax({
-                    url: '/appointments/' + that.dataset.apptid + '/startcheckin/',
-                    method: 'GET'
+                    url: '/appointments/checkin/startcheckin/',
+                    method: 'POST'
                 }).then(function (data) {
                     console.log(data);
                     if (data.success) {
