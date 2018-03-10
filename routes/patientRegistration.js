@@ -183,15 +183,20 @@ router.post('/', function (req, res, next) {
  * all patients should have a aNet account when they schedule an appointment.
  *
  * This app does not allow for scheduling, only check-in.
+ *
+ * https://developer.athenahealth.com/docs/read/workflows/digital_checkin/Registration_Race_and_Ethnicity_Requirements
+ *
+ * Athena Docs -> /preview1/:practiceid/patients/:patientid
  **/
 router.post('/demographics', function (req, res, next) {
+    // console.log(req.body);
+    // res.status(200).send(req.body);
     var postData = req.body,
         aNEtAPI = req.params.aNetAPI,
         patientid = req.cookies.patientid;
 
     console.log(postData);
     console.log(aNEtAPI);
-    console.log()
 
     var submitData = req.app.locals.AHAPI.PUT('patients/' + patientid, {params: postData});
     submitData.on('done', function (data) {
@@ -211,30 +216,34 @@ router.post('/demographics', function (req, res, next) {
  * @todo TO THE FRONT DESK STAFF BEFORE RECEIVING THE DEVICE TO CHECK-IN
  * @todo handle the "self" case by taking the info from the demographics data for the patient
  *
+ * https://developer.athenahealth.com/docs/read/workflows/digital_checkin/Digital_CheckIn_Insurance
+ *
  **/
 router.post('/insuredParty', function (req, res, next) {
-    var postData = req.body,
-        patientid = req.cookies.patientid,
-        insuranceid = req.app.locals.patient.insurances[0].insuranceid;
-
-    if (insuranceid) {
-        var submitInsuredParty = req.app.locals.AHAPI.PUT('patients/' + patientid + '/insurances/' + insuranceid, {params: postData});
-        submitInsuredParty.on('done', function (data) {
-            console.log(data);
-            if (!data.error) {
-                res.sendStatus(200);
-            } else {
-                console.log('Error POST-ing insured party: ' + data.error);
-                res.status(500).send(data)
-            }
-        });
-    } else {
-        res.status(500).send({
-            insuranceid: insuranceid,
-            message: 'Insurance ID not present this patient has no insurance configured on their aNet account.'
-        });
-        console.log('Insurance ID not present this patient has no insurance configured on their aNet account.');
-    }
+    console.log(req.body);
+    res.status(200).send(req.body);
+    // var postData = req.body,
+    //     patientid = req.cookies.patientid,
+    //     insuranceid = req.app.locals.patient.insurances[0].insuranceid;
+    //
+    // if (insuranceid) {
+    //     var submitInsuredParty = req.app.locals.AHAPI.PUT('patients/' + patientid + '/insurances/' + insuranceid, {params: postData});
+    //     submitInsuredParty.on('done', function (data) {
+    //         console.log(data);
+    //         if (!data.error) {
+    //             res.sendStatus(200);
+    //         } else {
+    //             console.log('Error POST-ing insured party: ' + data.error);
+    //             res.status(500).send(data)
+    //         }
+    //     });
+    // } else {
+    //     res.status(500).send({
+    //         insuranceid: insuranceid,
+    //         message: 'Insurance ID not present this patient has no insurance configured on their aNet account.'
+    //     });
+    //     console.log('Insurance ID not present this patient has no insurance configured on their aNet account.');
+    // }
 });
 
 /**
@@ -244,41 +253,69 @@ router.post('/insuredParty', function (req, res, next) {
  * @todo double check this is needed at all, per Athena Net the front desk staff is supposed to collect this via the
  * @todo insurance card scan before the check-in process starts
  **/
-router.post('/insuranceInfo',
-    /**
-     * @description GET available insurance packages in Athena NET
-     * @todo finish insurance submit
-     **/
-    function (req, res, next) {
-        var params = {
-            insuranceplanname: req.body.insuranceplanname,
-            memberid: req.body.memberid
-        };
-        var insurancePckg = req.app.locals.AHAPI.GET('/insurancepackages', {params: params});
-        insurancePckg.on('done', function (data) {
-            console.log(data);
-            if (req.body.insurances) {
-                /**
-                 * We need to find the best matching insurance package ID
-                 * using the address provided and the emplyer name
-                 **/
-
-            }
-
-            next();
-        });
-    },
-    /**
-     * @description POST the insurance data to the patient record in Athena
-     **/
-    function (req, res, next) {
-        // var postData = req.body,
-        //     patientid = req.cookies.patientid,
-        //     primaryInsID = req.app.locals.patient.insurances[0].insuranceid,
-        //     secondaryInsID = req.app.locals.patient.insurances[1].insuranceid;
-
-        res.status(200).send('Posted stuff ;)');
+router.post('/insuranceInfo', function (req, res, next) {
+        console.log(req.body);
+        res.status(200).send(req.body);
     }
+    // /**
+    //  * @description GET available insurance packages in Athena NET
+    //  * @todo finish insurance submit
+    //  **/
+    // function (req, res, next) {
+    //     var params = {
+    //         insuranceplanname: req.body.insuranceplanname,
+    //         memberid: req.body.memberid
+    //     };
+    //     var insurancePckg = req.app.locals.AHAPI.GET('/insurancepackages', {params: params});
+    //     insurancePckg.on('done', function (data) {
+    //         console.log(data);
+    //         if (req.body.insurances) {
+    //             /**
+    //              * We need to find the best matching insurance package ID
+    //              * using the address provided and the emplyer name
+    //              **/
+    //
+    //         }
+    //
+    //         next();
+    //     });
+    // },
+    // /**
+    //  * @description POST the insurance data to the patient record in Athena
+    //  **/
+    // function (req, res, next) {
+    //     // var postData = req.body,
+    //     //     patientid = req.cookies.patientid,
+    //     //     primaryInsID = req.app.locals.patient.insurances[0].insuranceid,
+    //     //     secondaryInsID = req.app.locals.patient.insurances[1].insuranceid;
+    //
+    //     res.status(200).send('Posted stuff ;)');
+    // }
 );
+
+router.post('/additionalInfo', function (req, res, next){
+    console.log(req.body);
+    res.status(200).send(req.body);
+});
+
+/**
+ * https://developer.athenahealth.com/docs/read/workflows/digital_checkin/Digital_CheckIn_Forms_and_Documents
+ * Athena Docs  -> https://developer.athenahealth.com/docs/read/workflows/patients/ESignature_Information
+ * Athena API   -> /patients/{patientid}/documents (subclass: ADMIN_CONSENT)
+ *              -> /patients/{patientid}/privacyinformationverified
+ **/
+router.post('/patientRights', function (req, res, next){
+    console.log(req.body);
+    res.status(200).send(req.body);
+});
+
+/**
+ * Athena API   -> /patients/{patientid}/medicationhistoryconsentverified
+ **/
+router.post('/releaseInfoConsent', function (req, res, next){
+    console.log(req.body);
+    res.status(200).send(req.body);
+});
+
 
 module.exports = router;
