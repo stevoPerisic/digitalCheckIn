@@ -99,6 +99,16 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+// For testing the forms so that we don't start the check-in process all the time
+// we will set this patient id on all calls
+app.use( function (req, res, next) {
+   if(!req.cookies.patientid){
+       req.cookies.apptid = '961177';
+       req.cookies.patientid = '31224';
+       next();
+   }
+});
+
 // set up routes
 app.use('/', index);
 app.use('/users', users);

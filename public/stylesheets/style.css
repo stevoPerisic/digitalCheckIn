@@ -166,9 +166,9 @@ h1 {
 /* Custom Check-box */
 /***************************/
 .form-check {
-    padding: 8px 10px 4px;
+    padding: 8px 0;
     background-color: #f2f2f2;
-    margin: 5px 0;
+    margin: 0 0 10px 0;
 }
 
 .custChkBx.form-check-label {

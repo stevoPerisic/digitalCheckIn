@@ -83,7 +83,8 @@
                 if (me.signaturePad.isEmpty()) {
                     alert("Please provide signature first.");
                 } else {
-                    window.open(me.signaturePad.toDataURL());
+                    // window.open(me.signaturePad.toDataURL());
+                    $('#signature').val(me.signaturePad.toDataURL());
                 }
             });
 
@@ -95,7 +96,8 @@
                 if (me.signaturePadWitness.isEmpty()) {
                     alert("Please provide signature first.");
                 } else {
-                    window.open(me.signaturePadWitness.toDataURL());
+                    // window.open(me.signaturePadWitness.toDataURL());
+                    $('#signatureWitness').val(me.signaturePadWitness.toDataURL());
                 }
             });
 
@@ -107,7 +109,9 @@
                 if (me.signaturePadPatResps.isEmpty()) {
                     alert("Please provide signature first.");
                 } else {
-                    window.open(me.signaturePadPatResps.toDataURL('image/svg+xml'));
+                    // console.log(me.signaturePadPatResps.toDataURL());
+                    $('#signaturePatResps').val(me.signaturePadPatResps.toDataURL());
+                    // $('body').append('<img src="'+me.signaturePadPatResps.toDataURL()+'"/>');
                 }
             });
 
