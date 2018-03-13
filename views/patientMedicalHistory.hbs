@@ -5,351 +5,351 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
 <div class="row">
     <div class="col-sm-12">
         <h1>Patient Medical History</h1>
-        <!-- <form id="medicalHistoryForm"> -->
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                               aria-expanded="true" aria-controls="collapseOne">
-                                Personal Information
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
-                         aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            <form action="" id="personalInformationForm" data-url="/patientMedicalHistory/personalInfo">
-                                <!--Personal info-->
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        {{#longerThanZero this.patient.lastname}}
-                                            {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
-                                        {{/longerThanZero}}
-                                        {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
-                                    </div>
-                                    <div class="col-sm-4">
-                                        {{#longerThanZero this.patient.middlename}}
-                                            {{> patientDataFilled label="Middle initial" text=this.patient.lastname show=true}}
-                                        {{/longerThanZero}}
-                                        {{> custInputFld type="text" id="middlename" label="Middle initial" placeholder="Middle initial"}}
-                                    </div>
-                                    <div class="col-sm-4">
-                                        {{#longerThanZero this.patient.firstname}}
-                                            {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
-                                        {{/longerThanZero}}
-                                        {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
-                                    </div>
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                           aria-expanded="true" aria-controls="collapseOne">
+                            Personal Information
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <form action="" id="personalInformationForm" data-url="/patientMedicalHistory/personalInfo">
+                            <!--Personal info-->
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    {{#longerThanZero this.patient.lastname}}
+                                        {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
+                                    {{/longerThanZero}}
+                                    {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
                                 </div>
-                                <!--Pharmacy-->
-                                <div class="form-group row">
-                                    <div class="col-lg-12">
-                                        {{#longerThanZero this.defaultPharmacy}}
-                                            {{> patientDataFilled label="Preferred Pharmacy" text=this.defaultPharmacy.clinicalprovidername show=true}}
-                                        {{/longerThanZero}}
-                                        {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Preferred Pharmacy"}}
-                                    </div>
+                                <div class="col-sm-4">
+                                    {{#longerThanZero this.patient.middlename}}
+                                        {{> patientDataFilled label="Middle initial" text=this.patient.lastname show=true}}
+                                    {{/longerThanZero}}
+                                    {{> custInputFld type="text" id="middlename" label="Middle initial" placeholder="Middle initial"}}
                                 </div>
-                                <!--Allergies-->
-                                <div class="form-group row">
-                                    <div class="col-lg-12">
-                                        <fieldset class="form-group">
-                                            <legend>Allergies</legend>
-                                            <div class="row">
-                                                <div class="col-md-3 col-sm-6">
-                                                    {{> custChkBx text="NONE / No known allergies"}}
+                                <div class="col-sm-4">
+                                    {{#longerThanZero this.patient.firstname}}
+                                        {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
+                                    {{/longerThanZero}}
+                                    {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
+                                </div>
+                            </div>
+                            <!--Pharmacy-->
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    {{#longerThanZero this.defaultPharmacy}}
+                                        {{> patientDataFilled label="Preferred Pharmacy" text=this.defaultPharmacy.clinicalprovidername show=true}}
+                                    {{/longerThanZero}}
+                                    {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Preferred Pharmacy"}}
+                                </div>
+                            </div>
+                            <!--Allergies-->
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    <fieldset class="form-group">
+                                        <legend>Allergies</legend>
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-6">
+                                                {{> custChkBx text="NONE / No known allergies"}}
 
-                                                    {{> custChkBx text="Adhesive Tape"}}
+                                                {{> custChkBx text="Adhesive Tape"}}
 
-                                                    {{> custChkBx text="Anesthesia"}}
-                                                </div>
-                                                <div class="col-md-3 col-sm-6">
-                                                    {{> custChkBx text="Aspirin"}}
-
-                                                    {{> custChkBx text="Codeine"}}
-
-                                                    {{> custChkBx text="Dairy Products"}}
-                                                </div>
-                                                <div class="col-md-3 col-sm-6">
-                                                    {{> custChkBx text="Iodine / Shellfish / Contrast Dye"}}
-
-                                                    {{> custChkBx text="Latex"}}
-
-                                                    {{> custChkBx text="Morphine"}}
-                                                </div>
-                                                <div class="col-md-3 col-sm-6">
-                                                    {{> custChkBx text="Penicillin"}}
-
-                                                    {{> custChkBx text="Sulfa drugs"}}
-
-                                                    {{> custChkBx text="Wheat"}}
-                                                </div>
+                                                {{> custChkBx text="Anesthesia"}}
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <p>Is your allergy not listed? Enter it below:</p>
-                                                    {{> custListInput inputId="customAllergies" listClass="customAllergiesList"
-                                                            label="Allergy name" placeholder="Allergy description" btnLabel="Add Allergy"}}
-                                                </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                {{> custChkBx text="Aspirin"}}
+
+                                                {{> custChkBx text="Codeine"}}
+
+                                                {{> custChkBx text="Dairy Products"}}
                                             </div>
-                                        </fieldset>
-                                    </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                {{> custChkBx text="Iodine / Shellfish / Contrast Dye"}}
+
+                                                {{> custChkBx text="Latex"}}
+
+                                                {{> custChkBx text="Morphine"}}
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                {{> custChkBx text="Penicillin"}}
+
+                                                {{> custChkBx text="Sulfa drugs"}}
+
+                                                {{> custChkBx text="Wheat"}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <p>Is your allergy not listed? Enter it below:</p>
+                                                {{> custListInput inputId="customAllergies" listClass="customAllergiesList"
+                                                        label="Allergy name" placeholder="Allergy description" btnLabel="Add Allergy"}}
+                                            </div>
+                                        </div>
+                                    </fieldset>
                                 </div>
-                                {{> accBtnNext text="Next" submit=true}}
-                            </form>
-                        </div>
+                            </div>
+                            {{> accBtnNext text="Next" submit=true}}
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-                               aria-expanded="true" aria-controls="collapseTwo">
-                                Family History
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            <form action="" id="familyHistory" data-url="/patientMedicalHistory/familyHistory">
-                                <div class="form-group row">
-                                    <div class="col-lg-12">
-                                        <fieldset>
-                                            <legend>
-                                                Please indicate if any of your immediate relatives have had any of the
-                                                following by selecting the appropriate check-box.
-                                            </legend>
-                                            <ul>
-                                                {{#each familyHistory}}
-                                                    <li>
-                                                        {{relation}}
-                                                        <ul>
-                                                            {{#each this.problems}}
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                           aria-expanded="true" aria-controls="collapseTwo">
+                            Family History
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <form action="" id="familyHistory" data-url="/patientMedicalHistory/familyHistory">
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <legend>
+                                            Please indicate if any of your immediate relatives have had any of the
+                                            following by selecting the appropriate check-box.
+                                        </legend>
+                                        <ul>
+                                            {{#each familyHistory}}
+                                                <li>
+                                                    {{relation}}
+                                                    <ul>
+                                                        {{#each this.problems}}
                                                             <li>{{description}}</li>
-                                                            {{/each}}
-                                                        </ul>
-                                                    </li>
-                                                {{/each}}
-                                            </ul>
-                                            <div class="table-responsive">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Issue</th>
-                                                        <th>Mother</th>
-                                                        <th>Father</th>
-                                                        <th>Sibling (sister/brother)</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>Anesthesia Problems</td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Arthritis</td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Cancer</td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Diabetes</td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Heart Problems</td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Hypertension</td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Stroke</td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Thyroid Disorder</td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                        <td>
-                                                            {{> custChkBx text=""}}
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </fieldset>
-                                    </div>
+                                                        {{/each}}
+                                                    </ul>
+                                                </li>
+                                            {{/each}}
+                                        </ul>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Issue</th>
+                                                    <th>Mother</th>
+                                                    <th>Father</th>
+                                                    <th>Sibling (sister/brother)</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Anesthesia Problems</td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Arthritis</td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cancer</td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Diabetes</td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Heart Problems</td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Hypertension</td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Stroke</td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Thyroid Disorder</td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                    <td>
+                                                        {{> custChkBx text=""}}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </fieldset>
                                 </div>
-                                {{> accBtnNext text="Next" submit=true}}
-                            </form>
-                        </div>
+                            </div>
+                            {{> accBtnNext text="Next" submit=true}}
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingThree">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
-                               aria-expanded="true" aria-controls="collapseThree">
-                                Social History
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingThree">
-                        <div class="panel-body">
-                            <form action="" id="socialHistroy" data-url="/patientMedicalHistory/socialHistory">
-                                <div class="row">
-                                    <ul>
-                                        {{#each socialHistory}}
-                                            <li>
-                                                Q: {{question}} <br>
-                                                A: {{answer}} <br>
-                                                Q-key: {{key}}
-                                            </li>
-                                        {{/each}}
-                                    </ul>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                           aria-expanded="true" aria-controls="collapseThree">
+                            Social History
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        <form action="" id="socialHistroy" data-url="/patientMedicalHistory/socialHistory">
+                            <div class="row">
+                                <ul>
+                                    {{#each socialHistory}}
+                                        <li>
+                                            Q: {{question}} <br>
+                                            A: {{answer}} <br>
+                                            Q-key: {{key}}
+                                        </li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-3 col-sm-6">
+                                    {{#parseJSON maritalStatusSelect}}
+                                        {{> custSelect id="maritalstatus" label="Marital status" emptyOption=true options=this selected=this.patient.maritalstatus }}
+                                    {{/parseJSON}}
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-md-3 col-sm-6">
-                                        {{#parseJSON maritalStatusSelect}}
-                                            {{> custSelect id="maritalstatus" label="Marital status" emptyOption=true options=this selected=this.patient.maritalstatus }}
-                                        {{/parseJSON}}
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        <fieldset>
-                                            <div class="form-group">
-                                                <label for="occupation">Occupation</label>
-                                                <input type="text" class="form-control" id="occupation" name="occupation"
-                                                       aria-describedby="occupation" placeholder="Occupation">
-                                            </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="occupation">Occupation</label>
+                                            <input type="text" class="form-control" id="occupation" name="occupation"
+                                                   aria-describedby="occupation" placeholder="Occupation">
+                                        </div>
 
-                                            {{> custChkBx text="Retired?"}}
+                                        {{> custChkBx text="Retired?"}}
 
-                                            {{> custChkBx text="Disabled?"}}
+                                        {{> custChkBx text="Disabled?"}}
 
-                                            <div class="form-group">
-                                                <label for="disabilityReason">Disability Reason</label>
-                                                <input type="text" class="form-control" id="disabilityReason"
-                                                       name="disabilityReason"
-                                                       aria-describedby="disabilityReason" placeholder="Disability Reason">
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        <!--@todo Fix the dataSelected to come from the socialHistory data set-->
-                                        {{> custToggle id="drinkAlcohol" label="Do you drink alcohol?" dataSelected="Yes" dataVal1="Yes" choice1="Yes" dataVal2="No" choice2="No"}}
-                                        <br>
+                                        <div class="form-group">
+                                            <label for="disabilityReason">Disability Reason</label>
+                                            <input type="text" class="form-control" id="disabilityReason"
+                                                   name="disabilityReason"
+                                                   aria-describedby="disabilityReason" placeholder="Disability Reason">
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <!--@todo Fix the dataSelected to come from the socialHistory data set-->
+                                    {{> custToggle id="drinkAlcohol" label="Do you drink alcohol?" dataSelected="Yes" dataVal1="Yes" choice1="Yes" dataVal2="No" choice2="No"}}
+                                    <br>
 
-                                        {{#parseJSON    '[{"value": "Daily", "text": "Daily"},
+                                    {{#parseJSON    '[{"value": "Daily", "text": "Daily"},
                                                         {"value": "Weekly", "text": "Weekly"},
                                                         {"value": "Infrequently", "text": "Infrequently"},
                                                         {"value": "Recovering Alcoholic", "text": "Recovering Alcoholic"}]'}}
-                                            {{> custSelect id="alcoholFrequency" label="How often?" emptyOption=true options=this }}
-                                        {{/parseJSON}}
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        <!--@todo Fix the dataSelected to come from the socialHistory data set-->
-                                        {{> custToggle id="useTobacco" label="Do you use tobacco?" dataSelected="Yes" dataVal1="Yes" choice1="Yes" dataVal2="No" choice2="No"}}
-                                        <br>
-                                        <!--@todo Fix the dataSelected to come from the socialHistory data set-->
-                                        {{> custToggle id="useTobaccoWay" label="Preferred way of use?" dataSelected="Smoke" dataVal1="Smoke" choice1="Smoke" dataVal2="Chew" choice2="Chew"}}
-                                        <br>
+                                        {{> custSelect id="alcoholFrequency" label="How often?" emptyOption=true options=this }}
+                                    {{/parseJSON}}
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <!--@todo Fix the dataSelected to come from the socialHistory data set-->
+                                    {{> custToggle id="useTobacco" label="Do you use tobacco?" dataSelected="Yes" dataVal1="Yes" choice1="Yes" dataVal2="No" choice2="No"}}
+                                    <br>
+                                    <!--@todo Fix the dataSelected to come from the socialHistory data set-->
+                                    {{> custToggle id="useTobaccoWay" label="Preferred way of use?" dataSelected="Smoke" dataVal1="Smoke" choice1="Smoke" dataVal2="Chew" choice2="Chew"}}
+                                    <br>
 
-                                        <div class="form-group">
-                                            <label for="cigPacksPerDay">Packs a day?</label>
-                                            <input type="number" class="form-control" id="cigPacksPerDay"
-                                                   name="cigPacksPerDay"
-                                                   aria-describedby="cigPacksPerDay" placeholder="0">
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="cigPacksPerDay">Packs a day?</label>
+                                        <input type="number" class="form-control" id="cigPacksPerDay"
+                                               name="cigPacksPerDay"
+                                               aria-describedby="cigPacksPerDay" placeholder="0">
                                     </div>
                                 </div>
-                                {{> accBtnNext text="Next" submit=true}}
-                            </form>
-                        </div>
+                            </div>
+                            {{> accBtnNext text="Next" submit=true}}
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFour">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
-                               aria-expanded="true" aria-controls="collapseFour">
-                                Surgical History
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingFour">
-                        <div class="panel-body">
-                            <form action="" id="surgicalHistory" data-url="/patientMedicalHistory/surgicalHistory">
-                                <fieldset>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingFour">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                           aria-expanded="true" aria-controls="collapseFour">
+                            Surgical History
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingFour">
+                    <div class="panel-body">
+                        <form action="" id="surgicalHistory" data-url="/patientMedicalHistory/surgicalHistory">
+                            <fieldset>
                                 <legend>Please list any <strong>hospitalizations</strong>, <strong>surgeries</strong>,
                                     <strong>fractures</strong> or <strong>major illnesses</strong> you have had.
                                 </legend>
@@ -376,25 +376,29 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                             <td>
                                                 <div class="form-group">
                                                     <label for="typeOfSurgery" class="sr-only"></label>
-                                                    <input id="typeOfSurgery" name="typeOfSurgery" type="text" class="form-control">
+                                                    <input id="typeOfSurgery" name="typeOfSurgery" type="text"
+                                                           class="form-control">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group">
                                                     <label for="surgeryDate" class="sr-only"></label>
-                                                    <input id="surgeryDate" name="surgeryDate" type="text" class="form-control">
+                                                    <input id="surgeryDate" name="surgeryDate" type="text"
+                                                           class="form-control">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group">
                                                     <label for="surgeryDoctor" class="sr-only"></label>
-                                                    <input id="surgeryDoctor" name="surgeryDoctor" type="text" class="form-control">
+                                                    <input id="surgeryDoctor" name="surgeryDoctor" type="text"
+                                                           class="form-control">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group">
                                                     <label for="surgeryLocation" class="sr-only"></label>
-                                                    <input id="surgeryLocation" name="surgeryLocation" type="text" class="form-control">
+                                                    <input id="surgeryLocation" name="surgeryLocation" type="text"
+                                                           class="form-control">
                                                 </div>
                                             </td>
                                         </tr>
@@ -415,26 +419,26 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                     </table>
                                 </div>
                             </fieldset>
-                                {{> accBtnNext text="Next" submit=true}}
-                            </form>
-                        </div>
+                            {{> accBtnNext text="Next" submit=true}}
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFive">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
-                               aria-expanded="true" aria-controls="collapseFive">
-                                Medical History
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingFive">
-                        <div class="panel-body">
-                            <form action="" id="medicalHistory" data-url="/patientMedicalHistory/medicalHistory">
-                                <fieldset>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingFive">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                           aria-expanded="true" aria-controls="collapseFive">
+                            Medical History
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingFive">
+                    <div class="panel-body">
+                        <form action="" id="medicalHistory" data-url="/patientMedicalHistory/medicalHistory">
+                            <fieldset>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <legend>Have you ever had any of the following?</legend>
@@ -552,28 +556,29 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                     </div>
                                 </div>
                             </fieldset>
-                                {{> accBtnNext text="Next" submit=true}}
-                            </form>
-                        </div>
+                            {{> accBtnNext text="Next" submit=true}}
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingSix">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix"
-                               aria-expanded="true" aria-controls="collapseSix">
-                                Medications
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingSix">
-                        <div class="panel-body">
-                            <form action="" id="medications" data-url="/patientMedicalHistory/medications">
-                                <fieldset>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingSix">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix"
+                           aria-expanded="true" aria-controls="collapseSix">
+                            Medications
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseSix" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="headingSix">
+                    <div class="panel-body">
+                        <form action="" id="medications" data-url="/patientMedicalHistory/medications">
+                            <fieldset>
                                 <legend>
-                                    List any medications you are currently taking (please include over the counter medications).
+                                    List any medications you are currently taking (please include over the counter
+                                    medications).
                                 </legend>
                                 <div class="table-responsive">
                                     <table class="table table-striped">
@@ -596,19 +601,22 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                             <td>
                                                 <div class="form-group">
                                                     <label for="currMeds" class="sr-only"></label>
-                                                    <input id="currMeds" name="currMeds" type="text" class="form-control">
+                                                    <input id="currMeds" name="currMeds" type="text"
+                                                           class="form-control">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group">
                                                     <label for="currMedsDosage" class="sr-only"></label>
-                                                    <input id="currMedsDosage" name="currMedsDosage" type="text" class="form-control">
+                                                    <input id="currMedsDosage" name="currMedsDosage" type="text"
+                                                           class="form-control">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group">
                                                     <label for="currMedsDoc" class="sr-only"></label>
-                                                    <input id="currMedsDoc" name="currMedsDoc" type="text" class="form-control">
+                                                    <input id="currMedsDoc" name="currMedsDoc" type="text"
+                                                           class="form-control">
                                                 </div>
                                             </td>
                                         </tr>
@@ -618,7 +626,8 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                             <td></td>
                                             <td></td>
                                             <td style="text-align: left;">
-                                                <input type="button" class="btn btn-primary btn-block addrow" value="Add Medication"/>
+                                                <input type="button" class="btn btn-primary btn-block addrow"
+                                                       value="Add Medication"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -627,12 +636,12 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                     </table>
                                 </div>
                             </fieldset>
-                                {{> accBtnNext text="Next" submit=true}}
-                            </form>
-                        </div>
+                            {{> accBtnNext text="Next" submit=true}}
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
         <!-- </form> -->
     </div>
 </div>
