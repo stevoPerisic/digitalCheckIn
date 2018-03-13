@@ -39,6 +39,10 @@ hbs.registerHelper('isInsurancePolicyHolder', function (data, options) {
     return (data === 1) ? options.fn(this) : options.inverse(this);
 });
 
+hbs.registerHelper('longerThanZero', function (string, options) {
+    return (string.length > 0) ? options.fn(this) : options.inverse(this);
+});
+
 hbs.registerHelper('providerName', function (providers, options) {
     var appointment = this;
     var name = providers.find(function (provider) {
