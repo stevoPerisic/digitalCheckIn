@@ -196,6 +196,10 @@ router.post('/demographics', function (req, res, next) {
         aNEtAPI = req.params.aNetAPI,
         patientid = req.cookies.patientid;
 
+    // cast the DOB to a date type
+    postData.dob = postData.dob.split('-');
+    postData.dob = postData.dob[1]+'/'+postData.dob[2]+'/'+postData.dob[0];
+
     console.log(postData);
     console.log(aNEtAPI);
 

@@ -258,7 +258,7 @@ router.post('/', function (req, res, next) {
  * - use to get closest pharmacy to the patient
  **/
 router.post('/pharmacies', function(req, res, next){
-
+    res.status(200).send({message: postMessage, data: req.body});
 });
 
 router.post('/personalInfo',
@@ -289,6 +289,10 @@ router.post('/familyHistory', function (req, res, next) {
     res.status(200).send({message: postMessage, data: req.body});
 });
 
+/**
+ * AthenaNET API    -> /preview1/:practiceid/chart/:patientid/socialhistory
+ * Method           -> GET, PUT
+ **/
 router.post('/socialHistory', function (req, res, next) {
     console.log(req.body);
     res.status(200).send({message: postMessage, data: req.body});

@@ -23,30 +23,30 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                 <!--Personal info-->
                                 <div class="form-group row">
                                     <div class="col-sm-4">
-                                        {{#if this.patient.lastname}}
+                                        {{#longerThanZero this.patient.lastname}}
                                             {{> patientDataFilled label="Last Name" text=this.patient.lastname show=true}}
-                                        {{/if}}
+                                        {{/longerThanZero}}
                                         {{> custInputFld type="text" id="lastname" label="Last Name" placeholder="Last name"}}
                                     </div>
                                     <div class="col-sm-4">
-                                        {{#if this.patient.middlename}}
+                                        {{#longerThanZero this.patient.middlename}}
                                             {{> patientDataFilled label="Middle initial" text=this.patient.lastname show=true}}
-                                        {{/if}}
+                                        {{/longerThanZero}}
                                         {{> custInputFld type="text" id="middlename" label="Middle initial" placeholder="Middle initial"}}
                                     </div>
                                     <div class="col-sm-4">
-                                        {{#if this.patient.firstname}}
+                                        {{#longerThanZero this.patient.firstname}}
                                             {{> patientDataFilled label="First Name" text=this.patient.firstname show=true}}
-                                        {{/if}}
+                                        {{/longerThanZero}}
                                         {{> custInputFld type="text" id="firstname" label="First name" placeholder="First name"}}
                                     </div>
                                 </div>
                                 <!--Pharmacy-->
                                 <div class="form-group row">
                                     <div class="col-lg-12">
-                                        {{#if this.defaultPharmacy}}
+                                        {{#longerThanZero this.defaultPharmacy}}
                                             {{> patientDataFilled label="Preferred Pharmacy" text=this.defaultPharmacy.clinicalprovidername show=true}}
-                                        {{/if}}
+                                        {{/longerThanZero}}
                                         {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Preferred Pharmacy"}}
                                     </div>
                                 </div>
@@ -303,19 +303,8 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                         </fieldset>
                                     </div>
                                     <div class="col-md-3 col-sm-6">
-
-                                        <!--
-                                            custom choice inputs via https://bootsnipp.com/snippets/NBN6x
-                                        -->
-                                        <div class="input-group" style="width: 100%;">
-                                            <label for="drinkAlcohol">Do you drink alcohol?</label>
-                                            <br>
-                                            <div class="radioBtn btn-group" style="width: 100%;">
-                                                <span style="width: 50%;" class="btn btn-primary active" data-toggle="drinkAlcohol" data-value="Yes">Yes</span>
-                                                <span style="width: 50%;" class="btn btn-default notActive" data-toggle="drinkAlcohol" data-value="No">No</span>
-                                            </div>
-                                            <input type="hidden" name="drinkAlcohol" id="drinkAlcohol">
-                                        </div>
+                                        <!--@todo Fix the dataSelected to come from the socialHistory data set-->
+                                        {{> custToggle id="drinkAlcohol" label="Do you drink alcohol?" dataSelected="Yes" dataVal1="Yes" choice1="Yes" dataVal2="No" choice2="No"}}
                                         <br>
 
                                         {{#parseJSON    '[{"value": "Daily", "text": "Daily"},
@@ -326,32 +315,11 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                         {{/parseJSON}}
                                     </div>
                                     <div class="col-md-3 col-sm-6">
-                                        <!--
-                                            custom choice inputs via https://bootsnipp.com/snippets/NBN6x
-                                        -->
-                                        <div class="input-group" style="width: 100%;">
-                                            <label for="useTobacco">Do you use tobacco?</label>
-                                            <br>
-                                            <div class="radioBtn btn-group" style="width: 100%;">
-                                                <span style="width: 50%;" class="btn btn-primary active" data-toggle="useTobacco" data-value="Yes">Yes</span>
-                                                <span style="width: 50%;" class="btn btn-default notActive" data-toggle="useTobacco" data-value="No">No</span>
-                                            </div>
-                                            <input type="hidden" name="useTobacco" id="useTobacco">
-                                        </div>
+                                        <!--@todo Fix the dataSelected to come from the socialHistory data set-->
+                                        {{> custToggle id="useTobacco" label="Do you use tobacco?" dataSelected="Yes" dataVal1="Yes" choice1="Yes" dataVal2="No" choice2="No"}}
                                         <br>
-
-                                        <!--
-                                            custom choice inputs via https://bootsnipp.com/snippets/NBN6x
-                                        -->
-                                        <div class="input-group" style="width: 100%;">
-                                            <label for="useTobaccoWay">Preferred way of use?</label>
-                                            <br>
-                                            <div class="radioBtn btn-group" style="width: 100%;">
-                                                <span style="width: 50%;" class="btn btn-primary active" data-toggle="useTobaccoWay" data-value="Yes">Smoke</span>
-                                                <span style="width: 50%;" class="btn btn-default notActive" data-toggle="useTobaccoWay" data-value="No">Chew</span>
-                                            </div>
-                                            <input type="hidden" name="useTobaccoWay" id="useTobaccoWay">
-                                        </div>
+                                        <!--@todo Fix the dataSelected to come from the socialHistory data set-->
+                                        {{> custToggle id="useTobaccoWay" label="Preferred way of use?" dataSelected="Smoke" dataVal1="Smoke" choice1="Smoke" dataVal2="Chew" choice2="Chew"}}
                                         <br>
 
                                         <div class="form-group">

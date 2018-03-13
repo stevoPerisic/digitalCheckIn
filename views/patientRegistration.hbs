@@ -47,7 +47,7 @@ https://developer.athenahealth.com/docs/read/reference/Patient_Relationship_Mapp
                                     {{#if this.patient.dob}}
                                         {{> patientDataFilled label="Date of Birth" text=this.patient.dob show=true}}
                                     {{/if}}
-                                    {{> custInputFld type="text" id="dob" label="Date of Birth" placeholder="mm/dd/yyyy"}}
+                                    {{> custInputFld type="date" id="dob" label="Date of Birth" placeholder="mm/dd/yyyy"}}
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     {{#if this.patient.ssn}}
