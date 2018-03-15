@@ -2,7 +2,12 @@
  * Created by stevoperisic on 5/1/17.
  *
  * patient medical history controller
- */
+ *
+ * Online Check-In and Health History forms
+ * https://athenahealth.csod.com/clientimg/athenahealth/KB/Slides_Online%20Check-in%20and%20Health%20History%20Form%20Builder_June%2026_635092319714436137.pdf
+ *
+ * https://developer.athenahealth.com/docs/read/workflows/digital_checkin/Digital_CheckIn_Health_History_Forms
+ **/
 
 var express = require('express');
 var router = express.Router();
@@ -32,7 +37,9 @@ var formsConfig = require('../bin/formsConfig');
  **/
 
 
-/* GET home page. */
+/**
+ * GET medical history form page.
+ **/
 router.get('/',
     /**
      * @description Check if the user is authenticated, if not redirect back to home-page (log-in)
@@ -60,6 +67,8 @@ router.get('/',
             var appointment = req.app.locals.AHAPI.GET('/appointments/' + req.cookies.apptid, {params: params});
 
             appointment.on('done', function (data) {
+                console.log('****** Current Appointment data ********');
+                console.log(data);
                 req.app.locals.currAppt = data[0];
                 // res.send(data);
                 next();
@@ -80,10 +89,27 @@ router.get('/',
         var params = {
             departmentid: req.app.locals.currAppt.departmentid
         };
-        var defaultPharmacy = req.app.locals.AHAPI.GET('/chart/' + + req.cookies.patientid + '/pharmacies/default', {params: params});
+        var defaultPharmacy = req.app.locals.AHAPI.GET('/chart/' + +req.cookies.patientid + '/pharmacies/default', {params: params});
         defaultPharmacy.on('done', function (data) {
-           req.app.locals.defaultPharmacy = data;
-           next();
+            console.log('****** Default pharmacy ********');
+            console.log(data);
+            req.app.locals.defaultPharmacy = data;
+            next();
+        });
+    },
+    /**
+     * @description GET Preferred pharmacy data if available
+     **/
+    function (req, res, next) {
+        var params = {
+            departmentid: req.app.locals.currAppt.departmentid
+        };
+        var preferredPharmacy = req.app.locals.AHAPI.GET('/chart/' + +req.cookies.patientid + '/pharmacies/preferred', {params: params});
+        preferredPharmacy.on('done', function (data) {
+            console.log('****** Preferred pharmacy ********');
+            console.log(data);
+            req.app.locals.preferredPharmacy = data;
+            next();
         });
     },
     /**
@@ -95,6 +121,7 @@ router.get('/',
         };
         var allergies = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/allergies', {params: params});
         allergies.on('done', function (data) {
+            console.log('****** Recorded Allergies ********');
             console.log(data);
             req.app.locals.allergies = data.allergies;
             next();
@@ -125,11 +152,15 @@ router.get('/',
         };
         var familyHistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/familyhistory', {params: params});
         familyHistory.on('done', function (data) {
+            console.log('****** Family history ********');
+            console.log(data);
             req.app.locals.familyHistory = data.relatives;
             next();
         });
     },
-    // GET Social history
+    /**
+     * GET Social history
+     **/
     function (req, res, next) {
         var params = {
             departmentid: req.app.locals.currAppt.departmentid,
@@ -139,6 +170,8 @@ router.get('/',
 
         var socialhistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/socialhistory', {params: params});
         socialhistory.on('done', function (data) {
+            console.log('****** Social history ********');
+            console.log(data);
             // order by question id
             data.questions.sort(function (a, b) {
                 return a.questionid - b.questionid;
@@ -162,6 +195,8 @@ router.get('/',
 
         var surgicalhistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/surgicalhistory', {params: params});
         surgicalhistory.on('done', function (data) {
+            console.log('****** Surgical History ********');
+            console.log(data);
             req.app.locals.surgicalHistory = data.procedures;
             next();
         });
@@ -173,6 +208,8 @@ router.get('/',
         };
         var medicalhistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/medicalhistory', {params: params});
         medicalhistory.on('done', function (data) {
+            console.log('****** Health history ********');
+            console.log(data);
             /** order by question id **/
             data.questions.sort(function (a, b) {
                 return a.questionid - b.questionid;
@@ -189,6 +226,8 @@ router.get('/',
         };
         var medicationshistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/medications', {params: params});
         medicationshistory.on('done', function (data) {
+            console.log('****** Medication History ********');
+            console.log(data);
             req.app.locals.medicationHistory = data;
             // res.send(req.app.locals.medicationHistory);
             next();
@@ -197,7 +236,7 @@ router.get('/',
     // Render page
     function (req, res, next) {
 
-        console.log('*************');
+        console.log('*** Logged in User ******');
         console.log(req.session.passport.user);
         console.log(req.user);
         console.log(req.isAuthenticated());
@@ -208,6 +247,8 @@ router.get('/',
             patient: req.app.locals.currAppt.patient,
             allergies: req.app.locals.allergies,
             socialHistory: req.app.locals.socialHistory,
+            defaultPharmacy: req.app.locals.defaultPharmacy,
+            preferredPharmacy: req.app.locals.preferredPharmacy,
             maritalStatusSelect: formsConfig.maritalStatusSelect,
             insuredRelationship: formsConfig.insuredRelationship,
             isAuthenticated: req.isAuthenticated()
@@ -215,28 +256,35 @@ router.get('/',
     }
 );
 
-/* medical history API:
- * https://developer.athenahealth.com/docs/read/chart/Medical_History
- * /preview1/:practiceid/chart/:patientid/medicalhistory
+/**
+ * @description
+ * AthenaNET API    -> /chart/configuration/facilities
+ * Method           -> GET
+ * Query string     -> ?departmentid=2&name=Walgreens&ordertype=PRESCRIPTION&patientid=7496
+ * - use to get closest pharmacy to the patient
  *
- */
-
-router.get('/:apptid/:patientid',
-    function (req, res, next) {
-
-        console.log('Cookies: ', req.cookies);
-
-        var patient = req.app.locals.AHAPI.GET('/patients/' + req.params.patientid, {params: {showinsurance: true}});
-        patient.on('done', function (data) {
-            // res.send(data);
-            res.render('patientMedicalHistory', {
-                patient: data[0],
-                maritalStatusSelect: formsConfig.maritalStatusSelect,
-                insuredRelationship: formsConfig.insuredRelationship
-            });
-        });
-    }
-);
+ * Order types:
+ * Pharmacy     = PRESCRIPTION
+ *
+ **/
+router.get('/pharmacies', function (req, res, next) {
+    console.log(req.body);
+    var params = {
+        departmentid: req.app.locals.currAppt.departmentid,
+        name: 'Walgreens',
+        ordertype: 'PRESCRIPTION',
+        patientid: req.cookies.patientid
+    };
+    var pharmacies = req.app.locals.AHAPI.GET('/chart/configuration/facilities', {params: params});
+    pharmacies.on('done', function (data) {
+        console.log('****** Medication History ********');
+        console.log(data);
+        // req.app.locals.pharmacies = data;
+        res.status(200).send(data);
+        // next();
+    });
+    // res.status(200).send({message: postMessage, data: req.body});
+});
 
 var postMessage = 'Posted Medical History';
 
@@ -246,21 +294,20 @@ router.post('/', function (req, res, next) {
 });
 
 /**
- * Online Check-In and Health History forms
- * https://athenahealth.csod.com/clientimg/athenahealth/KB/Slides_Online%20Check-in%20and%20Health%20History%20Form%20Builder_June%2026_635092319714436137.pdf
+ * @description
+ * AthenaNET API    -> /chart/configuration/facilities
+ * Method           -> GET
+ * Query string     -> ?departmentid=2&name=Walgreens&ordertype=PRESCRIPTION&patientid=7496
  *
- * https://developer.athenahealth.com/docs/read/workflows/digital_checkin/Digital_CheckIn_Health_History_Forms
- **/
-
-/**
- * @description POST to /chart/configuration/facilities
- * - query string ?departmentid=2&name=Walgreens&ordertype=PRESCRIPTION&patientid=7496
+ * AthenaNET API    -> /preview1/:practiceid/chart/:patientid/pharmacies/preferred
+ * Method           -> GET, PUT
+ *
+ * AthenaNET API    -> /preview1/:practiceid/chart/:patientid/pharmacies/default
+ * Method           -> GET, PUT
+ *
+ *
  * - use to get closest pharmacy to the patient
  **/
-router.post('/pharmacies', function(req, res, next){
-    res.status(200).send({message: postMessage, data: req.body});
-});
-
 router.post('/personalInfo',
     /**
      * @description First POST the personal info such as Preferred Pharmacy
@@ -292,10 +339,41 @@ router.post('/familyHistory', function (req, res, next) {
 /**
  * AthenaNET API    -> /preview1/:practiceid/chart/:patientid/socialhistory
  * Method           -> GET, PUT
+ * Sample           -> "questions": [{
+                            "key": "SMOKING",
+                            "answer": "",
+                            "note": 2
+                        }, {
+                            "templateid": 479,
+                            "key": "SMOKINGSTATUS",
+                            "question": "Smoking Status",
+                            "ordering": 1,
+                            "questionid": 1782
+                        }, {
+                            "templateid": 479,
+                            "key": "TOBACCOUSE",
+                            "question": "Tobacco-years of use",
+                            "ordering": 3,
+                            "questionid": 1781
+                        }]
  **/
 router.post('/socialHistory', function (req, res, next) {
     console.log(req.body);
-    res.status(200).send({message: postMessage, data: req.body});
+    var postData = req.body,
+        aNEtAPI = req.params.aNetAPI,
+        patientid = req.cookies.patientid;
+
+    var submitData = req.app.locals.AHAPI.PUT('chart/' + patientid + '/socialhistory', {params: postData});
+    submitData.on('done', function (data) {
+        console.log(data);
+        if (!data.error) {
+            res.sendStatus(200);
+        } else {
+            console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
+            res.status(500).send(data)
+        }
+    });
+    // res.status(200).send({message: postMessage, data: req.body});
 });
 
 router.post('/medicalHistory', function (req, res, next) {

@@ -30,9 +30,9 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                 </div>
                                 <div class="col-sm-4">
                                     {{#longerThanZero this.patient.middlename}}
-                                        {{> patientDataFilled label="Middle initial" text=this.patient.lastname show=true}}
+                                        {{> patientDataFilled label="Middle name" text=this.patient.middlename show=true}}
                                     {{/longerThanZero}}
-                                    {{> custInputFld type="text" id="middlename" label="Middle initial" placeholder="Middle initial"}}
+                                    {{> custInputFld type="text" id="middlename" label="Middle name" placeholder="Middle name"}}
                                 </div>
                                 <div class="col-sm-4">
                                     {{#longerThanZero this.patient.firstname}}
