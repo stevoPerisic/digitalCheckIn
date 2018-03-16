@@ -51,6 +51,62 @@
         },
         utilities: {
             /**
+             * @function initGMap
+             * @description Initialize Google Map for pharmacies
+             **/
+            initGMap: function () {
+                /**
+                 * @todo one more call once the pharmacy name is submitted by the input filed on the form
+                 * @todo add onclick listener to teh markers to save the users preference of pharmacy
+                 **/
+                window.app.utilities.map = this.map || {};
+                var geocoder = new google.maps.Geocoder();
+                var myOptions = {
+                    zoom: 7,
+                    // center: new google.maps.LatLng(0, 0),
+                    mapTypeId: 'terrain'
+                };
+                window.app.utilities.map = new google.maps.Map($('#map')[0], myOptions);
+                geocoder.geocode({'address': patLoc}, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        //In this case it creates a marker, but you can get the lat and lng from the location.LatLng
+                        window.app.utilities.map.setCenter(results[0].geometry.location);
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+
+                // var addresses = ['Norway', 'Africa', 'Asia', 'North America', 'South America'];
+
+                // window.app.utilities.gMap_addPahramacies(addresses);
+            },
+            /**
+             * @function gMap_addPahramacies
+             * @description Add addresses to the map as markers
+             **/
+            gMap_addPahramacies: function (pharmacies) {
+                var markers = [];
+                for (var x = 0; x < pharmacies.length; x++) {
+                    $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + pharmacies[x] + '&sensor=false', null, function (data) {
+                        var p = data.results[0].geometry.location
+                        var latlng = new google.maps.LatLng(p.lat, p.lng);
+                        markers.push(new google.maps.Marker({
+                            position: latlng,
+                            map: window.app.utilities.map
+                        }));
+
+                        markers.forEach(function (marker) {
+                            marker.addListener('click', function () {
+                                //map.setZoom(8);
+                                //map.setCenter(marker.getPosition());
+                                console.log(marker);
+                            });
+                        })
+
+                    });
+                }
+            },
+            /**
              * @description Format phone numbers
              * @function formatPhoneNumber
              * @param s {string} - string to format into the phone number formatting (***) *** - *****
@@ -188,9 +244,9 @@
                     data: data,
                     contentType: 'application/x-www-form-urlencoded'
                     /*beforeSend: function(request) {
-                        request.setRequestHeader('patientid', sessionStorage.getItem('patientid'));
-                        request.setRequestHeader('apptid', sessionStorage.getItem('apptid'));
-                    }*/
+                     request.setRequestHeader('patientid', sessionStorage.getItem('patientid'));
+                     request.setRequestHeader('apptid', sessionStorage.getItem('apptid'));
+                     }*/
                 }).done(function (data, xhr) {
                     console.log(data);
                     console.log(xhr);

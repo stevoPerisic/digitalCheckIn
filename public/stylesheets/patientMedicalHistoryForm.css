@@ -8,6 +8,11 @@
     padding: 0;
 }
 
+#map {
+    height: 280px;
+    width: 100%;
+}
+
 .submit {
     float: right;
     margin-bottom: 20px;

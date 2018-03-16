@@ -10,11 +10,14 @@
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
+    background-color: #f1f1f1;
 }
 
 h1, h2, h3 {
     color: #0C4C8A;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
 }
 
 h1 {
@@ -28,8 +31,23 @@ h1 {
 /* Bootstrap modifications */
 /***************************/
 
+.navbar-default {
+    background-color: #178ccb;
+    border-color: #fff;
+}
+
+.navbar-default .navbar-brand, .navbar-default .navbar-nav>li>a {
+    color: #fff;
+}
+
 .navbar a:hover {
-    background-color: #e7e7e7 !important;
+    /*background-color: #e7e7e7 !important;*/
+    color: #0C4C8A;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #0C4C8A;
+    background-color: #178ccb;
 }
 
 .btn {
@@ -90,9 +108,9 @@ h1 {
     margin-bottom: 16px;
 }
 
-.table-responsive {
-    border: 2px solid #f2f2f2;
-}
+/*.table-responsive {*/
+    /*border: 2px solid #f2f2f2;*/
+/*}*/
 
 .table-responsive table {
     margin: 0;
@@ -283,6 +301,12 @@ form {
     font-size: 16px;
     height: 40px;
     border-radius: 0;
+}
+
+label {
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #333333;
 }
 
 @media (max-width: 1024px) {
