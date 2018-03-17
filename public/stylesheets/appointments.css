@@ -18,7 +18,6 @@
 }
 .apptRow:hover{
     background-color: beige;
-    /*text-shadow: 1px 1px 1px #fff;*/
 }
 .table.appointments>tbody>tr>td,
 .table.appointments>tbody>tr>th,
@@ -29,9 +28,7 @@
     vertical-align: middle;
 }
 .table.appointments .glyphicon{
-    color: #069791;
-    /*background-color: #069791;*/
-    /*border-radius: 50% 50%;*/
+    color: #267ACC;
     padding: 6px;
     font-size: 12px;
 }

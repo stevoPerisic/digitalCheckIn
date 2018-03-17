@@ -62,11 +62,14 @@
                 window.app.utilities.map = this.map || {};
                 var geocoder = new google.maps.Geocoder();
                 var myOptions = {
-                    zoom: 7,
+                    zoom: 10,
                     // center: new google.maps.LatLng(0, 0),
                     mapTypeId: 'terrain'
                 };
                 window.app.utilities.map = new google.maps.Map($('#map')[0], myOptions);
+                /**
+                 * @todo If patLoc is not set than have a default centering based on the office address
+                 **/
                 geocoder.geocode({'address': patLoc}, function (results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         //In this case it creates a marker, but you can get the lat and lng from the location.LatLng
@@ -75,10 +78,6 @@
                         alert('Geocode was not successful for the following reason: ' + status);
                     }
                 });
-
-                // var addresses = ['Norway', 'Africa', 'Asia', 'North America', 'South America'];
-
-                // window.app.utilities.gMap_addPahramacies(addresses);
             },
             /**
              * @function gMap_addPahramacies
@@ -86,25 +85,35 @@
              **/
             gMap_addPahramacies: function (pharmacies) {
                 var markers = [];
-                for (var x = 0; x < pharmacies.length; x++) {
-                    $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + pharmacies[x] + '&sensor=false', null, function (data) {
-                        var p = data.results[0].geometry.location
-                        var latlng = new google.maps.LatLng(p.lat, p.lng);
-                        markers.push(new google.maps.Marker({
-                            position: latlng,
-                            map: window.app.utilities.map
-                        }));
+                var p = new Promise(function(resolve, reject){
+                    for (var x = 0; x < pharmacies.length; x++) {
+                        $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + pharmacies[x] + '&sensor=false', null, function (data) {
+                            var p = data.results[0].geometry.location
+                            var latlng = new google.maps.LatLng(p.lat, p.lng);
+                            markers.push(new google.maps.Marker({
+                                position: latlng,
+                                map: window.app.utilities.map
+                            }));
 
-                        markers.forEach(function (marker) {
-                            marker.addListener('click', function () {
-                                //map.setZoom(8);
-                                //map.setCenter(marker.getPosition());
-                                console.log(marker);
+                            markers.forEach(function (marker) {
+                                marker.addListener('click', function () {
+                                    //map.setZoom(8);
+                                    //map.setCenter(marker.getPosition());
+                                    console.log(marker);
+                                });
                             });
-                        })
 
-                    });
-                }
+                            if(markers.length===pharmacies.length){
+                                resolve();
+                            }
+                        });
+                    }
+                });
+
+                p.then(function(){
+                    window.app.utilities.map.setCenter(markers[0].position);
+                    window.app.utilities.map.setZoom(10);
+                });
             },
             /**
              * @description Format phone numbers
