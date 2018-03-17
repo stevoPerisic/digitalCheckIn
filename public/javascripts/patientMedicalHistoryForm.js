@@ -71,6 +71,28 @@
                     app.utilities.formSubmit( app.utilities.getFormData($form), $form )
                 }
             });
+
+            $('#defaultpharmacyncpdpid').on('focusout', function (e) {
+                console.log('Fpocus out');
+                var name = $(e.currentTarget).val();
+                if(name.length > -1){
+                    $.ajax({
+                        url: '/patientMedicalHistory/pharmacies',
+                        method: 'GET',
+                        data: {
+                            name: name
+                        }
+                    }).done(function(data){
+                        console.log(data);
+                        var pharmaciesArr = [];
+                        data.forEach(function(pharmacy){
+                            pharmaciesArr.push(pharmacy.address+pharmacy.city+pharmacy.state+pharmacy.zipcode);
+                        });
+                        /** @todo refresh map to show the pharmacies **/
+                        window.app.utilities.gMap_addPahramacies(pharmaciesArr);
+                    })
+                }
+            })
         },
         /**
          * @function pIFormSubmit

@@ -1,6 +1,35 @@
-.apptRow{
-    cursor: pointer;
+.table.appointments{
+    border-top: 2px solid #dadada;
+    font-size: 14px;
+}
+.table.appointments thead {
+    background-color: #f2f2f2;
+}
+.table.appointments thead tr th{
+    padding: 16px 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4A4A4A;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 1px #fff;
+}
+.apptRow {
+    background-color: #ffffff;
 }
 .apptRow:hover{
-    background-color: lightgrey;
+    background-color: beige;
 }
+.table.appointments>tbody>tr>td,
+.table.appointments>tbody>tr>th,
+.table.appointments>tfoot>tr>td,
+.table.appointments>tfoot>tr>th,
+.table.appointments>thead>tr>td,
+.table.appointments>thead>tr>th{
+    vertical-align: middle;
+}
+.table.appointments .glyphicon{
+    color: #267ACC;
+    padding: 6px;
+    font-size: 12px;
+}
+

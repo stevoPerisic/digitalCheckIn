@@ -280,7 +280,7 @@ router.get('/pharmacies', function (req, res, next) {
         console.log('****** Medication History ********');
         console.log(data);
         // req.app.locals.pharmacies = data;
-        res.status(200).send(data);
+        res.status(200).send(data.slice(0, 9));
         // next();
     });
     // res.status(200).send({message: postMessage, data: req.body});
