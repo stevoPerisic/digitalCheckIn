@@ -22,7 +22,7 @@
     <div class="loader">Loading...</div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
             {{#if isAuthenticated}}
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -33,7 +33,9 @@
                     <span class="icon-bar"></span>
                 </button>
             {{/if}}
-            <a class="navbar-brand" href="/"><img alt="Brand" src="/images/logo.png"><span>AHPCin</span></a>
+            <a class="navbar-brand" href="/"><img alt="Brand" src="/images/logo.png">
+                <!--<span>AHPCin</span>-->
+            </a>
         </div>
         {{#if isAuthenticated}}
             <div id="navbar" class="navbar-collapse collapse">
@@ -50,7 +52,7 @@
                     </li>
                     <li><a href="/users/logout">Log Out</a></li>
                     {{#if apptid}}
-                    <li><a href="/appointments/checkin/cancel">Cancel Check-in</a></li>
+                        <li><a href="/appointments/checkin/cancel">Cancel Check-in</a></li>
                     {{/if}}
                 </ul>
             </div><!--/.nav-collapse -->
@@ -59,7 +61,7 @@
 </nav>
 
 <div class="main">
-    <div class="container-fluid">
+    <div class="container">
         {{{body}}}
     </div>
 </div>
@@ -73,6 +75,9 @@
         crossorigin="anonymous"></script>
 <!--<script src="/libs/jquery.form-validator.min.js"></script>-->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+<script>
+    var patLoc = "{{this.patient.address1}}, {{this.patient.city}}, {{this.patient.zip}}";
+</script>
 <script src="/javascripts/main.js"></script>
 
 <!--Load custon scripts - template specific-->

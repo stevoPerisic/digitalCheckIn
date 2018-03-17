@@ -325,57 +325,30 @@
                                 </div>
                             </div>
 
-                            <fieldset class="form-group">
-                                <legend>Diet:</legend>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        {{> custChkBx text="Balanced"}}
-                                    </div>
-                                    <div class="col-sm-3">
-                                        {{> custChkBx text="Vegetarian"}}
-                                    </div>
-                                    <div class="col-sm-3">
-                                        {{> custChkBx text="Diabetic"}}
-                                    </div>
-                                    <div class="col-sm-3">
-                                        {{> custChkBx text="Low salt"}}
-                                    </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <!-- This could be pre-filled with data from other form(s) -->
+                                    {{#parseJSON    '[{"value": "Balanced", "text": "Balanced"},
+                                                    {"value": "Vegetarian", "text": "Vegetarian"},
+                                                    {"value": "Diabetic", "text": "Diabetic"},
+                                                    {"value": "Low salt", "text": "Low salt"},
+                                                    {"value": "Low fat", "text": "Low fat"},
+                                                    {"value": "Low carb", "text": "Low carb"},
+                                                    {"value": "Other", "text": "Other"}]'}}
+                                        {{> custSelect id="diet" label="Diet" emptyOption=true options=this }}
+                                    {{/parseJSON}}
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        {{> custChkBx text="Low fat"}}
-                                    </div>
-                                    <div class="col-sm-3">
-                                        {{> custChkBx text="Low carb"}}
-                                    </div>
-                                    <div class="col-sm-6">
-                                        {{> custInputFld type="text" id="otherDiet" label="Other" placeholder=""}}
-                                    </div>
+                                <div class="col-sm-6">
+                                    <!-- This could be pre-filled with data from other form(s) -->
+                                    {{#parseJSON    '[{"value": "High School", "text": "High School"},
+                                                    {"value": "College", "text": "College"},
+                                                    {"value": "Some College", "text": "Some College"},
+                                                    {"value": "Trade School", "text": "Trade School"},
+                                                    {"value": "Other", "text": "Other"}]'}}
+                                        {{> custSelect id="education" label="Education" emptyOption=true options=this }}
+                                    {{/parseJSON}}
                                 </div>
-                            </fieldset>
-
-                            <fieldset class="form-group">
-                                <legend>Education:</legend>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        {{> custChkBx text="High School"}}
-                                    </div>
-                                    <div class="col-sm-3">
-                                        {{> custChkBx text="College"}}
-                                    </div>
-                                    <div class="col-sm-3">
-                                        {{> custChkBx text="Some College"}}
-                                    </div>
-                                    <div class="col-sm-3">
-                                        {{> custChkBx text="Trade School"}}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        {{> custInputFld type="text" id="otherEducation" label="Other" placeholder=""}}
-                                    </div>
-                                </div>
-                            </fieldset>
+                            </div>
 
                             <hr>
 
@@ -772,21 +745,17 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-12">
                                     {{> custToggle id="followConversation"
                                             label="Do you find it difficult to follow a conversation in a noisy restaurant or crowded room?"
                                             dataVal1="YES" choice1="YES"
                                             dataVal2="NO" choice2="NO"
                                             dataVal3="SOMETIMES" choice3="SOMETIMES"}}
-                                </div>
-                                <div class="col-sm-4">
                                     {{> custToggle id="pplMumbling"
                                             label="Do you sometimes feel that people are mumbling or not speaking clearly?"
                                             dataVal1="YES" choice1="YES"
                                             dataVal2="NO" choice2="NO"
                                             dataVal3="SOMETIMES" choice3="SOMETIMES"}}
-                                </div>
-                                <div class="col-sm-4">
                                     {{> custToggle id="theaterHearing"
                                             label="Do you experience difficulty following dialogue in the theater?"
                                             dataVal1="YES" choice1="YES"
@@ -1076,8 +1045,8 @@
                 </div>
             </div>
 
-            <!--<hr>-->
-            <!--<button type="submit" class="btn btn-primary btn-lg submit">Submit</button>-->
+            <hr>
+            <button type="submit" class="btn btn-primary btn-lg submit">Submit</button>
         </form>
     </div>
 </div>

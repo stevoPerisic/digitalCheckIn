@@ -53,10 +53,46 @@
             });
 
             /** Personal Information form Submit event **/
-            $('#personalInformationForm').on('submit', me.pIFormSubmit);
+            // $('#personalInformationForm').on('submit', me.pIFormSubmit);
 
             /** Family History form Submit event **/
-            $('#familyHistory').on('submit', me.fHFormSubmit);
+            // $('#familyHistory').on('submit', me.fHFormSubmit);
+
+            /** All forms submit **/
+            $('form').on('submit', function (e) {
+                e.preventDefault();
+                var $form = $(e.currentTarget);
+
+                if (e.currentTarget.id === 'personalInformationForm') {
+                    me.pIFormSubmit(e);
+                } else if (e.currentTarget.id === 'familyHistory') {
+                    me.fHFormSubmit(e);
+                } else {
+                    app.utilities.formSubmit( app.utilities.getFormData($form), $form )
+                }
+            });
+
+            $('#defaultpharmacyncpdpid').on('focusout', function (e) {
+                console.log('Fpocus out');
+                var name = $(e.currentTarget).val();
+                if(name.length > -1){
+                    $.ajax({
+                        url: '/patientMedicalHistory/pharmacies',
+                        method: 'GET',
+                        data: {
+                            name: name
+                        }
+                    }).done(function(data){
+                        console.log(data);
+                        var pharmaciesArr = [];
+                        data.forEach(function(pharmacy){
+                            pharmaciesArr.push(pharmacy.address+pharmacy.city+pharmacy.state+pharmacy.zipcode);
+                        });
+                        /** @todo refresh map to show the pharmacies **/
+                        window.app.utilities.gMap_addPahramacies(pharmaciesArr);
+                    })
+                }
+            })
         },
         /**
          * @function pIFormSubmit

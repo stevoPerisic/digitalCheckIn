@@ -92,7 +92,7 @@ module.exports = function (app) {
                         showinsurance: 'true',
                         showpatientdetail: 'true',
                         showremindercalldetail: 'false',
-                        startdate: '10/20/2017'//\\enddate
+                        startdate: '03/01/2018'//\\enddate
                     }
                 }).on('done', function (data) {
                     /**
@@ -118,7 +118,8 @@ module.exports = function (app) {
 
                     } else {
                         console.log('Error');
-                        console.log(data)
+                        console.log(data);
+                        reject(data);
                     }
 
                 });
@@ -127,6 +128,7 @@ module.exports = function (app) {
                  * @todo handle error appropriately for the front-end, currently the appt. list just doesn't show
                  **/
                 console.log(data.error);
+                reject(data);
             }
         });
     });

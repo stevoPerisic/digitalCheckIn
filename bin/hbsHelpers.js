@@ -40,7 +40,7 @@ hbs.registerHelper('isInsurancePolicyHolder', function (data, options) {
 });
 
 hbs.registerHelper('longerThanZero', function (string, options) {
-    return (string.length > 0) ? options.fn(this) : options.inverse(this);
+    return (string != undefined && string.length > 0) ? options.fn(this) : options.inverse(this);
 });
 
 hbs.registerHelper('providerName', function (providers, options) {
