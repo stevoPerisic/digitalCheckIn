@@ -244,6 +244,7 @@ router.get('/',
 
         // we've gathered all the patient med history data so render the screen
         res.render('patientMedicalHistory', {
+            GOOGLEMAPSKEY: process.env.GOOGLEMAPSKEY,
             patient: req.app.locals.currAppt.patient,
             allergies: req.app.locals.allergies,
             socialHistory: req.app.locals.socialHistory,

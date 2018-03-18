@@ -67,7 +67,7 @@ h1 {
 }
 
 .panel-default {
-    border-color: #178ccb;
+    border-color: #fff;
 }
 
 .panel-default > .panel-heading, .btn-primary.active, .btn-primary:active, .open > .dropdown-toggle.btn-primary, .btn-primary {

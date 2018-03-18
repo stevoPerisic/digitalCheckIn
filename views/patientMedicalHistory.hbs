@@ -653,7 +653,8 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
 <!--http://stackoverflow.com/questions/25300017/how-to-ensure-the-javascript-is-at-the-bottom-of-the-code-in-express-handlebars-->
 <!--http://stackoverflow.com/questions/34628978/register-custom-helper-express-and-hbs-->
 {{#section 'script'}}
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuIorJEy89letLZX-_h_7XTO0-VcMXuvM&callback=window.app.utilities.initGMap">
+    <!-- @todo update the gmaps key and base it on the config -->
+    <script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLEMAPSKEY}}&callback=window.app.utilities.initGMap">
     </script>
     <script src="/javascripts/patientMedicalHistoryForm.js"></script>
 {{/section}}
