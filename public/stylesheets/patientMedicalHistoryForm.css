@@ -8,6 +8,23 @@
     padding: 0;
 }
 
+.pharmacyResultWrapper {
+    height: 280px;
+    overflow-y: scroll;
+}
+
+.pharmacyResultWrapper div {
+    border: 1px solid #ccc;
+}
+
+.pharmacyResult {
+    margin: 0 0 5px 0;
+    display: block;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+}
+
 #map {
     height: 280px;
     width: 100%;

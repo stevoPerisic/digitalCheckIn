@@ -36,8 +36,26 @@ h1 {
     border-color: #f2f2f2;
 }
 
-.navbar-default .navbar-brand, .navbar-default .navbar-nav>li>a {
+.navbar-default .navbar-toggle {
+    border-color: #fff;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: #178ccb;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+
+.navbar-default .navbar-brand, .navbar-default .navbar-nav > li > a {
     color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+    }
 }
 
 .navbar a:hover {
@@ -45,7 +63,7 @@ h1 {
     color: #0C4C8A;
 }
 
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
     color: #0C4C8A;
     background-color: #178ccb;
 }
@@ -118,7 +136,7 @@ h1 {
 }
 
 /*.table-responsive {*/
-    /*border: 2px solid #f2f2f2;*/
+/*border: 2px solid #f2f2f2;*/
 /*}*/
 
 .table-responsive table {
@@ -146,8 +164,9 @@ h1 {
     margin-bottom: 30px;
 }
 
-.logIn .form-inline .form-control, .logIn .btn.btn-default {
+.logInForm .form-control, .logInForm .btn {
     width: 100%;
+    margin: 10px 0;
 }
 
 @media screen and (max-width: 767px) {
@@ -157,7 +176,6 @@ h1 {
     }
 
     .logIn .btn.btn-default {
-        width: 80%;
         display: block;
         margin: 10px auto;
     }

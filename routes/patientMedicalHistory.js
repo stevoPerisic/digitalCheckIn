@@ -12,6 +12,10 @@
 var express = require('express');
 var router = express.Router();
 var formsConfig = require('../bin/formsConfig');
+// var googleMapsClient = require('@google/maps').createClient({
+//     key: process.env.GOOGLEMAPSKEY,
+//     Promise: Promise
+// });
 
 /**
  * Patient Allergies recorded in aNet
@@ -269,6 +273,7 @@ router.get('/',
  *
  **/
 router.get('/pharmacies', function (req, res, next) {
+    console.log('*** Pharmacies request ******');
     console.log(req.body);
     var params = {
         departmentid: req.app.locals.currAppt.departmentid,
@@ -276,12 +281,39 @@ router.get('/pharmacies', function (req, res, next) {
         ordertype: 'PRESCRIPTION',
         patientid: req.cookies.patientid
     };
+    var pharmacyMarkers;
     var pharmacies = req.app.locals.AHAPI.GET('/chart/configuration/facilities', {params: params});
     pharmacies.on('done', function (data) {
-        console.log('****** Medication History ********');
+        console.log('****** Pharmacies response ********');
+
+
+        // order by distance
+        data.sort(function (a, b) {
+            return a.distance - b.distance;
+        });
+
         console.log(data);
-        // req.app.locals.pharmacies = data;
-        res.status(200).send(data.slice(0, 9));
+        data = data.slice(0, 9);
+
+        // for (var i in data) {
+        //     // console.log(data[i]);
+        //     googleMapsClient.geocode({
+        //         // address: '1600 Amphitheatre Parkway, Mountain View, CA'
+        //         address: data[i].address + ', ' + data[i].city + ', ' + data[i].state
+        //     })
+        //         .asPromise()
+        //         .then(function (err, response) {
+        //             if (!err) {
+        //                 console.log(response.json.results);
+        //             }
+        //         })
+        //         .catch(function (err) {
+        //             console.log(err);
+        //         });
+        // }
+
+        req.app.locals.pharmacies = data;
+        res.status(200).send({pharmacies: data.slice(0, 9), key: process.env.GOOGLEMAPSKEY});
         // next();
     });
     // res.status(200).send({message: postMessage, data: req.body});

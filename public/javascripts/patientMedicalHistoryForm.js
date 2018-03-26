@@ -84,12 +84,17 @@
                         }
                     }).done(function(data){
                         console.log(data);
-                        var pharmaciesArr = [];
-                        data.forEach(function(pharmacy){
-                            pharmaciesArr.push(pharmacy.address+pharmacy.city+pharmacy.state+pharmacy.zipcode);
+                        var pharmaciesArr = window.app.patientMedicalHistoryForm.pharmaciesArr = [];
+                        data.pharmacies.forEach(function(pharmacy){
+                            // fill in the array for the gMaps location queries
+                            pharmaciesArr.push({
+                                    facilityid: pharmacy.facilityid,
+                                    name: pharmacy.name,
+                                    address: pharmacy.address + ' ' + pharmacy.city + ' ' + pharmacy.state
+                            });
                         });
                         /** @todo refresh map to show the pharmacies **/
-                        window.app.utilities.gMap_addPahramacies(pharmaciesArr);
+                        window.app.utilities.gMap_addPahramacies(pharmaciesArr, data.key);
                     })
                 }
             })
