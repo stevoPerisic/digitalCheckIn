@@ -8,21 +8,49 @@
     padding: 0;
 }
 
+.pharmacySearch {
+    height: 75px;
+    position: relative;
+}
+
+.pharmacySearch .btn-primary {
+    position: absolute;
+    bottom: 1px;
+}
+
+.mapWrapper {
+    display: none;
+    position: relative;
+}
+
 .pharmacyResultWrapper {
     height: 280px;
     overflow-y: scroll;
 }
 
-.pharmacyResultWrapper div {
-    border: 1px solid #ccc;
+.pharmacyResultWrapper>div {
+    padding: 4px;
+    border-bottom: 1px solid #ccc;
 }
 
 .pharmacyResult {
     margin: 0 0 5px 0;
     display: block;
     padding: 5px;
-    border-bottom: 1px solid #ccc;
+    background-color: #f2f2f2;
     font-size: 14px;
+}
+
+.pharmacyResult a{
+    padding:0 4px;
+}
+
+.pharmacyResult.selected {
+    background-color: #337ab7;
+}
+
+.pharmacyResult.selected a{
+    color: #fff;
 }
 
 #map {

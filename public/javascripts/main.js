@@ -91,39 +91,50 @@
             gMap_addPahramacies: function (pharmacies, key) {
                 var l = pharmacies.length;
                 var $pharmacyResults = $('#pharmacyResults');
+                $pharmacyResults.empty();
 
-                var geocodeCB = function(data){
-                    // console.log(this); // the this is now the particular pharmacy object that was bound in the for loop :)
-                    // console.log(data);
-                    var pharmacyX = this;
-                    if (data.status !== 'ZERO_RESULTS' || data.status !== 'OVER_QUERY_LIMIT') {
-                        var p = data.results[0].geometry.location;
-                        var latlng = new google.maps.LatLng(p.lat, p.lng);
-                        pharmacyX.marker = new google.maps.Marker({
-                            position: latlng,
-                            title: data.results[0].formatted_address,
-                            map: window.app.utilities.map
-                        });
-                        pharmacyX.$sideMarker = $('<div id="'+pharmacyX.facilityid+'" class="pharmacyResult"><a href="#" ><span class="pname">'+pharmacyX.name+'</span></a></div>');
-                        pharmacyX.$sideMarker.on('click', function (e) {
-                            e.preventDefault();
-                            window.app.utilities.map.setCenter(pharmacyX.marker.position);
-                            pharmacyX.marker.setAnimation(null);
-                            pharmacyX.marker.setAnimation(google.maps.Animation.BOUNCE);
-                            setTimeout(function(){
+                if (l === 0 ) {
+                    $pharmacyResults.append('<p>We could not find any pharmacies with that name, please try searching again.</p>');
+                } else {
+                    var geocodeCB = function(data){
+                        // console.log(this); // the this is now the particular pharmacy object that was bound in the for loop :)
+                        // console.log(data);
+                        var pharmacyX = this;
+                        if (data.status !== 'ZERO_RESULTS' || data.status !== 'OVER_QUERY_LIMIT') {
+                            var p = data.results[0].geometry.location;
+                            var latlng = new google.maps.LatLng(p.lat, p.lng);
+                            pharmacyX.marker = new google.maps.Marker({
+                                position: latlng,
+                                title: data.results[0].formatted_address,
+                                map: window.app.utilities.map
+                            });
+                            pharmacyX.$sideMarker = $('<div id="'+pharmacyX.facilityid+'" class="pharmacyResult"><a href="#" ><span class="pname">'+pharmacyX.name+'</span></a></div>');
+                            pharmacyX.$sideMarker.on('click', function (e) {
+                                e.preventDefault();
+
+                                $('.selected').toggleClass('selected');
+                                $(e.currentTarget).toggleClass('selected');
+
+                                window.app.utilities.map.setCenter(pharmacyX.marker.position);
                                 pharmacyX.marker.setAnimation(null);
-                            }, 1000);
-                        });
-                        $pharmacyResults.append(this.$sideMarker);
-                    } else {
-                        console.log(data);
-                    }
-                };
+                                pharmacyX.marker.setAnimation(google.maps.Animation.BOUNCE);
+                                setTimeout(function(){
+                                    pharmacyX.marker.setAnimation(null);
+                                }, 1000);
+                            });
+                            $pharmacyResults.append(this.$sideMarker);
+                        } else {
+                            console.log(data);
+                        }
+                    };
 
-                for (var x = 0; x < l; x++) {
-                    $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?key='+key+'&address='+
-                        pharmacies[x].address + '&sensor=false', null, geocodeCB.bind(pharmacies[x]));
+                    for (var x = 0; x < l; x++) {
+                        $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?key='+key+'&address='+
+                            pharmacies[x].address + '&sensor=false', null, geocodeCB.bind(pharmacies[x]));
+                    }
                 }
+
+                $('.mapLoaderOverlay').hide();
             },
             /**
              * @description Format phone numbers

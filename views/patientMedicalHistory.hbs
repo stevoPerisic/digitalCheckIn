@@ -43,16 +43,24 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                             </div>
                             <!--Pharmacy-->
                             <div class="form-group row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-10">
                                     {{#longerThanZero this.defaultPharmacy}}
                                         {{> patientDataFilled label="Preferred Pharmacy" text=this.defaultPharmacy.clinicalprovidername show=true}}
                                     {{/longerThanZero}}
-                                    {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Preferred Pharmacy"}}
-                                <!--</div>-->
-                                <!--<div class="col-md-6">-->
+                                    {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Enter pharmacy name and press Search..."}}
+
+                                </div>
+                                <div class="col-sm-2 pharmacySearch">
+                                    <a href="#" class="btn btn-primary btn-small findPharmacy">Search</a>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mapWrapper">
+                                <div class="mapLoaderOverlay">
+                                    <div class="loader">Loading...</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <p>Select a pharmacy that is most convenient for you below.</p>
+                                </div>
                                 <div class="col-sm-4 pharmacyResultWrapper">
                                     <div id="pharmacyResults"></div>
                                 </div>

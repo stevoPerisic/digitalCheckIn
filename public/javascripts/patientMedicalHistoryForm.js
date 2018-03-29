@@ -72,9 +72,14 @@
                 }
             });
 
-            $('#defaultpharmacyncpdpid').on('focusout', function (e) {
-                console.log('Fpocus out');
-                var name = $(e.currentTarget).val();
+            $('.findPharmacy').on('click', function (e) {
+                // console.log('Fpocus out');
+                e.preventDefault();
+
+                $('.mapWrapper').show();
+                $('.mapLoaderOverlay').show();
+
+                var name = JSON.stringify($('#defaultpharmacyncpdpid').val());
                 if(name.length > -1){
                     $.ajax({
                         url: '/patientMedicalHistory/pharmacies',
