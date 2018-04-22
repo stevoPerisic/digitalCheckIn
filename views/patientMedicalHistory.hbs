@@ -312,7 +312,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                         - SNOMED codes https://uts.nlm.nih.gov//snomedctBrowser.html#3723001;0;0;CONCEPT_ID;null;SNOMEDCT_US;null;true;
                                         -->
                                         {{#longerThanZero this.preferredPharmacy.clinicalprovidername}}
-                                            {{> patientDataFilled label="Occupation" text=socialHistory[] show=true}}
+                                            {{> patientDataFilled label="Occupation" show=true}}
                                         {{/longerThanZero}}
                                         {{> custInputFld type="text" id="occupation" label="Occupation" placeholder="Occupation"}}
 

@@ -69,26 +69,55 @@
 {{else}}
     <div class="row">
         <div class="col-sm-12 logIn">
-            <h1>Welcome to Patient Check-In, please sign in below.</h1>
+            <h1>Welcome to Patient CheckIn!</h1>
 
-            <!-- show any messages that come back with authentication -->
-            {{#if message}}
-                <div class="alert alert-danger">{{message}}</div>
-            {{/if}}
+            <div class="row">
+                <div class="col-md-8">
+                    <p>With the help of this app patients can now complete the intake forms before their appointments.
+                        Best of all, there’s no need to manually enter the form’s responses into your Athena
+                        EHR &mdash; the information will flow directly into the patient’s chart note.</p>
+                    <ul>
+                        <li>
+                            <b>Create completely customizable intake forms</b>
+                            The intake forms for Online Check-In are easy to create and 100% customizable for your practice. You can completely replicate your current patient intake forms, plus you can update a form at any time.
+                        </li>
+                        <li>
+                            <b>Get more complete forms</b>
+                            It can be easy for patients to forget important details when they’re filling out forms in the waiting room. Now patients can complete your forms at a convenient time when they have access to all their medical information.
+                        </li>
+                        <li>
+                            <b>Save time for your patients and staff</b>
+                            Your patients save time by not having to complete paper forms in the office, and your staff saves time by not having to scan or enter the form’s information into your EHR.
+                        </li>
+                    </ul>
+                    <br>
+                </div>
+                <div class="col-md-4">
+                    <!-- show any messages that come back with authentication -->
+                    {{#if message}}
+                        <div class="alert alert-danger">{{message}}</div>
+                    {{/if}}
 
-            <form class="form row logInForm" action="/users/login" method="post">
-                <div class="form-group col-sm-5">
-                    <label class="sr-only" for="email">Email address</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                    <form class="form logInForm" action="/users/login" method="post">
+                        <div class="form-group">
+                            <label class="sr-only" for="email">Email address</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="password">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-default btn-primary">Sign in</button>
+                    </form>
+                    <p class="lead">
+                        For Demo please use the following credentials:
+                    </p>
+                    <ul>
+                        <li>User: stevo@test.com</li>
+                        <li>Pass: l02ink@</li>
+                    </ul>
                 </div>
-                <div class="form-group col-sm-4">
-                    <label class="sr-only" for="password">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-                </div>
-                <div class="col-sm-3">
-                    <button type="submit" class="btn btn-default btn-primary">Sign in</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 {{/if}}
