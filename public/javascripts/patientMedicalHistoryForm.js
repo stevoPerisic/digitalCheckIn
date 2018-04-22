@@ -1,7 +1,7 @@
 /**
  * Created by stevoperisic on 6/28/17.
  *
- * FE JS for the patient registration
+ * FE JS for the patient medical history form
  */
 
 (function ($, window) {
@@ -63,18 +63,25 @@
                 e.preventDefault();
                 var $form = $(e.currentTarget);
 
-                if (e.currentTarget.id === 'personalInformationForm') {
-                    me.pIFormSubmit(e);
-                } else if (e.currentTarget.id === 'familyHistory') {
-                    me.fHFormSubmit(e);
-                } else {
-                    app.utilities.formSubmit( app.utilities.getFormData($form), $form )
-                }
+                app.utilities.formSubmit( app.utilities.getFormData($form), $form )
+
+                // if (e.currentTarget.id === 'personalInformationForm') {
+                //     me.pIFormSubmit(e);
+                // } else if (e.currentTarget.id === 'familyHistory') {
+                //     me.fHFormSubmit(e);
+                // } else {
+                //     app.utilities.formSubmit( app.utilities.getFormData($form), $form )
+                // }
             });
 
-            $('#defaultpharmacyncpdpid').on('focusout', function (e) {
-                console.log('Fpocus out');
-                var name = $(e.currentTarget).val();
+            $('.findPharmacy').on('click', function (e) {
+                // console.log('Fpocus out');
+                e.preventDefault();
+
+                $('.mapWrapper').show();
+                $('.mapLoaderOverlay').show();
+
+                var name = JSON.stringify($('#defaultpharmacyncpdpid').val());
                 if(name.length > -1){
                     $.ajax({
                         url: '/patientMedicalHistory/pharmacies',
@@ -84,12 +91,17 @@
                         }
                     }).done(function(data){
                         console.log(data);
-                        var pharmaciesArr = [];
-                        data.forEach(function(pharmacy){
-                            pharmaciesArr.push(pharmacy.address+pharmacy.city+pharmacy.state+pharmacy.zipcode);
+                        var pharmaciesArr = window.app.patientMedicalHistoryForm.pharmaciesArr = [];
+                        data.pharmacies.forEach(function(pharmacy){
+                            // fill in the array for the gMaps location queries
+                            pharmaciesArr.push({
+                                    facilityid: pharmacy.facilityid,
+                                    name: pharmacy.name,
+                                    address: pharmacy.address + ' ' + pharmacy.city + ' ' + pharmacy.state
+                            });
                         });
                         /** @todo refresh map to show the pharmacies **/
-                        window.app.utilities.gMap_addPahramacies(pharmaciesArr);
+                        window.app.utilities.gMap_addPahramacies(pharmaciesArr, data.key);
                     })
                 }
             })

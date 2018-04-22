@@ -62,7 +62,7 @@
                 window.app.utilities.map = this.map || {};
                 var geocoder = new google.maps.Geocoder();
                 var myOptions = {
-                    zoom: 10,
+                    zoom: 12,
                     // center: new google.maps.LatLng(0, 0),
                     mapTypeId: 'terrain'
                 };
@@ -74,6 +74,11 @@
                     if (status == google.maps.GeocoderStatus.OK) {
                         //In this case it creates a marker, but you can get the lat and lng from the location.LatLng
                         window.app.utilities.map.setCenter(results[0].geometry.location);
+                        new google.maps.Marker({
+                            position: results[0].geometry.location,
+                            title: 'Patient address',//pharmacies[x].name,
+                            map: window.app.utilities.map
+                        });
                     } else {
                         alert('Geocode was not successful for the following reason: ' + status);
                     }
@@ -83,37 +88,53 @@
              * @function gMap_addPahramacies
              * @description Add addresses to the map as markers
              **/
-            gMap_addPahramacies: function (pharmacies) {
-                var markers = [];
-                var p = new Promise(function(resolve, reject){
-                    for (var x = 0; x < pharmacies.length; x++) {
-                        $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + pharmacies[x] + '&sensor=false', null, function (data) {
-                            var p = data.results[0].geometry.location
+            gMap_addPahramacies: function (pharmacies, key) {
+                var l = pharmacies.length;
+                var $pharmacyResults = $('#pharmacyResults');
+                $pharmacyResults.empty();
+
+                if (l === 0 ) {
+                    $pharmacyResults.append('<p>We could not find any pharmacies with that name, please try searching again.</p>');
+                } else {
+                    var geocodeCB = function(data){
+                        // console.log(this); // the this is now the particular pharmacy object that was bound in the for loop :)
+                        // console.log(data);
+                        var pharmacyX = this;
+                        if (data.status !== 'ZERO_RESULTS' || data.status !== 'OVER_QUERY_LIMIT') {
+                            var p = data.results[0].geometry.location;
                             var latlng = new google.maps.LatLng(p.lat, p.lng);
-                            markers.push(new google.maps.Marker({
+                            pharmacyX.marker = new google.maps.Marker({
                                 position: latlng,
+                                title: data.results[0].formatted_address,
                                 map: window.app.utilities.map
-                            }));
-
-                            markers.forEach(function (marker) {
-                                marker.addListener('click', function () {
-                                    //map.setZoom(8);
-                                    //map.setCenter(marker.getPosition());
-                                    console.log(marker);
-                                });
                             });
+                            pharmacyX.$sideMarker = $('<div id="'+pharmacyX.facilityid+'" class="pharmacyResult"><a href="#" ><span class="pname">'+pharmacyX.name+'</span></a></div>');
+                            pharmacyX.$sideMarker.on('click', function (e) {
+                                e.preventDefault();
 
-                            if(markers.length===pharmacies.length){
-                                resolve();
-                            }
-                        });
+                                $('.selected').toggleClass('selected');
+                                $(e.currentTarget).toggleClass('selected');
+
+                                window.app.utilities.map.setCenter(pharmacyX.marker.position);
+                                pharmacyX.marker.setAnimation(null);
+                                pharmacyX.marker.setAnimation(google.maps.Animation.BOUNCE);
+                                setTimeout(function(){
+                                    pharmacyX.marker.setAnimation(null);
+                                }, 1000);
+                            });
+                            $pharmacyResults.append(this.$sideMarker);
+                        } else {
+                            console.log(data);
+                        }
+                    };
+
+                    for (var x = 0; x < l; x++) {
+                        $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?key='+key+'&address='+
+                            pharmacies[x].address + '&sensor=false', null, geocodeCB.bind(pharmacies[x]));
                     }
-                });
+                }
 
-                p.then(function(){
-                    window.app.utilities.map.setCenter(markers[0].position);
-                    window.app.utilities.map.setZoom(10);
-                });
+                $('.mapLoaderOverlay').hide();
             },
             /**
              * @description Format phone numbers
@@ -226,6 +247,9 @@
             getFormData: function ($form) {
                 var data = {};
                 var formData = $form.serializeArray();
+                /** Having issues picking up the checkboxes using form.serializeArray() **/
+                var  $checkboxes = $form.find('input[type="checkbox"]');
+
                 formData.forEach(function (input, i) {
                     /**
                      * check if the input is still hidden and the user did NOT reveal it
@@ -235,6 +259,48 @@
                         data[input.name] = input.value;
                     }
                 });
+
+                if($form[0].id === 'familyHistory'){
+                    console.log('do family hsitory checkboxes');
+                } else if ($form[0].id === 'socialHistroy') {
+                    console.log('do social history checkboxes');
+                }
+
+                // get allergies, family history,
+                // @todo SOCIAL HISTORY - And perhaps move this out to the individual forms....
+                $checkboxes.each(function (i, chkbox) {
+                    if (chkbox.attributes.checked) {
+                        console.log(chkbox.value);
+
+                        var ctype = chkbox.dataset.type,
+                            crel = chkbox.dataset.rel,
+                            cvalue = chkbox.value,
+                            obj = false;
+
+                        if(!(ctype in data)) {
+                            data[ctype] = [];
+                        } else {
+                            obj = data[ctype].find(function(el){return el.relation === crel})
+                        }
+                        // FAMILY HISTORY IS DONE
+                        if(!obj) {
+                            data[ctype].push({
+                                relationkeyid: 1,
+                                relation: crel,
+                                problems: [{
+                                    snomedcode: 345000123,
+                                    description: cvalue
+                                }]
+                            });
+                        } else {
+                            obj.problems.push({
+                                snomedcode: 324547651,
+                                description: cvalue
+                            })
+                        }
+                    }
+                });
+                console.log(data);
                 return data;
             },
             /**

@@ -12,11 +12,21 @@
         <span class="col-xs-10 col-sm-8 col-md-9">
             {{text}}
             <input type="checkbox"
+                    {{#if dataType}}
+                        data-type="{{dataType}}"
+                    {{/if}}
+                    {{#if dataRel}}
+                       data-rel="{{dataRel}}"
+                    {{/if}}
                     {{#if allergies}}
                         {{#checkAllergy allergies text=text className="checked"}}checked{{/checkAllergy}}
                     {{/if}}
                    class="custChkBx form-check-input"
-                   value="{{text}}"
+                    {{#if dataValue}}
+                        value="{{dataValue}}"
+                    {{else}}
+                        value="{{text}}"
+                    {{/if}}
             />
         </span>
     </label>

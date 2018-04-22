@@ -12,6 +12,10 @@
 var express = require('express');
 var router = express.Router();
 var formsConfig = require('../bin/formsConfig');
+// var googleMapsClient = require('@google/maps').createClient({
+//     key: process.env.GOOGLEMAPSKEY,
+//     Promise: Promise
+// });
 
 /**
  * Patient Allergies recorded in aNet
@@ -108,7 +112,11 @@ router.get('/',
         preferredPharmacy.on('done', function (data) {
             console.log('****** Preferred pharmacy ********');
             console.log(data);
-            req.app.locals.preferredPharmacy = data;
+            if(!data.error){
+                req.app.locals.preferredPharmacy = data.pharmacies[0];
+            } else {
+                req.app.locals.preferredPharmacy = {};
+            }
             next();
         });
     },
@@ -153,14 +161,12 @@ router.get('/',
         var familyHistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/familyhistory', {params: params});
         familyHistory.on('done', function (data) {
             console.log('****** Family history ********');
-            console.log(data);
+            console.log(JSON.stringify(data));
             req.app.locals.familyHistory = data.relatives;
             next();
         });
     },
-    /**
-     * GET Social history
-     **/
+    /** GET Social history **/
     function (req, res, next) {
         var params = {
             departmentid: req.app.locals.currAppt.departmentid,
@@ -269,22 +275,30 @@ router.get('/',
  *
  **/
 router.get('/pharmacies', function (req, res, next) {
-    console.log(req.body);
+    console.log('*** Pharmacies request ******');
+    console.log(req.query.name);
     var params = {
         departmentid: req.app.locals.currAppt.departmentid,
-        name: 'Walgreens',
+        name: req.query.name,
         ordertype: 'PRESCRIPTION',
         patientid: req.cookies.patientid
     };
     var pharmacies = req.app.locals.AHAPI.GET('/chart/configuration/facilities', {params: params});
     pharmacies.on('done', function (data) {
-        console.log('****** Medication History ********');
-        console.log(data);
-        // req.app.locals.pharmacies = data;
-        res.status(200).send(data.slice(0, 9));
-        // next();
+        console.log('****** Pharmacies response ********');
+        try{
+            // order by distance
+            data.sort(function (a, b) {
+                return a.distance - b.distance;
+            });
+            data = data.slice(0, 9);
+            req.app.locals.pharmacies = data;
+            res.status(200).send({pharmacies: data.slice(0, 9), key: process.env.GOOGLEMAPSKEY});
+        }catch(err){
+            console.log(err);
+            res.status(401).send(err);
+        }
     });
-    // res.status(200).send({message: postMessage, data: req.body});
 });
 
 var postMessage = 'Posted Medical History';
@@ -375,6 +389,11 @@ router.post('/socialHistory', function (req, res, next) {
         }
     });
     // res.status(200).send({message: postMessage, data: req.body});
+});
+
+router.post('/surgicalHistory', function (req, res, next) {
+    console.log(req.body);
+    res.status(200).send({message: postMessage, data: req.body});
 });
 
 router.post('/medicalHistory', function (req, res, next) {

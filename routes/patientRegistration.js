@@ -26,7 +26,7 @@ router.get('/',
             res.redirect('/');
         } else {
             req.apptid = req.cookies.apptid;
-            req.patientid = req.headers.patid;
+            req.patientid = req.cookies.patientid;
             next();
         }
     },
