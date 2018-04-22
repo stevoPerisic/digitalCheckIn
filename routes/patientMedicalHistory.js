@@ -112,7 +112,11 @@ router.get('/',
         preferredPharmacy.on('done', function (data) {
             console.log('****** Preferred pharmacy ********');
             console.log(data);
-            req.app.locals.preferredPharmacy = data;
+            if(!data.error){
+                req.app.locals.preferredPharmacy = data.pharmacies[0];
+            } else {
+                req.app.locals.preferredPharmacy = {};
+            }
             next();
         });
     },
@@ -157,14 +161,12 @@ router.get('/',
         var familyHistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/familyhistory', {params: params});
         familyHistory.on('done', function (data) {
             console.log('****** Family history ********');
-            console.log(data);
+            console.log(JSON.stringify(data));
             req.app.locals.familyHistory = data.relatives;
             next();
         });
     },
-    /**
-     * GET Social history
-     **/
+    /** GET Social history **/
     function (req, res, next) {
         var params = {
             departmentid: req.app.locals.currAppt.departmentid,
@@ -387,6 +389,11 @@ router.post('/socialHistory', function (req, res, next) {
         }
     });
     // res.status(200).send({message: postMessage, data: req.body});
+});
+
+router.post('/surgicalHistory', function (req, res, next) {
+    console.log(req.body);
+    res.status(200).send({message: postMessage, data: req.body});
 });
 
 router.post('/medicalHistory', function (req, res, next) {

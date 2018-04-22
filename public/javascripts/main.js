@@ -247,6 +247,9 @@
             getFormData: function ($form) {
                 var data = {};
                 var formData = $form.serializeArray();
+                /** Having issues picking up the checkboxes using form.serializeArray() **/
+                var  $checkboxes = $form.find('input[type="checkbox"]');
+
                 formData.forEach(function (input, i) {
                     /**
                      * check if the input is still hidden and the user did NOT reveal it
@@ -256,6 +259,48 @@
                         data[input.name] = input.value;
                     }
                 });
+
+                if($form[0].id === 'familyHistory'){
+                    console.log('do family hsitory checkboxes');
+                } else if ($form[0].id === 'socialHistroy') {
+                    console.log('do social history checkboxes');
+                }
+
+                // get allergies, family history,
+                // @todo SOCIAL HISTORY - And perhaps move this out to the individual forms....
+                $checkboxes.each(function (i, chkbox) {
+                    if (chkbox.attributes.checked) {
+                        console.log(chkbox.value);
+
+                        var ctype = chkbox.dataset.type,
+                            crel = chkbox.dataset.rel,
+                            cvalue = chkbox.value,
+                            obj = false;
+
+                        if(!(ctype in data)) {
+                            data[ctype] = [];
+                        } else {
+                            obj = data[ctype].find(function(el){return el.relation === crel})
+                        }
+                        // FAMILY HISTORY IS DONE
+                        if(!obj) {
+                            data[ctype].push({
+                                relationkeyid: 1,
+                                relation: crel,
+                                problems: [{
+                                    snomedcode: 345000123,
+                                    description: cvalue
+                                }]
+                            });
+                        } else {
+                            obj.problems.push({
+                                snomedcode: 324547651,
+                                description: cvalue
+                            })
+                        }
+                    }
+                });
+                console.log(data);
                 return data;
             },
             /**

@@ -105,8 +105,8 @@ app.use(flash()); // use connect-flash for flash messages stored in session
  **/
 app.use( function (req, res, next) {
    if(!req.cookies.patientid){
-       req.cookies.apptid = '961858';
-       req.cookies.patientid = '29462';
+       // req.cookies.apptid = '476075';
+       // req.cookies.patientid = '8760';
        next();
    }
 });

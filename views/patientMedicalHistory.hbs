@@ -44,11 +44,16 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                             <!--Pharmacy-->
                             <div class="form-group row">
                                 <div class="col-sm-10">
-                                    {{#longerThanZero this.defaultPharmacy}}
-                                        {{> patientDataFilled label="Preferred Pharmacy" text=this.defaultPharmacy.clinicalprovidername show=true}}
+                                    {{#longerThanZero this.preferredPharmacy.clinicalprovidername}}
+                                        {{> patientDataFilled label="Preferred Pharmacy" text=this.preferredPharmacy.clinicalprovidername show=true}}
                                     {{/longerThanZero}}
-                                    {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Enter pharmacy name and press Search..."}}
-
+                                    {{> custInputFld type="text" id="preferredpharmacyncpdpid" label="Preferred Pharmacy" placeholder="Enter pharmacy name and press Search..."}}
+                                </div>
+                                <div class="col-sm-10">
+                                    {{#longerThanZero this.defaultPharmacy.clinicalprovidername}}
+                                        {{> patientDataFilled label="Default Pharmacy" text=this.defaultPharmacy.clinicalprovidername show=true}}
+                                    {{/longerThanZero}}
+                                    {{> custInputFld type="text" id="defaultpharmacyncpdpid" label="Default Pharmacy" placeholder="Enter pharmacy name and press Search..."}}
                                 </div>
                                 <div class="col-sm-2 pharmacySearch">
                                     <a href="#" class="btn btn-primary btn-small findPharmacy">Search</a>
@@ -75,32 +80,32 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                         <legend>Allergies</legend>
                                         <div class="row">
                                             <div class="col-md-3 col-sm-6">
-                                                {{> custChkBx text="NONE / No known allergies"}}
+                                                {{> custChkBx text="NONE / No known allergies" dataType="allergies"}}
 
-                                                {{> custChkBx text="Adhesive Tape"}}
+                                                {{> custChkBx text="Adhesive Tape" dataType="allergies"}}
 
-                                                {{> custChkBx text="Anesthesia"}}
+                                                {{> custChkBx text="Anesthesia" dataType="allergies"}}
                                             </div>
                                             <div class="col-md-3 col-sm-6">
-                                                {{> custChkBx text="Aspirin"}}
+                                                {{> custChkBx text="Aspirin" dataType="allergies"}}
 
-                                                {{> custChkBx text="Codeine"}}
+                                                {{> custChkBx text="Codeine" dataType="allergies"}}
 
-                                                {{> custChkBx text="Dairy Products"}}
+                                                {{> custChkBx text="Dairy Products" dataType="allergies"}}
                                             </div>
                                             <div class="col-md-3 col-sm-6">
-                                                {{> custChkBx text="Iodine / Shellfish / Contrast Dye"}}
+                                                {{> custChkBx text="Iodine / Shellfish / Contrast Dye" dataType="allergies"}}
 
-                                                {{> custChkBx text="Latex"}}
+                                                {{> custChkBx text="Latex" dataType="allergies"}}
 
-                                                {{> custChkBx text="Morphine"}}
+                                                {{> custChkBx text="Morphine" dataType="allergies"}}
                                             </div>
                                             <div class="col-md-3 col-sm-6">
-                                                {{> custChkBx text="Penicillin"}}
+                                                {{> custChkBx text="Penicillin" dataType="allergies"}}
 
-                                                {{> custChkBx text="Sulfa drugs"}}
+                                                {{> custChkBx text="Sulfa drugs" dataType="allergies"}}
 
-                                                {{> custChkBx text="Wheat"}}
+                                                {{> custChkBx text="Wheat" dataType="allergies"}}
                                             </div>
                                         </div>
                                         <div class="row">
@@ -118,7 +123,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                     </div>
                 </div>
             </div>
-
+            <!-- Family History -->
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title">
@@ -165,97 +170,97 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                                 <tr>
                                                     <td>Anesthesia Problems</td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Anesthesia" dataRel="Mother" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Anesthesia" dataRel="Father" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Anesthesia" dataRel="Sibling" dataType="relatives"}}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Arthritis</td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Arthritis" dataRel="Mother" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Arthritis" dataRel="Father" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Arthritis" dataRel="Sibling" dataType="relatives"}}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Cancer</td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Cancer" dataRel="Mother" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Cancer" dataRel="Father" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Cancer" dataRel="Sibling" dataType="relatives"}}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Diabetes</td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Diabetes" dataRel="Mother" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Diabetes" dataRel="Father" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Diabetes" dataRel="Sibling" dataType="relatives"}}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Heart Problems</td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Heart Problems" dataRel="Mother" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Heart Problems" dataRel="Father" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Heart Problems" dataRel="Sibling" dataType="relatives"}}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Hypertension</td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Hypertension" dataRel="Mother" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Hypertension" dataRel="Father" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Hypertension" dataRel="Sibling" dataType="relatives"}}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Stroke</td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Stroke" dataRel="Mother" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Stroke" dataRel="Father" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Stroke" dataRel="Sibling" dataType="relatives"}}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Thyroid Disorder</td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Thyroid Disorder" dataRel="Mother" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Thyroid Disorder" dataRel="Father" dataType="relatives"}}
                                                     </td>
                                                     <td>
-                                                        {{> custChkBx text=""}}
+                                                        {{> custChkBx text="" dataValue="Thyroid Disorder" dataRel="Sibling" dataType="relatives"}}
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -302,6 +307,15 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     <fieldset>
+                                        <!--
+                                        @todo finish this below
+                                        - SNOMED codes https://uts.nlm.nih.gov//snomedctBrowser.html#3723001;0;0;CONCEPT_ID;null;SNOMEDCT_US;null;true;
+                                        -->
+                                        {{#longerThanZero this.preferredPharmacy.clinicalprovidername}}
+                                            {{> patientDataFilled label="Occupation" text=socialHistory[] show=true}}
+                                        {{/longerThanZero}}
+                                        {{> custInputFld type="text" id="occupation" label="Occupation" placeholder="Occupation"}}
+
                                         <div class="form-group">
                                             <label for="occupation">Occupation</label>
                                             <input type="text" class="form-control" id="occupation" name="occupation"
@@ -475,7 +489,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3 col-sm-6">
-                                        {{> custChkBx text="None of the problems listed"}}
+                                        {{> custChkBx text="None of the relatives listed"}}
 
                                         {{> custChkBx text="Allergies"}}
 
@@ -487,7 +501,7 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
 
                                         {{> custChkBx text="Arterial Fibrilation"}}
 
-                                        {{> custChkBx text="Bleeding problems"}}
+                                        {{> custChkBx text="Bleeding relatives"}}
 
                                         {{> custChkBx text="BPH"}}
 
@@ -534,13 +548,13 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
 
                                         {{> custChkBx text="Hypothyroidism"}}
 
-                                        {{> custChkBx text="Infection problems"}}
+                                        {{> custChkBx text="Infection relatives"}}
 
                                         {{> custChkBx text="Insomnia"}}
 
                                         {{> custChkBx text="Irritable Bowel Syndrome"}}
 
-                                        {{> custChkBx text="Kidney problems"}}
+                                        {{> custChkBx text="Kidney relatives"}}
 
                                         {{> custChkBx text="Menopause"}}
 
@@ -668,7 +682,6 @@ https://developer.athenahealth.com/docs/read/workflows/Health_History_Forms
 <!--http://stackoverflow.com/questions/25300017/how-to-ensure-the-javascript-is-at-the-bottom-of-the-code-in-express-handlebars-->
 <!--http://stackoverflow.com/questions/34628978/register-custom-helper-express-and-hbs-->
 {{#section 'script'}}
-    <!-- @todo update the gmaps key and base it on the config -->
     <script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLEMAPSKEY}}&callback=window.app.utilities.initGMap">
     </script>
     <script src="/javascripts/patientMedicalHistoryForm.js"></script>

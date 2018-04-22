@@ -1,7 +1,7 @@
 /**
  * Created by stevoperisic on 6/28/17.
  *
- * FE JS for the patient registration
+ * FE JS for the patient medical history form
  */
 
 (function ($, window) {
@@ -63,13 +63,15 @@
                 e.preventDefault();
                 var $form = $(e.currentTarget);
 
-                if (e.currentTarget.id === 'personalInformationForm') {
-                    me.pIFormSubmit(e);
-                } else if (e.currentTarget.id === 'familyHistory') {
-                    me.fHFormSubmit(e);
-                } else {
-                    app.utilities.formSubmit( app.utilities.getFormData($form), $form )
-                }
+                app.utilities.formSubmit( app.utilities.getFormData($form), $form )
+
+                // if (e.currentTarget.id === 'personalInformationForm') {
+                //     me.pIFormSubmit(e);
+                // } else if (e.currentTarget.id === 'familyHistory') {
+                //     me.fHFormSubmit(e);
+                // } else {
+                //     app.utilities.formSubmit( app.utilities.getFormData($form), $form )
+                // }
             });
 
             $('.findPharmacy').on('click', function (e) {
