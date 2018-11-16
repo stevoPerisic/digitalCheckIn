@@ -62,8 +62,8 @@ app.locals.mainMenu = {
 app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
     process.env.ATHENA_KEY,
     process.env.ATHENA_SECRET,
-    process.env.ATHENA_PREVIEW_PRACTICE_ID
-    // process.env.NRIM_PRACTICE_ID
+    // process.env.ATHENA_PREVIEW_PRACTICE_ID
+    process.env.NRIM_PRACTICE_ID
 );
 
 /**
@@ -93,7 +93,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: process.env.PASSPORT_SECRET,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -113,6 +114,22 @@ app.use( function (req, res, next) {
 
 // set up routes
 app.use('/', index);
+
+// getsession route to set the sessionID cookie
+// cookie is later retrieved on ajax POST from a clients web-site
+app.use('/getsession', function (req, res) {
+    var cookieParams = {
+        maxAge: req.session.cookie.maxAge,
+        httpOnly: true
+    };
+    // set the secure https cookie only in production
+    if(process.env.NODE_ENV === 'production') {
+        cookieParams.secure = true;
+    }
+    res.cookie('AHsession', req.sessionID, cookieParams);
+    res.send('Ok');
+});
+
 app.use('/users', users);
 app.use('/patients', patients);
 app.use('/patientRegistration', patientRegistration);
