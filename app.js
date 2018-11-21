@@ -35,6 +35,7 @@ filenames.forEach(function (filename) {
 
 var index = require('./routes/index');
 var users = require('./routes/users')(passport);
+var applications = require('./routes/applications')(passport);
 var patients = require('./routes/patients');
 var patientRegistration = require('./routes/patientRegistration');
 var patientMedicalHistory = require('./routes/patientMedicalHistory');
@@ -80,12 +81,13 @@ app.set('view engine', 'hbs');
 
 // pass passport for configuration
 require('./bin/passport')(passport);
+require('./bin/passportJWT')(passport);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -114,23 +116,8 @@ app.use( function (req, res, next) {
 
 // set up routes
 app.use('/', index);
-
-// getsession route to set the sessionID cookie
-// cookie is later retrieved on ajax POST from a clients web-site
-app.use('/getsession', function (req, res) {
-    var cookieParams = {
-        maxAge: req.session.cookie.maxAge,
-        httpOnly: true
-    };
-    // set the secure https cookie only in production
-    if(process.env.NODE_ENV === 'production') {
-        cookieParams.secure = true;
-    }
-    res.cookie('AHsession', req.sessionID, cookieParams);
-    res.send('Ok');
-});
-
 app.use('/users', users);
+app.use('/applications', applications);
 app.use('/patients', patients);
 app.use('/patientRegistration', patientRegistration);
 app.use('/patientMedicalHistory', patientMedicalHistory);

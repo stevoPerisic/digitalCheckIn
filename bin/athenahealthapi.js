@@ -172,11 +172,13 @@ function Connection(version, key, secret, practiceid) {
 		var emitter = new events.EventEmitter;
 		var output;
 
-		console.log('verb: ' +verb+ '\n');
-        console.log('path: ' +path+ '\n');
-        console.log('body: ' +body+ '\n');
-        console.log('headers' +JSON.stringify(headers)+ '\n');
-        console.log('--------------------')
+		if(process.env.NODE_ENV === 'development'){
+            console.log('verb: ' +verb+ '\n');
+            console.log('path: ' +path+ '\n');
+            console.log('body: ' +body+ '\n');
+            console.log('headers' +JSON.stringify(headers)+ '\n');
+            console.log('--------------------');
+		}
 
 		var req = https.request({
 			hostname: _hostname,
@@ -199,12 +201,12 @@ function Connection(version, key, secret, practiceid) {
 					 * @todo Sometimes the response is not JSON from aNET this causes the app to crash and has to be fixed
 					 **/
 					try {
-						output = JSON.parse(content)
+						output = JSON.parse(content);
 						emitter.emit('done', output)
 					}
 					catch (e) {
-						e.cause = content
-						emitter.emit('error', e)
+						e.cause = content;
+						emitter.emit('error', e);
 					}
 				})
 			}
@@ -218,7 +220,7 @@ function Connection(version, key, secret, practiceid) {
 		req.end();
 
 		return emitter
-	}
+	};
 
 	/**
 	 * This method adds extra required headers and path elements to calls that require
@@ -232,14 +234,14 @@ function Connection(version, key, secret, practiceid) {
 	 * @returns {events.EventEmitter}
 	 */
 	var authorized_call = function(verb, path, body, headers) {
-		var emitter = new events.EventEmitter
+		var emitter = new events.EventEmitter;
 
-		var new_path = path_join(_version, practiceid, path)
-		var new_body = querystring.stringify(body)
+		var new_path = path_join(_version, practiceid, path);
+		var new_body = querystring.stringify(body);
 		var new_headers = merge({
 			'authorization': 'Bearer ' + _token,
-			'content-length': new_body.length,
-		}, headers)
+			'content-length': new_body.length
+		}, headers);
 
 		// This is a little hack to get authorized calls to retry when we get a 401 Not Authorized.
 		// Since this is Javascript, we can't wait for the second `call` in order to return. To
@@ -271,10 +273,10 @@ function Connection(version, key, secret, practiceid) {
 			})
 			.on('error', function(error) {
 				emitter.emit('error', error)
-			})
+			});
 
 		return emitter
-	}
+	};
 
 
 	/**
@@ -294,13 +296,13 @@ function Connection(version, key, secret, practiceid) {
 		var extra = optional(options, {});
 
 		var params = optional(extra.params, {});
-        console.log('params: ' + JSON.stringify(params));
+        // console.log('params: ' + JSON.stringify(params));
 
 		var headers = optional(extra.headers, {});
 
 		// In a GET request, params go in the URL
 		var query = querystring.stringify(params);
-		console.log('query: ' + query);
+		// console.log('query: ' + query);
 
 		var new_path = path;
 		if (query) {
@@ -329,10 +331,10 @@ function Connection(version, key, secret, practiceid) {
 		var headers = optional(extra.headers, {})
 		var new_headers = merge({
 			'content-type': 'application/x-www-form-urlencoded',
-		}, headers)
+		}, headers);
 
 		return authorized_call('POST', path, params, new_headers)
-	}
+	};
 
 	/**
 	 * Perform a PUT request.
@@ -356,7 +358,7 @@ function Connection(version, key, secret, practiceid) {
 		}, headers)
 
 		return authorized_call('PUT', path, params, new_headers)
-	}
+	};
 
 	/**
 	 * Perform a DELETE request.
@@ -383,7 +385,7 @@ function Connection(version, key, secret, practiceid) {
 		}
 
 		return authorized_call('DELETE', new_path, {}, headers)
-	}
+	};
 
 	/**
 	 * @returns {string} Current access token

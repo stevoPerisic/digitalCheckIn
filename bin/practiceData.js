@@ -101,7 +101,7 @@ module.exports = function (app) {
                      **/
 
                     /** order by date **/
-                    console.log(data);
+                    // console.log(data);
                     if (!data.error) {
                         data.appointments.sort(function (a, b) {
                             return new Date(b.date) - new Date(a.date);
@@ -117,8 +117,8 @@ module.exports = function (app) {
                         });
 
                     } else {
-                        console.log('Error');
-                        console.log(data);
+                        // console.log('Error');
+                        // console.log(data);
                         reject(data);
                     }
 
@@ -127,7 +127,7 @@ module.exports = function (app) {
                 /**
                  * @todo handle error appropriately for the front-end, currently the appt. list just doesn't show
                  **/
-                console.log(data.error);
+                // console.log(data.error);
                 reject(data);
             }
         });
