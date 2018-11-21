@@ -35,6 +35,7 @@ filenames.forEach(function (filename) {
 
 var index = require('./routes/index');
 var users = require('./routes/users')(passport);
+var applications = require('./routes/applications')(passport);
 var patients = require('./routes/patients');
 var patientRegistration = require('./routes/patientRegistration');
 var patientMedicalHistory = require('./routes/patientMedicalHistory');
@@ -62,8 +63,8 @@ app.locals.mainMenu = {
 app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
     process.env.ATHENA_KEY,
     process.env.ATHENA_SECRET,
-    process.env.ATHENA_PREVIEW_PRACTICE_ID
-    // process.env.NRIM_PRACTICE_ID
+    // process.env.ATHENA_PREVIEW_PRACTICE_ID
+    process.env.NRIM_PRACTICE_ID
 );
 
 /**
@@ -80,12 +81,13 @@ app.set('view engine', 'hbs');
 
 // pass passport for configuration
 require('./bin/passport')(passport);
+require('./bin/passportJWT')(passport);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -93,7 +95,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: process.env.PASSPORT_SECRET,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -114,6 +117,7 @@ app.use( function (req, res, next) {
 // set up routes
 app.use('/', index);
 app.use('/users', users);
+app.use('/applications', applications);
 app.use('/patients', patients);
 app.use('/patientRegistration', patientRegistration);
 app.use('/patientMedicalHistory', patientMedicalHistory);
