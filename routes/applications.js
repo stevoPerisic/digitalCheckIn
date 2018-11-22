@@ -11,15 +11,11 @@ var jwt = require('jsonwebtoken');
 
 module.exports = function (passport) {
 
-    router.use(function (req, res, next) {
-        res.header('Access-Control-Allow-Origin', 'http://localhost:8888, http://perisicdesigns.com');
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    router.post('/gentoken', function (req, res) {
+        res.header('Access-Control-Allow-Origin', 'perisicdesigns.com');
+        res.header('Access-Control-Allow-Methods', 'POST');
         res.header('Access-Control-Allow-Headers', 'Content-Type, cache-control');
 
-        next();
-    });
-
-    router.post('/gentoken', function (req, res) {
         var token = jwt.sign({user: {id: 1, username: req.query.appId, password: process.env.APP_PASS1}},
             process.env.PASSPORT_JWT_SECRET,
             { algorithm: 'HS256', expiresIn: '5h'});
@@ -29,6 +25,10 @@ module.exports = function (passport) {
 
 
     router.post('/auth', function (req, res, next) {
+        res.header('Access-Control-Allow-Origin', 'perisicdesigns.com');
+        res.header('Access-Control-Allow-Methods', 'POST');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, cache-control');
+
         passport.authenticate('jwt', {session: false}, function (err, user, info) {
             if (err) {
                 next(err);
