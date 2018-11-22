@@ -18,7 +18,7 @@ module.exports = function (passport) {
 
         // intercept OPTIONS method
         if ('OPTIONS' == req.method) {
-            res.send(200);
+            res.status(200).send('OK');
         }
         else {
             next();
