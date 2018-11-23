@@ -3,22 +3,29 @@
  *
  * Application authentication routes
  * Used to create and check jwt tokens for application API access
+ *
+ * - CORS support -> https://www.html5rocks.com/en/tutorials/cors/#toc-adding-cors-support-to-the-server
  */
 
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
+var allowedHosts = require('./../bin/allowedHosts');
 
 module.exports = function (passport) {
 
     router.use(function (req, res, next) {
-        res.header('Access-Control-Allow-Origin', 'http://perisicdesigns.com');
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
+        if(req.headers.origin && allowedHosts[req.headers.origin]){
+            console.log('Yay we have an allowed host');
+            res.header('Access-Control-Allow-Origin', req.headers.origin);
+        }
+
+        res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
 
         // intercept OPTIONS method
         if ('OPTIONS' == req.method) {
-            res.status(200).send('OK');
+            res.status(200).send('Ok');
         }
         else {
             next();

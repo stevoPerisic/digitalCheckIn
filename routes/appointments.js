@@ -3,18 +3,31 @@
  *
  * Appointments route and controller
  *
+ * - CORS support -> https://www.html5rocks.com/en/tutorials/cors/#toc-adding-cors-support-to-the-server
+ *
  * @todo create a data baseline for the day - a few appointments with basic data entered
  */
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var allowedHosts = require('./../bin/allowedHosts');
 
 router.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://perisicdesigns.com');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
+    if(req.headers.origin && allowedHosts[req.headers.origin]){
+        console.log('Yay we have an allowed host');
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+    }
+
+    res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
 
-    next();
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+        res.status(200).send('Ok');
+    }
+    else {
+        next();
+    }
 });
 
 /** GET routes **/
