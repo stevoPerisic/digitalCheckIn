@@ -9,5 +9,7 @@ module.exports = {
     "http://perisicdesigns.com": true,
     "https://perisicdesigns.com": true,
     "http://www.northroswellinternalmedicine.com": true,
-    "https://www.northroswellinternalmedicine.com": true
+    "https://www.northroswellinternalmedicine.com": true,
+    "http://http://staging.northroswellinternalmedicine.com": true,
+    "https://http://staging.northroswellinternalmedicine.com": true
 };
