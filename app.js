@@ -60,12 +60,21 @@ app.locals.mainMenu = {
 /**
  * Start the Athena NET API connection
  **/
-app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
-    process.env.ATHENA_KEY,
-    process.env.ATHENA_SECRET,
-    // process.env.ATHENA_PREVIEW_PRACTICE_ID
-    process.env.NRIM_PRACTICE_ID
-);
+if(process.env.NODE_ENV === 'production') {
+    app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
+        process.env.ATHENA_PROD_KEY,
+        process.env.ATHENA_PROD_SECRET,
+        process.env.NRIM_PRACTICE_ID
+    );
+} else {
+    app.locals.AHAPI = new athenaHealthAPI.Connection('v1',
+        process.env.ATHENA_KEY,
+        process.env.ATHENA_SECRET,
+        // process.env.ATHENA_PREVIEW_PRACTICE_ID
+        process.env.NRIM_PRACTICE_ID
+    );
+}
+
 
 /**
  * Cache all the practice data (providers, appointments)
