@@ -71,8 +71,8 @@ if(process.env.NODE_ENV === 'production') {
     app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
         process.env.ATHENA_KEY,
         process.env.ATHENA_SECRET,
-        // process.env.ATHENA_PREVIEW_PRACTICE_ID
-        process.env.NRIM_PRACTICE_ID
+        process.env.ATHENA_PREVIEW_PRACTICE_ID
+        // process.env.NRIM_PRACTICE_ID
     );
 }
 
