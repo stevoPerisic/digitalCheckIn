@@ -103,10 +103,12 @@ router.get('/by-provider/:providerid/:startdate/:enddate',
             var startdate = req.params.startdate.split('-').join('/');
             var enddate = req.params.enddate.split('-').join('/');
 
+            var providerid = (process.env.NODE_ENV === 'development') ? '71' : req.params.providerid;
+
             req.app.locals.AHAPI.GET('/appointments/open', {
                 params: {
                     departmentid: 2,
-                    providerid: req.params.providerid,
+                    providerid: providerid, //req.params.providerid,
                     startdate: startdate,
                     enddate: enddate,
                     ignoreschedulablepermission: false,
@@ -130,9 +132,14 @@ router.get('/reasons/:providerid',
             });
         } else {
             // GET /patientappointmentreasons to narrow down a specific appointment reason
-            app.locals.AHAPI.GET('/patientappointmentreasons', {
-                'departmentid': '2',
-                'providerid': req.params.providerid
+
+            var providerid = (process.env.NODE_ENV === 'development') ? '71' : req.params.providerid;
+
+            req.app.locals.AHAPI.GET('/patientappointmentreasons', {
+                params:{
+                    'departmentid': '2',
+                    'providerid': req.params.providerid
+                }
             }).on('done', function (data) {
                 console.log(data);
                 res.send(data);

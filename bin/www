@@ -67,3 +67,8 @@ function onListening() {
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }
+
+// Show unhandled rejections
+process.on('unhandledRejection', function(reason, promise) {
+    console.log(promise);
+});
