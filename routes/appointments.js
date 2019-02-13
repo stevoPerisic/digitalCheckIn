@@ -31,7 +31,7 @@ router.use(function (req, res, next) {
 });
 
 /** GET routes **/
-router.get('/checkin/getcheckinrequirements', function (req, res, next) {
+router.get('/checkin/getcheckinrequirements', function (req, res) {
     var apptreadiness = req.app.locals.AHAPI.GET('/appointments/' + req.cookies.apptid + '/checkin', {params: {}});
     apptreadiness.on('done', function (data) {
         console.log('****** APPT Readiness response ******');
@@ -41,7 +41,7 @@ router.get('/checkin/getcheckinrequirements', function (req, res, next) {
     });
 });
 
-router.get('/checkin/cancel', function (req, res, next) {
+router.get('/checkin/cancel', function (req, res) {
     var cancelCheckIn = req.app.locals.AHAPI.POST('/appointments/' + req.cookies.apptid + '/cancelcheckin', {params: {}});
     cancelCheckIn.on('done', function (data) {
         console.log('Cancel check-in ' + JSON.stringify(data));
@@ -50,7 +50,7 @@ router.get('/checkin/cancel', function (req, res, next) {
 });
 
 /** POST routes **/
-router.post('/checkin/startcheckin', function (req, res, next) {
+router.post('/checkin/startcheckin', function (req, res) {
     /**
      * @description POST Start check-in for this appointment
      * @todo - ENABLE LATER - for now we will NOT be starting the checkin because that freezes the patient
@@ -103,7 +103,7 @@ router.get('/by-provider/:providerid/:startdate/:enddate',
             var startdate = req.params.startdate.split('-').join('/');
             var enddate = req.params.enddate.split('-').join('/');
 
-            var providerid = (process.env.NODE_ENV === 'development') ? '71' : req.params.providerid;
+            var providerid = req.params.providerid;
 
             req.app.locals.AHAPI.GET('/appointments/open', {
                 params: {
@@ -112,7 +112,7 @@ router.get('/by-provider/:providerid/:startdate/:enddate',
                     startdate: startdate,
                     enddate: enddate,
                     ignoreschedulablepermission: false,
-                    reasonid: '2,3,4',
+                    reasonid: '1,2,3,4',
                     showfrozenslots: false
                 }
             }).on('done', function (data) {
@@ -123,8 +123,11 @@ router.get('/by-provider/:providerid/:startdate/:enddate',
     }
 );
 
+/**
+ * GET Appointment reasons for a provider
+ **/
 router.get('/reasons/:providerid',
-    function (req, res, next) {
+    function (req, res) {
         if (!req.params.providerid) {
             res.status(400).send({
                 error: true,
@@ -148,6 +151,7 @@ router.get('/reasons/:providerid',
     }
 );
 
+
 /**
  * Create Appointment routes
  * Used for creating Athena Appointments from web form or chat-bot
@@ -168,20 +172,38 @@ router.get('/reasons/:providerid',
 router.post('/create',
     function (req, res, next) {
         console.log(req.body);
-        // DO WE HAVE A PATIENT?
-        req.app.locals.AHAPI.GET('/patients/enhancedbestmatch', {params: {
-            'dob': req.body.dob,
-            'firstname': req.body.firstName,
-            'lastname': req.body.lastName,
-            'mobilephone': req.body.mobilePhone,
-            'email': req.body.email
-        }}).on('done', function (data) {
-            console.log('Existing patient %o', data[0]);
-            if(data.length === 1) {
-                res.locals.patient = data[0];
-            }
-            next();
-        });
+
+        var nameRegex = /[^0-9\.\,\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+/;
+        var dobRegex = /^(0?[1-9]|1[0-2])[\/](0?[1-9]|[12]\d|3[01])[\/](19|20)\d{2}$/;
+        var phoneRegex = /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/;
+        var emailRegex = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/;
+
+        var patientdata = {
+            'dob': req.body.dob.match(dobRegex) ? req.body.dob : false,
+            'firstname': req.body.firstName.match(nameRegex) ? req.body.firstName : false,
+            'lastname': req.body.lastName.match(nameRegex) ? req.body.lastName : false,
+            'mobilephone': req.body.mobilePhone.match(phoneRegex) ? req.body.mobilePhone: false,
+            'email': req.body.email.match(emailRegex) ? req.body.email : false
+        };
+
+        res.locals.patientdata = patientdata;
+
+        if(!patientdata.dob || !patientdata.firstname || !patientdata.lastname){
+            res.status(400).send({
+                error: true,
+                message: 'Invalid parameters, need dob and name to execute this request.'
+            });
+        }
+        else{
+            // DO WE HAVE A PATIENT?
+            req.app.locals.AHAPI.GET('/patients/enhancedbestmatch', {params: patientdata}).on('done', function (data) {
+                console.log('Existing patient %s', data);
+                if(data.length === 1) {
+                    res.locals.patient = data[0];
+                }
+                next();
+            });
+        }
     },
     function (req, res, next) {
         // NEW Patients
@@ -189,43 +211,39 @@ router.post('/create',
             console.log('Skip the patient creation as we have the id: %s', res.locals.patient.patientid);
             next();
         } else {
+            console.log('We will create a new patient now');
             // POST to /patients to create a new patient and get a patient ID
             // You must supply
             // first and last name, a DOB, department ID,
-            // and at least one patient phone number (home, mobile, work).
-            req.app.locals.AHAPI.POST('/patients', {
-                params: {
-                    'dob': req.body.dob,
-                    'firstname': req.body.firstName,
-                    'lastname': req.body.lastName,
-                    'mobilephone': req.body.mobilePhone,
-                    'email': req.body.email
-                }
-            }).on('done', function (data) {
+            // and at least one patient phone number (home, mobile, work)
+            res.locals.patientdata.departmentid = 2;
+            req.app.locals.AHAPI.POST('/patients', {params: res.locals.patientdata}).on('done', function (data) {
                 console.log(data);
                 // Use a GET to /patients to find the patient ID or GET /patients/enhancedbestmatch
-                req.app.locals.AHAPI.GET('/patients', {
-                    'patientid': data[0].patientid
-                }).on('done', function (data) {
-                    console.log(data);
-                    res.locals.patient = data[0];
-                    next();
+                req.app.locals.AHAPI.GET('/patients/enhancedbestmatch', {params: res.locals.patientdata})
+                    .on('done', function (data) {
+                    console.log(data[0]);
+                    // we return teh patientId back to UI and go get insurance choices
+                    // res.locals.patient = data[0];
+                    // next();
+                    res.send(data[0]);
                 });
             });
         }
     },
-    function (req, res, next) {
+    function (req, res) {
         console.log('Patient id %s', res.locals.patient.patientid);
 
         // PUT to /appointments/{appointmentid} to book a patient
         // required are the patient ID (from step 5),
         // a reason ID (asked from the patient using the list from step 3),
         // and an appointment ID (found in step 4)
-        req.app.locals.AHAPI.PUT('/appointments/'+req.body.appointmentid, {params:{
+        var apptdata = {
             'appointmentid': req.body.appointmentid,
             'patientid': res.locals.patient.patientid,
-            'reasonid': 4
-        }}).on('done', function (data) {
+            'reasonid': parseInt(req.body.patientappointmentreasons, 10)
+        };
+        req.app.locals.AHAPI.PUT('/appointments/'+req.body.appointmentid, {params: apptdata}).on('done', function (data) {
             console.log(data);
             if(!data.error){
                 res.send({success: true, appointment: data});
@@ -233,6 +251,85 @@ router.post('/create',
                 res.send(data);
             }
         });
+    }
+);
+
+/**
+ * GET Search Athena Insurance Options
+ *
+ * ex: https://api.athenahealth.com/v1/3619/insurancepackages?insuranceplanname=BlueCross+BlueShield&memberid=300003
+ *
+ * Sample response:
+ * {
+    "insurances": [{
+        "affiliations": ["BlueCross Secure Network"],
+        "insuranceplanname": "BCBS-SC (Medicare Replacement\/Advantage - HMO)",
+        "insurancepackageid": "492328",
+        "addresslist": ["PO BOX 100300  COLUMBIA SC 29202-3300", "PO BOX 100191  COLUMBIA SC 29202-3191"]
+    }, {
+        "affiliations": ["BlueCross Total Network"],
+        "insuranceplanname": "BCBS-SC (Medicare Replacement\/Advantage - PPO)",
+        "insurancepackageid": "478179",
+        "addresslist": ["PO BOX 100300  COLUMBIA SC 29202-3300", "PO BOX 100191  COLUMBIA SC 29202-3191"]
+    }],
+    "totalcount": 2
+    }
+ **/
+router.get('/insurancepackages',
+    function (req, res) {
+        if (!req.query.insuranceplanname || !req.query.memberid) {
+            res.status(400).send({
+                error: true,
+                message: 'Invalid parameters, need insuranceplanname and memberid to execute this request.'
+            });
+        } else {
+            // GET /insurancepackages and send back to help the user select
+            req.app.locals.AHAPI.GET('/insurancepackages', {
+                params:{
+                    'insuranceplanname': req.query.insuranceplanname,
+                    'memberid': req.query.memberid
+                }
+            }).on('done', function (data) {
+                console.log(data);
+                res.send(data);
+            });
+        }
+    }
+);
+
+/**
+ * GET Update patient insurance
+ *
+ * ex: https://api.athenahealth.com/v1/3619/patients/:patientid/insurances?insurancepackageid={id}&memberid=300003
+ **/
+router.post('/patients/:patientid/insurance',
+    function (req, res) {
+        if (!req.params.patientid) {
+            res.status(400).send({
+                error: true,
+                message: 'Invalid parameters, need patientid to execute this request.'
+            });
+        } else {
+            var nameRegex = /[^0-9\.\,\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+/;
+            var firstname = req.body.insfirstName.match(nameRegex) ? req.body.insfirstName : '';
+            var lastname = req.body.inslastName.match(nameRegex) ? req.body.inslastName : '';
+
+            // POST /patients/:patientid/insurances to update
+            req.app.locals.AHAPI.POST('/patients/'+req.params.patientid+'/insurances', {
+                params:{
+                    'insurancepackageid': req.body.insurancepackageid,
+                    'relationshiptoinsured': 1,
+                    'insurancepolicyholdersex': req.body.insurancepolicyholdersex,
+                    'insurancepolicyholderfirstname': firstname,
+                    'insurancepolicyholderlastname': lastname,
+                    'insuranceidnumber': req.body.insuranceid,
+                    'validateinsuranceidnumber': false
+                }
+            }).on('done', function (data) {
+                console.log(data);
+                res.send(data);
+            });
+        }
     }
 );
 
