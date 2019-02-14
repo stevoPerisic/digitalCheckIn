@@ -107,7 +107,7 @@ router.get('/by-provider/:providerid/:startdate/:enddate',
 
             req.app.locals.AHAPI.GET('/appointments/open', {
                 params: {
-                    departmentid: 2,
+                    departmentid: '2',
                     providerid: providerid, //req.params.providerid,
                     startdate: startdate,
                     enddate: enddate,
@@ -136,7 +136,7 @@ router.get('/reasons/:providerid',
         } else {
             // GET /patientappointmentreasons to narrow down a specific appointment reason
 
-            var providerid = (process.env.NODE_ENV === 'development') ? '71' : req.params.providerid;
+            var providerid = req.params.providerid;
 
             req.app.locals.AHAPI.GET('/patientappointmentreasons', {
                 params:{
@@ -223,10 +223,14 @@ router.post('/create',
                 req.app.locals.AHAPI.GET('/patients/enhancedbestmatch', {params: res.locals.patientdata})
                     .on('done', function (data) {
                     console.log(data[0]);
-                    // we return teh patientId back to UI and go get insurance choices
-                    // res.locals.patient = data[0];
-                    // next();
-                    res.send(data[0]);
+
+                    res.locals.patient = data[0];
+                    next();
+
+                    // we return the patientId back to UI and go get insurance choices
+                    // 02/13 per new requirements we are just going to try an create appointment
+                    // no more insurance flow
+                    // res.send(data[0]);
                 });
             });
         }
