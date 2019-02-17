@@ -14,6 +14,7 @@ var bodyParser = require('body-parser');
 var hbs = require('./bin/hbsHelpers');
 var passport = require('passport');
 var session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
 var flash = require('connect-flash');
 
 // Handlebars partials for views
@@ -102,12 +103,28 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // passport setup
-app.use(session({
+var sessionOpts = {
     secret: process.env.PASSPORT_SECRET,
-    resave: true,
-    saveUninitialized: true,
     cookie: { maxAge: 60000 }
-})); // session secret
+};
+
+if(process.env.NODE_ENV === 'production') {
+    var store = new MongoDBStore({
+        uri: process.env.MONGODB_URI,
+        collection: 'AH-PCI-Sessions'
+    });
+
+    // Catch errors
+    store.on('error', function (error) {
+        console.log(error);
+    });
+
+    sessionOpts.store = store;
+    sessionOpts.resave = true;
+    sessionOpts.saveUninitialized = true;
+}
+
+app.use(session(sessionOpts)); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
