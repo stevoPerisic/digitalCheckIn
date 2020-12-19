@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "browserify ./public/javascripts/patientRegistrationForm.js -o ./public/javascripts/patientRegistrationForm.js",
+    "build": "npm install -g browserify && browserify ./public/javascripts/patientRegistrationForm.js -o ./public/javascripts/patientRegistrationForm.js",
     "start": "./bin/www"
   },
   "heroku-run-build-script": false,
