@@ -15,6 +15,10 @@ var hbs = require('./bin/hbsHelpers');
 var passport = require('passport');
 var session = require('express-session');
 var MongoDBStore = require('connect-mongodb-session')(session);
+
+// new DB
+const { Pool, Client } = require('pg');
+
 var flash = require('connect-flash');
 
 // Handlebars partials for views
@@ -109,6 +113,29 @@ var sessionOpts = {
 };
 
 if(process.env.NODE_ENV === 'production') {
+    // new DB
+    // pools will use environment variables
+    // for connection information
+    const { Client } = require('pg');
+
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
+    });
+
+    client.connect();
+
+    client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        client.end();
+    });
+
+
     var store = new MongoDBStore({
         uri: process.env.MONGODB_URI,
         collection: 'AH-PCI-Sessions'
