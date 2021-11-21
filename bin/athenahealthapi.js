@@ -87,7 +87,9 @@ function Connection(version, key, secret, practiceid) {
 	var _key = '';
 	var _secret = '';
 	var _token = '';
-	var _hostname = 'api.athenahealth.com';
+	// var _hostname = 'api.athenahealth.com';
+	// var _hostname = 'api.preview.platform.athenahealth.com';
+	var _hostname = (process.env.NODE_ENV === 'production') ? 'api.platform.athenahealth.com' : 'api.preview.platform.athenahealth.com';
 
 	/**
 	 * The practice ID to use when sending requests.
@@ -116,15 +118,19 @@ function Connection(version, key, secret, practiceid) {
 		var emitter = new events.EventEmitter
 
 		var auth_prefixes = {
-			v1: '/oauth',
-			preview1: '/oauthpreview',
+			v1: '/oauth2/v1',
+			// preview1: '/oauthpreview',
+			preview1: '/oauth2/v1',
 			openpreview1: '/oauthopenpreview',
 		};
 
 		// Set up the request
 		var verb = 'POST'
 		var path = path_join(auth_prefixes[_version], '/token');
-		var params = querystring.stringify({grant_type: 'client_credentials'});
+		var params = querystring.stringify({
+			grant_type: 'client_credentials',
+			scope: 'athena/service/Athenanet.MDP.*'
+		});
 		var headers = {
 			'authorization': 'Basic ' + new Buffer(_key + ':' + _secret).toString('base64'),
 			'content-type': 'application/x-www-form-urlencoded',
@@ -134,7 +140,7 @@ function Connection(version, key, secret, practiceid) {
 		// Make the request and propagate the events, storing the token for later
 		call(verb, path, params, headers, false)
 			.on('done', function(response) {
-
+				console.log(response);
 				if(!response.access_token){
                     console.log('Missing token!');
                     console.log(response.access_token);
