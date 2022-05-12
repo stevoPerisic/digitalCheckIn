@@ -75,7 +75,8 @@ if(process.env.NODE_ENV === 'production') {
         process.env.ATHENA_KEY,
         process.env.ATHENA_SECRET,
         //process.env.ATHENA_PREVIEW_PRACTICE_ID
-        process.env.NRIM_PRACTICE_ID
+        //process.env.NRIM_PRACTICE_ID
+        "1959304"
     );
 }
 

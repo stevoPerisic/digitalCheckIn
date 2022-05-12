@@ -49,7 +49,7 @@ hbs.registerHelper('providerName', function (providers, options) {
         // one id was a string and the other was an integer - WTF!
         return (parseInt(provider.providerid, 10) === parseInt(appointment.providerid, 10)) ? provider : false;
     });
-    return name.displayname;
+    return (name) ? name.displayname : JSON.stringify(name);
 });
 
 // Helper to match the patients allergies with the checkboxes on the health history form
