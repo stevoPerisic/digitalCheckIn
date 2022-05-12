@@ -119,7 +119,7 @@ router.get('/by-provider/:providerid/:startdate/:enddate',
                     showfrozenslots: false
                 }
             }).on('done', function (data) {
-                // console.log(data);
+                console.log(data);
                 if(data.appointments && data.appointments.length === 0){
                     console.log('No appointments available');
                     console.log(data);
