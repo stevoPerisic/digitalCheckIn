@@ -140,7 +140,7 @@ function Connection(version, key, secret, practiceid) {
 		// Make the request and propagate the events, storing the token for later
 		call(verb, path, params, headers, false)
 			.on('done', function(response) {
-				console.log(response);
+				console.log('Auth call response: %s', response);
 				if(!response.access_token){
                     console.log('Missing token!');
                     console.log(response.access_token);
@@ -203,7 +203,7 @@ function Connection(version, key, secret, practiceid) {
 					content += data
 				})
 				response.on('end', function() {
-					console.log(JSON.parse(content));
+					// console.log(JSON.parse(content));
 					/**
 					 * @todo Sometimes the response is not JSON from aNET this causes the app to crash and has to be fixed
 					 **/
@@ -267,11 +267,11 @@ function Connection(version, key, secret, practiceid) {
 
 						call(verb, new_path, new_body, new_headers, false)
 							.on('done', function(response) {
-								console.log(JSON.stringify(response))
+								console.log('Authenticated call response: %s', response)
 								emitter.emit('done', response)
 							})
 							.on('error', function(error) {
-                                console.log(JSON.stringify(response));
+                                console.log(JSON.stringify(error));
                                 emitter.emit('error', error)
 							})
 					})
