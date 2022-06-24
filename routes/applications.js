@@ -44,10 +44,13 @@ module.exports = function (passport) {
     router.post('/auth', function (req, res, next) {
         passport.authenticate('jwt', {session: false}, function (err, user, info) {
             if (err) {
+                console.log('Passport error: %s', err);
                 next(err);
             } else if (!user) {
+                console.log('No user - Info message: %s', info);
                 res.send({"status": info.message});
             } else {
+                console.log('Passport user: %s', user);
                 res.send({"status": user});
             }
         })(req, res, next);
