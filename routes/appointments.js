@@ -150,7 +150,7 @@ router.get('/reasons/:providerid',
                     'providerid': req.params.providerid
                 }
             }).on('done', function (data) {
-                // console.log(data);
+                console.log(JSON.stringify(data));
                 res.send(data);
             });
         }
@@ -224,10 +224,11 @@ router.post('/create',
             // and at least one patient phone number (home, mobile, work)
             res.locals.patientdata.departmentid = 2;
             req.app.locals.AHAPI.POST('/patients', {params: res.locals.patientdata}).on('done', function (data) {
-                console.log(data);
+                console.log('New Patient = %s', data);
                 // Use a GET to /patients to find the patient ID or GET /patients/enhancedbestmatch
                 req.app.locals.AHAPI.GET('/patients/enhancedbestmatch', {params: res.locals.patientdata}).on('done', function (data) {
-                    // console.log(data[0]);
+                    console.log('New Patient found after creation: %s', data);
+                    console.log('New Patient found after creation: %s', data[0]);
 
                     res.locals.patient = data[0];
                     next();
@@ -253,7 +254,7 @@ router.post('/create',
             'reasonid': parseInt(req.body.patientappointmentreasons, 10)
         };
         req.app.locals.AHAPI.PUT('/appointments/'+req.body.appointmentid, {params: apptdata}).on('done', function (data) {
-            // console.log(data);
+            console.log('Appointment created: %s', data);
             if(!data.error){
                 res.send({success: true, appointment: data});
             } else {
