@@ -156,6 +156,9 @@ app.use('/patientRegistration', patientRegistration);
 app.use('/patientMedicalHistory', patientMedicalHistory);
 app.use('/annualWellnessVisit', annualWellnessVisit);
 app.use('/appointments', appointments);
+app.use('/providers', function(req, res){
+    res.send(app.locals.providers);
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

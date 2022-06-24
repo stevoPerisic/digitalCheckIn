@@ -12,6 +12,8 @@ var router = express.Router();
 var passport = require('passport');
 var allowedHosts = require('./../bin/allowedHosts');
 
+// check for origin header, then check if the origin is in our list of allowed origins
+// send ok status for OPTIONS calls
 router.use(function (req, res, next) {
     if(req.headers.origin && allowedHosts[req.headers.origin]){
         console.log('Yay we have an allowed host');
@@ -84,7 +86,6 @@ router.use(function (req, res, next) {
         } else if (!user) {
             res.send({"status": info.message});
         } else {
-
             next();
         }
     })(req, res, next);
