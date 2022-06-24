@@ -23,14 +23,12 @@ router.use(function (req, res, next) {
     res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
 
-    console.log('debug');
-    console.log(req.method);
+    console.log('Debug %s', req.method);
 
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
-        res.status(200).send('Ok');
-    }
-    else {
+        res.send(200);
+    } else {
         next();
     }
 });
@@ -84,6 +82,7 @@ router.use(function (req, res, next) {
         if (err) {
             next(err);
         } else if (!user) {
+            console.log('No User ... sending status message');
             res.send({"status": info.message});
         } else {
             next();
@@ -106,7 +105,6 @@ router.get('/by-provider/:providerid/:startdate/:enddate',
             // https://api.athenahealth.com/preview1/3619/appointments/open?appointmenttypeid=45&departmentid=2&enddate=12%2F31%2F2019&ignoreschedulablepermission=false&providerid=9&startdate=11%2F01%2F2018
             var startdate = req.params.startdate.split('-').join('/');
             var enddate = req.params.enddate.split('-').join('/');
-
             var providerid = req.params.providerid;
 
             req.app.locals.AHAPI.GET('/appointments/open', {
@@ -120,10 +118,10 @@ router.get('/by-provider/:providerid/:startdate/:enddate',
                     showfrozenslots: false
                 }
             }).on('done', function (data) {
-                console.log(data);
+                // console.log(data);
                 if(data.appointments && data.appointments.length === 0){
                     console.log('No appointments available');
-                    console.log(data);
+                    // console.log(data);
                 }
                 res.send(data);
             });
@@ -152,7 +150,7 @@ router.get('/reasons/:providerid',
                     'providerid': req.params.providerid
                 }
             }).on('done', function (data) {
-                console.log(data);
+                // console.log(data);
                 res.send(data);
             });
         }
@@ -228,9 +226,8 @@ router.post('/create',
             req.app.locals.AHAPI.POST('/patients', {params: res.locals.patientdata}).on('done', function (data) {
                 console.log(data);
                 // Use a GET to /patients to find the patient ID or GET /patients/enhancedbestmatch
-                req.app.locals.AHAPI.GET('/patients/enhancedbestmatch', {params: res.locals.patientdata})
-                    .on('done', function (data) {
-                    console.log(data[0]);
+                req.app.locals.AHAPI.GET('/patients/enhancedbestmatch', {params: res.locals.patientdata}).on('done', function (data) {
+                    // console.log(data[0]);
 
                     res.locals.patient = data[0];
                     next();
@@ -256,7 +253,7 @@ router.post('/create',
             'reasonid': parseInt(req.body.patientappointmentreasons, 10)
         };
         req.app.locals.AHAPI.PUT('/appointments/'+req.body.appointmentid, {params: apptdata}).on('done', function (data) {
-            console.log(data);
+            // console.log(data);
             if(!data.error){
                 res.send({success: true, appointment: data});
             } else {
