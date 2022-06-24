@@ -15,10 +15,10 @@ var allowedHosts = require('./../bin/allowedHosts');
 // check for origin header, then check if the origin is in our list of allowed origins
 // send ok status for OPTIONS calls
 router.use(function (req, res, next) {
-    if(req.headers.origin && allowedHosts[req.headers.origin]){
-        console.log('Yay we have an allowed host');
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
-    }
+    // if(req.headers.origin && allowedHosts[req.headers.origin]){
+    //     console.log('Yay we have an allowed host');
+    //     res.header('Access-Control-Allow-Origin', req.headers.origin);
+    // }
 
     // res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
     // res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
