@@ -15,27 +15,6 @@ var allowedHosts = require('./../bin/allowedHosts');
 // check for origin header, then check if the origin is in our list of allowed origins
 // send ok status for OPTIONS calls
 router.use(function (req, res, next) {
-    // if(req.headers.origin && allowedHosts[req.headers.origin]){
-    //     console.log('Yay we have an allowed host');
-    //     res.header('Access-Control-Allow-Origin', req.headers.origin);
-    // }
-
-    // res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-    // res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
-
-    console.log('Debug %s', req.method);
-    next();
-
-    // intercept OPTIONS method
-    // if ('OPTIONS' == req.method) {
-    //     res.end();
-    // } else {
-    //     next();
-    // }
-});
-
-router.options(function (req, res) {
-    console.log('OPTIONS CALL from PreFlight....');
     if(req.headers.origin && allowedHosts[req.headers.origin]){
         console.log('Yay we have an allowed host');
         res.header('Access-Control-Allow-Origin', req.headers.origin);
@@ -43,7 +22,15 @@ router.options(function (req, res) {
 
     res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
-    res.status(200).end();
+
+    console.log('Debug %s', req.method);
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+        res.status(200).send('OK');
+    } else {
+        next();
+    }
 });
 
 /** GET routes **/
