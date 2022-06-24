@@ -35,6 +35,7 @@ router.use(function (req, res, next) {
 });
 
 router.options(function (req, res) {
+    console.log('OPTIONS CALL from PreFlight....');
     if(req.headers.origin && allowedHosts[req.headers.origin]){
         console.log('Yay we have an allowed host');
         res.header('Access-Control-Allow-Origin', req.headers.origin);
