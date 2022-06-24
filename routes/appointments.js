@@ -80,11 +80,13 @@ router.use(function (req, res, next) {
         // console.log('User %o', user);
 
         if (err) {
+            console.log('Passport error: %s', err);
             next(err);
         } else if (!user) {
-            console.log('No User ... sending status message');
+            console.log('No user - Info message: %s', info);
             res.send({"status": info.message});
         } else {
+            console.log('Passport user: %s', user);
             next();
         }
     })(req, res, next);
