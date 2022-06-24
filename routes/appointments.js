@@ -28,7 +28,7 @@ router.use(function (req, res, next) {
 
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
-        res.status(200).send('Ok');
+        res.send(200);
     }
     else {
         next();
