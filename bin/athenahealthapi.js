@@ -179,10 +179,11 @@ function Connection(version, key, secret, practiceid) {
 		var output;
 
 		if(process.env.NODE_ENV === 'development'){
+            console.log('_hostname: ' +_hostname+ '\n');
             console.log('verb: ' +verb+ '\n');
             console.log('path: ' +path+ '\n');
             console.log('body: ' +body+ '\n');
-            console.log('headers' +JSON.stringify(headers)+ '\n');
+            console.log('headers: ' +JSON.stringify(headers)+ '\n');
             console.log('--------------------');
 		}
 
@@ -202,7 +203,7 @@ function Connection(version, key, secret, practiceid) {
 					content += data
 				})
 				response.on('end', function() {
-					// console.log(JSON.parse(content));
+					console.log(JSON.parse(content));
 					/**
 					 * @todo Sometimes the response is not JSON from aNET this causes the app to crash and has to be fixed
 					 **/
@@ -266,10 +267,12 @@ function Connection(version, key, secret, practiceid) {
 
 						call(verb, new_path, new_body, new_headers, false)
 							.on('done', function(response) {
+								console.log(JSON.stringify(response))
 								emitter.emit('done', response)
 							})
 							.on('error', function(error) {
-								emitter.emit('error', error)
+                                console.log(JSON.stringify(response));
+                                emitter.emit('error', error)
 							})
 					})
 			})
@@ -302,13 +305,13 @@ function Connection(version, key, secret, practiceid) {
 		var extra = optional(options, {});
 
 		var params = optional(extra.params, {});
-        // console.log('params: ' + JSON.stringify(params));
+        console.log('params: ' + JSON.stringify(params));
 
 		var headers = optional(extra.headers, {});
 
 		// In a GET request, params go in the URL
 		var query = querystring.stringify(params);
-		// console.log('query: ' + query);
+		console.log('query: ' + query);
 
 		var new_path = path;
 		if (query) {
