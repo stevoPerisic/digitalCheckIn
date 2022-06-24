@@ -20,17 +20,29 @@ router.use(function (req, res, next) {
         res.header('Access-Control-Allow-Origin', req.headers.origin);
     }
 
-    res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
+    // res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    // res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
 
     console.log('Debug %s', req.method);
+    next();
 
     // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-        res.end(200);
-    } else {
-        next();
+    // if ('OPTIONS' == req.method) {
+    //     res.end();
+    // } else {
+    //     next();
+    // }
+});
+
+router.options(function (req, res) {
+    if(req.headers.origin && allowedHosts[req.headers.origin]){
+        console.log('Yay we have an allowed host');
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
     }
+
+    res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
+    res.end();
 });
 
 /** GET routes **/

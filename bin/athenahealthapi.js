@@ -132,7 +132,7 @@ function Connection(version, key, secret, practiceid) {
 			scope: 'athena/service/Athenanet.MDP.*'
 		});
 		var headers = {
-			'authorization': 'Basic ' + new Buffer(_key + ':' + _secret).toString('base64'),
+			'authorization': 'Basic ' + Buffer.from(_key + ':' + _secret).toString('base64'),
 			'content-type': 'application/x-www-form-urlencoded',
 			'content-length': params.length,
 		};
