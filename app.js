@@ -64,7 +64,7 @@ app.locals.mainMenu = {
 /**
  * Start the Athena NET API connection
  **/
-console.log("ENVIRONMENT: "+process.env.NODE_ENV);
+console.log("ENVIRONMENT: %s", process.env.NODE_ENV);
 if(process.env.NODE_ENV === 'production') {
     app.locals.AHAPI = new athenaHealthAPI.Connection('v1',
         process.env.ATHENA_NEW_PROD_CLIENT_ID,
@@ -124,7 +124,7 @@ if(process.env.NODE_ENV === 'production') {
 
     // Catch errors
     store.on('error', function (error) {
-        console.log(error);
+        console.error('Passport store error: %s', error);
     });
 
     sessionOpts.store = store;
