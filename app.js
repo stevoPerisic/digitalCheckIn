@@ -125,7 +125,9 @@ if(process.env.NODE_ENV === 'production') {
     var store = new pgSession({
        conObject: {
            connectionString: process.env.DATABASE_URL,
-           ssl: true
+           ssl: {
+               rejectUnauthorized: false
+           }
        }
     });
 
