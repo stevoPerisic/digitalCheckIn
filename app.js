@@ -119,8 +119,15 @@ if(process.env.NODE_ENV === 'production') {
     //     uri: process.env.MONGODB_URI,
     //     collection: 'AH-PCI-Sessions'
     // });
+    var pgSession = require('connect-pg-simple')(session);
+    // var store = new (require('connect-pg-simple')(session))();
 
-    var store = new (require('connect-pg-simple')(session))();
+    var store = new pgSession({
+       conObject: {
+           connectionString: process.env.DATABASE_URL,
+           ssl: true
+       }
+    });
 
     // Catch errors
     store.on('error', function (error) {
