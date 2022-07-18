@@ -180,9 +180,9 @@ app.use('/providers', function(req, res){
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
         res.status(200).send('Ok');
+    } else {
+        res.send(app.locals.providers);
     }
-
-    res.send(app.locals.providers);
 });
 
 // catch 404 and forward to error handler
