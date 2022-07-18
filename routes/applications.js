@@ -50,7 +50,7 @@ module.exports = function (passport) {
                 console.log('No user - Info message: %s', info);
                 res.send({"status": info.message});
             } else {
-                console.log('Passport user: %s', user);
+                // console.log('Passport user: %s', user);
                 res.send({"status": user});
             }
         })(req, res, next);
