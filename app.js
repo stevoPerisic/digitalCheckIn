@@ -168,6 +168,7 @@ app.use('/patientMedicalHistory', patientMedicalHistory);
 app.use('/annualWellnessVisit', annualWellnessVisit);
 app.use('/appointments', appointments);
 app.use('/providers', function(req, res){
+    var allowedHosts = require('./bin/allowedHosts');
     if(req.headers.origin && allowedHosts[req.headers.origin]){
         console.log('Yay we have an allowed host');
         res.header('Access-Control-Allow-Origin', req.headers.origin);
