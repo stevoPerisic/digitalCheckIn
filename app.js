@@ -168,6 +168,19 @@ app.use('/patientMedicalHistory', patientMedicalHistory);
 app.use('/annualWellnessVisit', annualWellnessVisit);
 app.use('/appointments', appointments);
 app.use('/providers', function(req, res){
+    if(req.headers.origin && allowedHosts[req.headers.origin]){
+        console.log('Yay we have an allowed host');
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+    }
+
+    res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+        res.status(200).send('Ok');
+    }
+
     res.send(app.locals.providers);
 });
 
