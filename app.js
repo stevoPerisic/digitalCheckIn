@@ -17,7 +17,7 @@ var hbs = require('./bin/hbsHelpers');
 var passport = require('passport');
 var session = require('express-session');
 // var MongoDBStore = require('connect-mongodb-session')(session);
-
+const HttpStatus = require('http-status-codes');
 var flash = require('connect-flash');
 
 // Handlebars partials for views
@@ -72,13 +72,10 @@ if(process.env.NODE_ENV === 'production') {
         process.env.NRIM_PRACTICE_ID
     );
 } else {
-    // app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
     app.locals.AHAPI = new athenaHealthAPI.Connection('v1',
         process.env.ATHENA_KEY,
         process.env.ATHENA_SECRET,
-        //process.env.ATHENA_PREVIEW_PRACTICE_ID
-        //process.env.NRIM_PRACTICE_ID
-        "1959304"
+        process.env.ATHENA_PREVIEW_PRACTICE_ID
     );
 }
 
@@ -179,7 +176,7 @@ app.use('/providers', function(req, res){
 
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
-        res.status(200).send('Ok');
+        res.status(HttpStatus.OK).send('Ok');
     } else {
         res.send(app.locals.providers);
     }
@@ -202,7 +199,7 @@ app.use(function (err, req, res) {
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     // render the error page
-    res.status(err.status || 500);
+    res.status(err.status || HttpStatus.INTERNAL_SERVER_ERROR);
     res.render('error');
 });
 

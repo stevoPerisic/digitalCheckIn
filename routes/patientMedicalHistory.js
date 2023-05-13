@@ -16,6 +16,7 @@ var formsConfig = require('../bin/formsConfig');
 //     key: process.env.GOOGLEMAPSKEY,
 //     Promise: Promise
 // });
+const HttpStatus = require('http-status-codes');
 
 /**
  * Patient Allergies recorded in aNet
@@ -293,10 +294,10 @@ router.get('/pharmacies', function (req, res, next) {
             });
             data = data.slice(0, 9);
             req.app.locals.pharmacies = data;
-            res.status(200).send({pharmacies: data.slice(0, 9), key: process.env.GOOGLEMAPSKEY});
+            res.status(HttpStatus.OK).send({pharmacies: data.slice(0, 9), key: process.env.GOOGLEMAPSKEY});
         }catch(err){
             console.log(err);
-            res.status(401).send(err);
+            res.status(HttpStatus.UNAUTHORIZED).send(err);
         }
     });
 });
@@ -342,13 +343,13 @@ router.post('/personalInfo',
          * Submit allergies in this form
          * {"allergenname": "aspirin", "allergenid": 13279, "reactions": [], "note": "DUE TO LOW PLATELTS"}
          **/
-        res.status(200).send({message: postMessage, data: req.body});
+        res.status(HttpStatus.OK).send({message: postMessage, data: req.body});
     }
 );
 
 router.post('/familyHistory', function (req, res, next) {
     console.log(req.body);
-    res.status(200).send({message: postMessage, data: req.body});
+    res.status(HttpStatus.OK).send({message: postMessage, data: req.body});
 });
 
 /**
@@ -385,25 +386,25 @@ router.post('/socialHistory', function (req, res, next) {
             res.sendStatus(200);
         } else {
             console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
-            res.status(500).send(data)
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(data)
         }
     });
-    // res.status(200).send({message: postMessage, data: req.body});
+    // res.status(HttpStatus.OK).send({message: postMessage, data: req.body});
 });
 
 router.post('/surgicalHistory', function (req, res, next) {
     console.log(req.body);
-    res.status(200).send({message: postMessage, data: req.body});
+    res.status(HttpStatus.OK).send({message: postMessage, data: req.body});
 });
 
 router.post('/medicalHistory', function (req, res, next) {
     console.log(req.body);
-    res.status(200).send({message: postMessage, data: req.body});
+    res.status(HttpStatus.OK).send({message: postMessage, data: req.body});
 });
 
 router.post('/medications', function (req, res, next) {
     console.log(req.body);
-    res.status(200).send({message: postMessage, data: req.body});
+    res.status(HttpStatus.OK).send({message: postMessage, data: req.body});
 });
 
 

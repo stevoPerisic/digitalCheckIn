@@ -11,6 +11,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var allowedHosts = require('./../bin/allowedHosts');
+const HttpStatus = require('http-status-codes');
 
 // check for origin header, then check if the origin is in our list of allowed origins
 // send ok status for OPTIONS calls
@@ -27,7 +28,7 @@ router.use(function (req, res, next) {
 
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
-        res.status(200).send('OK');
+        res.status(HttpStatus.OK).send('OK');
     } else {
         next();
     }
@@ -40,7 +41,7 @@ router.get('/checkin/getcheckinrequirements', function (req, res) {
         console.log('****** APPT Readiness response ******');
         console.log(data);
         req.app.locals.apptReadiness = data;
-        res.status(200).send(data);
+        res.status(HttpStatus.OK).send(data);
     });
 });
 
@@ -63,7 +64,7 @@ router.post('/checkin/startcheckin', function (req, res) {
     appt.on('done', function (data) {
         console.log('****** Start Check-In response ******');
         console.log(data);
-        res.status(200).send(data);
+        res.status(HttpStatus.OK).send(data);
         // res.render('index', {appts: data.appointments});
     });
 });
@@ -98,7 +99,7 @@ router.use(function (req, res, next) {
 router.get('/by-provider/:providerid/:startdate/:enddate',
     function (req, res) {
         if (!req.params.providerid || !req.params.startdate || !req.params.enddate) {
-            res.status(400).send({
+            res.status(HttpStatus.BAD_REQUEST).send({
                 error: true,
                 message: 'Invalid parameters, need providerid, startdate and enddate to execute this request.'
             });
@@ -137,7 +138,7 @@ router.get('/by-provider/:providerid/:startdate/:enddate',
 router.get('/reasons/:providerid',
     function (req, res) {
         if (!req.params.providerid) {
-            res.status(400).send({
+            res.status(HttpStatus.BAD_REQUEST).send({
                 error: true,
                 message: 'Invalid parameters, need providerid to execute this request.'
             });
@@ -197,7 +198,7 @@ router.post('/create',
         res.locals.patientdata = patientdata;
 
         if(!patientdata.dob || !patientdata.firstname || !patientdata.lastname){
-            res.status(400).send({
+            res.status(HttpStatus.BAD_REQUEST).send({
                 error: true,
                 message: 'Invalid parameters, need dob and name to execute this request.'
             });
@@ -290,7 +291,7 @@ router.post('/create',
 router.get('/insurancepackages',
     function (req, res) {
         if (!req.query.insuranceplanname || !req.query.memberid) {
-            res.status(400).send({
+            res.status(HttpStatus.BAD_REQUEST).send({
                 error: true,
                 message: 'Invalid parameters, need insuranceplanname and memberid to execute this request.'
             });
@@ -317,7 +318,7 @@ router.get('/insurancepackages',
 router.post('/patients/:patientid/insurance',
     function (req, res) {
         if (!req.params.patientid) {
-            res.status(400).send({
+            res.status(HttpStatus.BAD_REQUEST).send({
                 error: true,
                 message: 'Invalid parameters, need patientid to execute this request.'
             });

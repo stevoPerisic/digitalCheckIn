@@ -3,6 +3,7 @@
 'use strict';
 var express = require('express');
 var router = express.Router();
+const HttpStatus = require('http-status-codes');
 
 router.get('/:patientId/loadData',
     /**
@@ -24,10 +25,10 @@ router.get('/:patientId/loadData',
         patient.on('done', function (data) {
             if(!data.error) {
                 req.app.locals.patient = data[0];
-                res.status(200).send('Patient data loaded');
+                res.status(HttpStatus.OK).send('Patient data loaded');
             } else {
                 console.log(data);
-                res.status(200).send('Issue loading patient data');
+                res.status(HttpStatus.OK).send('Issue loading patient data');
             }
         });
     }

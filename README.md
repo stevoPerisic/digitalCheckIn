@@ -43,3 +43,11 @@ Use this plugin for capturing digital signature:
 - https://github.com/szimek/signature_pad
 
 ----
+
+Event and real-time comms
+https://socket.io/get-started/
+
+----
+
+Epic APIs
+https://fhir.epic.com/Documentation?docId=developerguidelines
