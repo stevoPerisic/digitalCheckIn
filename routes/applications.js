@@ -11,6 +11,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var allowedHosts = require('./../bin/allowedHosts');
+const HttpStatus = require('http-status-codes');
 
 module.exports = function (passport) {
 
@@ -25,7 +26,7 @@ module.exports = function (passport) {
 
         // intercept OPTIONS method
         if ('OPTIONS' == req.method) {
-            res.status(200).send('Ok');
+            res.status(HttpStatus.OK).send('Ok');
         }
         else {
             next();

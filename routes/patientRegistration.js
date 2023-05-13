@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var app = require('../app');
 var formsConfig = require('../bin/formsConfig');
+const HttpStatus = require('http-status-codes');
 
 /**
  * @description Patient registration form GET route,
@@ -210,10 +211,10 @@ router.post('/demographics', function (req, res, next) {
             res.sendStatus(200);
         } else {
             console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
-            res.status(500).send(data)
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(data)
         }
     });
-    // res.status(200).send(req.body);
+    // res.status(HttpStatus.OK).send(req.body);
 });
 
 /**
@@ -237,10 +238,10 @@ router.post('/additionalInfo', function (req, res, next){
             res.sendStatus(200);
         } else {
             console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
-            res.status(500).send(data)
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(data)
         }
     });
-    // res.status(200).send(req.body);
+    // res.status(HttpStatus.OK).send(req.body);
 });
 
 /**
@@ -274,10 +275,10 @@ router.post('/patientRights', function (req, res, next){
             res.sendStatus(200);
         } else {
             console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data['error']);
-            res.status(500).send(data)
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(data)
         }
     });
-    // res.status(200).send(req.body);
+    // res.status(HttpStatus.OK).send(req.body);
 });
 
 /**
@@ -320,10 +321,10 @@ router.post('/releaseInfoConsent', function (req, res, next){
             res.sendStatus(200);
         } else {
             console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
-            res.status(500).send(data)
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(data)
         }
     });
-    // res.status(200).send(req.body);
+    // res.status(HttpStatus.OK).send(req.body);
 });
 
 /**
@@ -337,7 +338,7 @@ router.post('/releaseInfoConsent', function (req, res, next){
  **/
 router.post('/insuredParty', function (req, res, next) {
     console.log(req.body);
-    res.status(200).send(req.body);
+    res.status(HttpStatus.OK).send(req.body);
 });
 
 /**
@@ -349,7 +350,7 @@ router.post('/insuredParty', function (req, res, next) {
  **/
 router.post('/insuranceInfo', function (req, res, next) {
         console.log(req.body);
-        res.status(200).send(req.body);
+        res.status(HttpStatus.OK).send(req.body);
     }
 );
 

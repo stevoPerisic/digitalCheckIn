@@ -17,7 +17,7 @@ var hbs = require('./bin/hbsHelpers');
 var passport = require('passport');
 var session = require('express-session');
 // var MongoDBStore = require('connect-mongodb-session')(session);
-
+const HttpStatus = require('http-status-codes');
 var flash = require('connect-flash');
 
 // Handlebars partials for views
@@ -176,7 +176,7 @@ app.use('/providers', function(req, res){
 
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
-        res.status(200).send('Ok');
+        res.status(HttpStatus.OK).send('Ok');
     } else {
         res.send(app.locals.providers);
     }
@@ -199,7 +199,7 @@ app.use(function (err, req, res) {
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     // render the error page
-    res.status(err.status || 500);
+    res.status(err.status || HttpStatus.INTERNAL_SERVER_ERROR);
     res.render('error');
 });
 
