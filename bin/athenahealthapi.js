@@ -87,21 +87,20 @@ function Connection(version, key, secret, practiceid) {
 	var _key = '';
 	var _secret = '';
 	var _token = '';
-	// var _hostname = 'api.athenahealth.com';
-	// var _hostname = 'api.preview.platform.athenahealth.com';
 	var _hostname = (process.env.NODE_ENV === 'production') ? 'api.platform.athenahealth.com' : 'api.preview.platform.athenahealth.com';
 
 	/**
 	 * The practice ID to use when sending requests.
 	 * @member {string|number} practiceid
 	 */
-	this.practiceid = void 0
+	this.practiceid = void 0;
 
 	function __construct(self) {
-		_version = version
-		_key = key
-		_secret = secret
-		self.practiceid = optional(practiceid, void 0)
+		_version = version;
+		_key = key;
+		_secret = secret;
+		self.practiceid = optional(practiceid, void 0);
+		console.log('Practice ID: '+self.practiceid);
 		self.status = authenticate()
 	}
 
@@ -114,27 +113,25 @@ function Connection(version, key, secret, practiceid) {
 	 * @returns {events.EventEmitter}
 	 */
 	var authenticate = function() {
-
-		var emitter = new events.EventEmitter
-
+		var emitter = new events.EventEmitter;
 		var auth_prefixes = {
 			v1: '/oauth2/v1',
 			// preview1: '/oauthpreview',
 			preview1: '/oauth2/v1',
 			openpreview1: '/oauthopenpreview',
 		};
-
 		// Set up the request
 		var verb = 'POST'
 		var path = path_join(auth_prefixes[_version], '/token');
 		var params = querystring.stringify({
-			grant_type: 'client_credentials',
-			scope: 'athena/service/Athenanet.MDP.*'
+            grant_type: 'client_credentials',
+            scope: 'athena/service/Athenanet.MDP.*',
 		});
+		console.log('API Key: %s', _key);
+		console.log('API Secret: %s', _secret);
 		var headers = {
-			'authorization': 'Basic ' + Buffer.from(_key + ':' + _secret).toString('base64'),
-			'content-type': 'application/x-www-form-urlencoded',
-			'content-length': params.length,
+			'Authorization': 'Basic ' + btoa(_key + ':' + _secret),
+            'Content-Type': 'application/x-www-form-urlencoded',
 		};
 
 		// Make the request and propagate the events, storing the token for later

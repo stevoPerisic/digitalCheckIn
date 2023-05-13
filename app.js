@@ -72,13 +72,10 @@ if(process.env.NODE_ENV === 'production') {
         process.env.NRIM_PRACTICE_ID
     );
 } else {
-    // app.locals.AHAPI = new athenaHealthAPI.Connection('preview1',
     app.locals.AHAPI = new athenaHealthAPI.Connection('v1',
         process.env.ATHENA_KEY,
         process.env.ATHENA_SECRET,
-        //process.env.ATHENA_PREVIEW_PRACTICE_ID
-        //process.env.NRIM_PRACTICE_ID
-        "1959304"
+        process.env.ATHENA_PREVIEW_PRACTICE_ID
     );
 }
 
