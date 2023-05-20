@@ -112,14 +112,7 @@ var sessionOpts = {
 };
 
 if(process.env.NODE_ENV === 'production') {
-    // new DB
-    // var store = new MongoDBStore({
-    //     uri: process.env.MONGODB_URI,
-    //     collection: 'AH-PCI-Sessions'
-    // });
     var pgSession = require('connect-pg-simple')(session);
-    // var store = new (require('connect-pg-simple')(session))();
-
     var store = new pgSession({
        conObject: {
            connectionString: process.env.DATABASE_URL,
