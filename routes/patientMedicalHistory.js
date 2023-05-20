@@ -72,8 +72,8 @@ router.get('/',
             var appointment = req.app.locals.AHAPI.GET('/appointments/' + req.cookies.apptid, {params: params});
 
             appointment.on('done', function (data) {
-                console.log('****** Current Appointment data ********');
-                console.log(data);
+                // console.log('****** Current Appointment data ********');
+                // console.log(data);
                 req.app.locals.currAppt = data[0];
                 // res.send(data);
                 next();
@@ -96,8 +96,8 @@ router.get('/',
         };
         var defaultPharmacy = req.app.locals.AHAPI.GET('/chart/' + +req.cookies.patientid + '/pharmacies/default', {params: params});
         defaultPharmacy.on('done', function (data) {
-            console.log('****** Default pharmacy ********');
-            console.log(data);
+            // console.log('****** Default pharmacy ********');
+            // console.log(data);
             req.app.locals.defaultPharmacy = data;
             next();
         });
@@ -111,8 +111,8 @@ router.get('/',
         };
         var preferredPharmacy = req.app.locals.AHAPI.GET('/chart/' + +req.cookies.patientid + '/pharmacies/preferred', {params: params});
         preferredPharmacy.on('done', function (data) {
-            console.log('****** Preferred pharmacy ********');
-            console.log(data);
+            // console.log('****** Preferred pharmacy ********');
+            // console.log(data);
             if(!data.error){
                 req.app.locals.preferredPharmacy = data.pharmacies[0];
             } else {
@@ -130,8 +130,8 @@ router.get('/',
         };
         var allergies = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/allergies', {params: params});
         allergies.on('done', function (data) {
-            console.log('****** Recorded Allergies ********');
-            console.log(data);
+            // console.log('****** Recorded Allergies ********');
+            // console.log(data);
             req.app.locals.allergies = data.allergies;
             next();
         });
@@ -161,8 +161,8 @@ router.get('/',
         };
         var familyHistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/familyhistory', {params: params});
         familyHistory.on('done', function (data) {
-            console.log('****** Family history ********');
-            console.log(JSON.stringify(data));
+            // console.log('****** Family history ********');
+            // console.log(JSON.stringify(data));
             req.app.locals.familyHistory = data.relatives;
             next();
         });
@@ -177,8 +177,8 @@ router.get('/',
 
         var socialhistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/socialhistory', {params: params});
         socialhistory.on('done', function (data) {
-            console.log('****** Social history ********');
-            console.log(data);
+            // console.log('****** Social history ********');
+            // console.log(data);
             // order by question id
             data.questions.sort(function (a, b) {
                 return a.questionid - b.questionid;
@@ -202,8 +202,8 @@ router.get('/',
 
         var surgicalhistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/surgicalhistory', {params: params});
         surgicalhistory.on('done', function (data) {
-            console.log('****** Surgical History ********');
-            console.log(data);
+            // console.log('****** Surgical History ********');
+            // console.log(data);
             req.app.locals.surgicalHistory = data.procedures;
             next();
         });
@@ -215,8 +215,8 @@ router.get('/',
         };
         var medicalhistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/medicalhistory', {params: params});
         medicalhistory.on('done', function (data) {
-            console.log('****** Health history ********');
-            console.log(data);
+            // console.log('****** Health history ********');
+            // console.log(data);
             /** order by question id **/
             data.questions.sort(function (a, b) {
                 return a.questionid - b.questionid;
@@ -233,8 +233,8 @@ router.get('/',
         };
         var medicationshistory = req.app.locals.AHAPI.GET('/chart/' + req.cookies.patientid + '/medications', {params: params});
         medicationshistory.on('done', function (data) {
-            console.log('****** Medication History ********');
-            console.log(data);
+            // console.log('****** Medication History ********');
+            // console.log(data);
             req.app.locals.medicationHistory = data;
             // res.send(req.app.locals.medicationHistory);
             next();
@@ -243,11 +243,11 @@ router.get('/',
     // Render page
     function (req, res, next) {
 
-        console.log('*** Logged in User ******');
-        console.log(req.session.passport.user);
-        console.log(req.user);
-        console.log(req.isAuthenticated());
-        console.log('*************');
+        // console.log('*** Logged in User ******');
+        // console.log(req.session.passport.user);
+        // console.log(req.user);
+        // console.log(req.isAuthenticated());
+        // console.log('*************');
 
         // we've gathered all the patient med history data so render the screen
         res.render('patientMedicalHistory', {
@@ -276,8 +276,8 @@ router.get('/',
  *
  **/
 router.get('/pharmacies', function (req, res, next) {
-    console.log('*** Pharmacies request ******');
-    console.log(req.query.name);
+    // console.log('*** Pharmacies request ******');
+    // console.log(req.query.name);
     var params = {
         departmentid: req.app.locals.currAppt.departmentid,
         name: req.query.name,
@@ -286,7 +286,7 @@ router.get('/pharmacies', function (req, res, next) {
     };
     var pharmacies = req.app.locals.AHAPI.GET('/chart/configuration/facilities', {params: params});
     pharmacies.on('done', function (data) {
-        console.log('****** Pharmacies response ********');
+        // console.log('****** Pharmacies response ********');
         try{
             // order by distance
             data.sort(function (a, b) {
@@ -296,7 +296,7 @@ router.get('/pharmacies', function (req, res, next) {
             req.app.locals.pharmacies = data;
             res.status(HttpStatus.OK).send({pharmacies: data.slice(0, 9), key: process.env.GOOGLEMAPSKEY});
         }catch(err){
-            console.log(err);
+            console.error(err);
             res.status(HttpStatus.UNAUTHORIZED).send(err);
         }
     });
@@ -305,7 +305,7 @@ router.get('/pharmacies', function (req, res, next) {
 var postMessage = 'Posted Medical History';
 
 router.post('/', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     res.sendStatus(200);
 });
 
@@ -333,7 +333,7 @@ router.post('/personalInfo',
         next();
     },
     function (req, res, next) {
-        console.log(req.body);
+        // console.log(req.body);
         /**
          * @todo post the data to the personal info and allergies section
          *
@@ -348,7 +348,7 @@ router.post('/personalInfo',
 );
 
 router.post('/familyHistory', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     res.status(HttpStatus.OK).send({message: postMessage, data: req.body});
 });
 
@@ -374,18 +374,18 @@ router.post('/familyHistory', function (req, res, next) {
                         }]
  **/
 router.post('/socialHistory', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     var postData = req.body,
         aNEtAPI = req.params.aNetAPI,
         patientid = req.cookies.patientid;
 
     var submitData = req.app.locals.AHAPI.PUT('chart/' + patientid + '/socialhistory', {params: postData});
     submitData.on('done', function (data) {
-        console.log(data);
+        // console.log(data);
         if (!data.error) {
             res.sendStatus(200);
         } else {
-            console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
+            console.error('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(data)
         }
     });
@@ -393,17 +393,17 @@ router.post('/socialHistory', function (req, res, next) {
 });
 
 router.post('/surgicalHistory', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     res.status(HttpStatus.OK).send({message: postMessage, data: req.body});
 });
 
 router.post('/medicalHistory', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     res.status(HttpStatus.OK).send({message: postMessage, data: req.body});
 });
 
 router.post('/medications', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     res.status(HttpStatus.OK).send({message: postMessage, data: req.body});
 });
 

@@ -15,7 +15,7 @@
              * - click event for the "Next" button in the accordion, also SUBMITS THE PARENT FORM!
              **/
             bindGlobalEvents: function () {
-                console.log('Binding global events');
+                // console.log('Binding global events');
 
                 $('.panel-collapse .btn.next').on('click', function (e) {
                     e.preventDefault();

@@ -27,7 +27,7 @@ router.get('/:patientId/loadData',
                 req.app.locals.patient = data[0];
                 res.status(HttpStatus.OK).send('Patient data loaded');
             } else {
-                console.log(data);
+                console.error(data);
                 res.status(HttpStatus.OK).send('Issue loading patient data');
             }
         });

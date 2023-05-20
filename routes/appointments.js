@@ -17,14 +17,14 @@ const HttpStatus = require('http-status-codes');
 // send ok status for OPTIONS calls
 router.use(function (req, res, next) {
     if(req.headers.origin && allowedHosts[req.headers.origin]){
-        console.log('Yay we have an allowed host');
+        // console.log('Yay we have an allowed host');
         res.header('Access-Control-Allow-Origin', req.headers.origin);
     }
 
     res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, cache-control');
 
-    console.log('Debug %s', req.method);
+    // console.log('Debug %s', req.method);
 
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
@@ -38,8 +38,8 @@ router.use(function (req, res, next) {
 router.get('/checkin/getcheckinrequirements', function (req, res) {
     var apptreadiness = req.app.locals.AHAPI.GET('/appointments/' + req.cookies.apptid + '/checkin', {params: {}});
     apptreadiness.on('done', function (data) {
-        console.log('****** APPT Readiness response ******');
-        console.log(data);
+        // console.log('****** APPT Readiness response ******');
+        // console.log(data);
         req.app.locals.apptReadiness = data;
         res.status(HttpStatus.OK).send(data);
     });
@@ -48,7 +48,7 @@ router.get('/checkin/getcheckinrequirements', function (req, res) {
 router.get('/checkin/cancel', function (req, res) {
     var cancelCheckIn = req.app.locals.AHAPI.POST('/appointments/' + req.cookies.apptid + '/cancelcheckin', {params: {}});
     cancelCheckIn.on('done', function (data) {
-        console.log('Cancel check-in ' + JSON.stringify(data));
+        // console.log('Cancel check-in ' + JSON.stringify(data));
         res.redirect('/');
     });
 });
@@ -59,11 +59,11 @@ router.post('/checkin/startcheckin', function (req, res) {
      * @description POST Start check-in for this appointment
      * @todo - ENABLE LATER - for now we will NOT be starting the checkin because that freezes the patient
      **/
-    console.log(req.params);
+    // console.log(req.params);
     var appt = req.app.locals.AHAPI.POST('/appointments/' + req.cookies.apptid + '/startcheckin');
     appt.on('done', function (data) {
-        console.log('****** Start Check-In response ******');
-        console.log(data);
+        // console.log('****** Start Check-In response ******');
+        // console.log(data);
         res.status(HttpStatus.OK).send(data);
         // res.render('index', {appts: data.appointments});
     });
@@ -81,10 +81,10 @@ router.use(function (req, res, next) {
         // console.log('User %o', user);
 
         if (err) {
-            console.log('Passport error: %s', err);
+            console.error('Passport error: %s', err);
             next(err);
         } else if (!user) {
-            console.log('No user - Info message: %s', info);
+            console.info('No user - Info message: %s', info);
             res.send({"status": info.message});
         } else {
             // console.log('Passport user: %s', user);
@@ -123,7 +123,7 @@ router.get('/by-provider/:providerid/:startdate/:enddate',
             }).on('done', function (data) {
                 // console.log(data);
                 if(data.appointments && data.appointments.length === 0){
-                    console.log('No appointments available');
+                    console.info('No appointments available');
                     // console.log(data);
                 }
                 res.send(data);
@@ -153,7 +153,7 @@ router.get('/reasons/:providerid',
                     'providerid': req.params.providerid
                 }
             }).on('done', function (data) {
-                console.log(JSON.stringify(data));
+                console.info('Appointment Reasons: '+JSON.stringify(data));
                 res.send(data);
             });
         }
@@ -180,7 +180,7 @@ router.get('/reasons/:providerid',
  **/
 router.post('/create',
     function (req, res, next) {
-        console.log(req.body);
+        // console.log(req.body);
 
         var nameRegex = /[^0-9\.\,\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+/;
         var dobRegex = /^(0?[1-9]|1[0-2])[\/](0?[1-9]|[12]\d|3[01])[\/](19|20)\d{2}$/;
@@ -206,7 +206,7 @@ router.post('/create',
         else{
             // DO WE HAVE A PATIENT?
             req.app.locals.AHAPI.GET('/patients/enhancedbestmatch', {params: patientdata}).on('done', function (data) {
-                console.log('Existing patient %s', data);
+                console.info('Existing patient %s', data);
                 if(data.length === 1) {
                     res.locals.patient = data[0];
                 }
@@ -217,21 +217,21 @@ router.post('/create',
     function (req, res, next) {
         // NEW Patients
         if(res.locals.patient){
-            console.log('Skip the patient creation as we have the id: %s', res.locals.patient.patientid);
+            console.info('Skip the patient creation as we have the id: %s', res.locals.patient.patientid);
             next();
         } else {
-            console.log('We will create a new patient now');
+            console.info('We will create a new patient now');
             // POST to /patients to create a new patient and get a patient ID
             // You must supply
             // first and last name, a DOB, department ID,
             // and at least one patient phone number (home, mobile, work)
             res.locals.patientdata.departmentid = 2;
             req.app.locals.AHAPI.POST('/patients', {params: res.locals.patientdata}).on('done', function (data) {
-                console.log('New Patient = %s', data);
+                console.info('New Patient = %s', data);
                 // Use a GET to /patients to find the patient ID or GET /patients/enhancedbestmatch
                 req.app.locals.AHAPI.GET('/patients/enhancedbestmatch', {params: res.locals.patientdata}).on('done', function (data) {
-                    console.log('New Patient found after creation: %s', data);
-                    console.log('New Patient found after creation: %s', data[0]);
+                    // console.info('New Patient found after creation: %s', data);
+                    console.info('New Patient found after creation: %s', data[0]);
 
                     res.locals.patient = data[0];
                     next();
@@ -245,7 +245,7 @@ router.post('/create',
         }
     },
     function (req, res) {
-        console.log('Patient id %s', res.locals.patient.patientid);
+        console.info('Patient id %s', res.locals.patient.patientid);
 
         // PUT to /appointments/{appointmentid} to book a patient
         // required are the patient ID (from step 5),
@@ -257,7 +257,7 @@ router.post('/create',
             'reasonid': parseInt(req.body.patientappointmentreasons, 10)
         };
         req.app.locals.AHAPI.PUT('/appointments/'+req.body.appointmentid, {params: apptdata}).on('done', function (data) {
-            console.log('Appointment created: %s', data);
+            console.info('Appointment created: %s', data);
             if(!data.error){
                 res.send({success: true, appointment: data});
             } else {
@@ -303,7 +303,7 @@ router.get('/insurancepackages',
                     'memberid': req.query.memberid
                 }
             }).on('done', function (data) {
-                console.log(data);
+                console.info('Insurance packages: %s', data);
                 res.send(data);
             });
         }
@@ -339,7 +339,7 @@ router.post('/patients/:patientid/insurance',
                     'validateinsuranceidnumber': false
                 }
             }).on('done', function (data) {
-                console.log(data);
+                console.info('Insurances: %s', data);
                 res.send(data);
             });
         }

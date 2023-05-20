@@ -59,7 +59,7 @@ hbs.registerHelper('checkAllergy', function (allergies, options) {
         string = allergy.allergenname.toString();
         regex = new RegExp(string, 'i');
         if (text.match(regex)) {
-            console.log(options.fn(this));
+            // console.log(options.fn(this));
             return true;
         }
     });
