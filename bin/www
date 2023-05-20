@@ -70,5 +70,5 @@ function onListening() {
 
 // Show unhandled rejections
 process.on('unhandledRejection', function(reason, promise) {
-    console.log(promise);
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });

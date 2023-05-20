@@ -20,7 +20,7 @@ router.get('/',
             });
         } else {
             req.app.locals.practiceData.then(function(data){
-                console.log(data)
+                // console.log(data)
                 res.render('index', {
                     appts: req.app.locals.appts,
                     today: req.app.locals.enddate,

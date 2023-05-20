@@ -17,7 +17,7 @@ module.exports = function (passport) {
 
     router.use(function (req, res, next) {
         if(req.headers.origin && allowedHosts[req.headers.origin]){
-            console.log('Yay we have an allowed host');
+            // console.log('Yay we have an allowed host');
             res.header('Access-Control-Allow-Origin', req.headers.origin);
         }
 
@@ -45,10 +45,10 @@ module.exports = function (passport) {
     router.post('/auth', function (req, res, next) {
         passport.authenticate('jwt', {session: false}, function (err, user, info) {
             if (err) {
-                console.log('Passport error: %s', err);
+                console.error('Passport error: %s', err);
                 next(err);
             } else if (!user) {
-                console.log('No user - Info message: %s', info);
+                console.info('No user - Info message: %s', info);
                 res.send({"status": info.message});
             } else {
                 // console.log('Passport user: %s', user);

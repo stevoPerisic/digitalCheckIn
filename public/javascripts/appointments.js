@@ -10,7 +10,7 @@
     app.appointments = {
         init: function(){
             $('.apptRow').on('click', function(){
-                console.log(this.dataset);
+                // console.log(this.dataset);
 
                 var that = this;
 
@@ -20,11 +20,11 @@
                     url: '/appointments/'+that.dataset.apptId+'/checkIn/',
                     method: 'GET'
                 }).then(function(data){
-                    console.log(data);
+                    // console.log(data);
 
                     window.location = '/patientRegistration/'+that.dataset.patientId;
                 }).catch(function(err){
-                    console.log(err);
+                    console.error(err);
                 });
             });
         }

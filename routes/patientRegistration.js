@@ -59,7 +59,7 @@ router.get('/',
     function (req, res, next) {
         var checkInReqs = req.app.locals.AHAPI.GET('/appointments/' + req.apptid + '/checkin', {params: {}});
         checkInReqs.on('done', function (data) {
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             next();
         });
     },
@@ -115,7 +115,7 @@ router.get('/',
                 }
 
             } else {
-                console.log('Error getting patient level insurance: ' + data.error);
+                console.error('Error getting patient level insurance: ' + data.error);
             }
             next();
         });
@@ -135,7 +135,7 @@ router.get('/',
                 if (!data.error) {
                     req.inscardImgs = data;
                 } else {
-                    console.log('Error: ' + data.error);
+                    console.error('Error: ' + data.error);
                 }
                 next();
             });
@@ -176,7 +176,7 @@ router.get('/',
  * @description Base POST route, nothing happens
  **/
 router.post('/', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     res.sendStatus(200);
 });
 
@@ -192,7 +192,7 @@ router.post('/', function (req, res, next) {
  * Athena Docs -> /preview1/:practiceid/patients/:patientid
  **/
 router.post('/demographics', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     var postData = req.body,
         aNEtAPI = req.params.aNetAPI,
         patientid = req.cookies.patientid;
@@ -201,16 +201,16 @@ router.post('/demographics', function (req, res, next) {
     postData.dob = postData.dob.split('-');
     postData.dob = postData.dob[1]+'/'+postData.dob[2]+'/'+postData.dob[0];
 
-    console.log(postData);
-    console.log(aNEtAPI);
+    // console.log(postData);
+    // console.log(aNEtAPI);
 
     var submitData = req.app.locals.AHAPI.PUT('patients/' + patientid, {params: postData});
     submitData.on('done', function (data) {
-        console.log(data);
+        // console.log(data);
         if (!data.error) {
             res.sendStatus(200);
         } else {
-            console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
+            console.error('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(data)
         }
     });
@@ -226,18 +226,18 @@ router.post('/demographics', function (req, res, next) {
  * - Emergency Contact Telephone number -> contacthomephone, contactmobilephone
  **/
 router.post('/additionalInfo', function (req, res, next){
-    console.log(req.body);
+    // console.log(req.body);
     var postData = req.body,
         aNEtAPI = req.params.aNetAPI,
         patientid = req.cookies.patientid;
 
     var submitData = req.app.locals.AHAPI.PUT('patients/' + patientid, {params: postData});
     submitData.on('done', function (data) {
-        console.log(data);
+        // console.log(data);
         if (!data.error) {
             res.sendStatus(200);
         } else {
-            console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
+            console.error('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(data)
         }
     });
@@ -269,12 +269,12 @@ router.post('/patientRights', function (req, res, next){
 
     var submitData = req.app.locals.AHAPI.POST('patients/' + patientid + '/documents', {params: postData});
     submitData.on('done', function (data) {
-        console.log('****** Patient Documents POST response ******');
-        console.log(data);
+        // console.log('****** Patient Documents POST response ******');
+        // console.log(data);
         if (!data.error) {
             res.sendStatus(200);
         } else {
-            console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data['error']);
+            console.error('Error POSTing to API: ' + aNEtAPI + ', ' + data['error']);
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(data)
         }
     });
@@ -300,7 +300,7 @@ router.post('/patientRights', function (req, res, next){
  *          - documentsubclass {string} for signature set to 'ADMIN_CONSENT:Consent'
  **/
 router.post('/releaseInfoConsent', function (req, res, next){
-    console.log(req.body);
+    // console.log(req.body);
     var postData = {
             actionnote: 'Release of Information Consent',
             appointmentid: req.cookies.apptid,
@@ -316,11 +316,11 @@ router.post('/releaseInfoConsent', function (req, res, next){
     postData.documentsubclass = 'ADMIN_CONSENT:Consent';
     var submitData = req.app.locals.AHAPI.POST('patients/' + patientid + '/documents', {params: postData});
     submitData.on('done', function (data) {
-        console.log(data);
+        // console.log(data);
         if (!data.error) {
             res.sendStatus(200);
         } else {
-            console.log('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
+            console.error('Error POSTing to API: ' + aNEtAPI + ', ' + data.error);
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(data)
         }
     });
@@ -337,7 +337,7 @@ router.post('/releaseInfoConsent', function (req, res, next){
  *
  **/
 router.post('/insuredParty', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     res.status(HttpStatus.OK).send(req.body);
 });
 
@@ -349,7 +349,7 @@ router.post('/insuredParty', function (req, res, next) {
  * @todo insurance card scan before the check-in process starts
  **/
 router.post('/insuranceInfo', function (req, res, next) {
-        console.log(req.body);
+        // console.log(req.body);
         res.status(HttpStatus.OK).send(req.body);
     }
 );

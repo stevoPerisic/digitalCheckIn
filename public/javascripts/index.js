@@ -19,7 +19,7 @@
                 var date = new Date();
                 var minutes = 30;
                 date.setTime(date.getTime() + (minutes * 60 * 1000));
-                console.log(document.cookie);
+                // console.log(document.cookie);
                 document.cookie = 'apptid=' + that.dataset.apptid + '; path="/"; expires=' + date.toGMTString();
                 document.cookie = 'patientid=' + that.dataset.patientid + '; path="/"; expires=' + date.toGMTString();
 
@@ -42,7 +42,7 @@
                     url: '/appointments/checkin/startcheckin/',
                     method: 'POST'
                 }).then(function (data) {
-                    console.log(data);
+                    // console.log(data);
                     if (data.success) {
                         window.location = '/patientRegistration/';
                     } else {
@@ -50,7 +50,7 @@
                         $('#myModal').modal();
                     }
                 }).catch(function (err) {
-                    console.log(err);
+                    console.error(err);
                     $('.loaderOverlay').hide();
                 });
             });

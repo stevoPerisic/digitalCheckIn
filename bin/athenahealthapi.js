@@ -100,7 +100,7 @@ function Connection(version, key, secret, practiceid) {
 		_key = key;
 		_secret = secret;
 		self.practiceid = optional(practiceid, void 0);
-		console.log('Practice ID: '+self.practiceid);
+		// console.log('Practice ID: '+self.practiceid);
 		self.status = authenticate()
 	}
 
@@ -127,8 +127,8 @@ function Connection(version, key, secret, practiceid) {
             grant_type: 'client_credentials',
             scope: 'athena/service/Athenanet.MDP.*',
 		});
-		console.log('API Key: %s', _key);
-		console.log('API Secret: %s', _secret);
+		// console.log('API Key: %s', _key);
+		// console.log('API Secret: %s', _secret);
 		var headers = {
 			'Authorization': 'Basic ' + btoa(_key + ':' + _secret),
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -137,10 +137,10 @@ function Connection(version, key, secret, practiceid) {
 		// Make the request and propagate the events, storing the token for later
 		call(verb, path, params, headers, false)
 			.on('done', function(response) {
-				console.log('Auth call response: %s', response);
+				// console.log('Auth call response: %s', response);
 				if(!response.access_token){
-                    console.log('Missing token!');
-                    console.log(response.access_token);
+                    // console.log('Missing token!');
+                    // console.log(response.access_token);
                 }
 
 				_token = response.access_token;
@@ -176,12 +176,12 @@ function Connection(version, key, secret, practiceid) {
 		var output;
 
 		if(process.env.NODE_ENV === 'development'){
-            console.log('_hostname: ' +_hostname+ '\n');
-            console.log('verb: ' +verb+ '\n');
-            console.log('path: ' +path+ '\n');
-            console.log('body: ' +body+ '\n');
-            console.log('headers: ' +JSON.stringify(headers)+ '\n');
-            console.log('--------------------');
+            // console.log('_hostname: ' +_hostname+ '\n');
+            // console.log('verb: ' +verb+ '\n');
+            // console.log('path: ' +path+ '\n');
+            // console.log('body: ' +body+ '\n');
+            // console.log('headers: ' +JSON.stringify(headers)+ '\n');
+            // console.log('--------------------');
 		}
 
 		var req = https.request({
@@ -264,11 +264,11 @@ function Connection(version, key, secret, practiceid) {
 
 						call(verb, new_path, new_body, new_headers, false)
 							.on('done', function(response) {
-								console.log('Authenticated call response: %s', response)
+								// console.log('Authenticated call response: %s', response)
 								emitter.emit('done', response)
 							})
 							.on('error', function(error) {
-                                console.log(JSON.stringify(error));
+                                // console.log(JSON.stringify(error));
                                 emitter.emit('error', error)
 							})
 					})
@@ -302,13 +302,13 @@ function Connection(version, key, secret, practiceid) {
 		var extra = optional(options, {});
 
 		var params = optional(extra.params, {});
-        console.log('params: ' + JSON.stringify(params));
+        // console.log('params: ' + JSON.stringify(params));
 
 		var headers = optional(extra.headers, {});
 
 		// In a GET request, params go in the URL
 		var query = querystring.stringify(params);
-		console.log('query: ' + query);
+		// console.log('query: ' + query);
 
 		var new_path = path;
 		if (query) {

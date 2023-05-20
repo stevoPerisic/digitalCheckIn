@@ -64,14 +64,15 @@ app.locals.mainMenu = {
 /**
  * Start the Athena NET API connection
  **/
-console.log("ENVIRONMENT: %s", process.env.NODE_ENV);
+// console.log("ENVIRONMENT: %s", process.env.NODE_ENV);
 if(process.env.NODE_ENV === 'production') {
     app.locals.AHAPI = new athenaHealthAPI.Connection('v1',
         process.env.ATHENA_NEW_PROD_CLIENT_ID,
         process.env.ATHENA_NEW_PROD_SECRET,
         process.env.NRIM_PRACTICE_ID
     );
-} else {
+}
+else {
     app.locals.AHAPI = new athenaHealthAPI.Connection('v1',
         process.env.ATHENA_KEY,
         process.env.ATHENA_SECRET,
@@ -167,7 +168,7 @@ app.use('/appointments', appointments);
 app.use('/providers', function(req, res){
     var allowedHosts = require('./bin/allowedHosts');
     if(req.headers.origin && allowedHosts[req.headers.origin]){
-        console.log('Yay we have an allowed host');
+        // console.log('Yay we have an allowed host');
         res.header('Access-Control-Allow-Origin', req.headers.origin);
     }
 
