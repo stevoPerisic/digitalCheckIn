@@ -61,10 +61,16 @@ app.locals.mainMenu = {
     patientid: ''
 };
 
+// =================== AthenaHealth API Connection Setup ===================
+
 /**
- * Start the Athena NET API connection
- **/
-// console.log("ENVIRONMENT: %s", process.env.NODE_ENV);
+ * Set up the AthenaHealth API connection and attach it to app.locals.
+ * 
+ * Depending on the environment (production or development), use the correct credentials and practice ID.
+ * In production, use the live Athena credentials and practice ID from environment variables.
+ * In non-production (development, staging, etc.), use sandbox credentials.
+ * This allows seamless switching between environments and ensures sensitive data does not leak in dev.
+ */
 if(process.env.NODE_ENV === 'production') {
     app.locals.AHAPI = new athenaHealthAPI.Connection('v1',
         process.env.ATHENA_NEW_PROD_CLIENT_ID,
@@ -82,8 +88,10 @@ else {
 
 
 /**
- * Cache all the practice data (providers, appointments)
- **/
+ * Once the AthenaHealth API connection is ready, cache the practice data (such as providers and appointments).
+ * This reduces the number of API calls and speeds up access to static data throughout the app.
+ * Data is loaded via ./bin/practiceData.js, which must export a function that accepts the app as a parameter.
+ */
 app.locals.AHAPI.status.on('ready', function () {
     app.locals.practiceData = require('./bin/practiceData.js')(app);
 });
@@ -105,7 +113,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// passport setup
+// =================== Session Store Logic ===================
+
+/**
+ * Configure session storage for user authentication and sessions.
+ * 
+ * By default, uses an in-memory session store (not recommended for production).
+ * In production, switch to a PostgreSQL-backed session store for persistence and scalability.
+ * - Session secret is required and loaded from the environment.
+ * - Session cookies are set with a short maxAge for security.
+ * - In production, sessions are stored in the database using connect-pg-simple.
+ * - SSL options are set to allow self-signed certificates (often needed for managed DBs).
+ * - Error handling is set up for the session store to log and debug DB issues.
+ */
 var sessionOpts = {
     secret: process.env.PASSPORT_SECRET,
     cookie: { maxAge: 60000 }
